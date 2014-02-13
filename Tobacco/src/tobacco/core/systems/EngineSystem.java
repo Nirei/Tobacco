@@ -6,7 +6,7 @@ import tobacco.core.entities.Entity;
  * This contain the game's logic.
  * @author nirei
  */
-public interface System {
+public interface EngineSystem {
 
 	/**
 	 * Do this system's work.

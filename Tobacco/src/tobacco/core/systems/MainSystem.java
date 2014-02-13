@@ -7,24 +7,24 @@ import tobacco.core.components.Component;
 import tobacco.core.components.ContainerComponent;
 import tobacco.core.entities.Entity;
 
-public abstract class MainSystem implements System {
+public class MainSystem implements EngineSystem {
 	
-	private List<System> systemList = new ArrayList<System>();
+	private List<EngineSystem> systemList = new ArrayList<EngineSystem>();
 
 	@Override
 	public void work(Entity entity) {
-		for(System s : systemList) {
+		for(EngineSystem s : systemList) {
 			s.work(entity);
 		}
 
-		if(entity.getComponents().containsKey(Component.CONTAINER)) {
-			for(Entity child : (ContainerComponent) entity.getComponents().get(Component.CONTAINER)) {
+		if(entity.contains(Component.CONTAINER_C)) {
+			for(Entity child : (ContainerComponent) entity.getComponent(Component.CONTAINER_C)) {
 				this.work(child);
 			}
 		}
 	}
 	
-	public void addSystem(System system) {
+	public void addSystem(EngineSystem system) {
 		systemList.add(system);
 	}
 

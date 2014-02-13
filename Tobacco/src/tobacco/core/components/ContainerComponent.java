@@ -1,16 +1,14 @@
 package tobacco.core.components;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
-import java.util.List;
 import java.util.Map;
 
 import tobacco.core.entities.Entity;
 
 public class ContainerComponent implements Component, Iterable<Entity> {
 	
-	private static int TYPE = CONTAINER;
+	private static int TYPE = CONTAINER_C;
 	private Map<Long, Entity> children = new HashMap<Long, Entity>();
 
 	@Override

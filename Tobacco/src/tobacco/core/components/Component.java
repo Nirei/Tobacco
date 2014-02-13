@@ -7,7 +7,8 @@ package tobacco.core.components;
  */
 public interface Component {
 	
-	public static final int CONTAINER = 0;
+	public static final int CONTAINER_C = 0;
+	public static final int DEBUGGING_C = 1;
 
 	/**
 	 * Returns this component's name.
