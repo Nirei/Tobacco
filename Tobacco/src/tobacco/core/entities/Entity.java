@@ -17,7 +17,7 @@ public interface Entity {
 	 * Gets the map of components.
 	 * @return Map of {@link Component} for this entity.
 	 */
-	public Map<String, Component> getComponents();
+	public Map<Short, Component> getComponents();
 	
 	/**
 	 * Adds a {@link Component} to the map of components.

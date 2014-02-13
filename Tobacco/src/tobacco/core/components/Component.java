@@ -6,6 +6,8 @@ package tobacco.core.components;
  *
  */
 public interface Component {
+	
+	public static final Short CONTAINER = 0;
 
 	/**
 	 * Returns this component's name.
