@@ -11,18 +11,33 @@ import tobacco.core.components.Component;
  * @author nirei
  *
  */
-public interface Entity {
+public abstract class Entity {
+	
+	private static long counter = 0;
+	private static long id = 0;
+	
+	private Entity() {
+		id = counter++;
+	}
 
 	/**
 	 * Gets the map of components.
 	 * @return Map of {@link Component} for this entity.
 	 */
-	public Map<Short, Component> getComponents();
+	abstract public Map<Short, Component> getComponents();
 	
 	/**
 	 * Adds a {@link Component} to the map of components.
 	 * @param _component Component to be added
 	 */
-	public void addComponent(Component _component);
+	abstract public void addComponent(Component _component);
+
+	/**
+	 * Gets the ID for this {@link Entity}.
+	 * @return Long representing Entity's ID.
+	 */
+	public final Long getID() {
+		return id;
+	}
 
 }

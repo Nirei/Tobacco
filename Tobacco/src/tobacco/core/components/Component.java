@@ -7,12 +7,12 @@ package tobacco.core.components;
  */
 public interface Component {
 	
-	public static final Short CONTAINER = 0;
+	public static final int CONTAINER = 0;
 
 	/**
 	 * Returns this component's name.
 	 * @return {@link String} representing the name of the component.
 	 */
-	public String getComponentName();
+	public int getComponentType();
 
 }
