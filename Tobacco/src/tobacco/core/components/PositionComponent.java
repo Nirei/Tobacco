@@ -1,6 +1,5 @@
 package tobacco.core.components;
 
-import java.util.Vector;
 
 import tobacco.core.util.Vector2D;
 
