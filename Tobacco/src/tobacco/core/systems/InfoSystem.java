@@ -8,9 +8,11 @@ public class InfoSystem implements EngineSystem {
 	@Override
 	public void work(Entity entity) {
 		if(entity.contains(Component.DEBUGGING_C));
-		System.out.println(entity);
+		System.out.println(entity + " {");
 		for(Component c : entity) {
-			System.out.println(c);
+			if(c.getComponentType() != Component.DEBUGGING_C)
+				System.out.println("\t" + c);
 		}
+		System.out.println("}");
 	}
 }

@@ -13,7 +13,7 @@ import tobacco.core.components.Component;
  * @author nirei
  *
  */
-public abstract class Entity implements Iterable<Component> {
+public final class Entity implements Iterable<Component> {
 	
 	private static long counter = 0;
 	private long id = 0;
@@ -58,5 +58,10 @@ public abstract class Entity implements Iterable<Component> {
 	 */
 	public final Long getID() {
 		return id;
+	}
+	
+	@Override
+	public String toString() {
+		return "Entity ID: " + Long.toString(id);
 	}
 }

@@ -27,4 +27,9 @@ public class ContainerComponent implements Component, Iterable<Entity> {
 	public int getComponentType() {
 		return CONTAINER_C;
 	}
+	
+	@Override
+	public String toString() {
+		return "Children: " + children;
+	}
 }

@@ -6,5 +6,10 @@ public class DebuggingComponent implements Component {
 	public int getComponentType() {
 		return DEBUGGING_C;
 	}
+	
+	@Override
+	public String toString() {
+		return "Debugging: :)";
+	}
 
 }
