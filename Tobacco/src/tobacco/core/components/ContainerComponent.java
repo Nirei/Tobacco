@@ -8,7 +8,6 @@ import tobacco.core.entities.Entity;
 
 public class ContainerComponent implements Component, Iterable<Entity> {
 	
-	private static int TYPE = CONTAINER_C;
 	private Map<Long, Entity> children = new HashMap<Long, Entity>();
 
 	@Override
@@ -26,6 +25,6 @@ public class ContainerComponent implements Component, Iterable<Entity> {
 
 	@Override
 	public int getComponentType() {
-		return TYPE;
+		return CONTAINER_C;
 	}
 }
