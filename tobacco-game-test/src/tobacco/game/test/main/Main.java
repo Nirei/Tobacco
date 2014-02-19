@@ -11,12 +11,16 @@ import tobacco.core.loader.ManualLoader;
 import tobacco.core.systems.EngineSystem;
 import tobacco.core.systems.InfoSystem;
 import tobacco.core.systems.MainSystem;
+import tobacco.render.pc.systems.PcRenderSystem;
 
 public class Main {
 
 	public static void main(String[] args) {
 		List<EngineSystem> systems = new ArrayList<EngineSystem>();
 		systems.add(new InfoSystem());
+		PcRenderSystem prs = new PcRenderSystem();
+		systems.add(prs);
+		
 		
 		Entity root = new Entity();
 		root.putComponent(new DebuggingComponent());
