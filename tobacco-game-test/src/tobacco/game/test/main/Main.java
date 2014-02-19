@@ -5,6 +5,7 @@ import java.util.List;
 
 import tobacco.core.components.ContainerComponent;
 import tobacco.core.components.DebuggingComponent;
+import tobacco.core.components.DrawableComponent;
 import tobacco.core.entities.Entity;
 import tobacco.core.loader.Loader;
 import tobacco.core.loader.ManualLoader;
@@ -25,6 +26,7 @@ public class Main {
 		Entity root = new Entity();
 		root.putComponent(new DebuggingComponent());
 		root.putComponent(new ContainerComponent());
+		root.putComponent(new DrawableComponent());
 		
 		Loader loader = new ManualLoader(systems, root);
 		MainSystem mainSystem = loader.loadMainSystem();

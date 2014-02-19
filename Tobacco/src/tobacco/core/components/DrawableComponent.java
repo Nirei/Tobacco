@@ -16,4 +16,9 @@ public class DrawableComponent implements Component {
 	public void setImagePath(String _imagePath) {
 		imagePath = _imagePath;
 	}
+	
+	@Override
+	public String toString() {
+		return "Drawable";
+	}
 }
