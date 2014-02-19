@@ -6,6 +6,11 @@ import tobacco.core.util.Vector2D;
 public class PositionComponent implements Component {
 
 	private Vector2D position; 
+	
+	public PositionComponent(Vector2D _position) {
+		position = _position;
+	}
+
 	@Override
 	public int getComponentType() {
 		return POSITION_C;
