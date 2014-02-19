@@ -1,4 +1,4 @@
-package tobacco.render.pc.strategies;
+package tobacco.render.pc.renderers;
 
 import tobacco.core.entities.Entity;
 
