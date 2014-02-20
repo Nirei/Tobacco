@@ -13,6 +13,7 @@ public interface Component {
 	public static final int POSITION_C = 3;
 	public static final int ROTATION_C = 4;
 	public static final int SCALE_C = 5;
+	public static final int KEYMAP_C = 6;
 
 	/**
 	 * Returns this component's name.

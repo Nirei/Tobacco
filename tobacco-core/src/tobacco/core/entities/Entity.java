@@ -17,7 +17,7 @@ public final class Entity implements Iterable<Component> {
 	
 	private static long counter = 0;
 	private long id = 0;
-	private static Map<Integer, Component> components = new HashMap<Integer, Component>();
+	private  Map<Integer, Component> components = new HashMap<Integer, Component>();
 	
 	public Entity() {
 		id = counter++;

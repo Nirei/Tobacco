@@ -33,8 +33,9 @@ public class AWTRenderer extends Frame implements Renderer, GLEventListener {
     AnimatorBase animator;
     Entity rootEntity;
 	
-	public AWTRenderer(String title) {
+	public AWTRenderer(String title,Entity root) {
 		super(title);
+		rootEntity = root;
 		setMinimumSize(new Dimension(480, 640));
 		
 		glProfile = GLProfile.getDefault();
@@ -63,11 +64,14 @@ public class AWTRenderer extends Frame implements Renderer, GLEventListener {
 	
 	private void update() {}
 	
-	private void drawEntityTree(GLAutoDrawable drawable, Entity root) {
+	private void drawEntityTree(GLAutoDrawable drawable, Entity root)
+	{
 		
-	    GL2 gl = drawable.getGL().getGL2();
-		
-	    if(root.contains(Component.DRAWABLE_C)) {
+	    
+	    if(root.contains(Component.DRAWABLE_C)) 
+	    {
+	    	GL2 gl = drawable.getGL().getGL2();
+			
 	    	float x=0, y=0, width=200, height=200;
 	    	Vector2D pos = ((PositionComponent) root.getComponent(Component.POSITION_C)).getPosition();
 	    	Vector2D size = ((DrawableComponent) root.getComponent(Component.DRAWABLE_C)).getSize();
@@ -94,7 +98,7 @@ public class AWTRenderer extends Frame implements Renderer, GLEventListener {
 	    }
 		
 		if(root.contains(Component.CONTAINER_C)) {
-			ContainerComponent children = (ContainerComponent) rootEntity.getComponent(Component.CONTAINER_C);
+			ContainerComponent children = (ContainerComponent) root.getComponent(Component.CONTAINER_C);
 			for(Entity e : children) {
 				drawEntityTree(drawable, e);
 			}

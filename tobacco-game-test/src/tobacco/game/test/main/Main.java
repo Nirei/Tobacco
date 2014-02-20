@@ -14,15 +14,14 @@ import tobacco.core.systems.EngineSystem;
 import tobacco.core.systems.InfoSystem;
 import tobacco.core.systems.MainSystem;
 import tobacco.core.util.Vector2D;
+import tobacco.render.pc.renderers.AWTRenderer;
+import tobacco.render.pc.systems.PcInputSystem;
 import tobacco.render.pc.systems.PcRenderSystem;
 
 public class Main {
 
 	public static void main(String[] args) {
-		List<EngineSystem> systems = new ArrayList<EngineSystem>();
-		systems.add(new InfoSystem());
-		PcRenderSystem prs = new PcRenderSystem();
-		systems.add(prs);
+	
 
 		Entity root = new Entity();
 		root.putComponent(new DebuggingComponent());
@@ -30,6 +29,13 @@ public class Main {
 		root.putComponent(new DrawableComponent());
 		PositionComponent position = new PositionComponent(new Vector2D(100, 100));
 		root.putComponent(position);
+		
+		List<EngineSystem> systems = new ArrayList<EngineSystem>();
+		systems.add(new InfoSystem());
+		PcRenderSystem prs = new PcRenderSystem(root);
+		PcInputSystem pis = new PcInputSystem(root,prs);
+		systems.add(prs);
+		systems.add(pis);
 
 		Loader loader = new ManualLoader(systems, root);
 		MainSystem mainSystem = loader.loadMainSystem();

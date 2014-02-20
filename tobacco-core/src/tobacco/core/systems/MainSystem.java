@@ -3,8 +3,6 @@ package tobacco.core.systems;
 import java.util.ArrayList;
 import java.util.List;
 
-import tobacco.core.components.Component;
-import tobacco.core.components.ContainerComponent;
 import tobacco.core.entities.Entity;
 
 public class MainSystem implements EngineSystem {
@@ -15,12 +13,6 @@ public class MainSystem implements EngineSystem {
 	public void work(Entity entity) {
 		for(EngineSystem s : systemList) {
 			s.work(entity);
-		}
-
-		if(entity.contains(Component.CONTAINER_C)) {
-			for(Entity child : (ContainerComponent) entity.getComponent(Component.CONTAINER_C)) {
-				this.work(child);
-			}
 		}
 	}
 	
