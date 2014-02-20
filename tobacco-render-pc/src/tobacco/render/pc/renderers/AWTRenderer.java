@@ -2,6 +2,10 @@ package tobacco.render.pc.renderers;
 
 import java.awt.Dimension;
 import java.awt.Frame;
+import java.awt.event.KeyListener;
+import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
+import java.awt.event.MouseWheelListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
@@ -33,7 +37,7 @@ public class AWTRenderer extends Frame implements Renderer, GLEventListener {
     AnimatorBase animator;
     Entity rootEntity;
 	
-	public AWTRenderer(String title,Entity root) {
+	public AWTRenderer(String title, Entity root) {
 		super(title);
 		rootEntity = root;
 		setMinimumSize(new Dimension(480, 640));
@@ -66,13 +70,11 @@ public class AWTRenderer extends Frame implements Renderer, GLEventListener {
 	
 	private void drawEntityTree(GLAutoDrawable drawable, Entity root)
 	{
-		
-	    
 	    if(root.contains(Component.DRAWABLE_C)) 
 	    {
 	    	GL2 gl = drawable.getGL().getGL2();
 			
-	    	float x=0, y=0, width=200, height=200;
+	    	float x=0, y=0, width=50, height=50;
 	    	Vector2D pos = ((PositionComponent) root.getComponent(Component.POSITION_C)).getPosition();
 	    	Vector2D size = ((DrawableComponent) root.getComponent(Component.DRAWABLE_C)).getSize();
 	    	if(pos != null) {
@@ -116,13 +118,6 @@ public class AWTRenderer extends Frame implements Renderer, GLEventListener {
 	public void init(GLAutoDrawable drawable) {
 		animator.start();
 		drawable.getGL().setSwapInterval(1);
-		
-		GL2 gl = drawable.getGL().getGL2();
-		
-		gl.glMatrixMode(GL2.GL_PROJECTION);
-		gl.glLoadIdentity();
-		gl.glOrtho(0, 800, 0, 600, 1, -1);
-		gl.glMatrixMode(GL2.GL_MODELVIEW);
 	}
 
 	@Override
@@ -136,6 +131,34 @@ public class AWTRenderer extends Frame implements Renderer, GLEventListener {
 		draw(drawable);
 	}
 
-	@Override public void reshape(GLAutoDrawable drawable, int x, int y, int width, int height) {}
+	@Override public void reshape(GLAutoDrawable drawable, int x, int y, int width, int height) {
+		GL2 gl = drawable.getGL().getGL2();
+		
+		gl.glMatrixMode(GL2.GL_PROJECTION);
+		gl.glLoadIdentity();
+		gl.glOrtho(0, getWidth(), 0, getHeight(), 1, -1);
+		gl.glMatrixMode(GL2.GL_MODELVIEW);
+	}
+	
+	@Override
+	public synchronized void addKeyListener(KeyListener l) {
+		glCanvas.addKeyListener(l);
+	}
+	
+	@Override
+	public synchronized void addMouseListener(MouseListener l) {
+		glCanvas.addMouseListener(l);
+
+	}
+	
+	@Override
+	public synchronized void addMouseMotionListener(MouseMotionListener l) {
+		glCanvas.addMouseMotionListener(l);
+	}
+	
+	@Override
+	public synchronized void addMouseWheelListener(MouseWheelListener l) {
+		glCanvas.addMouseWheelListener(l);
+	}
 
 }

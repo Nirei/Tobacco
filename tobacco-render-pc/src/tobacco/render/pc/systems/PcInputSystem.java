@@ -21,11 +21,11 @@ public class PcInputSystem implements EngineSystem, KeyListener, MouseListener, 
 	
 	KeyMapComponent keyMap = new KeyMapComponent(200);
 	
-	public PcInputSystem(Entity root,PcRenderSystem prs) {
+	public PcInputSystem(Entity root, PcRenderSystem prs) {
 		Entity entity = new Entity();
 		entity.putComponent(new DebuggingComponent());
 		entity.putComponent(keyMap);
-		((ContainerComponent) root.getComponent(Component.CONTAINER_C)).addChild(entity);;
+		((ContainerComponent) root.getComponent(Component.CONTAINER_C)).addChild(entity);
 		((AWTRenderer) prs.getRenderer()).addKeyListener(this);
 		((AWTRenderer) prs.getRenderer()).addMouseListener(this);
 		((AWTRenderer) prs.getRenderer()).addMouseMotionListener(this);
@@ -34,11 +34,15 @@ public class PcInputSystem implements EngineSystem, KeyListener, MouseListener, 
 	
 	@Override
 	public void work(Entity entity) {
-		keyMap.clear();
+		synchronized (keyMap) 
+		{
+			keyMap.clear();
+		}
 	}
 
 	@Override
 	public void keyPressed(KeyEvent e) {
+		System.out.println(e);
 		synchronized (keyMap) 
 		{
 			keyMap.offer(new RawInputElement(e.getKeyCode(), RawInputElement.VALUE_PRESSED));
@@ -47,6 +51,7 @@ public class PcInputSystem implements EngineSystem, KeyListener, MouseListener, 
 
 	@Override
 	public void keyReleased(KeyEvent e) {
+		System.out.println(e);
 		synchronized (keyMap)
 		{
 			keyMap.offer(new RawInputElement(e.getKeyCode(), RawInputElement.VALUE_RELEASED));
@@ -55,6 +60,7 @@ public class PcInputSystem implements EngineSystem, KeyListener, MouseListener, 
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
+		System.out.println(e);
 		synchronized (keyMap) 
 		{
 			keyMap.offer(new RawInputElement(-e.getButton(), RawInputElement.VALUE_PRESSED));	
@@ -75,6 +81,7 @@ public class PcInputSystem implements EngineSystem, KeyListener, MouseListener, 
 
 	@Override
 	public void mousePressed(MouseEvent e) {
+		System.out.println(e);
 		synchronized (keyMap) 
 		{
 			keyMap.offer(new RawInputElement(-e.getButton(), RawInputElement.VALUE_PRESSED));	
@@ -83,6 +90,7 @@ public class PcInputSystem implements EngineSystem, KeyListener, MouseListener, 
 
 	@Override
 	public void mouseReleased(MouseEvent e) {
+		System.out.println(e);
 		synchronized (keyMap) 
 		{
 			keyMap.offer(new RawInputElement(-e.getButton(), RawInputElement.VALUE_RELEASED));	
@@ -103,6 +111,7 @@ public class PcInputSystem implements EngineSystem, KeyListener, MouseListener, 
 
 	@Override
 	public void mouseMoved(MouseEvent e) {
+		System.out.println(e);
 		synchronized (keyMap)
 		{
 			keyMap.offer(new RawInputElement(RawInputElement.CODE_MOUSE_X,e.getX()));
@@ -112,6 +121,7 @@ public class PcInputSystem implements EngineSystem, KeyListener, MouseListener, 
 
 	@Override
 	public void mouseWheelMoved(MouseWheelEvent e) {
+		System.out.println(e);
 		synchronized (keyMap)
 		{
 			keyMap.offer(new RawInputElement(RawInputElement.CODE_MOUSE_Z,e.getWheelRotation()));						
