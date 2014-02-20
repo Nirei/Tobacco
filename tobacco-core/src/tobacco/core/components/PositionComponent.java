@@ -22,4 +22,8 @@ public class PositionComponent implements Component {
 		
 	}
 
+	@Override
+	public String toString() {
+		return "Position: " + position;
+	}
 }

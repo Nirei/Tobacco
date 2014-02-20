@@ -30,6 +30,6 @@ public class DrawableComponent implements Component {
 	
 	@Override
 	public String toString() {
-		return "Drawable";
+		return "Drawable: {ImagePath: " + imagePath + ", Size: " + size + "}";
 	}
 }

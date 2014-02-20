@@ -48,5 +48,9 @@ public class Vector2D {
 		return a.x*b.x+a.y*b.y;
 	}
 	
+	@Override
+	public String toString() {
+		return "{" + x + ", " + y + "}";
+	}
 	
 }
