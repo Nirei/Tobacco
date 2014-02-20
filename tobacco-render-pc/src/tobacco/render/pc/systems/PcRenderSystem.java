@@ -3,7 +3,6 @@ package tobacco.render.pc.systems;
 import javax.media.opengl.GLProfile;
 
 import tobacco.core.components.Component;
-import tobacco.core.components.ContainerComponent;
 import tobacco.core.entities.Entity;
 import tobacco.core.systems.EngineSystem;
 import tobacco.render.pc.renderers.AWTRenderer;

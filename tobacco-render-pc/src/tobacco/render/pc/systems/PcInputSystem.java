@@ -42,78 +42,45 @@ public class PcInputSystem implements EngineSystem, KeyListener, MouseListener, 
 
 	@Override
 	public void keyPressed(KeyEvent e) {
-		System.out.println(e);
-		synchronized (keyMap) 
-		{
+		synchronized (keyMap) {
 			keyMap.offer(new RawInputElement(e.getKeyCode(), RawInputElement.VALUE_PRESSED));
 		}
 	}
 
 	@Override
 	public void keyReleased(KeyEvent e) {
-		System.out.println(e);
-		synchronized (keyMap)
-		{
+		synchronized (keyMap) {
 			keyMap.offer(new RawInputElement(e.getKeyCode(), RawInputElement.VALUE_RELEASED));
 		}
 	}
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		System.out.println(e);
-		synchronized (keyMap) 
-		{
+		synchronized (keyMap) {
 			keyMap.offer(new RawInputElement(-e.getButton(), RawInputElement.VALUE_PRESSED));	
 		}
 	}
 
-	@Override
-	public void mouseEntered(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void mouseExited(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
+	@Override public void mouseEntered(MouseEvent e) {}
+	@Override public void mouseExited(MouseEvent e) {}
 
 	@Override
 	public void mousePressed(MouseEvent e) {
-		System.out.println(e);
-		synchronized (keyMap) 
-		{
+		synchronized (keyMap) {
 			keyMap.offer(new RawInputElement(-e.getButton(), RawInputElement.VALUE_PRESSED));	
 		}
 	}
 
 	@Override
 	public void mouseReleased(MouseEvent e) {
-		System.out.println(e);
-		synchronized (keyMap) 
-		{
+		synchronized (keyMap) {
 			keyMap.offer(new RawInputElement(-e.getButton(), RawInputElement.VALUE_RELEASED));	
 		}
 	}
 
 	@Override
-	public void keyTyped(KeyEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void mouseDragged(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
 	public void mouseMoved(MouseEvent e) {
-		System.out.println(e);
-		synchronized (keyMap)
-		{
+		synchronized (keyMap) {
 			keyMap.offer(new RawInputElement(RawInputElement.CODE_MOUSE_X,e.getX()));
 			keyMap.offer(new RawInputElement(RawInputElement.CODE_MOUSE_Y,e.getY()));			
 		}
@@ -121,10 +88,11 @@ public class PcInputSystem implements EngineSystem, KeyListener, MouseListener, 
 
 	@Override
 	public void mouseWheelMoved(MouseWheelEvent e) {
-		System.out.println(e);
-		synchronized (keyMap)
-		{
+		synchronized (keyMap) {
 			keyMap.offer(new RawInputElement(RawInputElement.CODE_MOUSE_Z,e.getWheelRotation()));						
 		}
 	}
+
+	@Override public void keyTyped(KeyEvent e) {}
+	@Override public void mouseDragged(MouseEvent e) {}
 }
