@@ -17,7 +17,7 @@ import tobacco.core.systems.EngineSystem;
 import tobacco.core.util.RawInputElement;
 import tobacco.render.pc.renderers.AWTRenderer;
 
-public class PcInputSystem implements EngineSystem, KeyListener, MouseListener ,MouseMotionListener , MouseWheelListener{
+public class PcInputSystem implements EngineSystem, KeyListener, MouseListener, MouseMotionListener, MouseWheelListener {
 	
 	KeyMapComponent keyMap = new KeyMapComponent(200);
 	
@@ -26,15 +26,15 @@ public class PcInputSystem implements EngineSystem, KeyListener, MouseListener ,
 		entity.putComponent(new DebuggingComponent());
 		entity.putComponent(keyMap);
 		((ContainerComponent) root.getComponent(Component.CONTAINER_C)).addChild(entity);;
-		((AWTRenderer)prs.getRenderer()).addKeyListener(this);
-		((AWTRenderer)prs.getRenderer()).addMouseListener(this);
-		((AWTRenderer)prs.getRenderer()).addMouseMotionListener(this);
-		((AWTRenderer)prs.getRenderer()).addMouseWheelListener(this);
+		((AWTRenderer) prs.getRenderer()).addKeyListener(this);
+		((AWTRenderer) prs.getRenderer()).addMouseListener(this);
+		((AWTRenderer) prs.getRenderer()).addMouseMotionListener(this);
+		((AWTRenderer) prs.getRenderer()).addMouseWheelListener(this);
 	}
 	
 	@Override
 	public void work(Entity entity) {
-		//keyMap.clear();
+		keyMap.clear();
 	}
 
 	@Override

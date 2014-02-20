@@ -14,7 +14,6 @@ import tobacco.core.systems.EngineSystem;
 import tobacco.core.systems.InfoSystem;
 import tobacco.core.systems.MainSystem;
 import tobacco.core.util.Vector2D;
-import tobacco.render.pc.renderers.AWTRenderer;
 import tobacco.render.pc.systems.PcInputSystem;
 import tobacco.render.pc.systems.PcRenderSystem;
 

@@ -30,6 +30,6 @@ public class ContainerComponent implements Component, Iterable<Entity> {
 	
 	@Override
 	public String toString() {
-		return "Children: " + children;
+		return "Children: ";
 	}
 }
