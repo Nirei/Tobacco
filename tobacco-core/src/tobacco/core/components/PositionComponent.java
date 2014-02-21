@@ -19,7 +19,10 @@ public class PositionComponent implements Component {
 	public Vector2D getPosition()
 	{
 		return new Vector2D(position.getX(),position.getY());
-		
+	}
+	
+	public void setPosition(Vector2D _position) {
+		position = _position;
 	}
 
 	@Override

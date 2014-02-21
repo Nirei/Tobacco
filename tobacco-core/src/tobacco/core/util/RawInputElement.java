@@ -9,7 +9,16 @@ public class RawInputElement {
 		CODE_MOUSE_Y = -11,
 		CODE_MOUSE_Z = -12;
 	
-	int code,value;
+	int code, value = 0;
+	
+	public RawInputElement(int _code, int _value) {
+		code = _code;
+		value = _value;
+	}
+	
+	public RawInputElement(int _code) {
+		code = _code;
+	}
 
 	public int getCode() {
 		return code;
@@ -18,9 +27,8 @@ public class RawInputElement {
 	public int getValue() {
 		return value;
 	}
-
-	public RawInputElement(int _code, int _value) {
-		code = _code;
+	
+	public void setValue(int _value) {
 		value = _value;
 	}
 	
