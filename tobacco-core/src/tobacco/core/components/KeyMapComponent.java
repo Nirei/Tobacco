@@ -1,6 +1,5 @@
 package tobacco.core.components;
 
-import java.util.Collection;
 import java.util.concurrent.ArrayBlockingQueue;
 
 import tobacco.core.util.RawInputElement;

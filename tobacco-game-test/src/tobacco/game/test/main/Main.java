@@ -15,7 +15,6 @@ import tobacco.core.loader.Loader;
 import tobacco.core.loader.ManualLoader;
 import tobacco.core.systems.ControlSystem;
 import tobacco.core.systems.EngineSystem;
-import tobacco.core.systems.InfoSystem;
 import tobacco.core.systems.MainSystem;
 import tobacco.core.util.Action;
 import tobacco.core.util.RawInputElement;
@@ -71,7 +70,7 @@ public class Main {
 		while(true) {
 			mainSystem.work(root);
 			try {
-				Thread.sleep(100);
+				Thread.sleep(5);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
