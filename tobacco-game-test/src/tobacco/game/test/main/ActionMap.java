@@ -1,0 +1,99 @@
+package tobacco.game.test.main;
+
+import java.awt.event.KeyEvent;
+import java.util.ArrayList;
+import java.util.List;
+
+import tobacco.core.components.Component;
+import tobacco.core.components.PositionComponent;
+import tobacco.core.entities.Entity;
+import tobacco.core.util.Action;
+import tobacco.core.util.RawInputElement;
+import tobacco.core.util.Vector2D;
+
+public class ActionMap {
+
+	private static List<Action> actionList;
+
+	private ActionMap() {}
+	
+	public static List<Action> actionList() {
+		if(actionList == null) {
+			actionList = new ArrayList<Action>();
+			
+			actionList.add(new Action() {
+				
+				final private RawInputElement key = new RawInputElement(KeyEvent.VK_UP);
+				
+				@Override
+				public void process(RawInputElement rawIn, Entity entity) {
+					PositionComponent comp = ((PositionComponent) entity.getComponent(Component.POSITION_C));
+					Vector2D pos = comp.getPosition();
+					if(rawIn.getValue() == RawInputElement.VALUE_PRESSED)
+						comp.setPosition(new Vector2D(pos.getX(), pos.getY()+20));
+				}
+				
+				@Override
+				public RawInputElement getKey() {
+					return key;
+				}
+			});
+
+			actionList.add(new Action() {
+				
+				final private RawInputElement key = new RawInputElement(KeyEvent.VK_DOWN);
+				
+				@Override
+				public void process(RawInputElement rawIn, Entity entity) {
+					PositionComponent comp = ((PositionComponent) entity.getComponent(Component.POSITION_C));
+					Vector2D pos = comp.getPosition();
+					if(rawIn.getValue() == RawInputElement.VALUE_PRESSED)
+						comp.setPosition(new Vector2D(pos.getX(), pos.getY()-20));
+				}
+				
+				@Override
+				public RawInputElement getKey() {
+					return key;
+				}
+			});
+			
+			actionList.add(new Action() {
+				
+				final private RawInputElement key = new RawInputElement(KeyEvent.VK_LEFT);
+				
+				@Override
+				public void process(RawInputElement rawIn, Entity entity) {
+					PositionComponent comp = ((PositionComponent) entity.getComponent(Component.POSITION_C));
+					Vector2D pos = comp.getPosition();
+					if(rawIn.getValue() == RawInputElement.VALUE_PRESSED)
+						comp.setPosition(new Vector2D(pos.getX()-20, pos.getY()));
+				}
+				
+				@Override
+				public RawInputElement getKey() {
+					return key;
+				}
+			});
+			
+		actionList.add(new Action() {
+				
+				final private RawInputElement key = new RawInputElement(KeyEvent.VK_RIGHT);
+				
+				@Override
+				public void process(RawInputElement rawIn, Entity entity) {
+					PositionComponent comp = ((PositionComponent) entity.getComponent(Component.POSITION_C));
+					Vector2D pos = comp.getPosition();
+					if(rawIn.getValue() == RawInputElement.VALUE_PRESSED)
+						comp.setPosition(new Vector2D(pos.getX()+20, pos.getY()));
+				}
+				
+				@Override
+				public RawInputElement getKey() {
+					return key;
+				}
+			});
+		}
+
+		return actionList;
+	}
+}

@@ -46,6 +46,8 @@ public class AWTRenderer extends Frame implements Renderer, GLEventListener {
 	    glCaps = new GLCapabilities(glProfile);
 	    glCanvas = new GLCanvas(glCaps);
 	    add(glCanvas);
+	    glCanvas.setFocusable(true);
+	    glCanvas.requestFocus();
 	    glCanvas.addGLEventListener(this);
 	    addWindowListener(new WindowAdapter() {
 	    	@Override
