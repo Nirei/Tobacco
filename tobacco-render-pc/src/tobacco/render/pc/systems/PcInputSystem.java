@@ -1,12 +1,11 @@
 package tobacco.render.pc.systems;
 
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.awt.event.MouseMotionListener;
-import java.awt.event.MouseWheelEvent;
-import java.awt.event.MouseWheelListener;
+
+
+import com.jogamp.newt.event.KeyEvent;
+import com.jogamp.newt.event.KeyListener;
+import com.jogamp.newt.event.MouseEvent;
+import com.jogamp.newt.event.MouseListener;
 
 import tobacco.core.components.Component;
 import tobacco.core.components.ContainerComponent;
@@ -15,9 +14,10 @@ import tobacco.core.components.KeyMapComponent;
 import tobacco.core.entities.Entity;
 import tobacco.core.systems.InputSystem;
 import tobacco.core.util.RawInputElement;
-import tobacco.render.pc.renderers.AWTRenderer;
 
-public class PcInputSystem extends InputSystem implements KeyListener, MouseListener, MouseMotionListener, MouseWheelListener {
+import tobacco.render.pc.renderers.NewtRenderer;
+
+public class PcInputSystem extends InputSystem implements KeyListener, MouseListener {
 	
 	KeyMapComponent keyMap = new KeyMapComponent(200);
 	
@@ -26,10 +26,9 @@ public class PcInputSystem extends InputSystem implements KeyListener, MouseList
 		entity.putComponent(new DebuggingComponent());
 		entity.putComponent(keyMap);
 		((ContainerComponent) root.getComponent(Component.CONTAINER_C)).addChild(entity);
-		((AWTRenderer) prs.getRenderer()).addKeyListener(this);
-		((AWTRenderer) prs.getRenderer()).addMouseListener(this);
-		((AWTRenderer) prs.getRenderer()).addMouseMotionListener(this);
-		((AWTRenderer) prs.getRenderer()).addMouseWheelListener(this);
+		((NewtRenderer) prs.getRenderer()).getGw().addKeyListener(this);
+		((NewtRenderer) prs.getRenderer()).getGw().addMouseListener(this);
+
 	}
 	
 	@Override
@@ -86,13 +85,21 @@ public class PcInputSystem extends InputSystem implements KeyListener, MouseList
 		}
 	}
 
-	@Override
-	public void mouseWheelMoved(MouseWheelEvent e) {
+	//@Override
+	/*public void mouseWheelMoved(MouseEvent e) {
 		synchronized (keyMap) {
-			keyMap.offer(new RawInputElement(RawInputElement.CODE_MOUSE_Z,e.getWheelRotation()));						
+			keyMap.offer(new RawInputElement(RawInputElement.CODE_MOUSE_Z,e.get));						
 		}
+	}*/
+
+	
+	@Override public void mouseDragged(MouseEvent e) {}
+
+	@Override
+	public void mouseWheelMoved(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
 	}
 
-	@Override public void keyTyped(KeyEvent e) {}
-	@Override public void mouseDragged(MouseEvent e) {}
+	
 }

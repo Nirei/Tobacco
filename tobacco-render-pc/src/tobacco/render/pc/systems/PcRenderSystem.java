@@ -6,6 +6,7 @@ import tobacco.core.components.Component;
 import tobacco.core.entities.Entity;
 import tobacco.core.systems.EngineSystem;
 import tobacco.render.pc.renderers.AWTRenderer;
+import tobacco.render.pc.renderers.NewtRenderer;
 import tobacco.render.pc.renderers.Renderer;
 
 public class PcRenderSystem implements EngineSystem {
@@ -14,7 +15,7 @@ public class PcRenderSystem implements EngineSystem {
 	
 	public PcRenderSystem(Entity root) {
 		GLProfile.initSingleton(); // Recomended before anything else
-		renderer = new AWTRenderer("Test 0",root);
+		renderer = new NewtRenderer("testnewt",root);
 	}
 
 	@Override
