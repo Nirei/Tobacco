@@ -13,11 +13,11 @@ import tobacco.core.components.ContainerComponent;
 import tobacco.core.components.DebuggingComponent;
 import tobacco.core.components.KeyMapComponent;
 import tobacco.core.entities.Entity;
-import tobacco.core.systems.EngineSystem;
+import tobacco.core.systems.InputSystem;
 import tobacco.core.util.RawInputElement;
 import tobacco.render.pc.renderers.AWTRenderer;
 
-public class PcInputSystem implements EngineSystem, KeyListener, MouseListener, MouseMotionListener, MouseWheelListener {
+public class PcInputSystem extends InputSystem implements KeyListener, MouseListener, MouseMotionListener, MouseWheelListener {
 	
 	KeyMapComponent keyMap = new KeyMapComponent(200);
 	
@@ -33,11 +33,11 @@ public class PcInputSystem implements EngineSystem, KeyListener, MouseListener, 
 	}
 	
 	@Override
-	public void work(Entity entity) {
-		synchronized (keyMap) 
-		{
-			keyMap.clear();
-		}
+	public void work(Entity entity) {}
+	
+	@Override
+	public KeyMapComponent getKeyMap() {
+		return keyMap;
 	}
 
 	@Override

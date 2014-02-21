@@ -1,5 +1,6 @@
 package tobacco.core.components;
 
+import java.util.Collection;
 import java.util.concurrent.ArrayBlockingQueue;
 
 import tobacco.core.util.RawInputElement;
@@ -12,6 +13,7 @@ public class KeyMapComponent extends ArrayBlockingQueue<RawInputElement> impleme
 	public KeyMapComponent(int capacity) {
 		super(capacity);
 	}
+	
 
 	@Override
 	public int getComponentType() {

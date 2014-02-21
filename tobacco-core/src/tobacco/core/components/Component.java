@@ -14,6 +14,7 @@ public interface Component {
 	public static final int ROTATION_C = 4;
 	public static final int SCALE_C = 5;
 	public static final int KEYMAP_C = 6;
+	public static final int CONTROLABLE_C = 7;
 
 	/**
 	 * Returns this component's name.

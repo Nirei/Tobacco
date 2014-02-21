@@ -15,27 +15,40 @@ public class RawInputElement {
 		return code;
 	}
 
-	public void setCode(int code) {
-		this.code = code;
-	}
-
 	public int getValue() {
 		return value;
 	}
 
-	public void setValue(int value) {
-		this.value = value;
-	}
-
-	public RawInputElement(int code, int value) {
-		super();
-		this.code = code;
-		this.value = value;
+	public RawInputElement(int _code, int _value) {
+		code = _code;
+		value = _value;
 	}
 	
 	public String toString()
 	{
-		return "("+code+","+value+")";
+		return "(Code: " + code + ", Value: " + value + ")";
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + code;
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		RawInputElement other = (RawInputElement) obj;
+		if (code != other.code)
+			return false;
+		return true;
 	}
 	
 

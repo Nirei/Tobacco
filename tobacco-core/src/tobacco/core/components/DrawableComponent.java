@@ -7,6 +7,12 @@ public class DrawableComponent implements Component {
 	private String imagePath;
 	private Vector2D size;
 	
+	public DrawableComponent() {}
+	public DrawableComponent(String _imagePath, Vector2D _size) {
+		imagePath = _imagePath;
+		size = _size;
+	}
+	
 	@Override
 	public int getComponentType() {
 		return DRAWABLE_C;
