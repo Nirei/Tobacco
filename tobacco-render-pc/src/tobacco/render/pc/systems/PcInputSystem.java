@@ -2,10 +2,11 @@ package tobacco.render.pc.systems;
 
 
 
+import java.awt.AWTEvent;
+import java.awt.event.MouseWheelEvent;
+
 import com.jogamp.newt.event.KeyEvent;
-import com.jogamp.newt.event.KeyListener;
 import com.jogamp.newt.event.MouseEvent;
-import com.jogamp.newt.event.MouseListener;
 
 import tobacco.core.components.Component;
 import tobacco.core.components.ContainerComponent;
@@ -14,10 +15,10 @@ import tobacco.core.components.KeyMapComponent;
 import tobacco.core.entities.Entity;
 import tobacco.core.systems.InputSystem;
 import tobacco.core.util.RawInputElement;
+import tobacco.render.pc.renderers.AbstractRenderer;
+import tobacco.render.pc.util.CommonListener;
 
-import tobacco.render.pc.renderers.NewtRenderer;
-
-public class PcInputSystem extends InputSystem implements KeyListener, MouseListener {
+public class PcInputSystem extends InputSystem implements CommonListener {
 	
 	KeyMapComponent keyMap = new KeyMapComponent(200);
 	
@@ -26,9 +27,7 @@ public class PcInputSystem extends InputSystem implements KeyListener, MouseList
 		entity.putComponent(new DebuggingComponent());
 		entity.putComponent(keyMap);
 		((ContainerComponent) root.getComponent(Component.CONTAINER_C)).addChild(entity);
-		((NewtRenderer) prs.getRenderer()).getGw().addKeyListener(this);
-		((NewtRenderer) prs.getRenderer()).getGw().addMouseListener(this);
-
+		((AbstractRenderer) prs.getRenderer()).addListener(this);
 	}
 	
 	@Override
@@ -101,5 +100,76 @@ public class PcInputSystem extends InputSystem implements KeyListener, MouseList
 		
 	}
 
-	
+	@Override
+	public void keyPressed(java.awt.event.KeyEvent e) {
+		synchronized (keyMap) {
+			keyMap.offer(new RawInputElement(e.getKeyCode(), RawInputElement.VALUE_PRESSED));
+		}
+	}
+
+	@Override
+	public void keyReleased(java.awt.event.KeyEvent e) {
+		synchronized (keyMap) {
+			keyMap.offer(new RawInputElement(e.getKeyCode(), RawInputElement.VALUE_RELEASED));
+		}
+	}
+
+	@Override public void keyTyped(java.awt.event.KeyEvent arg0) {}
+
+	@Override
+	public void mouseClicked(java.awt.event.MouseEvent e) {
+		synchronized (keyMap) {
+			keyMap.offer(new RawInputElement(-e.getButton(), RawInputElement.VALUE_PRESSED));	
+		}
+	}
+
+	@Override
+	public void mouseEntered(java.awt.event.MouseEvent e) {
+		synchronized (keyMap) {
+			keyMap.offer(new RawInputElement(-e.getButton(), RawInputElement.VALUE_PRESSED));	
+		}
+	}
+
+	@Override
+	public void mouseExited(java.awt.event.MouseEvent e) {
+		synchronized (keyMap) {
+			keyMap.offer(new RawInputElement(-e.getButton(), RawInputElement.VALUE_PRESSED));	
+		}
+	}
+
+	@Override
+	public void mousePressed(java.awt.event.MouseEvent e) {
+		synchronized (keyMap) {
+			keyMap.offer(new RawInputElement(-e.getButton(), RawInputElement.VALUE_PRESSED));	
+		}
+	}
+
+	@Override
+	public void mouseReleased(java.awt.event.MouseEvent e) {
+		synchronized (keyMap) {
+			keyMap.offer(new RawInputElement(-e.getButton(), RawInputElement.VALUE_PRESSED));	
+		}
+	}
+
+	@Override
+	public void mouseDragged(java.awt.event.MouseEvent e) {
+		synchronized (keyMap) {
+			keyMap.offer(new RawInputElement(-e.getButton(), RawInputElement.VALUE_PRESSED));	
+		}
+	}
+
+	@Override
+	public void mouseMoved(java.awt.event.MouseEvent e) {
+		synchronized (keyMap) {
+			keyMap.offer(new RawInputElement(RawInputElement.CODE_MOUSE_X,e.getX()));
+			keyMap.offer(new RawInputElement(RawInputElement.CODE_MOUSE_Y,e.getY()));			
+		}
+	}
+
+	@Override
+	public void mouseWheelMoved(MouseWheelEvent e) {
+		synchronized (keyMap) {
+			keyMap.offer(new RawInputElement(-e.getButton(), RawInputElement.VALUE_PRESSED));	
+		}
+	}
 }
