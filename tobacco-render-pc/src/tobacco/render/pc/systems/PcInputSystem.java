@@ -40,14 +40,16 @@ public class PcInputSystem extends InputSystem implements CommonListener {
 	@Override
 	public void keyPressed(KeyEvent e) {
 		synchronized (keyMap) {
-			keyMap.offer(new RawInputElement(e.getKeyCode(), RawInputElement.VALUE_PRESSED));
+			if(!e.isAutoRepeat())
+				keyMap.offer(new RawInputElement(e.getKeyCode(), RawInputElement.VALUE_PRESSED));
 		}
 	}
 
 	@Override
 	public void keyReleased(KeyEvent e) {
 		synchronized (keyMap) {
-			keyMap.offer(new RawInputElement(e.getKeyCode(), RawInputElement.VALUE_RELEASED));
+			if(!e.isAutoRepeat())
+				keyMap.offer(new RawInputElement(e.getKeyCode(), RawInputElement.VALUE_RELEASED));
 		}
 	}
 
@@ -102,6 +104,7 @@ public class PcInputSystem extends InputSystem implements CommonListener {
 	@Override
 	public void keyPressed(java.awt.event.KeyEvent e) {
 		synchronized (keyMap) {
+		
 			keyMap.offer(new RawInputElement(e.getKeyCode(), RawInputElement.VALUE_PRESSED));
 		}
 	}
