@@ -2,7 +2,6 @@ package tobacco.render.pc.systems;
 
 
 
-import java.awt.AWTEvent;
 import java.awt.event.MouseWheelEvent;
 
 import com.jogamp.newt.event.KeyEvent;
