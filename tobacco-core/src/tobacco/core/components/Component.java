@@ -22,5 +22,6 @@ public interface Component {
 	 * @return {@link String} representing the name of the component.
 	 */
 	public short getComponentType();
-
+	public String toString();
+	
 }

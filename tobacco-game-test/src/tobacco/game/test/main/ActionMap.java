@@ -6,6 +6,7 @@ import java.util.List;
 import com.jogamp.newt.event.KeyEvent;
 
 import tobacco.core.components.Component;
+import tobacco.core.components.MovementComponent;
 import tobacco.core.components.PositionComponent;
 import tobacco.core.entities.Entity;
 import tobacco.core.util.Action;
@@ -25,40 +26,45 @@ public class ActionMap {
 			actionList.add(new AbstractAction(new RawInputElement(KeyEvent.VK_UP), "Up") {
 				@Override
 				public void process(RawInputElement rawIn, Entity entity) {
-					PositionComponent comp = ((PositionComponent) entity.getComponent(Component.POSITION_C));
-					Vector2D pos = comp.getPosition();
+					MovementComponent movComp = ((MovementComponent) entity.getComponent(Component.MOVEMENT_C));
 					if(rawIn.getValue() == RawInputElement.VALUE_PRESSED)
-						comp.setPosition(new Vector2D(pos.getX(), pos.getY()+20));
-				}
+						movComp.setDirection(Vector2D.sum(movComp.getDirection(), new Vector2D(0,1)));
+					else if(rawIn.getValue() == RawInputElement.VALUE_RELEASED)
+						movComp.setDirection(Vector2D.minus(movComp.getDirection(), new Vector2D(0,1)));					
+					}
 			});
 
 			actionList.add(new AbstractAction(new RawInputElement(KeyEvent.VK_DOWN), "Down") {				
 				@Override
 				public void process(RawInputElement rawIn, Entity entity) {
-					PositionComponent comp = ((PositionComponent) entity.getComponent(Component.POSITION_C));
-					Vector2D pos = comp.getPosition();
+					MovementComponent movComp = ((MovementComponent) entity.getComponent(Component.MOVEMENT_C));
 					if(rawIn.getValue() == RawInputElement.VALUE_PRESSED)
-						comp.setPosition(new Vector2D(pos.getX(), pos.getY()-20));
+						movComp.setDirection(Vector2D.sum(movComp.getDirection(), new Vector2D(0,-1)));
+					else if(rawIn.getValue() == RawInputElement.VALUE_RELEASED)
+						movComp.setDirection(Vector2D.minus(movComp.getDirection(), new Vector2D(0,-1)));
+					
 				}
 			});
 			
 			actionList.add(new AbstractAction(new RawInputElement(KeyEvent.VK_LEFT), "Left") {				
 				@Override
 				public void process(RawInputElement rawIn, Entity entity) {
-					PositionComponent comp = ((PositionComponent) entity.getComponent(Component.POSITION_C));
-					Vector2D pos = comp.getPosition();
+					MovementComponent movComp = ((MovementComponent) entity.getComponent(Component.MOVEMENT_C));
 					if(rawIn.getValue() == RawInputElement.VALUE_PRESSED)
-						comp.setPosition(new Vector2D(pos.getX()-20, pos.getY()));
+						movComp.setDirection(Vector2D.sum(movComp.getDirection(), new Vector2D(-1,0)));
+					else if(rawIn.getValue() == RawInputElement.VALUE_RELEASED)
+						movComp.setDirection(Vector2D.minus(movComp.getDirection(), new Vector2D(-1,0)));
 				}
 			});
 			
 			actionList.add(new AbstractAction(new RawInputElement(KeyEvent.VK_RIGHT), "Right") {
 				@Override
 				public void process(RawInputElement rawIn, Entity entity) {
-					PositionComponent comp = ((PositionComponent) entity.getComponent(Component.POSITION_C));
-					Vector2D pos = comp.getPosition();
+					MovementComponent movComp = ((MovementComponent) entity.getComponent(Component.MOVEMENT_C));
 					if(rawIn.getValue() == RawInputElement.VALUE_PRESSED)
-						comp.setPosition(new Vector2D(pos.getX()+20, pos.getY()));
+						movComp.setDirection(Vector2D.sum(movComp.getDirection(), new Vector2D(1,0)));
+					else if(rawIn.getValue() == RawInputElement.VALUE_RELEASED)
+						movComp.setDirection(Vector2D.minus(movComp.getDirection(), new Vector2D(1,0)));				
 				}
 			});
 		}

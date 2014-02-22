@@ -11,7 +11,8 @@ public class Vector2D {
 	}
 	
 	public static Vector2D normalize(Vector2D v) {
-		float modulo = (float) Math.sqrt(v.getX() + v.getY());
+		float modulo = (float) Math.sqrt(Math.pow(v.getX(),2) + Math.pow(v.getY(),2));
+		if (v.isZero()) return v;
 		return new Vector2D(v.getX() / modulo , v.getY() / modulo);
 	}
 
@@ -29,6 +30,10 @@ public class Vector2D {
 
 	public void setY(float y) {
 		this.y = y;
+	}
+	
+	public boolean isZero() {
+		return x==0f && y==0f;
 	}
 	
 	public static Vector2D sum(Vector2D a,Vector2D b)
