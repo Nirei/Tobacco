@@ -95,7 +95,6 @@ public abstract class AbstractRenderer implements Renderer, GLEventListener {
 
 	@Override
 	public void display(GLAutoDrawable drawable) {
-		System.out.println("display");
 		update();
 		draw(drawable);
 	}

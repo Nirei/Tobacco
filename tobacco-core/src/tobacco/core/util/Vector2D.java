@@ -10,7 +10,10 @@ public class Vector2D {
 		this.y=y;
 	}
 	
-	
+	public static Vector2D normalize(Vector2D v) {
+		float modulo = (float) Math.sqrt(v.getX() + v.getY());
+		return new Vector2D(v.getX() / modulo , v.getY() / modulo);
+	}
 
 	public float getX() {
 		return x;

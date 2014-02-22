@@ -7,19 +7,20 @@ package tobacco.core.components;
  */
 public interface Component {
 	
-	public static final int CONTAINER_C = 0;
-	public static final int DEBUGGING_C = 1;
-	public static final int DRAWABLE_C = 2;
-	public static final int POSITION_C = 3;
-	public static final int ROTATION_C = 4;
-	public static final int SCALE_C = 5;
-	public static final int KEYMAP_C = 6;
-	public static final int CONTROLABLE_C = 7;
+	public static final short CONTAINER_C = 0;
+	public static final short DEBUGGING_C = 1;
+	public static final short DRAWABLE_C = 2;
+	public static final short POSITION_C = 3;
+	public static final short ROTATION_C = 4;
+	public static final short SCALE_C = 5;
+	public static final short KEYMAP_C = 6;
+	public static final short CONTROLABLE_C = 7;
+	public static final short MOVEMENT_C = 8;
 
 	/**
 	 * Returns this component's name.
 	 * @return {@link String} representing the name of the component.
 	 */
-	public int getComponentType();
+	public short getComponentType();
 
 }

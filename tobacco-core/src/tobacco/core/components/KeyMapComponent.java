@@ -15,7 +15,7 @@ public class KeyMapComponent extends ArrayBlockingQueue<RawInputElement> impleme
 	
 
 	@Override
-	public int getComponentType() {
+	public short getComponentType() {
 		return Component.KEYMAP_C;
 	}
 

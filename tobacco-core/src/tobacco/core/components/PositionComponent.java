@@ -12,7 +12,7 @@ public class PositionComponent implements Component {
 	}
 
 	@Override
-	public int getComponentType() {
+	public short getComponentType() {
 		return POSITION_C;
 	}
 	

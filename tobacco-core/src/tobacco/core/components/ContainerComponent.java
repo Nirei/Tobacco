@@ -24,7 +24,7 @@ public class ContainerComponent implements Component, Iterable<Entity> {
 	}
 
 	@Override
-	public int getComponentType() {
+	public short getComponentType() {
 		return CONTAINER_C;
 	}
 	

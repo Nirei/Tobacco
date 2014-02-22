@@ -17,7 +17,7 @@ public final class Entity implements Iterable<Component> {
 	
 	private static long counter = 0;
 	private long id = 0;
-	private  Map<Integer, Component> components = new HashMap<Integer, Component>();
+	private  Map<Short, Component> components = new HashMap<Short, Component>();
 	
 	public Entity() {
 		id = counter++;
@@ -27,7 +27,7 @@ public final class Entity implements Iterable<Component> {
 	 * Gets the map of components.
 	 * @return Map of {@link Component} for this entity.
 	 */
-	public Component getComponent(int type) {
+	public Component getComponent(short type) {
 		return components.get(type);
 	}
 	
@@ -43,7 +43,7 @@ public final class Entity implements Iterable<Component> {
 	 * Check if the entity contains a specific component.
 	 * @param _component
 	 */
-	public boolean contains(int type) {
+	public boolean contains(short type) {
 		return components.containsKey(type);
 	}
 	
