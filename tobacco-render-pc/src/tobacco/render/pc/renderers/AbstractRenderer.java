@@ -31,8 +31,8 @@ public abstract class AbstractRenderer implements Renderer, GLEventListener {
 	}
 
 	@Override
-	public void render(Entity entity) {
-		rootEntity = entity;
+	public void render(Entity root) {
+		rootEntity = root;
 	}
 
 	private void update() {}

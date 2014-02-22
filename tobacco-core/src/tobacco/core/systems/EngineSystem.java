@@ -12,5 +12,5 @@ public interface EngineSystem {
 	 * Do this system's work.
 	 * @param entity {@link Entity} to process.
 	 */
-	public void work(Entity entity);
+	public void work(Entity root);
 }

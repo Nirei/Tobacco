@@ -14,20 +14,14 @@ public class PcRenderSystem implements EngineSystem {
 	
 	public PcRenderSystem(Entity root) {
 		GLProfile.initSingleton(); // Recomended before anything else
-		renderer = new NewtRenderer("testnewt",root);
+		renderer = new NewtRenderer("The Game",root);
 	}
 
 	@Override
-	public void work(Entity entity) {
-		if(entity.contains(Component.DRAWABLE_C)) {
-			renderer.render(entity);
+	public void work(Entity root) {
+		if(root.contains(Component.DRAWABLE_C)) {
+			renderer.render(root);
 		}
-		/*if(entity.contains(Component.CONTAINER_C))
-		{
-			for(Entity e : (ContainerComponent) entity.getComponent(Component.CONTAINER_C)) {
-				work(e);
-			}
-		}*/
 	}
 
 	public Renderer getRenderer() {

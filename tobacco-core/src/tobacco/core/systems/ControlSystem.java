@@ -1,28 +1,29 @@
 package tobacco.core.systems;
 
+import tobacco.core.actions.Action;
+import tobacco.core.actions.Command;
+import tobacco.core.components.CommandBufferComponent;
 import tobacco.core.components.Component;
 import tobacco.core.components.ContainerComponent;
 import tobacco.core.components.ControlableComponent;
-import tobacco.core.components.KeyMapComponent;
 import tobacco.core.entities.Entity;
-import tobacco.core.util.Action;
-import tobacco.core.util.RawInputElement;
+
 public class ControlSystem implements EngineSystem {
 	
-	private KeyMapComponent keyMap;
 	private Entity rootEntity;
-
-	public ControlSystem(KeyMapComponent _keyMap) {
-		keyMap = _keyMap;
-	}
 
 	private void processTree(Entity entity) {
 		if(entity.contains(Component.CONTROLABLE_C)) {
-			ControlableComponent ccomp = (ControlableComponent) entity.getComponent(Component.CONTROLABLE_C);
-			for(RawInputElement rawIn : keyMap) {
-				Action action;
-				if((action = ccomp.getAction(rawIn)) != null) {
-					action.process(rawIn, rootEntity, entity);
+			if(entity.contains(Component.COMMAND_BUFFER_C)) {
+				ControlableComponent ccomp = (ControlableComponent) entity.getComponent(Component.CONTROLABLE_C);
+				CommandBufferComponent cbcomp = (CommandBufferComponent) entity.getComponent(Component.COMMAND_BUFFER_C);
+				Command call;
+				synchronized(cbcomp) {
+					while((call = cbcomp.poll()) != null) {
+						Action action;
+						if((action = ccomp.get(call)) != null)
+							action.process(call, rootEntity, entity);
+					}
 				}
 			}
 		} if(entity.contains(Component.CONTAINER_C)) {
@@ -36,11 +37,6 @@ public class ControlSystem implements EngineSystem {
 	public void work(Entity entity) {
 		rootEntity = entity;
 		processTree(entity);
-		
-		synchronized (keyMap) 
-		{
-			keyMap.clear();
-		}
 	}
 	
 

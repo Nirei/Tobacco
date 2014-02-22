@@ -3,6 +3,7 @@ package tobacco.game.test.main;
 import java.util.ArrayList;
 import java.util.List;
 
+import tobacco.core.components.CommandBufferComponent;
 import tobacco.core.components.Component;
 import tobacco.core.components.ContainerComponent;
 import tobacco.core.components.ControlableComponent;
@@ -18,7 +19,6 @@ import tobacco.core.systems.EngineSystem;
 import tobacco.core.systems.InfoSystem;
 import tobacco.core.systems.MainSystem;
 import tobacco.core.systems.MovementSystem;
-import tobacco.core.util.Action;
 import tobacco.core.util.Vector2D;
 import tobacco.render.pc.systems.PcInputSystem;
 import tobacco.render.pc.systems.PcRenderSystem;
@@ -36,19 +36,19 @@ public class Main {
 		PositionComponent position = new PositionComponent(new Vector2D(100, 100));
 		son.putComponent(position);
 		ControlableComponent ccomp = new ControlableComponent();
-		for(Action a : ActionMap.actionList())
-			ccomp.addAction(a);
+		son.putComponent(new CommandBufferComponent());
+		ActionMap.addLogic(ccomp);
 		son.putComponent(ccomp);
 		son.putComponent(new MovementComponent(200.0f));
-		((ContainerComponent)root.getComponent(Component.CONTAINER_C)).addChild(son);
+		((ContainerComponent) root.getComponent(Component.CONTAINER_C)).addChild(son);
 		
 		List<EngineSystem> systems = new ArrayList<EngineSystem>();
-		// systems.add(new InfoSystem());
+		systems.add(new InfoSystem());
 		PcRenderSystem prs = new PcRenderSystem(root);
-		PcInputSystem pis = new PcInputSystem(root,prs);
+		PcInputSystem pis = new PcInputSystem(son, prs);
 		systems.add(prs);
 		systems.add(pis);
-		systems.add(new ControlSystem(pis.getKeyMap()));
+		systems.add(new ControlSystem());
 		systems.add(new MovementSystem());
 				
 
@@ -59,7 +59,7 @@ public class Main {
 		while(true) {
 			mainSystem.work(root);
 			try {
-				Thread.sleep(5);
+				Thread.sleep(200);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}

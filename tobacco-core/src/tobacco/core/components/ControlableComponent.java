@@ -1,45 +1,21 @@
 package tobacco.core.components;
 
 import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
+import tobacco.core.actions.Action;
+import tobacco.core.actions.Command;
 
-import tobacco.core.util.Action;
-import tobacco.core.util.RawInputElement;
+public class ControlableComponent extends HashMap<Command, Action> implements Component {
 
-public class ControlableComponent implements Component, Iterable<Action> {
+	private static final long serialVersionUID = -6416378237683795075L;
 
-	private Map<RawInputElement, Action> actionMap = new HashMap<RawInputElement, Action>();
-	
 	@Override
 	public String getComponentType() {
-		return Component.CONTROLABLE_C;
-	}
-	
-	public void addAction(Action action) {
-		actionMap.put(action.getKey(), action);
-	}
-	
-	public void removeAction(Action action) {
-		actionMap.remove(action.getKey());
-	}
-	
-	public Action getAction(RawInputElement rie) {
-		return actionMap.get(rie);
-	}
-	
-	public void clearActions() {
-		actionMap.clear();
+		return CONTROLABLE_C;
 	}
 
 	@Override
-	public Iterator<Action> iterator() {
-		return actionMap.values().iterator();
-	}
-	
-	@Override
 	public String toString() {
-		return "Controlable: " + actionMap;
+		return "Controlable: " + super.toString();
 	}
 
 }
