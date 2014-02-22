@@ -21,10 +21,7 @@ public class ActionMap {
 		if(actionList == null) {
 			actionList = new ArrayList<Action>();
 			
-			actionList.add(new Action() {
-				
-				final private RawInputElement key = new RawInputElement(KeyEvent.VK_UP);
-				
+			actionList.add(new AbstractAction(new RawInputElement(KeyEvent.VK_UP), "Up") {
 				@Override
 				public void process(RawInputElement rawIn, Entity entity) {
 					PositionComponent comp = ((PositionComponent) entity.getComponent(Component.POSITION_C));
@@ -32,17 +29,9 @@ public class ActionMap {
 					if(rawIn.getValue() == RawInputElement.VALUE_PRESSED)
 						comp.setPosition(new Vector2D(pos.getX(), pos.getY()+20));
 				}
-				
-				@Override
-				public RawInputElement getKey() {
-					return key;
-				}
 			});
 
-			actionList.add(new Action() {
-				
-				final private RawInputElement key = new RawInputElement(KeyEvent.VK_DOWN);
-				
+			actionList.add(new AbstractAction(new RawInputElement(KeyEvent.VK_DOWN), "Down") {				
 				@Override
 				public void process(RawInputElement rawIn, Entity entity) {
 					PositionComponent comp = ((PositionComponent) entity.getComponent(Component.POSITION_C));
@@ -50,17 +39,9 @@ public class ActionMap {
 					if(rawIn.getValue() == RawInputElement.VALUE_PRESSED)
 						comp.setPosition(new Vector2D(pos.getX(), pos.getY()-20));
 				}
-				
-				@Override
-				public RawInputElement getKey() {
-					return key;
-				}
 			});
 			
-			actionList.add(new Action() {
-				
-				final private RawInputElement key = new RawInputElement(KeyEvent.VK_LEFT);
-				
+			actionList.add(new AbstractAction(new RawInputElement(KeyEvent.VK_LEFT), "Left") {				
 				@Override
 				public void process(RawInputElement rawIn, Entity entity) {
 					PositionComponent comp = ((PositionComponent) entity.getComponent(Component.POSITION_C));
@@ -68,28 +49,15 @@ public class ActionMap {
 					if(rawIn.getValue() == RawInputElement.VALUE_PRESSED)
 						comp.setPosition(new Vector2D(pos.getX()-20, pos.getY()));
 				}
-				
-				@Override
-				public RawInputElement getKey() {
-					return key;
-				}
 			});
 			
-		actionList.add(new Action() {
-				
-				final private RawInputElement key = new RawInputElement(KeyEvent.VK_RIGHT);
-				
+			actionList.add(new AbstractAction(new RawInputElement(KeyEvent.VK_RIGHT), "Right") {
 				@Override
 				public void process(RawInputElement rawIn, Entity entity) {
 					PositionComponent comp = ((PositionComponent) entity.getComponent(Component.POSITION_C));
 					Vector2D pos = comp.getPosition();
 					if(rawIn.getValue() == RawInputElement.VALUE_PRESSED)
 						comp.setPosition(new Vector2D(pos.getX()+20, pos.getY()));
-				}
-				
-				@Override
-				public RawInputElement getKey() {
-					return key;
 				}
 			});
 		}

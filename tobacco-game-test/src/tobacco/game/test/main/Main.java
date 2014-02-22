@@ -13,6 +13,7 @@ import tobacco.core.loader.Loader;
 import tobacco.core.loader.ManualLoader;
 import tobacco.core.systems.ControlSystem;
 import tobacco.core.systems.EngineSystem;
+import tobacco.core.systems.InfoSystem;
 import tobacco.core.systems.MainSystem;
 import tobacco.core.util.Action;
 import tobacco.core.util.Vector2D;
@@ -36,7 +37,7 @@ public class Main {
 		root.putComponent(ccomp);
 		
 		List<EngineSystem> systems = new ArrayList<EngineSystem>();
-		// systems.add(new InfoSystem());
+		systems.add(new InfoSystem());
 		PcRenderSystem prs = new PcRenderSystem(root);
 		PcInputSystem pis = new PcInputSystem(root,prs);
 		systems.add(prs);

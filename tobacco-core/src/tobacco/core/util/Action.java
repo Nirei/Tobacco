@@ -7,5 +7,4 @@ public interface Action {
 	public void process(RawInputElement rawIn, Entity entity);
 
 	public RawInputElement getKey();
-
 }

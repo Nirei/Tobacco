@@ -36,5 +36,10 @@ public class ControlableComponent implements Component, Iterable<Action> {
 	public Iterator<Action> iterator() {
 		return actionMap.values().iterator();
 	}
+	
+	@Override
+	public String toString() {
+		return "Controlable: " + actionMap;
+	}
 
 }
