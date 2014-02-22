@@ -12,7 +12,7 @@ public class ControlableComponent implements Component, Iterable<Action> {
 	private Map<RawInputElement, Action> actionMap = new HashMap<RawInputElement, Action>();
 	
 	@Override
-	public short getComponentType() {
+	public String getComponentType() {
 		return Component.CONTROLABLE_C;
 	}
 	

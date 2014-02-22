@@ -37,21 +37,25 @@ public abstract class AbstractRenderer implements Renderer, GLEventListener {
 
 	private void update() {}
 
-	private void drawEntityTree(GLAutoDrawable drawable, Entity root) {
-	    if(root.contains(Component.DRAWABLE_C)) 
+	private void drawEntityTree(GLAutoDrawable drawable, Entity entity) {
+	    if(entity.contains(Component.DRAWABLE_C)) 
 	    {
 	    	GL2 gl = drawable.getGL().getGL2();
 			
 	    	float x=0, y=0, width=50, height=50;
-	    	Vector2D pos = ((PositionComponent) root.getComponent(Component.POSITION_C)).getPosition();
-	    	Vector2D size = ((DrawableComponent) root.getComponent(Component.DRAWABLE_C)).getSize();
-	    	if(pos != null) {
-	    		x = pos.getX();
-	    		y = pos.getY();
-	    	}
+	    	Vector2D pos = new Vector2D(0,0);
+	    	if(entity.contains(Component.POSITION_C))
+	    			pos = ((PositionComponent) entity.getComponent(Component.POSITION_C)).getPosition();
+	    	Vector2D size = ((DrawableComponent) entity.getComponent(Component.DRAWABLE_C)).getSize();
+	    	
 	    	if(size != null) {
 	    		width = size.getX();
 	    		height = size.getY();
+	    	}
+	    	
+	    	if(pos != null) {
+	    		x = pos.getX()-width/2;
+	    		y = pos.getY()-height/2;
 	    	}
 	
 		    gl.glBegin(GL2.GL_QUADS);
@@ -67,8 +71,8 @@ public abstract class AbstractRenderer implements Renderer, GLEventListener {
 	    
 	    }
 		
-		if(root.contains(Component.CONTAINER_C)) {
-			ContainerComponent children = (ContainerComponent) root.getComponent(Component.CONTAINER_C);
+		if(entity.contains(Component.CONTAINER_C)) {
+			ContainerComponent children = (ContainerComponent) entity.getComponent(Component.CONTAINER_C);
 			for(Entity e : children) {
 				drawEntityTree(drawable, e);
 			}

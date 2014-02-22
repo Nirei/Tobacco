@@ -3,7 +3,7 @@ package tobacco.core.components;
 public class ScaleComponent implements Component {
 
 	@Override
-	public short getComponentType() {
+	public String getComponentType() {
 		return SCALE_C;
 	}
 }

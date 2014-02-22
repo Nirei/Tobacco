@@ -3,12 +3,6 @@ package tobacco.game.test.main;
 import java.util.ArrayList;
 import java.util.List;
 
-
-
-
-
-
-
 import tobacco.core.components.Component;
 import tobacco.core.components.ContainerComponent;
 import tobacco.core.components.ControlableComponent;
@@ -32,7 +26,6 @@ import tobacco.render.pc.systems.PcRenderSystem;
 public class Main {
 
 	public static void main(String[] args) {
-	
 
 		Entity root = new Entity();
 		root.putComponent(new DebuggingComponent());

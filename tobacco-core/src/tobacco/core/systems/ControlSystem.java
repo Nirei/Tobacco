@@ -10,6 +10,7 @@ import tobacco.core.util.RawInputElement;
 public class ControlSystem implements EngineSystem {
 	
 	private KeyMapComponent keyMap;
+	private Entity rootEntity;
 
 	public ControlSystem(KeyMapComponent _keyMap) {
 		keyMap = _keyMap;
@@ -21,10 +22,10 @@ public class ControlSystem implements EngineSystem {
 			for(RawInputElement rawIn : keyMap) {
 				Action action;
 				if((action = ccomp.getAction(rawIn)) != null) {
-					action.process(rawIn, entity);
+					action.process(rawIn, rootEntity, entity);
 				}
 			}
-		} else if(entity.contains(Component.CONTAINER_C)) {
+		} if(entity.contains(Component.CONTAINER_C)) {
 			for(Entity child : (ContainerComponent) entity.getComponent(Component.CONTAINER_C)) {
 				processTree(child);
 			}
@@ -33,6 +34,7 @@ public class ControlSystem implements EngineSystem {
 
 	@Override
 	public void work(Entity entity) {
+		rootEntity = entity;
 		processTree(entity);
 		
 		synchronized (keyMap) 

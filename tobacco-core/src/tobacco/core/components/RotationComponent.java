@@ -3,7 +3,7 @@ package tobacco.core.components;
 public class RotationComponent implements Component {
 
 	@Override
-	public short getComponentType() {
+	public String getComponentType() {
 		return ROTATION_C;
 	}
 

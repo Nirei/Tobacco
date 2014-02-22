@@ -8,8 +8,8 @@ public class MovementComponent implements Component {
 	private float speed = 0; 
 	
 	@Override
-	public short getComponentType() {
-		return Component.MOVEMENT_C;
+	public String getComponentType() {
+		return MOVEMENT_C;
 	}
 	
 	public MovementComponent() 

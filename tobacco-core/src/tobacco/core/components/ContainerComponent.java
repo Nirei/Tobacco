@@ -1,5 +1,6 @@
 package tobacco.core.components;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
@@ -12,19 +13,27 @@ public class ContainerComponent implements Component, Iterable<Entity> {
 
 	@Override
 	public Iterator<Entity> iterator() {
-		return children.values().iterator();
+		ArrayList<Entity> copy;
+		synchronized(children) {
+			copy = new ArrayList<Entity>(children.values());
+		}
+		return copy.iterator();
 	}
 	
 	public void addChild(Entity child) {
-		children.put(child.getID(), child);
+		synchronized(children) {
+			children.put(child.getID(), child);
+		}
 	}
 	
 	public void delChildren(long id) {
-		children.remove(id);
+		synchronized(children) {
+			children.remove(id);
+		}
 	}
 
 	@Override
-	public short getComponentType() {
+	public String getComponentType() {
 		return CONTAINER_C;
 	}
 	

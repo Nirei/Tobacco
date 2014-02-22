@@ -14,7 +14,7 @@ public class DrawableComponent implements Component {
 	}
 	
 	@Override
-	public short getComponentType() {
+	public String getComponentType() {
 		return DRAWABLE_C;
 	}
 	

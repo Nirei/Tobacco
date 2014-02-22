@@ -3,7 +3,7 @@ package tobacco.core.components;
 public class DebuggingComponent implements Component {
 
 	@Override
-	public short getComponentType() {
+	public String getComponentType() {
 		return DEBUGGING_C;
 	}
 	

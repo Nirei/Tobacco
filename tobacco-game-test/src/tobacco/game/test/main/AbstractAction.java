@@ -6,7 +6,7 @@ import tobacco.core.util.Action;
 import tobacco.core.util.RawInputElement;
 
 public abstract class AbstractAction implements Action {
-	private RawInputElement key = new RawInputElement(KeyEvent.VK_UP);
+	private RawInputElement key;
 	private String name;
 	
 	public AbstractAction(RawInputElement _key, String _name) {

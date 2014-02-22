@@ -1,5 +1,6 @@
 package tobacco.core.entities;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
@@ -17,7 +18,7 @@ public final class Entity implements Iterable<Component> {
 	
 	private static long counter = 0;
 	private long id = 0;
-	private  Map<Short, Component> components = new HashMap<Short, Component>();
+	private  Map<String, Component> components = new HashMap<String, Component>();
 	
 	public Entity() {
 		id = counter++;
@@ -27,8 +28,10 @@ public final class Entity implements Iterable<Component> {
 	 * Gets the map of components.
 	 * @return Map of {@link Component} for this entity.
 	 */
-	public Component getComponent(short type) {
-		return components.get(type);
+	public Component getComponent(String type) {
+		synchronized(components) {
+			return components.get(type);
+		}
 	}
 	
 	/**
@@ -43,13 +46,13 @@ public final class Entity implements Iterable<Component> {
 	 * Check if the entity contains a specific component.
 	 * @param _component
 	 */
-	public boolean contains(short type) {
+	public boolean contains(String type) {
 		return components.containsKey(type);
 	}
 	
 	@Override
 	public Iterator<Component> iterator() {
-		return components.values().iterator();
+		return new ArrayList<Component>(components.values()).iterator();
 	}
 
 	/**
