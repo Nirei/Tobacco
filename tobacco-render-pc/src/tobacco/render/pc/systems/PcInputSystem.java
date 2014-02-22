@@ -18,9 +18,9 @@ import tobacco.render.pc.util.CommonListener;
 public class PcInputSystem extends InputSystem implements CommonListener {
 	
 	public static final String INPUT_COMMAND = "input";
-	public static final short RELEASED_EVENT = 0;
-	public static final short PRESSED_EVENT = 1;
-	public static final short MOVED_EVENT = 2;
+	public static final String RELEASED_EVENT = "pressed";
+	public static final String PRESSED_EVENT = "released";
+	public static final String MOVED_EVENT = "moved";
 
 	private Entity player;
 	private CommandBufferComponent cbcomp;
@@ -38,12 +38,13 @@ public class PcInputSystem extends InputSystem implements CommonListener {
 	public void work(Entity root) {
 		if(player.contains(Component.COMMAND_BUFFER_C)) {
 			cbcomp = (CommandBufferComponent) player.getComponent(Component.COMMAND_BUFFER_C);
-			
-			synchronized(cbcomp) {
+			synchronized(queue) {
+				System.out.println(queue);
 				for(Command c : queue) {
 					cbcomp.add(c);
 				}
-				cbcomp.clear();
+				queue.clear();
+				System.out.println(cbcomp);
 			}
 		}
 	}
@@ -57,14 +58,14 @@ public class PcInputSystem extends InputSystem implements CommonListener {
 	@Override
 	public void keyPressed(KeyEvent e) {
 		if(!e.isAutoRepeat()) {
-			processInputEvent("key " + PRESSED_EVENT + " " + e.getKeyChar());
+			processInputEvent("key " + PRESSED_EVENT + " " + e.getKeyCode());
 		}
 	}
 
 	@Override
 	public void keyReleased(KeyEvent e) {
 		if(!e.isAutoRepeat()) {
-			processInputEvent("key " + RELEASED_EVENT + " " + e.getKeyChar());
+			processInputEvent("key " + RELEASED_EVENT + " " + e.getKeyCode());
 		}
 	}
 
@@ -80,7 +81,7 @@ public class PcInputSystem extends InputSystem implements CommonListener {
 
 	@Override
 	public void mouseMoved(MouseEvent e) {
-		processInputEvent("mouse " + MOVED_EVENT + " " + e.getX() + e.getY());		
+		processInputEvent("mouse " + MOVED_EVENT + " " + e.getX() + " " + e.getY());		
 	}
 
 	@Override public void mouseWheelMoved(MouseEvent e) {}

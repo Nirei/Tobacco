@@ -43,11 +43,11 @@ public class Main {
 		((ContainerComponent) root.getComponent(Component.CONTAINER_C)).addChild(son);
 		
 		List<EngineSystem> systems = new ArrayList<EngineSystem>();
-		systems.add(new InfoSystem());
 		PcRenderSystem prs = new PcRenderSystem(root);
 		PcInputSystem pis = new PcInputSystem(son, prs);
 		systems.add(prs);
 		systems.add(pis);
+		systems.add(new InfoSystem());
 		systems.add(new ControlSystem());
 		systems.add(new MovementSystem());
 				
