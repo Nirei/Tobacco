@@ -1,8 +1,9 @@
 package tobacco.game.test.main;
 
-import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.List;
+
+import com.jogamp.newt.event.KeyEvent;
 
 import tobacco.core.components.Component;
 import tobacco.core.components.PositionComponent;
