@@ -25,7 +25,7 @@ public class MovementComponent implements Component {
 		direction = _direction;
 		speed = _speed;
 	}
-	
+
 	public float getSpeed() {
 		return speed;
 	}
