@@ -5,7 +5,7 @@ import tobacco.core.util.Vector2D;
 
 public class PositionComponent implements Component {
 
-	private Vector2D position = new Vector2D(0,0);
+	private Vector2D position = Vector2D.ZERO;
 	
 	public PositionComponent() {}
 	

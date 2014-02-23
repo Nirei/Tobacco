@@ -4,7 +4,7 @@ import tobacco.core.util.Vector2D;
 
 public class MovementComponent implements Component {
 
-	private Vector2D direction= new Vector2D(0,0);
+	private Vector2D direction = Vector2D.ZERO;
 	private float speed = 0; 
 	
 	@Override
@@ -44,7 +44,7 @@ public class MovementComponent implements Component {
 	
 	public String toString()
 	{
-		return "Direction: " + direction + ", Speed: " + speed ;
+		return "Movement: (Direction: " + direction + ", Speed: " + speed + ")";
 	}
 
 }

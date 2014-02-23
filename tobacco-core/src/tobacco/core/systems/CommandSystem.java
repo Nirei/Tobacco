@@ -8,7 +8,7 @@ import tobacco.core.components.ContainerComponent;
 import tobacco.core.components.ControlableComponent;
 import tobacco.core.entities.Entity;
 
-public class ControlSystem implements EngineSystem {
+public class CommandSystem implements EngineSystem {
 	
 	private Entity rootEntity;
 

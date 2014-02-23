@@ -17,12 +17,13 @@ public interface Component {
 	public static final String POSITION_C = "POSITION_C";
 	public static final String ROTATION_C = "ROTATION_C";
 	public static final String SCALE_C = "SCALE_C";
+	public static final String DURATION_C = "DURATION_C";
+	public static final String REMOVE_C = "REMOVE_C";
 
 	/**
 	 * Returns this component's name.
 	 * @return {@link String} representing the name of the component.
 	 */
 	public String getComponentType();
-	public String toString();
 	
 }
