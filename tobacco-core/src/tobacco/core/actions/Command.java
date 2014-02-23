@@ -1,11 +1,13 @@
 package tobacco.core.actions;
 
+import java.util.Arrays;
+
 public class Command {
 	
 	private String command;
-	private String arguments;
+	private String[] arguments;
 	
-	public Command(String _command, String _arguments) {
+	public Command(String _command, String[] _arguments) {
 		command = _command;
 		arguments = _arguments;
 	}
@@ -14,13 +16,13 @@ public class Command {
 		return command;
 	}
 	
-	public String getArguments() {
+	public String[] getArguments() {
 		return arguments;
 	}
 	
 	@Override
 	public String toString() {
-		return command + " " + arguments;
+		return command + " " + Arrays.toString(arguments);
 	}
 
 	@Override

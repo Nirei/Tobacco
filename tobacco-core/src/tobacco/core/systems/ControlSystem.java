@@ -15,13 +15,13 @@ public class ControlSystem implements EngineSystem {
 	private void processTree(Entity entity) {
 		if(entity.contains(Component.CONTROLABLE_C)) {
 			if(entity.contains(Component.COMMAND_BUFFER_C)) {
-				ControlableComponent ccomp = (ControlableComponent) entity.getComponent(Component.CONTROLABLE_C);
-				CommandBufferComponent cbcomp = (CommandBufferComponent) entity.getComponent(Component.COMMAND_BUFFER_C);
+				ControlableComponent ctrlComp = (ControlableComponent) entity.getComponent(Component.CONTROLABLE_C);
+				CommandBufferComponent cbComp = (CommandBufferComponent) entity.getComponent(Component.COMMAND_BUFFER_C);
 				Command call;
-				synchronized(cbcomp) {
-					while((call = cbcomp.poll()) != null) {
+				synchronized(cbComp) {
+					while((call = cbComp.poll()) != null) {
 						Action action;
-						if((action = ccomp.get(call)) != null)
+						if((action = ctrlComp.get(call.getCommand())) != null)
 							action.process(call, rootEntity, entity);
 					}
 				}

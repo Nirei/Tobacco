@@ -14,17 +14,20 @@ import tobacco.core.entities.Entity;
 import tobacco.core.systems.InputSystem;
 import tobacco.render.pc.renderers.AbstractRenderer;
 import tobacco.render.pc.util.CommonListener;
+import tobacco.render.pc.util.InputCode;
 
 public class PcInputSystem extends InputSystem implements CommonListener {
 	
 	public static final String INPUT_COMMAND = "input";
-	public static final String RELEASED_EVENT = "pressed";
-	public static final String PRESSED_EVENT = "released";
+	public static final String RELEASED_EVENT = "released";
+	public static final String PRESSED_EVENT = "pressed";
 	public static final String MOVED_EVENT = "moved";
+	public static final String DEV_KEYBOARD = "keyboard";
+	public static final String DEV_MOUSE = "mouse";
 
 	private Entity player;
 	private CommandBufferComponent cbcomp;
-	private Queue<Command> queue = new ArrayBlockingQueue<>(200);
+	private Queue<Command> queue = new ArrayBlockingQueue<Command>(200);
 
 	public PcInputSystem(Entity _player, PcRenderSystem prs) {
 		player = _player;
@@ -39,17 +42,15 @@ public class PcInputSystem extends InputSystem implements CommonListener {
 		if(player.contains(Component.COMMAND_BUFFER_C)) {
 			cbcomp = (CommandBufferComponent) player.getComponent(Component.COMMAND_BUFFER_C);
 			synchronized(queue) {
-				System.out.println(queue);
 				for(Command c : queue) {
 					cbcomp.add(c);
 				}
 				queue.clear();
-				System.out.println(cbcomp);
 			}
 		}
 	}
 	
-	private void processInputEvent(String args) {
+	private void processInputEvent(String ...args) {
 		synchronized (queue) {
 			queue.offer(new Command(INPUT_COMMAND, args));
 		}
@@ -57,31 +58,41 @@ public class PcInputSystem extends InputSystem implements CommonListener {
 
 	@Override
 	public void keyPressed(KeyEvent e) {
+		// TODO: Diferenciar entre Shift, etc. derecho e izquierdo
 		if(!e.isAutoRepeat()) {
-			processInputEvent("key " + PRESSED_EVENT + " " + e.getKeyCode());
+			InputCode key = InputCode.getKeyByCode(e.getKeyCode());
+			if(key.isCharacter()) {
+				processInputEvent(DEV_KEYBOARD, PRESSED_EVENT, key.toString(), String.valueOf(e.getKeyChar()));
+			} else {
+				processInputEvent(DEV_KEYBOARD, PRESSED_EVENT, key.toString());
+			}
 		}
 	}
 
 	@Override
 	public void keyReleased(KeyEvent e) {
 		if(!e.isAutoRepeat()) {
-			processInputEvent("key " + RELEASED_EVENT + " " + e.getKeyCode());
-		}
+			InputCode key = InputCode.getKeyByCode(e.getKeyCode());
+			if(key.isCharacter()) {
+				processInputEvent(DEV_KEYBOARD, RELEASED_EVENT, key.toString(), String.valueOf(e.getKeyChar()));
+			} else {
+				processInputEvent(DEV_KEYBOARD, RELEASED_EVENT, key.toString());
+			}		}
 	}
 
 	@Override
 	public void mousePressed(MouseEvent e) {
-		processInputEvent("mouse " + PRESSED_EVENT + " " + e.getButton());
+		processInputEvent(DEV_MOUSE, PRESSED_EVENT, InputCode.getKeyByCode(-e.getButton()).toString());
 	}
 
 	@Override
 	public void mouseReleased(MouseEvent e) {
-		processInputEvent("mouse " + RELEASED_EVENT + " " + e.getButton());		
+		processInputEvent(DEV_MOUSE, PRESSED_EVENT, InputCode.getKeyByCode(-e.getButton()).toString());
 	}
 
 	@Override
 	public void mouseMoved(MouseEvent e) {
-		processInputEvent("mouse " + MOVED_EVENT + " " + e.getX() + " " + e.getY());		
+		processInputEvent(DEV_MOUSE, MOVED_EVENT, String.valueOf(e.getX()), String.valueOf(e.getY()));		
 	}
 
 	@Override public void mouseWheelMoved(MouseEvent e) {}

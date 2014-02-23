@@ -39,7 +39,7 @@ public class Main {
 		son.putComponent(new CommandBufferComponent());
 		ActionMap.addLogic(ccomp);
 		son.putComponent(ccomp);
-		son.putComponent(new MovementComponent(200.0f));
+		son.putComponent(new MovementComponent(400.0f));
 		((ContainerComponent) root.getComponent(Component.CONTAINER_C)).addChild(son);
 		
 		List<EngineSystem> systems = new ArrayList<EngineSystem>();
@@ -47,7 +47,7 @@ public class Main {
 		PcInputSystem pis = new PcInputSystem(son, prs);
 		systems.add(prs);
 		systems.add(pis);
-		systems.add(new InfoSystem());
+		// systems.add(new InfoSystem());
 		systems.add(new ControlSystem());
 		systems.add(new MovementSystem());
 				
@@ -59,7 +59,7 @@ public class Main {
 		while(true) {
 			mainSystem.work(root);
 			try {
-				Thread.sleep(200);
+				Thread.sleep(5);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
