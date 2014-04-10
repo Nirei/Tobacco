@@ -1,13 +1,15 @@
 package tobacco.render.pc.util;
 
+import tobacco.core.util.InputCode;
+
 import com.jogamp.newt.event.KeyEvent;
 
-public enum InputCode {
+public enum PcInputCode implements InputCode {
 	MOUSE_LEFT(-1),
 	MOUSE_CENTER(-2),
 	MOUSE_RIGHT(-3),
 		
-	KEY_CHARACTER(0),
+	UNKNOWN(0),
 
 	KEY_ALT(KeyEvent.VK_ALT),
 	KEY_ALT_GR(KeyEvent.VK_ALT_GRAPH),
@@ -28,20 +30,25 @@ public enum InputCode {
 	KEY_TILDE(KeyEvent.VK_TILDE);
 	
 	private final int code;
-	private InputCode(int _code) {
+	private PcInputCode(int _code) {
 		code = _code;
 	}
 	
-	public static InputCode getKeyByCode(int _code) {
+	public static PcInputCode getKeyByCode(int _code) {
 		for(int i=0; i<values().length; i++) {
 			if(values()[i].code == _code) {
 				return values()[i];
 			}
 		}
-		return KEY_CHARACTER;
+		return UNKNOWN;
+	}
+	
+	public int getCode() {
+		return code;
 	}
 	
 	public boolean isCharacter() {
 		return code == 0;
 	}
+
 }

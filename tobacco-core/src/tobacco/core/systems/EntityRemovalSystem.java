@@ -4,25 +4,27 @@ import tobacco.core.components.Component;
 import tobacco.core.components.ContainerComponent;
 import tobacco.core.entities.Entity;
 
-public class EntityRemovalSystem implements EngineSystem {
-	
-	private void processTree(Entity current, Entity parent) {
-		ContainerComponent children;
-		if(current.contains(Component.REMOVE_C)) {
-			if(parent != null) {
-				children = (ContainerComponent) parent.getComponent(Component.CONTAINER_C);
-				children.delChildren(current.getID());
-			}
-		} else if(current.contains(Component.CONTAINER_C)){
-			for(Entity e : (ContainerComponent) current.getComponent(Component.CONTAINER_C)) {
-				processTree(e, current);
-			}
-		}
+public class EntityRemovalSystem extends AbstractTreeSystem {
+
+	private static final String[] requiredComponents = {Component.REMOVE_C};
+
+	public EntityRemovalSystem() {
+		super(requiredComponents);
 	}
 
 	@Override
-	public void work(Entity root) {
-		processTree(root, null);
+	public Object process(Entity entity, Object data) {
+		if(qualifies(entity)) {
+			if(data != null) {
+				Entity parent = (Entity) data;
+				ContainerComponent children = (ContainerComponent) parent.getComponent(Component.CONTAINER_C);
+				children.delChildren(entity.getID());
+			}
+		}
+		return entity;
 	}
+
+	@Override public void setUp() {}
+	@Override public void tearDown() {}
 
 }

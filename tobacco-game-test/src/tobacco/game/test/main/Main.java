@@ -10,8 +10,8 @@ public class Main {
 	public static void main(String[] args) {
 		Loader loader = new ManualLoader();
 		Entity root = loader.loadRootEntity();
-		MainSystem mainSystem = loader.loadMainSystem();
-		
+		MainSystem mainSystem = loader.loadMainSystem(root);
+
 		while(true) {
 			mainSystem.work(root);
 			try {
@@ -21,5 +21,4 @@ public class Main {
 			}
 		}
 	}
-
 }

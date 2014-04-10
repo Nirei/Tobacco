@@ -15,7 +15,7 @@ public class XmlLoader implements Loader {
 	}
 
 	@Override
-	public MainSystem loadMainSystem() {
+	public MainSystem loadMainSystem(Entity root) {
 		return null;
 	}
 

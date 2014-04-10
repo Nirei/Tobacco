@@ -1,17 +1,14 @@
 package tobacco.game.test.entities;
 
-import tobacco.core.components.CommandBufferComponent;
 import tobacco.core.components.DebuggingComponent;
 import tobacco.core.components.DrawableComponent;
 import tobacco.core.components.MovementComponent;
 import tobacco.core.components.PositionComponent;
 import tobacco.core.entities.Entity;
-import tobacco.core.entities.EntityFactory;
 import tobacco.core.util.Vector2D;
 
-public class EnemyEntityFactory implements EntityFactory {
+public class EnemyEntityFactory {
 
-	@Override
 	public Entity create() {
 		Entity entity = new Entity();
 		
@@ -21,7 +18,6 @@ public class EnemyEntityFactory implements EntityFactory {
 		entity.putComponent(new PositionComponent());
 		entity.putComponent(new MovementComponent());
 		entity.putComponent(new DebuggingComponent());
-		entity.putComponent(new CommandBufferComponent());
 
 		return entity;
 	}

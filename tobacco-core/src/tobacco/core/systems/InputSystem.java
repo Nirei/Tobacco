@@ -4,6 +4,6 @@ import tobacco.core.entities.Entity;
 
 public abstract class InputSystem implements EngineSystem {
 
-	@Override public void work(Entity entity) {}
+	@Override abstract public void work(Entity entity);
 
 }

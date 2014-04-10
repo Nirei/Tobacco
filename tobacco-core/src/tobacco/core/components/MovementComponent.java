@@ -12,10 +12,7 @@ public class MovementComponent implements Component {
 		return MOVEMENT_C;
 	}
 	
-	public MovementComponent() 
-	{
-		
-	}
+	public MovementComponent() {}
 	
 	public MovementComponent(float _speed) {
 		speed = _speed;

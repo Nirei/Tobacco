@@ -7,6 +7,7 @@ public class GunComponent implements GameComponent {
 	private Vector2D bulletSize = Vector2D.ZERO;
 	private Vector2D bulletDirection = Vector2D.ZERO;
 	private float bulletSpeed = 0;
+	private boolean shooting = false;
 	
 	public GunComponent() {}
 	
@@ -46,9 +47,17 @@ public class GunComponent implements GameComponent {
 		this.bulletSpeed = bulletSpeed;
 	}
 	
+	public void setShooting(boolean _shooting) {
+		shooting = _shooting;
+	}
+	
+	public boolean isShooting() {
+		return shooting;
+	}
+	
 	@Override
 	public String toString() {
-		return "Gun: (Speed: " + bulletSpeed + ", Size: " +
+		return "Gun: (Shooting: " + shooting + ", Speed: " + bulletSpeed + ", Size: " +
 				bulletSize + ", Direction: " + bulletDirection + ")";
 	}
 }

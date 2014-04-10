@@ -65,6 +65,6 @@ public final class Entity implements Iterable<Component> {
 	
 	@Override
 	public String toString() {
-		return "Entity ID: " + Long.toString(id);
+		return "Entity@" + Long.toString(id);
 	}
 }
