@@ -15,7 +15,7 @@ import tobacco.render.pc.util.CommonListener;
 
 public class NewtRenderer extends AbstractRenderer implements Renderer, GLEventListener {
 
-	GLWindow gw;
+	private GLWindow gw;
 	
 	public NewtRenderer(String title, Entity root) {
 		glProfile = GLProfile.getDefault();

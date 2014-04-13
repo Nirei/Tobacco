@@ -28,16 +28,7 @@ public class PlayerMovementSystem extends AbstractTreeSystem {
 		return null;
 	}
 
-	@Override
-	public void setUp() {
-		// TODO Apéndice de método generado automáticamente
-
-	}
-
-	@Override
-	public void tearDown() {
-		// TODO Apéndice de método generado automáticamente
-
-	}
+	@Override public void setUp() {}
+	@Override public void tearDown() {}
 
 }

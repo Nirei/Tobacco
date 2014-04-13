@@ -17,14 +17,12 @@ import tobacco.render.pc.util.CommonListener;
 import tobacco.render.pc.util.TextureStorage;
 import tobacco.render.pc.util.exceptions.TextureNotFoundException;
 
-import com.jogamp.newt.NewtFactory;
 import com.jogamp.opengl.util.AnimatorBase;
 import com.jogamp.opengl.util.texture.Texture;
 import com.jogamp.opengl.util.texture.TextureCoords;
 
 public abstract class AbstractRenderer implements Renderer, GLEventListener {
 
-	NewtFactory nf;
 	protected static GLProfile glProfile;
 	protected static GLCapabilities glCaps;
 	protected AnimatorBase animator;
@@ -127,6 +125,8 @@ public abstract class AbstractRenderer implements Renderer, GLEventListener {
 	private void draw(GLAutoDrawable drawable) {
 	    GL2 gl = drawable.getGL().getGL2();
 	    gl.glClear(GL.GL_COLOR_BUFFER_BIT | GL.GL_DEPTH_BUFFER_BIT);
+	    gl.glEnable(GL.GL_BLEND);
+	    gl.glBlendFunc(GL.GL_SRC_ALPHA, GL.GL_ONE_MINUS_SRC_ALPHA);
 	    
 	    drawEntityTree(drawable, rootEntity);
 	}

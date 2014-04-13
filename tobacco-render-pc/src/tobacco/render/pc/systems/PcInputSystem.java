@@ -11,6 +11,7 @@ import tobacco.render.pc.renderers.AbstractRenderer;
 import tobacco.render.pc.util.CommonListener;
 import tobacco.render.pc.util.PcInputCode;
 
+// TODO: Does this really need to be a System?
 public class PcInputSystem extends InputSystem implements CommonListener {
 
 	private KeymapComponent keyMapComp = new KeymapComponent();
@@ -20,15 +21,6 @@ public class PcInputSystem extends InputSystem implements CommonListener {
 		root.putComponent(keyMapComp);
 		root.putComponent(mouseComp);
 		((AbstractRenderer) prs.getRenderer()).addListener(this);
-	}
-	
-	/**
-	 * Clears the KeyMapComponent's "just pressed" state.
-	 * @param root - root Entity
-	 */
-	@Override
-	public void work(Entity root) {
-		// TODO: Make me AbstractTreeSystem!
 	}
 
 	@Override

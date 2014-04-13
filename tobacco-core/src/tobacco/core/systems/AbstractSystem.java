@@ -48,9 +48,14 @@ public abstract class AbstractSystem implements EngineSystem {
 	
 	@Override
 	public void work(Entity root) {
-		// TODO Apéndice de método generado automáticamente
+		if(getRootEntity() != root) {
+			setRootEntity(root);
+		}
+		setUp();
+		traverse();
+		tearDown();
 	}
-	
+
 	/**
 	 * @return The current root Entity
 	 */

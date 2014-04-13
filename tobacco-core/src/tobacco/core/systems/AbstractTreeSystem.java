@@ -43,14 +43,4 @@ public abstract class AbstractTreeSystem extends AbstractSystem {
 	public void traverse() {
 		processTree(getRootEntity(), null);
 	}
-	
-	@Override
-	public void work(Entity root) {
-		if(getRootEntity() != root) {
-			setRootEntity(root);
-		}
-		setUp();
-		processTree(root, null);
-		tearDown();
-	}
 }
