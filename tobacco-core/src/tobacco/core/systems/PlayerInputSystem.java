@@ -7,13 +7,20 @@ import tobacco.core.entities.Entity;
 import tobacco.core.util.Command;
 import tobacco.core.util.InputEvent;
 
-public class PlayerControlSystem extends AbstractTreeSystem {
+/**
+ * This system checks which events are player entities listening to 
+ * then asks the keymap if those events have been received and subsequently
+ * applies the associated Commands.  
+ * @author nirei
+ *
+ */
+public class PlayerInputSystem extends AbstractTreeSystem {
 
 	private final static String[] requiredComponents = {Component.PLAYER_C};
 
 	private KeymapComponent keyMap;
 	
-	public PlayerControlSystem() {
+	public PlayerInputSystem() {
 		super(requiredComponents);
 	}
 

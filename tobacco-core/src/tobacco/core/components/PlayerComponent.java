@@ -32,7 +32,7 @@ public class PlayerComponent implements Component, Iterable<InputEvent> {
 	public boolean contains(InputEvent key) {
 		return actionMap.containsKey(key);
 	}
-
+	
 	@Override
 	public Iterator<InputEvent> iterator() {
 		return actionMap.keySet().iterator();

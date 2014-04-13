@@ -3,7 +3,9 @@ package tobacco.core.systems;
 import tobacco.core.components.Component;
 import tobacco.core.components.ContainerComponent;
 import tobacco.core.entities.Entity;
-
+// TODO:	Instead of tree traversal, a tracker of entities by components
+//			so a system only gets those entities wich contain the necessary
+//			components.
 /**
  * This kind of system recursively traverses the tree of entities
  * processing each.
