@@ -4,6 +4,7 @@ import tobacco.core.util.Vector2D;
 
 public class GunComponent implements GameComponent {
 
+	private String bulletTexture = null;
 	private Vector2D bulletSize = Vector2D.ZERO;
 	private Vector2D bulletDirection = Vector2D.ZERO;
 	private float bulletSpeed = 0;
@@ -11,8 +12,11 @@ public class GunComponent implements GameComponent {
 	
 	public GunComponent() {}
 	
-	public GunComponent(Vector2D bulletSize, Vector2D bulletDirection,
+	public GunComponent(String bulletTexture,
+			Vector2D bulletSize,
+			Vector2D bulletDirection,
 			float bulletSpeed) {
+		this.bulletTexture = bulletTexture;
 		this.bulletSize = bulletSize;
 		this.bulletDirection = bulletDirection;
 		this.bulletSpeed = bulletSpeed;
@@ -59,5 +63,13 @@ public class GunComponent implements GameComponent {
 	public String toString() {
 		return "Gun: (Shooting: " + shooting + ", Speed: " + bulletSpeed + ", Size: " +
 				bulletSize + ", Direction: " + bulletDirection + ")";
+	}
+
+	public String getBulletTexture() {
+		return bulletTexture;
+	}
+
+	public void setBulletTexture(String bulletTexture) {
+		this.bulletTexture = bulletTexture;
 	}
 }

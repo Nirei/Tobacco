@@ -21,8 +21,7 @@ public class BulletEntityFactory {
 		Vector2D pos = shooterPosition.getPosition();
 		GunComponent weaponComp = (GunComponent) shooter.getComponent(GameComponent.GUN_C);
 		
-		DrawableComponent drawComp = new DrawableComponent();
-		drawComp.setSize(weaponComp.getBulletSize());
+		DrawableComponent drawComp = new DrawableComponent(weaponComp.getBulletTexture(), weaponComp.getBulletSize());
 		entity.putComponent(drawComp);
 		entity.putComponent(new PositionComponent(pos));
 		entity.putComponent(new MovementComponent(weaponComp.getBulletDirection(), weaponComp.getBulletSpeed()));
