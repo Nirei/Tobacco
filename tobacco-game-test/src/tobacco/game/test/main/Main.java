@@ -1,6 +1,6 @@
 package tobacco.game.test.main;
 
-import tobacco.core.entities.Entity;
+import tobacco.core.components.Entity;
 import tobacco.core.loader.Loader;
 import tobacco.core.systems.MainSystem;
 import tobacco.game.test.loader.ManualLoader;

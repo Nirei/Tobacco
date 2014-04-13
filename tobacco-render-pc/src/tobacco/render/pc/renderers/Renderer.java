@@ -1,6 +1,6 @@
 package tobacco.render.pc.renderers;
 
-import tobacco.core.entities.Entity;
+import tobacco.core.components.Entity;
 
 public interface Renderer {
 

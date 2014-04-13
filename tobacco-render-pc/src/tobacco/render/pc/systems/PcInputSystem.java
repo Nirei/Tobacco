@@ -3,8 +3,8 @@ package tobacco.render.pc.systems;
 import com.jogamp.newt.event.KeyEvent;
 import com.jogamp.newt.event.MouseEvent;
 
+import tobacco.core.components.Entity;
 import tobacco.core.components.KeymapComponent;
-import tobacco.core.entities.Entity;
 import tobacco.core.systems.InputSystem;
 import tobacco.render.pc.components.MouseComponent;
 import tobacco.render.pc.renderers.AbstractRenderer;

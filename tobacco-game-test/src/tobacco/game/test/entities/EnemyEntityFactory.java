@@ -2,9 +2,9 @@ package tobacco.game.test.entities;
 
 import tobacco.core.components.DebuggingComponent;
 import tobacco.core.components.DrawableComponent;
+import tobacco.core.components.Entity;
 import tobacco.core.components.MovementComponent;
 import tobacco.core.components.PositionComponent;
-import tobacco.core.entities.Entity;
 import tobacco.core.util.Vector2D;
 
 public class EnemyEntityFactory {
