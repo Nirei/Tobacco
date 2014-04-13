@@ -2,7 +2,7 @@ package tobacco.core.systems;
 
 import tobacco.core.components.Component;
 import tobacco.core.components.ContainerComponent;
-import tobacco.core.entities.Entity;
+import tobacco.core.components.Entity;
 
 public class EntityRemovalSystem extends AbstractTreeSystem {
 

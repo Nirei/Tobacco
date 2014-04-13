@@ -1,7 +1,9 @@
 package tobacco.core.components;
 
+import java.util.Set;
+
 /**
- * This contain all of the game's data.
+ * Components are storage for all the game data.
  * @author nirei
  *
  */
@@ -23,6 +25,6 @@ public interface Component {
 	 * Returns this component's name.
 	 * @return {@link String} representing the name of the component.
 	 */
-	public String getComponentType();
-	
+	public abstract String getComponentType();
+
 }

@@ -3,7 +3,7 @@ package tobacco.core.systems;
 import java.util.ArrayList;
 import java.util.List;
 
-import tobacco.core.entities.Entity;
+import tobacco.core.components.Entity;
 
 public class MainSystem implements EngineSystem {
 	

@@ -2,7 +2,7 @@ package tobacco.core.loader;
 
 import java.net.URL;
 
-import tobacco.core.entities.Entity;
+import tobacco.core.components.Entity;
 import tobacco.core.systems.MainSystem;
 
 public class XmlLoader implements Loader {

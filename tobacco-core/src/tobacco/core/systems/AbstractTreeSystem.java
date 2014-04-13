@@ -2,51 +2,16 @@ package tobacco.core.systems;
 
 import tobacco.core.components.Component;
 import tobacco.core.components.ContainerComponent;
-import tobacco.core.entities.Entity;
-// TODO:	Instead of tree traversal, a tracker of entities by components
-//			so a system only gets those entities wich contain the necessary
-//			components.
+import tobacco.core.components.Entity;
 /**
  * This kind of system recursively traverses the tree of entities
- * processing each.
+ * processing each and carrying recursive data if required.
  * @author nirei
  */
-public abstract class AbstractTreeSystem implements EngineSystem {
-
-	/**
-	 * Array with the Components that should be present on an Entity
-	 * for the system to process it
-	 */
-	private String[] requiredComponents;
-	
-	/**
-	 * Current root entity
-	 */
-	private Entity rootEntity;
-
-	/**
-	 * Defines what this system does to Entities
-	 * @param entity - Current Entity being processed
-	 * @param data - Recursive data received when calling it from its parent 
-	 * @return Data to pass on to its children
-	 */
-	public abstract Object process(Entity entity, Object data);
-	
-	/**
-	 * Prepares the system for the current traversal of the entity tree.
-	 * It's called when this system's work() beggins.
-	 */
-	public abstract void setUp();
-	
-	/**
-	 * Finalize this system's work.
-	 * Called at the current tree traversal's end.
-	 */
-	public abstract void tearDown();
-	
+public abstract class AbstractTreeSystem extends AbstractSystem {
 
 	public AbstractTreeSystem(String[] _requiredComponents) {
-		requiredComponents = _requiredComponents;
+		super(_requiredComponents);
 	}
 	
 	/**
@@ -57,7 +22,7 @@ public abstract class AbstractTreeSystem implements EngineSystem {
 	 * <b>false</b> - otherwise
 	 */
 	public boolean qualifies(Entity entity) {
-		for(String type : requiredComponents) {
+		for(String type : getRequiredComponents()) {
 			if(!entity.contains(type)) return false;
 		}
 		return true;
@@ -73,18 +38,16 @@ public abstract class AbstractTreeSystem implements EngineSystem {
 			}
 		}
 	}
-
-	/**
-	 * @return The current root entity
-	 */
-	public Entity getRootEntity() {
-		return rootEntity;
+	
+	@Override
+	public void traverse() {
+		processTree(getRootEntity(), null);
 	}
 	
 	@Override
 	public void work(Entity root) {
-		if(rootEntity != root) {
-			rootEntity = root;
+		if(getRootEntity() != root) {
+			setRootEntity(root);
 		}
 		setUp();
 		processTree(root, null);

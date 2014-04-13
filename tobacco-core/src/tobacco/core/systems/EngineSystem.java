@@ -1,6 +1,6 @@
 package tobacco.core.systems;
 
-import tobacco.core.entities.Entity;
+import tobacco.core.components.Entity;
 
 /**
  * This contain the game's logic.
