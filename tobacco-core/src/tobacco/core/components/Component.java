@@ -1,7 +1,5 @@
 package tobacco.core.components;
 
-import java.util.Set;
-
 /**
  * Components are storage for all the game data.
  * @author nirei

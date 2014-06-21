@@ -12,7 +12,6 @@ public class MovementSystem extends AbstractTreeSystem {
 	private long lastCall = System.currentTimeMillis();
 	private long delta = 0;
 
-	
 	public MovementSystem() {
 		super(requiredComponents);
 	}
@@ -20,24 +19,24 @@ public class MovementSystem extends AbstractTreeSystem {
 	@Override
 	public Object process(Entity entity, Object data) {
 		if(qualifies(entity)) {
-			float speed;
 			PositionComponent posComp;
-			Vector2D direction, position;
 			
 			posComp = ((PositionComponent) entity.getComponent(Component.POSITION_C));
-			position = posComp.getPosition();
+			Vector2D position = posComp.getPosition();
 
 			MovementComponent movComp = ((MovementComponent) entity.getComponent(Component.MOVEMENT_C));
-			direction = movComp.getDirection();
-			speed = movComp.getSpeed();
+			Vector2D direction = movComp.getDirection();
+
 			
 			// Calculate new position
 			if(!direction.isZero()) {
+				float speed = movComp.getSpeed();
+
 				Vector2D newPos = Vector2D.sum(
 					position,
 					Vector2D.scale(
 						Vector2D.scale(
-							Vector2D.normalize(direction),
+							direction.normalize(),
 							speed
 						),
 						delta/1000f

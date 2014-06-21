@@ -9,7 +9,7 @@ public class Main {
 
 	public static void main(String[] args) {
 		Loader loader = new ManualLoader();
-		Entity root = loader.loadRootEntity();
+		Entity root = loader.loadEntityTree();
 		MainSystem mainSystem = loader.loadMainSystem(root);
 
 		while(true) {

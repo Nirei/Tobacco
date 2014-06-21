@@ -6,25 +6,20 @@ import tobacco.core.components.DurationComponent;
 import tobacco.core.components.Entity;
 import tobacco.core.components.MovementComponent;
 import tobacco.core.components.PositionComponent;
+import tobacco.core.components.RotationComponent;
 import tobacco.core.util.Vector2D;
-import tobacco.game.test.components.GameComponent;
-import tobacco.game.test.components.GunComponent;
+import tobacco.game.test.components.BulletComponent;
 
 public class BulletEntityFactory {
 
-	public Entity create(Entity shooter) {
+	public Entity create(Vector2D pos, BulletComponent b) {		
 		Entity entity = new Entity();
-		if(!shooter.contains(GameComponent.POSITION_C))	return null;		
-		if(!shooter.contains(GameComponent.GUN_C)) return null;
-
-		PositionComponent shooterPosition = (PositionComponent) shooter.getComponent(GameComponent.POSITION_C);
-		Vector2D pos = shooterPosition.getPosition();
-		GunComponent weaponComp = (GunComponent) shooter.getComponent(GameComponent.GUN_C);
-		
-		DrawableComponent drawComp = new DrawableComponent(weaponComp.getBulletTexture(), weaponComp.getBulletSize());
+		DrawableComponent drawComp = new DrawableComponent(b.getBulletData().getTexture(), b.getBulletData().getSize());
 		entity.putComponent(drawComp);
 		entity.putComponent(new PositionComponent(pos));
-		entity.putComponent(new MovementComponent(weaponComp.getBulletDirection(), weaponComp.getBulletSpeed()));
+		Vector2D dir = b.getBulletDirection();
+		entity.putComponent(new MovementComponent(dir, b.getBulletSpeed()));
+		entity.putComponent(new RotationComponent(90f + Vector2D.angle(Vector2D.VERTICAL, dir).getDegrees()));
 		entity.putComponent(new DebuggingComponent());
 		entity.putComponent(new DurationComponent(1000));
 

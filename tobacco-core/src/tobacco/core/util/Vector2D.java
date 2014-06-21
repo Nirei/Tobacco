@@ -2,13 +2,19 @@ package tobacco.core.util;
 
 public class Vector2D {
 	public static final Vector2D ZERO = new Vector2D(0, 0);
+	public static final Vector2D ONE = new Vector2D(1,1);
+	public static final Vector2D HORIZONTAL = new Vector2D(1,0);
+	public static final Vector2D VERTICAL = new Vector2D(0,1);
 	private float x,y;
-	
-	
+
 	public Vector2D(float x, float y)
 	{
 		this.x=x;
 		this.y=y;
+	}
+	
+	public Vector2D normalize() {
+		return normalize(this);
 	}
 	
 	public static Vector2D normalize(Vector2D v) {
@@ -44,7 +50,19 @@ public class Vector2D {
 		return new Vector2D (v.x*n,v.y*n);	
 	}
 	
-	public static float dotProduct (Vector2D a, Vector2D b)
+	public float module() {
+		return module(this);
+	}
+	
+	public static float module(Vector2D v) {
+		return (float) Math.sqrt(v.x*v.x + v.y*v.y);
+	}
+	
+	public static Angle angle(Vector2D a, Vector2D b) {
+		return new Angle((float) (Math.atan2(b.y,b.x) - Math.atan2(a.y,a.x)));
+	}
+	
+	public static float dot (Vector2D a, Vector2D b)
 	{
 		return a.x*b.x+a.y*b.y;
 	}

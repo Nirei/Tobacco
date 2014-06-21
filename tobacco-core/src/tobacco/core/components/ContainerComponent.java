@@ -5,6 +5,9 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
+import javax.xml.bind.annotation.XmlRootElement;
+
+@XmlRootElement()
 public class ContainerComponent implements Component, Iterable<Entity> {
 	
 	private Map<Long, Entity> children = new HashMap<Long, Entity>();

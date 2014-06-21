@@ -20,7 +20,7 @@ public class XmlLoader implements Loader {
 	}
 
 	@Override
-	public Entity loadRootEntity() {
+	public Entity loadEntityTree() {
 		// TODO Apéndice de método generado automáticamente
 		return null;
 	}

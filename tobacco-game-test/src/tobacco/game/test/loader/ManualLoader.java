@@ -14,7 +14,6 @@ import tobacco.core.components.PositionComponent;
 import tobacco.core.loader.Loader;
 import tobacco.core.systems.EngineSystem;
 import tobacco.core.systems.EntityRemovalSystem;
-import tobacco.core.systems.InfoSystem;
 import tobacco.core.systems.MainSystem;
 import tobacco.core.systems.MovementSystem;
 import tobacco.core.systems.PlayerInputSystem;
@@ -23,9 +22,11 @@ import tobacco.core.systems.TimerSystem;
 import tobacco.core.util.Command;
 import tobacco.core.util.InputEvent;
 import tobacco.core.util.Vector2D;
+import tobacco.game.test.components.BulletComponent;
 import tobacco.game.test.components.GameComponent;
 import tobacco.game.test.components.GunComponent;
 import tobacco.game.test.systems.GunSystem;
+import tobacco.game.test.util.BulletData;
 import tobacco.render.pc.systems.PcInputSystem;
 import tobacco.render.pc.systems.PcRenderSystem;
 import static tobacco.render.pc.util.PcInputCode.*;
@@ -70,7 +71,7 @@ public class ManualLoader implements Loader {
 	}
 
 	@Override
-	public Entity loadRootEntity() {
+	public Entity loadEntityTree() {
 		Entity root, player;
 
 		root = new Entity();
@@ -80,7 +81,7 @@ public class ManualLoader implements Loader {
 		/* Player */
 		player = new Entity();
 		player.putComponent(new DebuggingComponent());
-		player.putComponent(new DrawableComponent("/tobacco/game/test/textures/placeholder.png", new Vector2D(32f, 32f)));
+		player.putComponent(new DrawableComponent("/tobacco/game/test/textures/reimuholder.png", new Vector2D(32f, 48f)));
 		player.putComponent(new PositionComponent(new Vector2D(100f, 100f)));
 		
 		PlayerComponent playerComp = new PlayerComponent();
@@ -94,22 +95,51 @@ public class ManualLoader implements Loader {
 		playerComp.put(new InputEvent(KEY_LEFT, TYPE_HOLD), left);
 		playerComp.put(new InputEvent(KEY_RIGHT, TYPE_HOLD), right);
 
-		playerComp.put(new InputEvent(KEY_SPACE, TYPE_HOLD), new Command() {
+		playerComp.put(new InputEvent(KEY_SPACE, TYPE_PRESS), new Command() {
 			@Override public void execute(Entity rootEntity, Entity entity) {
 				((GunComponent) entity.getComponent(GameComponent.GUN_C)).setShooting(true);
 			}
 		});
 		
+		playerComp.put(new InputEvent(KEY_SPACE, TYPE_RELEASE), new Command() {
+			@Override public void execute(Entity rootEntity, Entity entity) {
+				((GunComponent) entity.getComponent(GameComponent.GUN_C)).setShooting(false);
+			}
+		});
+		
 		player.putComponent(playerComp);
 		
-		GunComponent gunComponent = new GunComponent();
-		gunComponent.setBulletTexture("/tobacco/game/test/textures/bullet.png");
-		gunComponent.setBulletDirection(new Vector2D(0f, 1f));
-		gunComponent.setBulletSize(new Vector2D(10f, 10f));
-		gunComponent.setBulletSpeed(2000f);
+		ContainerComponent containerComponent = new ContainerComponent();
 		
-		player.putComponent(gunComponent);
+		GunComponent gunComponent = new GunComponent();
+		
+		BulletData bullet = new BulletData("/tobacco/game/test/textures/reimubullet.png", new Vector2D(52f, 12f));
+		
+		BulletComponent bulletComp1 = new BulletComponent(bullet);
+		bulletComp1.setBulletDirection(new Vector2D(0f, 1f));
+		bulletComp1.setBulletSpeed(2000f);
+		BulletComponent bulletComp2 = new BulletComponent(bullet);
+		bulletComp2.setBulletDirection(new Vector2D(1f, 5f));
+		bulletComp2.setBulletSpeed(2000f);
+		BulletComponent bulletComp3 = new BulletComponent(bullet);
+		bulletComp3.setBulletDirection(new Vector2D(-1f, 5f));
+		bulletComp3.setBulletSpeed(2000f);
+		
+		Entity bullet1 = new Entity();
+		bullet1.putComponent(bulletComp1);
+		Entity bullet2 = new Entity();
+		bullet2.putComponent(bulletComp2);
+		Entity bullet3 = new Entity();
+		bullet3.putComponent(bulletComp3);
+		
+		containerComponent.addChild(bullet1);
+		containerComponent.addChild(bullet2);
+		containerComponent.addChild(bullet3);
 
+		player.putComponent(gunComponent);
+		
+		player.putComponent(containerComponent);
+		
 		player.putComponent(new MovementComponent(500f));
 		((ContainerComponent) root.getComponent(GameComponent.CONTAINER_C)).addChild(player);
 
