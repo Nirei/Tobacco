@@ -15,7 +15,7 @@ import tobacco.core.components.PositionComponent;
 import tobacco.core.components.RotationComponent;
 import tobacco.core.components.ScaleComponent;
 import tobacco.core.util.Vector2D;
-import tobacco.render.pc.util.CommonListener;
+import tobacco.render.pc.input.CommonListener;
 import tobacco.render.pc.util.TextureStorage;
 import tobacco.render.pc.util.exceptions.TextureNotFoundException;
 

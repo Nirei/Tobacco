@@ -11,7 +11,7 @@ import javax.media.opengl.GLProfile;
 import com.jogamp.opengl.util.Animator;
 
 import tobacco.core.components.Entity;
-import tobacco.render.pc.util.CommonListener;
+import tobacco.render.pc.input.CommonListener;
 
 public class NewtRenderer extends AbstractRenderer implements Renderer, GLEventListener {
 

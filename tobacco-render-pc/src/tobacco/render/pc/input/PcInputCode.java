@@ -1,4 +1,4 @@
-package tobacco.render.pc.util;
+package tobacco.render.pc.input;
 
 import tobacco.core.util.InputCode;
 

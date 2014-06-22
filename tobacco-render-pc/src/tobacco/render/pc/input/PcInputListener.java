@@ -1,26 +1,23 @@
-package tobacco.render.pc.systems;
+package tobacco.render.pc.input;
 
 import com.jogamp.newt.event.KeyEvent;
 import com.jogamp.newt.event.MouseEvent;
 
 import tobacco.core.components.Entity;
 import tobacco.core.components.KeymapComponent;
-import tobacco.core.systems.InputSystem;
 import tobacco.render.pc.components.MouseComponent;
 import tobacco.render.pc.renderers.AbstractRenderer;
-import tobacco.render.pc.util.CommonListener;
-import tobacco.render.pc.util.PcInputCode;
 
-// TODO: Does this really need to be a System?
-public class PcInputSystem extends InputSystem implements CommonListener {
+// TODO: A listener that adds itself? Don't think so...
+public class PcInputListener implements CommonListener {
 
 	private KeymapComponent keyMapComp = new KeymapComponent();
 	private MouseComponent mouseComp = new MouseComponent();
 
-	public PcInputSystem(Entity root, PcRenderSystem prs) {
+	public PcInputListener(Entity root, AbstractRenderer renderer) {
 		root.putComponent(keyMapComp);
 		root.putComponent(mouseComp);
-		((AbstractRenderer) prs.getRenderer()).addListener(this);
+		renderer.addListener(this);
 	}
 
 	@Override

@@ -1,4 +1,4 @@
-package tobacco.render.pc.util;
+package tobacco.render.pc.input;
 
 public interface CommonListener extends 
 	com.jogamp.newt.event.KeyListener,

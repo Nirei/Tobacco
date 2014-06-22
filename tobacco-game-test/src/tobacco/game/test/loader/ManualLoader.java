@@ -16,8 +16,8 @@ import tobacco.core.systems.EngineSystem;
 import tobacco.core.systems.EntityRemovalSystem;
 import tobacco.core.systems.MainSystem;
 import tobacco.core.systems.MovementSystem;
-import tobacco.core.systems.PlayerInputSystem;
-import tobacco.core.systems.PlayerMovementSystem;
+import tobacco.core.systems.InputSystem;
+import tobacco.core.systems.MovementResetSystem;
 import tobacco.core.systems.TimerSystem;
 import tobacco.core.util.Command;
 import tobacco.core.util.InputEvent;
@@ -30,9 +30,10 @@ import tobacco.game.test.entities.EnemyEntityFactory;
 import tobacco.game.test.systems.GunSystem;
 import tobacco.game.test.systems.HealthSystem;
 import tobacco.game.test.util.BulletData;
-import tobacco.render.pc.systems.PcInputSystem;
+import tobacco.render.pc.input.PcInputListener;
+import tobacco.render.pc.renderers.AbstractRenderer;
 import tobacco.render.pc.systems.PcRenderSystem;
-import static tobacco.render.pc.util.PcInputCode.*;
+import static tobacco.render.pc.input.PcInputCode.*;
 import static tobacco.core.util.InputType.*;
 
 public class ManualLoader implements Loader {
@@ -41,17 +42,16 @@ public class ManualLoader implements Loader {
 	public MainSystem loadMainSystem(Entity root) {		
 		List<EngineSystem> systems = new ArrayList<EngineSystem>();
 		PcRenderSystem prs = new PcRenderSystem(root);
-		PcInputSystem pis = new PcInputSystem(root, prs);
+		new PcInputListener(root, (AbstractRenderer) prs.getRenderer()); // TODO: Listener adds itself but this looks kinda ugly 
 		//systems.add(new InfoSystem());
 		systems.add(new MovementSystem());
-		systems.add(new PlayerMovementSystem());
+		systems.add(new MovementResetSystem());
 		systems.add(new GunSystem());
 		systems.add(new HealthSystem());
 		systems.add(new TimerSystem());
 		systems.add(new EntityRemovalSystem());
-		systems.add(new PlayerInputSystem());
+		systems.add(new InputSystem());
 		systems.add(prs);
-		systems.add(pis);
 		
 		MainSystem main = new MainSystem();
 		for(EngineSystem s : systems)
