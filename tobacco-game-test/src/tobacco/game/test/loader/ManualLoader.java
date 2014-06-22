@@ -25,7 +25,10 @@ import tobacco.core.util.Vector2D;
 import tobacco.game.test.components.BulletComponent;
 import tobacco.game.test.components.GameComponent;
 import tobacco.game.test.components.GunComponent;
+import tobacco.game.test.components.HealthComponent;
+import tobacco.game.test.entities.EnemyEntityFactory;
 import tobacco.game.test.systems.GunSystem;
+import tobacco.game.test.systems.HealthSystem;
 import tobacco.game.test.util.BulletData;
 import tobacco.render.pc.systems.PcInputSystem;
 import tobacco.render.pc.systems.PcRenderSystem;
@@ -43,6 +46,7 @@ public class ManualLoader implements Loader {
 		systems.add(new MovementSystem());
 		systems.add(new PlayerMovementSystem());
 		systems.add(new GunSystem());
+		systems.add(new HealthSystem());
 		systems.add(new TimerSystem());
 		systems.add(new EntityRemovalSystem());
 		systems.add(new PlayerInputSystem());
@@ -89,11 +93,19 @@ public class ManualLoader implements Loader {
 		Command down = moveCommand(0, -1);
 		Command left = moveCommand(-1, 0);
 		Command right = moveCommand(1, 0);
+		Command suicide = new Command() {
+			
+			@Override
+			public void execute(Entity rootEntity, Entity entity) {
+				((HealthComponent) entity.getComponent(GameComponent.HEALTH_C)).setHealth(0f);
+			}
+		};
 
 		playerComp.put(new InputEvent(KEY_UP, TYPE_HOLD), up);
 		playerComp.put(new InputEvent(KEY_DOWN, TYPE_HOLD), down);
 		playerComp.put(new InputEvent(KEY_LEFT, TYPE_HOLD), left);
 		playerComp.put(new InputEvent(KEY_RIGHT, TYPE_HOLD), right);
+		playerComp.put(new InputEvent(KEY_ESCAPE, TYPE_RELEASE), suicide);
 
 		playerComp.put(new InputEvent(KEY_SPACE, TYPE_PRESS), new Command() {
 			@Override public void execute(Entity rootEntity, Entity entity) {
@@ -141,8 +153,14 @@ public class ManualLoader implements Loader {
 		player.putComponent(containerComponent);
 		
 		player.putComponent(new MovementComponent(500f));
-		((ContainerComponent) root.getComponent(GameComponent.CONTAINER_C)).addChild(player);
+		
+		player.putComponent(new HealthComponent(100f));
 
+		ContainerComponent rootContainer = (ContainerComponent) root.getComponent(GameComponent.CONTAINER_C);
+		rootContainer.addChild(player);
+		EnemyEntityFactory eeFactory = new EnemyEntityFactory("/tobacco/game/test/textures/fairy_blue.png", new Vector2D(26f, 28f));
+		rootContainer.addChild(eeFactory.create());
+		
 		return root;
 	}
 
