@@ -9,17 +9,17 @@ import tobacco.render.pc.renderers.NewtRenderer;
 import tobacco.render.pc.renderers.Renderer;
 
 public class PcRenderSystem implements EngineSystem {
-	
+
 	Renderer renderer;
-	
+
 	public PcRenderSystem(Entity root) {
 		GLProfile.initSingleton(); // Recomended before anything else
-		renderer = new NewtRenderer("The Game",root);
+		renderer = new NewtRenderer("The Game", root);
 	}
 
 	@Override
 	public void work(Entity root) {
-		if(root.contains(Component.DRAWABLE_C)) {
+		if (root.contains(Component.DRAWABLE_C)) {
 			renderer.render(root);
 		}
 	}
@@ -31,7 +31,5 @@ public class PcRenderSystem implements EngineSystem {
 	public void setRenderer(Renderer renderer) {
 		this.renderer = renderer;
 	}
-
-
 
 }

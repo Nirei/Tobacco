@@ -7,30 +7,34 @@ import tobacco.core.components.Entity;
 import tobacco.core.components.RemoveComponent;
 
 public class TimerSystem implements EngineSystem {
-	
+
 	private long lastCall = System.currentTimeMillis();
-	
-	public TimerSystem() {}
-	
+
+	public TimerSystem() {
+	}
+
 	private void checkDuration(Entity entity, long delta) {
-		DurationComponent durComp = (DurationComponent) entity.getComponent(Component.DURATION_C);
+		DurationComponent durComp = (DurationComponent) entity
+				.getComponent(Component.DURATION_C);
 		long left = durComp.getDuration() - delta;
-		
+
 		// Update duration left with delta
-		synchronized(durComp) {
+		synchronized (durComp) {
 			durComp.setDuration(left);
 		}
 		// If time has expired, mark Entity for removal :(
-		if(left <= 0) entity.putComponent(new RemoveComponent());
+		if (left <= 0)
+			entity.putComponent(new RemoveComponent());
 	}
-	
+
 	private void processTree(Entity entity, long delta) {
-		if(entity.contains(Component.DURATION_C)) {
+		if (entity.contains(Component.DURATION_C)) {
 			checkDuration(entity, delta);
 		}
-		
-		if(entity.contains(Component.CONTAINER_C)) {
-			for(Entity e : (ContainerComponent) entity.getComponent(Component.CONTAINER_C)) {
+
+		if (entity.contains(Component.CONTAINER_C)) {
+			for (Entity e : (ContainerComponent) entity
+					.getComponent(Component.CONTAINER_C)) {
 				processTree(e, delta);
 			}
 		}
@@ -43,5 +47,5 @@ public class TimerSystem implements EngineSystem {
 		lastCall = now;
 		processTree(root, delta);
 	}
-	
+
 }

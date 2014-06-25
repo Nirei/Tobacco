@@ -23,20 +23,20 @@ public class PcInputListener implements CommonListener {
 	@Override
 	public void keyPressed(KeyEvent e) {
 		// TODO: Diferenciar entre Shift, etc. derecho e izquierdo
-		if(!e.isAutoRepeat()) {
+		if (!e.isAutoRepeat()) {
 			PcInputCode key = PcInputCode.getKeyByCode(e.getKeyCode());
 			synchronized (keyMapComp) {
-				keyMapComp.press(key);				
+				keyMapComp.press(key);
 			}
 		}
 	}
 
 	@Override
 	public void keyReleased(KeyEvent e) {
-		if(!e.isAutoRepeat()) {
+		if (!e.isAutoRepeat()) {
 			PcInputCode key = PcInputCode.getKeyByCode(e.getKeyCode());
 			synchronized (keyMapComp) {
-				keyMapComp.release(key);	
+				keyMapComp.release(key);
 			}
 		}
 	}
@@ -45,7 +45,7 @@ public class PcInputListener implements CommonListener {
 	public void mousePressed(MouseEvent e) {
 		PcInputCode key = PcInputCode.getKeyByCode(-e.getButton());
 		synchronized (keyMapComp) {
-			keyMapComp.press(key);			
+			keyMapComp.press(key);
 		}
 	}
 
@@ -53,17 +53,32 @@ public class PcInputListener implements CommonListener {
 	public void mouseReleased(MouseEvent e) {
 		PcInputCode key = PcInputCode.getKeyByCode(-e.getButton());
 		synchronized (keyMapComp) {
-			keyMapComp.release(key);			
+			keyMapComp.release(key);
 		}
 	}
 
 	@Override
-	public void mouseMoved(MouseEvent e) {}
+	public void mouseMoved(MouseEvent e) {
+	}
 
-	@Override public void mouseWheelMoved(MouseEvent e) {}
-	@Override public void mouseClicked(MouseEvent e) {}
-	@Override public void mouseEntered(MouseEvent e) {}
-	@Override public void mouseExited(MouseEvent e) {}
-	@Override public void mouseDragged(MouseEvent e) {}
+	@Override
+	public void mouseWheelMoved(MouseEvent e) {
+	}
+
+	@Override
+	public void mouseClicked(MouseEvent e) {
+	}
+
+	@Override
+	public void mouseEntered(MouseEvent e) {
+	}
+
+	@Override
+	public void mouseExited(MouseEvent e) {
+	}
+
+	@Override
+	public void mouseDragged(MouseEvent e) {
+	}
 
 }

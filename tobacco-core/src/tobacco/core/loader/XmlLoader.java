@@ -6,9 +6,9 @@ import tobacco.core.components.Entity;
 import tobacco.core.systems.MainSystem;
 
 public class XmlLoader implements Loader {
-	
+
 	URL systemsList, entityTree;
-	
+
 	XmlLoader(URL _systemsList, URL _entityTree) {
 		systemsList = _systemsList;
 		entityTree = _entityTree;

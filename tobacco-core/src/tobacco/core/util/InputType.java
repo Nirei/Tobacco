@@ -1,6 +1,5 @@
 package tobacco.core.util;
 
-
 public enum InputType {
 	TYPE_HOLD(0), TYPE_PRESS(1), TYPE_RELEASE(2);
 

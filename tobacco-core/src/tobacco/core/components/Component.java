@@ -2,11 +2,12 @@ package tobacco.core.components;
 
 /**
  * Components are storage for all the game data.
+ * 
  * @author nirei
- *
+ * 
  */
 public interface Component {
-	
+
 	public static final String CONTAINER_C = "CONTAINER_C";
 	public static final String DEBUGGING_C = "DEBUGGING_C";
 	public static final String DRAWABLE_C = "DRAWABLE_C";
@@ -18,9 +19,11 @@ public interface Component {
 	public static final String REMOVE_C = "REMOVE_C";
 	public static final String ROTATION_C = "ROTATION_C";
 	public static final String SCALE_C = "SCALE_C";
+	public static final String TRAJECTORY_C = "TRAJECTORY_C";
 
 	/**
 	 * Returns this component's name.
+	 * 
 	 * @return {@link String} representing the name of the component.
 	 */
 	public abstract String getComponentType();

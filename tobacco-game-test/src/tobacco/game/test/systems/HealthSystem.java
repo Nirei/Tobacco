@@ -8,12 +8,13 @@ import tobacco.game.test.components.HealthComponent;
 
 /**
  * Manages entities' deaths.
+ * 
  * @author nirei
- *
+ * 
  */
 public class HealthSystem extends AbstractTreeSystem {
 
-	private static final String[] requiredComponents = {GameComponent.HEALTH_C};
+	private static final String[] requiredComponents = { GameComponent.HEALTH_C };
 
 	public HealthSystem() {
 		super(requiredComponents);
@@ -21,9 +22,10 @@ public class HealthSystem extends AbstractTreeSystem {
 
 	@Override
 	public Object process(Entity entity, Object data) {
-		if(qualifies(entity)) {
-			HealthComponent healthComponent = (HealthComponent) entity.getComponent(GameComponent.HEALTH_C);
-			if(healthComponent.isDead()) {
+		if (qualifies(entity)) {
+			HealthComponent healthComponent = (HealthComponent) entity
+					.getComponent(GameComponent.HEALTH_C);
+			if (healthComponent.isDead()) {
 				entity.putComponent(new RemoveComponent());
 			}
 		}
@@ -31,7 +33,12 @@ public class HealthSystem extends AbstractTreeSystem {
 		return null;
 	}
 
-	@Override public void setUp() {}
-	@Override public void tearDown() {}
+	@Override
+	public void setUp() {
+	}
+
+	@Override
+	public void tearDown() {
+	}
 
 }

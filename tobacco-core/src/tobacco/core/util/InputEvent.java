@@ -3,7 +3,7 @@ package tobacco.core.util;
 public class InputEvent {
 	private InputCode inputCode;
 	private InputType inputType;
-	
+
 	public InputEvent(InputCode _inputCode, InputType _inputType) {
 		inputCode = _inputCode;
 		inputType = _inputType;

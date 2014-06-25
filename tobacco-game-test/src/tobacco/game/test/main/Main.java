@@ -12,7 +12,7 @@ public class Main {
 		Entity root = loader.loadEntityTree();
 		MainSystem mainSystem = loader.loadMainSystem(root);
 
-		while(true) {
+		while (true) {
 			mainSystem.work(root);
 			try {
 				Thread.sleep(5);

@@ -14,23 +14,35 @@ public class KeymapComponent implements Component {
 		return KEYMAP_C;
 	}
 
-	public void press(InputCode key) { 
+	public void press(InputCode key) {
 		keyMap.add(key);
 		pressedNowMap.add(key);
 	}
-	public void release(InputCode key) { 
+
+	public void release(InputCode key) {
 		keyMap.remove(key);
 		releasedNowMap.add(key);
 	}
-	public boolean isPressed(InputCode key) { return keyMap.contains(key); }
-	public boolean wasPressed(InputCode key) { return pressedNowMap.contains(key); }
-	public boolean wasReleased(InputCode key) { return releasedNowMap.contains(key); }
+
+	public boolean isPressed(InputCode key) {
+		return keyMap.contains(key);
+	}
+
+	public boolean wasPressed(InputCode key) {
+		return pressedNowMap.contains(key);
+	}
+
+	public boolean wasReleased(InputCode key) {
+		return releasedNowMap.contains(key);
+	}
+
 	public void clear() {
 		pressedNowMap.clear();
 		releasedNowMap.clear();
 	}
 
 	public String toString() {
-		return "Keymap: [Hold: " + keyMap + ", Pressed: " + pressedNowMap + ", Released: " + releasedNowMap + "]";
+		return "Keymap: [Hold: " + keyMap + ", Pressed: " + pressedNowMap
+				+ ", Released: " + releasedNowMap + "]";
 	}
 }

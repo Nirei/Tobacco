@@ -3,8 +3,9 @@ package tobacco.game.test.components;
 public class GunComponent implements GameComponent {
 
 	private boolean shooting = false;
-	
-	public GunComponent() {}
+
+	public GunComponent() {
+	}
 
 	@Override
 	public String getComponentType() {
@@ -14,11 +15,11 @@ public class GunComponent implements GameComponent {
 	public void setShooting(boolean _shooting) {
 		shooting = _shooting;
 	}
-	
+
 	public boolean isShooting() {
 		return shooting;
 	}
-	
+
 	@Override
 	public String toString() {
 		return "Gun: ";

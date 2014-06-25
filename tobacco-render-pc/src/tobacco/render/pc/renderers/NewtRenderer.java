@@ -13,33 +13,34 @@ import com.jogamp.opengl.util.Animator;
 import tobacco.core.components.Entity;
 import tobacco.render.pc.input.CommonListener;
 
-public class NewtRenderer extends AbstractRenderer implements Renderer, GLEventListener {
+public class NewtRenderer extends AbstractRenderer implements Renderer,
+		GLEventListener {
 
 	private GLWindow gw;
-	
+
 	public NewtRenderer(String title, Entity root) {
 		glProfile = GLProfile.getDefault();
-	    glCaps = new GLCapabilities(glProfile);
-	    gw = GLWindow.create(glCaps);
+		glCaps = new GLCapabilities(glProfile);
+		gw = GLWindow.create(glCaps);
 		rootEntity = root;
-		
+
 		gw.setSize(480, 640);
 		gw.requestFocus();
 		gw.addGLEventListener(this);
 		gw.setDefaultCloseOperation(WindowClosingMode.DISPOSE_ON_CLOSE);
 		gw.setAnimator(animator);
 
-		animator = new Animator(gw);		
-	    
+		animator = new Animator(gw);
+
 		// Set window closing operation
 		gw.addWindowListener(new WindowAdapter() {
-	    	@Override
-	    	public void windowDestroyed(com.jogamp.newt.event.WindowEvent e) {
-	    		super.windowDestroyed(e);
-	    		System.exit(0);
-	    	}
-	    });
-		
+			@Override
+			public void windowDestroyed(com.jogamp.newt.event.WindowEvent e) {
+				super.windowDestroyed(e);
+				System.exit(0);
+			}
+		});
+
 		gw.setVisible(true);
 	}
 

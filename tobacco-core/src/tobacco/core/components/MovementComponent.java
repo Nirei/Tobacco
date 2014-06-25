@@ -6,14 +6,15 @@ public class MovementComponent implements Component {
 
 	private Vector2D direction = Vector2D.ZERO;
 	private float speed = 0;
-	
+
 	@Override
 	public String getComponentType() {
 		return MOVEMENT_C;
 	}
-	
-	public MovementComponent() {}
-	
+
+	public MovementComponent() {
+	}
+
 	public MovementComponent(float _speed) {
 		speed = _speed;
 	}
@@ -26,21 +27,20 @@ public class MovementComponent implements Component {
 	public float getSpeed() {
 		return speed;
 	}
-	
+
 	public void setSpeed(float _speed) {
 		speed = _speed;
 	}
-	
+
 	public Vector2D getDirection() {
 		return direction;
 	}
-	
+
 	public void setDirection(Vector2D _direction) {
 		direction = _direction;
 	}
-	
-	public String toString()
-	{
+
+	public String toString() {
 		return "Movement: (Direction: " + direction + ", Speed: " + speed + ")";
 	}
 

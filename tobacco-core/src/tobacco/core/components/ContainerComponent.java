@@ -9,26 +9,26 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement()
 public class ContainerComponent implements Component, Iterable<Entity> {
-	
+
 	private Map<Long, Entity> children = new HashMap<Long, Entity>();
 
 	@Override
 	public Iterator<Entity> iterator() {
 		ArrayList<Entity> copy;
-		synchronized(children) {
+		synchronized (children) {
 			copy = new ArrayList<Entity>(children.values());
 		}
 		return copy.iterator();
 	}
-	
+
 	public void addChild(Entity child) {
-		synchronized(children) {
+		synchronized (children) {
 			children.put(child.getID(), child);
 		}
 	}
-	
+
 	public void delChildren(long id) {
-		synchronized(children) {
+		synchronized (children) {
 			children.remove(id);
 		}
 	}
@@ -37,7 +37,7 @@ public class ContainerComponent implements Component, Iterable<Entity> {
 	public String getComponentType() {
 		return CONTAINER_C;
 	}
-	
+
 	@Override
 	public String toString() {
 		return "Children: " + children;
