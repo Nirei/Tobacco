@@ -23,8 +23,7 @@ public class HealthSystem extends AbstractTreeSystem {
 	@Override
 	public Object process(Entity entity, Object data) {
 		if (qualifies(entity)) {
-			HealthComponent healthComponent = (HealthComponent) entity
-					.getComponent(GameComponent.HEALTH_C);
+			HealthComponent healthComponent = (HealthComponent) entity.getComponent(GameComponent.HEALTH_C);
 			if (healthComponent.isDead()) {
 				entity.putComponent(new RemoveComponent());
 			}

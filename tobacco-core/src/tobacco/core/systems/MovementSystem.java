@@ -8,8 +8,9 @@ import tobacco.core.util.Vector2D;
 
 public class MovementSystem extends AbstractTreeSystem {
 
-	private final static String[] requiredComponents = { Component.POSITION_C,
-			Component.MOVEMENT_C };
+	private final static String[] requiredComponents = {
+		Component.POSITION_C,
+		Component.MOVEMENT_C };
 	private long lastCall = System.currentTimeMillis();
 	private long delta = 0;
 
@@ -22,21 +23,17 @@ public class MovementSystem extends AbstractTreeSystem {
 		if (qualifies(entity)) {
 			PositionComponent posComp;
 
-			posComp = ((PositionComponent) entity
-					.getComponent(Component.POSITION_C));
+			posComp = ((PositionComponent) entity.getComponent(Component.POSITION_C));
 			Vector2D position = posComp.getPosition();
 
-			MovementComponent movComp = ((MovementComponent) entity
-					.getComponent(Component.MOVEMENT_C));
+			MovementComponent movComp = ((MovementComponent) entity.getComponent(Component.MOVEMENT_C));
 			Vector2D direction = movComp.getDirection();
 
 			// Calculate new position
 			if (!direction.isZero()) {
 				float speed = movComp.getSpeed();
 
-				Vector2D newPos = Vector2D.sum(position, Vector2D.scale(
-						Vector2D.scale(direction.normalize(), speed),
-						delta / 1000f));
+				Vector2D newPos = Vector2D.sum(position, Vector2D.scale(Vector2D.scale(direction.normalize(), speed), delta / 1000f));
 				posComp.setPosition(newPos);
 			}
 		}

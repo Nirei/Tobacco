@@ -74,10 +74,8 @@ public class ManualLoader implements Loader {
 			public void execute(Entity rootEntity, Entity entity) {
 				if (entity.contains(Component.MOVEMENT_C)) {
 					Vector2D direction;
-					MovementComponent movComp = (MovementComponent) entity
-							.getComponent(Component.MOVEMENT_C);
-					direction = Vector2D.sum(movComp.getDirection(),
-							new Vector2D(x, y));
+					MovementComponent movComp = (MovementComponent) entity.getComponent(Component.MOVEMENT_C);
+					direction = Vector2D.sum(movComp.getDirection(), new Vector2D(x, y));
 					movComp.setDirection(direction);
 				}
 			}
@@ -95,9 +93,7 @@ public class ManualLoader implements Loader {
 		/* Player */
 		player = new Entity();
 		player.putComponent(new DebuggingComponent());
-		player.putComponent(new DrawableComponent(
-				"/tobacco/game/test/textures/reimuholder.png", new Vector2D(
-						32f, 48f)));
+		player.putComponent(new DrawableComponent("/tobacco/game/test/textures/reimuholder.png", new Vector2D(32f, 48f)));
 		player.putComponent(new PositionComponent(new Vector2D(100f, 100f)));
 
 		PlayerComponent playerComp = new PlayerComponent();
@@ -109,8 +105,7 @@ public class ManualLoader implements Loader {
 
 			@Override
 			public void execute(Entity rootEntity, Entity entity) {
-				((HealthComponent) entity.getComponent(GameComponent.HEALTH_C))
-						.setHealth(0f);
+				((HealthComponent) entity.getComponent(GameComponent.HEALTH_C)).setHealth(0f);
 			}
 		};
 
@@ -123,16 +118,14 @@ public class ManualLoader implements Loader {
 		playerComp.put(new InputEvent(KEY_SPACE, TYPE_PRESS), new Command() {
 			@Override
 			public void execute(Entity rootEntity, Entity entity) {
-				((GunComponent) entity.getComponent(GameComponent.GUN_C))
-						.setShooting(true);
+				((GunComponent) entity.getComponent(GameComponent.GUN_C)).setShooting(true);
 			}
 		});
 
 		playerComp.put(new InputEvent(KEY_SPACE, TYPE_RELEASE), new Command() {
 			@Override
 			public void execute(Entity rootEntity, Entity entity) {
-				((GunComponent) entity.getComponent(GameComponent.GUN_C))
-						.setShooting(false);
+				((GunComponent) entity.getComponent(GameComponent.GUN_C)).setShooting(false);
 			}
 		});
 
@@ -142,9 +135,7 @@ public class ManualLoader implements Loader {
 
 		GunComponent gunComponent = new GunComponent();
 
-		BulletData bullet = new BulletData(
-				"/tobacco/game/test/textures/reimubullet.png", new Vector2D(
-						52f, 12f));
+		BulletData bullet = new BulletData("/tobacco/game/test/textures/reimubullet.png", new Vector2D(52f, 12f));
 
 		BulletComponent bulletComp1 = new BulletComponent(bullet);
 		bulletComp1.setBulletDirection(new Vector2D(0f, 1f));
@@ -175,12 +166,9 @@ public class ManualLoader implements Loader {
 
 		player.putComponent(new HealthComponent(100f));
 
-		ContainerComponent rootContainer = (ContainerComponent) root
-				.getComponent(GameComponent.CONTAINER_C);
+		ContainerComponent rootContainer = (ContainerComponent) root.getComponent(GameComponent.CONTAINER_C);
 		rootContainer.addChild(player);
-		EnemyEntityFactory eeFactory = new EnemyEntityFactory(
-				"/tobacco/game/test/textures/fairy_blue.png", new Vector2D(26f,
-						28f));
+		EnemyEntityFactory eeFactory = new EnemyEntityFactory("/tobacco/game/test/textures/fairy_blue.png", new Vector2D(26f, 28f));
 		rootContainer.addChild(eeFactory.create());
 
 		return root;

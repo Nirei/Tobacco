@@ -49,8 +49,7 @@ public abstract class AbstractRenderer implements Renderer, GLEventListener {
 		gl.glPushMatrix();
 
 		if (entity.contains(Component.DRAWABLE_C)) {
-			DrawableComponent drawComp = (DrawableComponent) entity
-					.getComponent(Component.DRAWABLE_C);
+			DrawableComponent drawComp = (DrawableComponent) entity.getComponent(Component.DRAWABLE_C);
 
 			float x = 0, y = 0, width = 50, height = 50;
 			Vector2D pos = Vector2D.ZERO;
@@ -58,14 +57,11 @@ public abstract class AbstractRenderer implements Renderer, GLEventListener {
 			Vector2D sca = new Vector2D(1, 1);
 
 			if (entity.contains(Component.POSITION_C))
-				pos = ((PositionComponent) entity
-						.getComponent(Component.POSITION_C)).getPosition();
+				pos = ((PositionComponent) entity.getComponent(Component.POSITION_C)).getPosition();
 			if (entity.contains(Component.ROTATION_C))
-				rot = ((RotationComponent) entity
-						.getComponent(Component.ROTATION_C)).getRotation();
+				rot = ((RotationComponent) entity.getComponent(Component.ROTATION_C)).getRotation();
 			if (entity.contains(Component.SCALE_C))
-				sca = ((ScaleComponent) entity.getComponent(Component.SCALE_C))
-						.getScale();
+				sca = ((ScaleComponent) entity.getComponent(Component.SCALE_C)).getScale();
 
 			Vector2D size = drawComp.getSize();
 
@@ -135,8 +131,7 @@ public abstract class AbstractRenderer implements Renderer, GLEventListener {
 		}
 
 		if (entity.contains(Component.CONTAINER_C)) {
-			ContainerComponent children = (ContainerComponent) entity
-					.getComponent(Component.CONTAINER_C);
+			ContainerComponent children = (ContainerComponent) entity.getComponent(Component.CONTAINER_C);
 			for (Entity e : children) {
 				drawEntityTree(drawable, e);
 			}
@@ -154,12 +149,10 @@ public abstract class AbstractRenderer implements Renderer, GLEventListener {
 
 		// Use linear filter for texture if image is larger than the original
 		// texture
-		gl.glTexParameteri(GL.GL_TEXTURE_2D, GL.GL_TEXTURE_MAG_FILTER,
-				GL.GL_LINEAR);
+		gl.glTexParameteri(GL.GL_TEXTURE_2D, GL.GL_TEXTURE_MAG_FILTER, GL.GL_LINEAR);
 		// Use linear filter for texture if image is smaller than the original
 		// texture
-		gl.glTexParameteri(GL.GL_TEXTURE_2D, GL.GL_TEXTURE_MIN_FILTER,
-				GL.GL_LINEAR);
+		gl.glTexParameteri(GL.GL_TEXTURE_2D, GL.GL_TEXTURE_MIN_FILTER, GL.GL_LINEAR);
 
 		drawEntityTree(drawable, rootEntity);
 	}

@@ -14,8 +14,9 @@ import tobacco.core.util.Vector2D;
  */
 public class MovementResetSystem extends AbstractTreeSystem {
 
-	private final static String[] requiredComponents = { Component.PLAYER_C,
-			Component.MOVEMENT_C };
+	private final static String[] requiredComponents = {
+		Component.PLAYER_C,
+		Component.MOVEMENT_C };
 
 	public MovementResetSystem() {
 		super(requiredComponents);
@@ -24,8 +25,7 @@ public class MovementResetSystem extends AbstractTreeSystem {
 	@Override
 	public Object process(Entity entity, Object data) {
 		if (qualifies(entity)) {
-			MovementComponent movComp = (MovementComponent) entity
-					.getComponent(Component.MOVEMENT_C);
+			MovementComponent movComp = (MovementComponent) entity.getComponent(Component.MOVEMENT_C);
 			movComp.setDirection(Vector2D.ZERO);
 		}
 		return null;

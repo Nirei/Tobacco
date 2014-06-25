@@ -29,9 +29,7 @@ public final class TextureStorage {
 		try {
 			// Create a OpenGL Texture object from (URL, mipmap, file suffix)
 			// Use URL so that can read from JAR anddisk file.
-			texture = TextureIO.newTexture(
-					TextureStorage.class.getResource(textureFileName), false,
-					null);
+			texture = TextureIO.newTexture(TextureStorage.class.getResource(textureFileName), false, null);
 		} catch (Exception e) {
 			throw new TextureNotFoundException(textureFileName, e);
 		}

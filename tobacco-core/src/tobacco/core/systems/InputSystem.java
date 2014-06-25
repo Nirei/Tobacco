@@ -28,8 +28,7 @@ public class InputSystem extends AbstractTreeSystem {
 	@Override
 	public Object process(Entity entity, Object data) {
 		if (qualifies(entity)) {
-			PlayerComponent playerComp = (PlayerComponent) entity
-					.getComponent(Component.PLAYER_C);
+			PlayerComponent playerComp = (PlayerComponent) entity.getComponent(Component.PLAYER_C);
 
 			for (InputEvent event : playerComp) {
 				Command command = playerComp.get(event);
@@ -54,8 +53,7 @@ public class InputSystem extends AbstractTreeSystem {
 
 	@Override
 	public void setUp() {
-		keyMap = (KeymapComponent) getRootEntity().getComponent(
-				Component.KEYMAP_C);
+		keyMap = (KeymapComponent) getRootEntity().getComponent(Component.KEYMAP_C);
 	}
 
 	@Override

@@ -37,8 +37,7 @@ public abstract class AbstractTreeSystem extends AbstractSystem {
 		data = process(entity, data);
 
 		if (entity.contains(Component.CONTAINER_C)) {
-			ContainerComponent ccomp = (ContainerComponent) entity
-					.getComponent(Component.CONTAINER_C);
+			ContainerComponent ccomp = (ContainerComponent) entity.getComponent(Component.CONTAINER_C);
 			for (Entity e : ccomp) {
 				processTree(e, data);
 			}

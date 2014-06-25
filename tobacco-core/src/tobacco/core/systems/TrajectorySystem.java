@@ -18,7 +18,9 @@ import tobacco.core.util.Vector2D;
 public class TrajectorySystem extends AbstractTreeSystem {
 
 	private static final String[] requiredComponents = {
-			Component.TRAJECTORY_C, Component.MOVEMENT_C, Component.POSITION_C };
+		Component.TRAJECTORY_C,
+		Component.MOVEMENT_C,
+		Component.POSITION_C };
 
 	public TrajectorySystem() {
 		super(requiredComponents);
@@ -27,12 +29,9 @@ public class TrajectorySystem extends AbstractTreeSystem {
 	@Override
 	public Object process(Entity entity, Object data) {
 		if (qualifies(entity)) {
-			PositionComponent posComp = (PositionComponent) entity
-					.getComponent(Component.POSITION_C);
-			MovementComponent movComp = (MovementComponent) entity
-					.getComponent(Component.MOVEMENT_C);
-			TrajectoryComponent trajComp = (TrajectoryComponent) entity
-					.getComponent(Component.TRAJECTORY_C);
+			PositionComponent posComp = (PositionComponent) entity.getComponent(Component.POSITION_C);
+			MovementComponent movComp = (MovementComponent) entity.getComponent(Component.MOVEMENT_C);
+			TrajectoryComponent trajComp = (TrajectoryComponent) entity.getComponent(Component.TRAJECTORY_C);
 
 			Vector2D pos = posComp.getPosition();
 			int step = trajComp.getStep();
@@ -41,8 +40,7 @@ public class TrajectorySystem extends AbstractTreeSystem {
 			if (pos.isNear(current, 1f)) {
 				trajComp.setStep(++step);
 			}
-			Vector2D mov = trajComp.getTrajectory().getTraverseFunction()
-					.path(waypoints, pos, step);
+			Vector2D mov = trajComp.getTrajectory().getTraverseFunction().path(waypoints, pos, step);
 			movComp.setDirection(mov);
 
 		}

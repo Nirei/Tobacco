@@ -14,8 +14,7 @@ public class TimerSystem implements EngineSystem {
 	}
 
 	private void checkDuration(Entity entity, long delta) {
-		DurationComponent durComp = (DurationComponent) entity
-				.getComponent(Component.DURATION_C);
+		DurationComponent durComp = (DurationComponent) entity.getComponent(Component.DURATION_C);
 		long left = durComp.getDuration() - delta;
 
 		// Update duration left with delta
@@ -33,8 +32,7 @@ public class TimerSystem implements EngineSystem {
 		}
 
 		if (entity.contains(Component.CONTAINER_C)) {
-			for (Entity e : (ContainerComponent) entity
-					.getComponent(Component.CONTAINER_C)) {
+			for (Entity e : (ContainerComponent) entity.getComponent(Component.CONTAINER_C)) {
 				processTree(e, delta);
 			}
 		}
