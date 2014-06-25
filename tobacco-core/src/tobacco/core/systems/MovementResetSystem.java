@@ -6,8 +6,7 @@ import tobacco.core.components.MovementComponent;
 import tobacco.core.util.Vector2D;
 
 /**
- * This system resets the movement of the player entity each tick after it has
- * been applied.
+ * This system resets the movement of the player entity each tick after it has been applied.
  * 
  * @author nirei
  * 

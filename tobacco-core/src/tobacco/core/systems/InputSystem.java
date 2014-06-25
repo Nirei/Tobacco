@@ -8,9 +8,7 @@ import tobacco.core.util.Command;
 import tobacco.core.util.InputEvent;
 
 /**
- * This system checks which events are player entities listening for keystrokes
- * then asks the KeymapComponent if those events have been received and
- * subsequently executes the associated Commands.
+ * This system checks which events are player entities listening for keystrokes then asks the KeymapComponent if those events have been received and subsequently executes the associated Commands.
  * 
  * @author nirei
  * 

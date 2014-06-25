@@ -70,10 +70,8 @@ public class Vector2D {
 	 * @param v
 	 *            - Vector
 	 * @param radius
-	 *            - Maximum distance at which the vectors will be considerer
-	 *            close to each other
-	 * @return <b>true</b> - If vector b is, at most, at a distance of radius
-	 *         from a<br />
+	 *            - Maximum distance at which the vectors will be considerer close to each other
+	 * @return <b>true</b> - If vector b is, at most, at a distance of radius from a<br />
 	 *         <b>false</b> - Otherwise
 	 */
 	public boolean isNear(Vector2D v, float radius) {

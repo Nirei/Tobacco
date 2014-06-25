@@ -9,8 +9,7 @@ public abstract class AbstractSystem implements EngineSystem {
 	}
 
 	/**
-	 * Array with the Components that should be present on an Entity for the
-	 * system to process it
+	 * Array with the Components that should be present on an Entity for the system to process it
 	 */
 	private String[] requiredComponents;
 
@@ -20,8 +19,7 @@ public abstract class AbstractSystem implements EngineSystem {
 	private Entity rootEntity;
 
 	/**
-	 * Prepares the system for the current tick. It's called when this system's
-	 * work() beggins.
+	 * Prepares the system for the current tick. It's called when this system's work() beggins.
 	 */
 	public abstract void setUp();
 
@@ -71,8 +69,7 @@ public abstract class AbstractSystem implements EngineSystem {
 	}
 
 	/**
-	 * @return Returns an array of String with the names of the components this
-	 *         system needs on an entity to be able to process.
+	 * @return Returns an array of String with the names of the components this system needs on an entity to be able to process.
 	 */
 	public String[] getRequiredComponents() {
 		return requiredComponents.clone();

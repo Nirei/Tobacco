@@ -42,15 +42,8 @@ public class ManualLoader implements Loader {
 	public MainSystem loadMainSystem(Entity root) {
 		List<EngineSystem> systems = new ArrayList<EngineSystem>();
 		PcRenderSystem prs = new PcRenderSystem(root);
-		new PcInputListener(root, (AbstractRenderer) prs.getRenderer()); // TODO:
-																			// Listener
-																			// adds
-																			// itself
-																			// but
-																			// this
-																			// looks
-																			// kinda
-																			// ugly
+		// TODO: Listener adds itself but this looks kinda ugly
+		new PcInputListener(root, (AbstractRenderer) prs.getRenderer());
 		// systems.add(new InfoSystem());
 		systems.add(new MovementSystem());
 		systems.add(new MovementResetSystem());
@@ -132,9 +125,7 @@ public class ManualLoader implements Loader {
 		player.putComponent(playerComp);
 
 		ContainerComponent containerComponent = new ContainerComponent();
-
 		GunComponent gunComponent = new GunComponent();
-
 		BulletData bullet = new BulletData("/tobacco/game/test/textures/reimubullet.png", new Vector2D(52f, 12f));
 
 		BulletComponent bulletComp1 = new BulletComponent(bullet);
@@ -159,11 +150,8 @@ public class ManualLoader implements Loader {
 		containerComponent.addChild(bullet3);
 
 		player.putComponent(gunComponent);
-
 		player.putComponent(containerComponent);
-
 		player.putComponent(new MovementComponent(500f));
-
 		player.putComponent(new HealthComponent(100f));
 
 		ContainerComponent rootContainer = (ContainerComponent) root.getComponent(GameComponent.CONTAINER_C);

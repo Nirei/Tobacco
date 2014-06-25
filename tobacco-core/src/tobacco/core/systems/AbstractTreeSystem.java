@@ -5,8 +5,7 @@ import tobacco.core.components.ContainerComponent;
 import tobacco.core.components.Entity;
 
 /**
- * This kind of system recursively traverses the tree of entities processing
- * each and carrying recursive data if required.
+ * This kind of system recursively traverses the tree of entities processing each and carrying recursive data if required.
  * 
  * @author nirei
  */
@@ -17,8 +16,7 @@ public abstract class AbstractTreeSystem extends AbstractSystem {
 	}
 
 	/**
-	 * Determine if the entity qualifies for processing and therefore should be
-	 * processed by the system.
+	 * Determine if the entity qualifies for processing and therefore should be processed by the system.
 	 * 
 	 * @param entity
 	 *            - Entity to check
