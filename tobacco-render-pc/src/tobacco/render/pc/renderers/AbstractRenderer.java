@@ -85,49 +85,39 @@ public abstract class AbstractRenderer implements Renderer, GLEventListener {
 			// TODO: Proper exception handling
 			try {
 				texture = TextureStorage.getTexture(drawComp.getImagePath());
-
-				// Texture image flips vertically. Shall use TextureCoords class
-				// to retrieve
-				// the top, bottom, left and right coordinates, instead of using
-				// 0.0f and 1.0f.
-				TextureCoords textureCoords = texture.getImageTexCoords();
-				textureTop = textureCoords.top();
-				textureBottom = textureCoords.bottom();
-				textureLeft = textureCoords.left();
-				textureRight = textureCoords.right();
-
-				// Enables this texture's target in the current GL context's
-				// state.
-				texture.enable(gl);
-				// Binds this texture to the current GL context.
-				texture.bind(gl);
-
-				gl.glBegin(GL2.GL_QUADS);
-				gl.glTexCoord2f(textureLeft, textureBottom);
-				gl.glVertex2f(localXInit, localYInit);
-				gl.glTexCoord2f(textureLeft, textureTop);
-				gl.glVertex2f(localXInit, localYEnd);
-				gl.glTexCoord2f(textureRight, textureTop);
-				gl.glVertex2f(localXEnd, localYEnd);
-				gl.glTexCoord2f(textureRight, textureBottom);
-				gl.glVertex2f(localXEnd, localYInit);
-				gl.glEnd();
-
 			} catch (TextureNotFoundException e) {
-				// Render without texture and inform
-				gl.glBegin(GL2.GL_QUADS);
-				gl.glColor3f(1, 0, 0);
-				gl.glVertex2f(localXInit, localYInit);
-				gl.glColor3f(0, 1, 0);
-				gl.glVertex2f(localXInit, localYEnd);
-				gl.glColor3f(0, 0, 1);
-				gl.glVertex2f(localXEnd, localYEnd);
-				gl.glColor3f(1, 0, 1);
-				gl.glVertex2f(localXEnd, localYInit);
-				gl.glEnd();
+				texture = TextureStorage.getErrorTexture();
 				if (e.getTexturePath() != null)
 					System.err.println(e.getMessage());
 			}
+
+			// Texture image flips vertically. Shall use TextureCoords class
+			// to retrieve
+			// the top, bottom, left and right coordinates, instead of using
+			// 0.0f and 1.0f.
+			TextureCoords textureCoords = texture.getImageTexCoords();
+			textureTop = textureCoords.top();
+			textureBottom = textureCoords.bottom();
+			textureLeft = textureCoords.left();
+			textureRight = textureCoords.right();
+
+			// Enables this texture's target in the current GL context's
+			// state.
+			texture.enable(gl);
+			// Binds this texture to the current GL context.
+			texture.bind(gl);
+
+			gl.glBegin(GL2.GL_QUADS);
+			gl.glTexCoord2f(textureLeft, textureBottom);
+			gl.glVertex2f(localXInit, localYInit);
+			gl.glTexCoord2f(textureLeft, textureTop);
+			gl.glVertex2f(localXInit, localYEnd);
+			gl.glTexCoord2f(textureRight, textureTop);
+			gl.glVertex2f(localXEnd, localYEnd);
+			gl.glTexCoord2f(textureRight, textureBottom);
+			gl.glVertex2f(localXEnd, localYInit);
+			gl.glEnd();
+
 		}
 
 		if (entity.contains(Component.CONTAINER_C)) {
@@ -153,8 +143,9 @@ public abstract class AbstractRenderer implements Renderer, GLEventListener {
 		// Use linear filter for texture if image is smaller than the original
 		// texture
 		gl.glTexParameteri(GL.GL_TEXTURE_2D, GL.GL_TEXTURE_MIN_FILTER, GL.GL_LINEAR);
-
+		
 		drawEntityTree(drawable, rootEntity);
+
 	}
 
 	@Override
@@ -181,7 +172,7 @@ public abstract class AbstractRenderer implements Renderer, GLEventListener {
 
 		gl.glMatrixMode(GL2.GL_PROJECTION);
 		gl.glLoadIdentity();
-		gl.glOrtho(0, getWidth(), 0, getHeight(), 1, -1);
+		gl.glOrtho(-getWidth()/2f, getWidth()/2f, -getHeight()/2f, getHeight()/2f, 1, -1);
 		gl.glMatrixMode(GL2.GL_MODELVIEW);
 	}
 

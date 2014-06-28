@@ -11,7 +11,8 @@ import tobacco.core.util.Vector2D;
  * @author nirei
  * 
  */
-public class MovementResetSystem extends AbstractTreeSystem {
+// TODO: Design "AbstractListenerSystem" for Systems that only work with a very specific Entity?
+public class MovementResetSystem extends AbstractListSystem {
 
 	private final static String[] requiredComponents = {
 		Component.PLAYER_C,
@@ -22,12 +23,11 @@ public class MovementResetSystem extends AbstractTreeSystem {
 	}
 
 	@Override
-	public Object process(Entity entity, Object data) {
+	public void process(Entity entity) {
 		if (qualifies(entity)) {
 			MovementComponent movComp = (MovementComponent) entity.getComponent(Component.MOVEMENT_C);
 			movComp.setDirection(Vector2D.ZERO);
 		}
-		return null;
 	}
 
 	@Override

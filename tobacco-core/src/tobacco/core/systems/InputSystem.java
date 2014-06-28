@@ -13,7 +13,7 @@ import tobacco.core.util.InputEvent;
  * @author nirei
  * 
  */
-public class InputSystem extends AbstractTreeSystem {
+public class InputSystem extends AbstractListSystem {
 
 	private final static String[] requiredComponents = { Component.PLAYER_C };
 
@@ -24,7 +24,7 @@ public class InputSystem extends AbstractTreeSystem {
 	}
 
 	@Override
-	public Object process(Entity entity, Object data) {
+	public void process(Entity entity) {
 		if (qualifies(entity)) {
 			PlayerComponent playerComp = (PlayerComponent) entity.getComponent(Component.PLAYER_C);
 
@@ -46,7 +46,6 @@ public class InputSystem extends AbstractTreeSystem {
 				}
 			}
 		}
-		return null;
 	}
 
 	@Override

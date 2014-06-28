@@ -2,7 +2,7 @@ package tobacco.game.test.systems;
 
 import tobacco.core.components.Entity;
 import tobacco.core.components.RemoveComponent;
-import tobacco.core.systems.AbstractTreeSystem;
+import tobacco.core.systems.AbstractListSystem;
 import tobacco.game.test.components.GameComponent;
 import tobacco.game.test.components.HealthComponent;
 
@@ -12,7 +12,7 @@ import tobacco.game.test.components.HealthComponent;
  * @author nirei
  * 
  */
-public class HealthSystem extends AbstractTreeSystem {
+public class HealthSystem extends AbstractListSystem {
 
 	private static final String[] requiredComponents = { GameComponent.HEALTH_C };
 
@@ -21,15 +21,13 @@ public class HealthSystem extends AbstractTreeSystem {
 	}
 
 	@Override
-	public Object process(Entity entity, Object data) {
+	public void process(Entity entity) {
 		if (qualifies(entity)) {
 			HealthComponent healthComponent = (HealthComponent) entity.getComponent(GameComponent.HEALTH_C);
 			if (healthComponent.isDead()) {
 				entity.putComponent(new RemoveComponent());
 			}
 		}
-
-		return null;
 	}
 
 	@Override

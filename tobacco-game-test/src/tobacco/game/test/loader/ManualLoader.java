@@ -2,7 +2,6 @@ package tobacco.game.test.loader;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import tobacco.core.components.Component;
 import tobacco.core.components.ContainerComponent;
 import tobacco.core.components.DebuggingComponent;
@@ -19,6 +18,7 @@ import tobacco.core.systems.MovementSystem;
 import tobacco.core.systems.InputSystem;
 import tobacco.core.systems.MovementResetSystem;
 import tobacco.core.systems.TimerSystem;
+import tobacco.core.systems.TrajectorySystem;
 import tobacco.core.util.Command;
 import tobacco.core.util.InputEvent;
 import tobacco.core.util.Vector2D;
@@ -40,6 +40,8 @@ public class ManualLoader implements Loader {
 
 	@Override
 	public MainSystem loadMainSystem(Entity root) {
+		// TODO: Window should have an entity on its own which holds window info
+		// so when prs loads, it reads from that entity.
 		List<EngineSystem> systems = new ArrayList<EngineSystem>();
 		PcRenderSystem prs = new PcRenderSystem(root);
 		// TODO: Listener adds itself but this looks kinda ugly
@@ -51,6 +53,7 @@ public class ManualLoader implements Loader {
 		systems.add(new HealthSystem());
 		systems.add(new TimerSystem());
 		systems.add(new EntityRemovalSystem());
+		systems.add(new TrajectorySystem());
 		systems.add(new InputSystem());
 		systems.add(prs);
 
@@ -87,7 +90,7 @@ public class ManualLoader implements Loader {
 		player = new Entity();
 		player.putComponent(new DebuggingComponent());
 		player.putComponent(new DrawableComponent("/tobacco/game/test/textures/reimuholder.png", new Vector2D(32f, 48f)));
-		player.putComponent(new PositionComponent(new Vector2D(100f, 100f)));
+		player.putComponent(new PositionComponent(new Vector2D(0f, -200f)));
 
 		PlayerComponent playerComp = new PlayerComponent();
 		Command up = moveCommand(0, 1);
@@ -158,6 +161,22 @@ public class ManualLoader implements Loader {
 		rootContainer.addChild(player);
 		EnemyEntityFactory eeFactory = new EnemyEntityFactory("/tobacco/game/test/textures/fairy_blue.png", new Vector2D(26f, 28f));
 		rootContainer.addChild(eeFactory.create());
+		
+		Entity debugAxisX = new Entity();
+		Entity debugAxisY = new Entity();
+		
+		DrawableComponent drawComp = new DrawableComponent("/tobacco/game/test/textures/white_pixel.png", new Vector2D(500f,1f));
+		PositionComponent posComp = new PositionComponent(Vector2D.ZERO);
+		debugAxisX.putComponent(posComp);
+		debugAxisX.putComponent(drawComp);
+		
+		drawComp = new DrawableComponent("/tobacco/game/test/textures/white_pixel.png", new Vector2D(1f, 1000f));
+		posComp = new PositionComponent(Vector2D.ZERO);
+		debugAxisY.putComponent(posComp);
+		debugAxisY.putComponent(drawComp);
+		
+		rootContainer.addChild(debugAxisX);
+		rootContainer.addChild(debugAxisY);
 
 		return root;
 	}

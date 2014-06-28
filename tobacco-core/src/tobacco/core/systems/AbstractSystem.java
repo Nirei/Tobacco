@@ -36,17 +36,6 @@ public abstract class AbstractSystem implements EngineSystem {
 	 */
 	public abstract void tearDown();
 
-	/**
-	 * Defines what this system does to Entities
-	 * 
-	 * @param entity
-	 *            - Current Entity being processed
-	 * @param data
-	 *            - Recursive data received when calling it from its parent
-	 * @return Data to pass on to its children
-	 */
-	public abstract Object process(Entity entity, Object data);
-
 	@Override
 	public void work(Entity root) {
 		if (getRootEntity() != root) {
@@ -73,6 +62,22 @@ public abstract class AbstractSystem implements EngineSystem {
 	 */
 	public String[] getRequiredComponents() {
 		return requiredComponents.clone();
+	}
+	
+	/**
+	 * Determine if the entity qualifies for processing and therefore should be processed by the system.
+	 * 
+	 * @param entity
+	 *            - Entity to check
+	 * @return <b>true</b> - If the Entity has the required Components<br />
+	 *         <b>false</b> - Otherwise
+	 */
+	public boolean qualifies(Entity entity) {
+		for (String type : getRequiredComponents()) {
+			if (!entity.contains(type))
+				return false;
+		}
+		return true;
 	}
 
 }

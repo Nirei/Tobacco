@@ -1,8 +1,9 @@
 package tobacco.core.components;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -13,12 +14,17 @@ import java.util.Map;
  */
 public final class Entity implements Iterable<Component> {
 
+	private static List<Entity> entityList = new LinkedList<Entity>();
 	private static long counter = 0;
+
 	private long id = 0;
+	private long index;
 	private Map<String, Component> components = new HashMap<String, Component>();
 
 	public Entity() {
 		id = counter++;
+		index = entityList.size();
+		entityList.add(this);
 	}
 
 	/**
@@ -50,10 +56,12 @@ public final class Entity implements Iterable<Component> {
 	public boolean contains(String type) {
 		return components.containsKey(type);
 	}
-
-	@Override
-	public Iterator<Component> iterator() {
-		return new ArrayList<Component>(components.values()).iterator();
+	
+	/**
+	 * Deletes the Entity from the Entity directory.
+	 */
+	public void delete() {
+		entityList.remove(index);
 	}
 
 	/**
@@ -64,7 +72,19 @@ public final class Entity implements Iterable<Component> {
 	public final Long getID() {
 		return id;
 	}
+	
+	/**
+	 * @return The full list of entities
+	 */
+	public static List<Entity> getEntityList() {
+		return new LinkedList<Entity>(entityList);
+	}
 
+	@Override
+	public Iterator<Component> iterator() {
+		return new LinkedList<Component>(components.values()).iterator();
+	}
+	
 	@Override
 	public String toString() {
 		return "Entity@" + Long.toString(id);

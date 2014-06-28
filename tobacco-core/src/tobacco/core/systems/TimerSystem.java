@@ -1,16 +1,18 @@
 package tobacco.core.systems;
 
 import tobacco.core.components.Component;
-import tobacco.core.components.ContainerComponent;
 import tobacco.core.components.DurationComponent;
 import tobacco.core.components.Entity;
 import tobacco.core.components.RemoveComponent;
 
-public class TimerSystem implements EngineSystem {
+public class TimerSystem extends AbstractListSystem {
 
+	private static final String[] requiredComponents = { Component.DURATION_C };
 	private long lastCall = System.currentTimeMillis();
-
+	private long delta;
+	
 	public TimerSystem() {
+		super(requiredComponents);
 	}
 
 	private void checkDuration(Entity entity, long delta) {
@@ -26,24 +28,19 @@ public class TimerSystem implements EngineSystem {
 			entity.putComponent(new RemoveComponent());
 	}
 
-	private void processTree(Entity entity, long delta) {
-		if (entity.contains(Component.DURATION_C)) {
-			checkDuration(entity, delta);
-		}
-
-		if (entity.contains(Component.CONTAINER_C)) {
-			for (Entity e : (ContainerComponent) entity.getComponent(Component.CONTAINER_C)) {
-				processTree(e, delta);
-			}
-		}
+	@Override
+	public void setUp() {
+		long now = System.currentTimeMillis();
+		delta = now - lastCall;
+		lastCall = now;
 	}
 
 	@Override
-	public void work(Entity root) {
-		long now = System.currentTimeMillis();
-		long delta = now - lastCall;
-		lastCall = now;
-		processTree(root, delta);
+	public void process(Entity entity) {
+		if(qualifies(entity)) {
+			checkDuration(entity, delta);
+		}
 	}
 
+	@Override public void tearDown() {}
 }

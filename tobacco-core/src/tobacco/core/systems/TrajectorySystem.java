@@ -15,7 +15,7 @@ import tobacco.core.util.Vector2D;
  * @author nirei
  * 
  */
-public class TrajectorySystem extends AbstractTreeSystem {
+public class TrajectorySystem extends AbstractListSystem {
 
 	private static final String[] requiredComponents = {
 		Component.TRAJECTORY_C,
@@ -27,24 +27,31 @@ public class TrajectorySystem extends AbstractTreeSystem {
 	}
 
 	@Override
-	public Object process(Entity entity, Object data) {
+	public void process(Entity entity) {
 		if (qualifies(entity)) {
-			PositionComponent posComp = (PositionComponent) entity.getComponent(Component.POSITION_C);
-			MovementComponent movComp = (MovementComponent) entity.getComponent(Component.MOVEMENT_C);
 			TrajectoryComponent trajComp = (TrajectoryComponent) entity.getComponent(Component.TRAJECTORY_C);
 
-			Vector2D pos = posComp.getPosition();
 			int step = trajComp.getStep();
 			List<Vector2D> waypoints = trajComp.getTrajectory().getWaypoints();
-			Vector2D current = waypoints.get(step);
-			if (pos.isNear(current, 1f)) {
-				trajComp.setStep(++step);
-			}
-			Vector2D mov = trajComp.getTrajectory().getTraverseFunction().path(waypoints, pos, step);
-			movComp.setDirection(mov);
+			if(step < waypoints.size()) {
+				PositionComponent posComp = (PositionComponent) entity.getComponent(Component.POSITION_C);
+				MovementComponent movComp = (MovementComponent) entity.getComponent(Component.MOVEMENT_C);
 
+				Vector2D pos = posComp.getPosition();
+				Vector2D dest = waypoints.get(step);
+				Vector2D mov = trajComp.getTrajectory().getTraverseFunction().path(waypoints, pos, step);
+
+				if(pos.isNear(dest, 1f)) {
+						trajComp.setStep(++step);
+					if(step >= waypoints.size()) {
+						if(trajComp.isLoop()) trajComp.setStep(0);
+						else mov = Vector2D.ZERO;
+					}
+				}
+				
+				movComp.setDirection(mov);
+			}
 		}
-		return null;
 	}
 
 	@Override

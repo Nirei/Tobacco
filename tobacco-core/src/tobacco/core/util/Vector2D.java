@@ -5,7 +5,7 @@ public class Vector2D {
 	public static final Vector2D ONE = new Vector2D(1, 1);
 	public static final Vector2D HORIZONTAL = new Vector2D(1, 0);
 	public static final Vector2D VERTICAL = new Vector2D(0, 1);
-	private float x, y;
+	private final float x, y;
 
 	public Vector2D(float x, float y) {
 		this.x = x;
@@ -13,15 +13,11 @@ public class Vector2D {
 	}
 
 	public Vector2D normalize() {
-		return normalize(this);
-	}
-
-	public static Vector2D normalize(Vector2D v) {
-		float modulo = (float) Math.sqrt(Math.pow(v.getX(), 2)
-				+ Math.pow(v.getY(), 2));
-		if (v.isZero())
-			return v;
-		return new Vector2D(v.getX() / modulo, v.getY() / modulo);
+		float modulo = (float) Math.sqrt(Math.pow(getX(), 2)
+				+ Math.pow(getY(), 2));
+		if (isZero())
+			return this;
+		return new Vector2D(getX() / modulo, getY() / modulo);
 	}
 
 	public float getX() {
@@ -43,17 +39,13 @@ public class Vector2D {
 	public static Vector2D minus(Vector2D a, Vector2D b) {
 		return new Vector2D(a.x - b.x, a.y - b.y);
 	}
-
-	public static Vector2D scale(Vector2D v, float n) {
-		return new Vector2D(v.x * n, v.y * n);
+	
+	public Vector2D scale(float n) {
+		return new Vector2D(x*n, y*n);
 	}
 
 	public float module() {
-		return module(this);
-	}
-
-	public static float module(Vector2D v) {
-		return (float) Math.sqrt(v.x * v.x + v.y * v.y);
+		return (float) Math.sqrt(x*x + y*y);
 	}
 
 	public static Angle angle(Vector2D a, Vector2D b) {
@@ -67,15 +59,30 @@ public class Vector2D {
 	/**
 	 * Tell if a vector is near this one
 	 * 
-	 * @param v
-	 *            - Vector
-	 * @param radius
-	 *            - Maximum distance at which the vectors will be considerer close to each other
+	 * @param v - Vector
+	 * @param radius - Maximum distance at which the vectors will be considerer close to each other
 	 * @return <b>true</b> - If vector b is, at most, at a distance of radius from a<br />
 	 *         <b>false</b> - Otherwise
 	 */
 	public boolean isNear(Vector2D v, float radius) {
-		return module(minus(this, v)) <= radius;
+		return minus(this, v).module() <= radius;
+	}
+	
+	/**
+	 * Check if this vector is inside the rectangular area described by two
+	 * given vectors representing the center and half the length of the sides
+	 * of the rectangle. This is useful for bounding boxes.
+	 * @param center - Vector representing the center of the area
+	 * @param halfSides - Vector that gives half the size of the rect
+	 * @return	<b>true</b> - If the point is inside the described vector<br />
+	 * 			<b>false</b> - Otherwise
+	 */
+	public boolean isInsideArea(Vector2D center, Vector2D halfSides) {
+		return
+				this.x >= center.x - halfSides.x &&
+				this.x < center.x + halfSides.x &&
+				this.y >= center.y - halfSides.y &&
+				this.y < center.y + halfSides.y;
 	}
 
 	@Override

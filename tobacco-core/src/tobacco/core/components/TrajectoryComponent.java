@@ -6,6 +6,7 @@ public class TrajectoryComponent implements Component {
 
 	private Trajectory trajectory;
 	private int step = 0;
+	private boolean loop = false;
 
 	public Trajectory getTrajectory() {
 		return trajectory;
@@ -21,6 +22,14 @@ public class TrajectoryComponent implements Component {
 
 	public void setStep(int step) {
 		this.step = step;
+	}
+
+	public boolean isLoop() {
+		return loop;
+	}
+
+	public void setLoop(boolean loop) {
+		this.loop = loop;
 	}
 
 	@Override

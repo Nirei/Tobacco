@@ -19,6 +19,7 @@ public class EntityRemovalSystem extends AbstractTreeSystem {
 				Entity parent = (Entity) data;
 				ContainerComponent children = (ContainerComponent) parent.getComponent(Component.CONTAINER_C);
 				children.delChildren(entity.getID());
+				entity.delete(); // from entityList in Entity
 			}
 		}
 		return entity;

@@ -4,13 +4,13 @@ import tobacco.core.components.Component;
 import tobacco.core.components.ContainerComponent;
 import tobacco.core.components.Entity;
 import tobacco.core.components.PositionComponent;
-import tobacco.core.systems.AbstractTreeSystem;
+import tobacco.core.systems.AbstractListSystem;
 import tobacco.game.test.components.BulletComponent;
 import tobacco.game.test.components.GameComponent;
 import tobacco.game.test.components.GunComponent;
 import tobacco.game.test.entities.BulletEntityFactory;
 
-public class GunSystem extends AbstractTreeSystem {
+public class GunSystem extends AbstractListSystem {
 
 	private static final String[] requiredComponents = {
 		GameComponent.GUN_C,
@@ -24,7 +24,7 @@ public class GunSystem extends AbstractTreeSystem {
 	}
 
 	@Override
-	public Object process(Entity entity, Object data) {
+	public void process(Entity entity) {
 		if (qualifies(entity)) {
 			PositionComponent posComp = (PositionComponent) entity.getComponent(Component.POSITION_C);
 			ContainerComponent children = (ContainerComponent) entity.getComponent(Component.CONTAINER_C);
@@ -45,7 +45,6 @@ public class GunSystem extends AbstractTreeSystem {
 				}
 			}
 		}
-		return null;
 	}
 
 	@Override

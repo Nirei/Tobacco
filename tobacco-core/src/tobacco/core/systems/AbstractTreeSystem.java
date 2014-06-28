@@ -14,22 +14,17 @@ public abstract class AbstractTreeSystem extends AbstractSystem {
 	public AbstractTreeSystem(String[] _requiredComponents) {
 		super(_requiredComponents);
 	}
-
+	
 	/**
-	 * Determine if the entity qualifies for processing and therefore should be processed by the system.
+	 * Defines what this system does to Entities
 	 * 
 	 * @param entity
-	 *            - Entity to check
-	 * @return <b>true</b> - if the Entity has the required Components<br />
-	 *         <b>false</b> - otherwise
+	 *            - Current Entity being processed
+	 * @param data
+	 *            - Recursive data received when calling it from its parent
+	 * @return Data to pass on to its children
 	 */
-	public boolean qualifies(Entity entity) {
-		for (String type : getRequiredComponents()) {
-			if (!entity.contains(type))
-				return false;
-		}
-		return true;
-	}
+	public abstract Object process(Entity entity, Object data);
 
 	private void processTree(Entity entity, Object data) {
 		data = process(entity, data);

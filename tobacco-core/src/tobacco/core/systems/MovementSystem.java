@@ -6,7 +6,7 @@ import tobacco.core.components.MovementComponent;
 import tobacco.core.components.PositionComponent;
 import tobacco.core.util.Vector2D;
 
-public class MovementSystem extends AbstractTreeSystem {
+public class MovementSystem extends AbstractListSystem {
 
 	private final static String[] requiredComponents = {
 		Component.POSITION_C,
@@ -19,7 +19,7 @@ public class MovementSystem extends AbstractTreeSystem {
 	}
 
 	@Override
-	public Object process(Entity entity, Object data) {
+	public void process(Entity entity) {
 		if (qualifies(entity)) {
 			PositionComponent posComp;
 
@@ -33,12 +33,10 @@ public class MovementSystem extends AbstractTreeSystem {
 			if (!direction.isZero()) {
 				float speed = movComp.getSpeed();
 
-				Vector2D newPos = Vector2D.sum(position, Vector2D.scale(Vector2D.scale(direction.normalize(), speed), delta / 1000f));
+				Vector2D newPos = Vector2D.sum(position, direction.normalize().scale(speed * (delta / 1000f)));
 				posComp.setPosition(newPos);
 			}
 		}
-
-		return null;
 	}
 
 	@Override
