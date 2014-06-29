@@ -20,6 +20,7 @@ public interface Component {
 	public static final String ROTATION_C = "ROTATION_C";
 	public static final String SCALE_C = "SCALE_C";
 	public static final String TRAJECTORY_C = "TRAJECTORY_C";
+	public static final String SOLIDITY_C = "SOLIDITY_C";
 
 	/**
 	 * Returns this component's name.

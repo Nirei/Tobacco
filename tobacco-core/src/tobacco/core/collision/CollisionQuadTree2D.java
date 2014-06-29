@@ -1,4 +1,4 @@
-package tobacco.core.util;
+package tobacco.core.collision;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -6,6 +6,7 @@ import java.util.List;
 import tobacco.core.components.Component;
 import tobacco.core.components.Entity;
 import tobacco.core.components.PositionComponent;
+import tobacco.core.util.Vector2D;
 
 // TODO: Implements collection?
 // TODO: Refactor QuadTree abstraction up
