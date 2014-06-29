@@ -23,6 +23,7 @@ package tobacco.core.systems;
 import tobacco.core.components.Component;
 import tobacco.core.components.ContainerComponent;
 import tobacco.core.components.Entity;
+import tobacco.core.components.RemoveComponent;
 
 public class EntityRemovalSystem extends AbstractTreeSystem {
 
@@ -38,6 +39,8 @@ public class EntityRemovalSystem extends AbstractTreeSystem {
 			if (data != null) {
 				Entity parent = (Entity) data;
 				ContainerComponent children = (ContainerComponent) parent.getComponent(Component.CONTAINER_C);
+				// Remove entity AND its children
+				for(Entity e : children) e.putComponent(new RemoveComponent());
 				children.delChildren(entity.getID());
 				entity.delete(); // from entityList in Entity
 			}
