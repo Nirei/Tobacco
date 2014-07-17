@@ -59,28 +59,29 @@ public abstract class AbstractRenderer implements Renderer, GLEventListener {
 		rootEntity = root;
 	}
 
-	private void update() {
-	}
-
-	private void drawEntityTree(GLAutoDrawable drawable, Entity entity) {
-
+	private void drawEntity(GLAutoDrawable drawable, Entity entity) {
+		
 		GL2 gl = drawable.getGL().getGL2();
-
-		gl.glPushMatrix();
-
-		if (entity.contains(Component.DRAWABLE_C)) {
+		
+		if (entity.has(Component.DRAWABLE_C)) {
+			gl.glPushMatrix();
+			
 			DrawableComponent drawComp = (DrawableComponent) entity.getComponent(Component.DRAWABLE_C);
 
-			float x = 0, y = 0, width = 50, height = 50;
 			Vector2D pos = Vector2D.ZERO;
+			Vector2D sca = new Vector2D(1f, 1f);
+			float x, y, width = 50f, height = 50f;
+			// float zIndex = 0f;
 			float rot = 0f;
-			Vector2D sca = new Vector2D(1, 1);
 
-			if (entity.contains(Component.POSITION_C))
-				pos = ((PositionComponent) entity.getComponent(Component.POSITION_C)).getPosition();
-			if (entity.contains(Component.ROTATION_C))
+			if (entity.has(Component.POSITION_C)) {
+				PositionComponent posComp = (PositionComponent) entity.getComponent(Component.POSITION_C);
+				pos = posComp.getPosition();
+				// zIndex = posComp.getZIndex();
+			}
+			if (entity.has(Component.ROTATION_C))
 				rot = ((RotationComponent) entity.getComponent(Component.ROTATION_C)).getRotation();
-			if (entity.contains(Component.SCALE_C))
+			if (entity.has(Component.SCALE_C))
 				sca = ((ScaleComponent) entity.getComponent(Component.SCALE_C)).getScale();
 
 			Vector2D size = drawComp.getSize();
@@ -95,8 +96,7 @@ public abstract class AbstractRenderer implements Renderer, GLEventListener {
 			x = pos.getX();
 			y = pos.getY();
 
-			float localXInit = -width / 2f, localXEnd = width / 2f, localYInit = -height / 2f, localYEnd = height / 2f;
-
+			float localXEnd = width / 2f, localXInit = -localXEnd, localYEnd = height / 2f, localYInit = -localYEnd;
 			// Apply transformations
 			gl.glTranslatef(x, y, 0);
 			gl.glRotatef(rot, 0, 0, 1);
@@ -137,25 +137,32 @@ public abstract class AbstractRenderer implements Renderer, GLEventListener {
 			gl.glTexCoord2f(textureRight, textureBottom);
 			gl.glVertex2f(localXEnd, localYInit);
 			gl.glEnd();
-
+			
+			gl.glPopMatrix();
 		}
+	}
 
-		if (entity.contains(Component.CONTAINER_C)) {
+	private void drawEntityTree(GLAutoDrawable drawable, Entity entity) {
+		
+		drawEntity(drawable, entity);
+
+		if (entity.has(Component.CONTAINER_C)) {
 			ContainerComponent children = (ContainerComponent) entity.getComponent(Component.CONTAINER_C);
 			for (Entity e : children) {
 				drawEntityTree(drawable, e);
 			}
 		}
 
-		gl.glPopMatrix();
 	}
 
 	private void draw(GLAutoDrawable drawable) {
 		GL2 gl = drawable.getGL().getGL2();
-		gl.glClear(GL.GL_COLOR_BUFFER_BIT | GL.GL_DEPTH_BUFFER_BIT);
+		gl.glClear(GL.GL_COLOR_BUFFER_BIT);
 
 		gl.glEnable(GL.GL_BLEND);
 		gl.glBlendFunc(GL.GL_SRC_ALPHA, GL.GL_ONE_MINUS_SRC_ALPHA);
+
+		//gl.glClearDepth();
 
 		// Use linear filter for texture if image is larger than the original
 		// texture
@@ -181,7 +188,6 @@ public abstract class AbstractRenderer implements Renderer, GLEventListener {
 
 	@Override
 	public void display(GLAutoDrawable drawable) {
-		update();
 		draw(drawable);
 	}
 
@@ -192,7 +198,7 @@ public abstract class AbstractRenderer implements Renderer, GLEventListener {
 
 		gl.glMatrixMode(GL2.GL_PROJECTION);
 		gl.glLoadIdentity();
-		gl.glOrtho(-getWidth()/2f, getWidth()/2f, -getHeight()/2f, getHeight()/2f, 1, -1);
+		gl.glOrtho(-getWidth()/2f, getWidth()/2f, -getHeight()/2f, getHeight()/2f, 1f, -1f);
 		gl.glMatrixMode(GL2.GL_MODELVIEW);
 	}
 

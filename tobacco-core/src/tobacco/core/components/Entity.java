@@ -73,7 +73,7 @@ public final class Entity implements Iterable<Component> {
 	 * 
 	 * @param _component
 	 */
-	public boolean contains(String type) {
+	public boolean has(String type) {
 		return components.containsKey(type);
 	}
 	

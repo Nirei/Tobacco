@@ -52,7 +52,7 @@ public class GunSystem extends AbstractListSystem {
 
 			if (gunComp.isShooting()) {
 				for (Entity e : children) {
-					if (e.contains(GameComponent.BULLET_C)) {
+					if (e.has(GameComponent.BULLET_C)) {
 						BulletComponent bulletComp = (BulletComponent) e.getComponent(GameComponent.BULLET_C);
 						long time = System.currentTimeMillis();
 						long delta = time - bulletComp.getLastBullet();

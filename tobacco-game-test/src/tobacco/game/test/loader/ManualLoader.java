@@ -22,6 +22,7 @@ package tobacco.game.test.loader;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import tobacco.core.components.Component;
 import tobacco.core.components.ContainerComponent;
 import tobacco.core.components.DebuggingComponent;
@@ -33,6 +34,7 @@ import tobacco.core.components.PositionComponent;
 import tobacco.core.loader.Loader;
 import tobacco.core.systems.EngineSystem;
 import tobacco.core.systems.EntityRemovalSystem;
+import tobacco.core.systems.InfoSystem;
 import tobacco.core.systems.MainSystem;
 import tobacco.core.systems.MovementSystem;
 import tobacco.core.systems.InputSystem;
@@ -66,7 +68,7 @@ public class ManualLoader implements Loader {
 		PcRenderSystem prs = new PcRenderSystem(root);
 		// TODO: Listener adds itself but this looks kinda ugly
 		new PcInputListener(root, (AbstractRenderer) prs.getRenderer());
-		// systems.add(new InfoSystem());
+		systems.add(new InfoSystem());
 		systems.add(new MovementSystem());
 		systems.add(new MovementResetSystem());
 		systems.add(new GunSystem());
@@ -88,7 +90,7 @@ public class ManualLoader implements Loader {
 
 			@Override
 			public void execute(Entity rootEntity, Entity entity) {
-				if (entity.contains(Component.MOVEMENT_C)) {
+				if (entity.has(Component.MOVEMENT_C)) {
 					Vector2D direction;
 					MovementComponent movComp = (MovementComponent) entity.getComponent(Component.MOVEMENT_C);
 					direction = Vector2D.sum(movComp.getDirection(), new Vector2D(x, y));
@@ -186,12 +188,12 @@ public class ManualLoader implements Loader {
 		Entity debugAxisY = new Entity();
 		
 		DrawableComponent drawComp = new DrawableComponent("/tobacco/game/test/textures/white_pixel.png", new Vector2D(500f,1f));
-		PositionComponent posComp = new PositionComponent(Vector2D.ZERO);
+		PositionComponent posComp = new PositionComponent(Vector2D.ZERO, 1f);
 		debugAxisX.putComponent(posComp);
 		debugAxisX.putComponent(drawComp);
 		
 		drawComp = new DrawableComponent("/tobacco/game/test/textures/white_pixel.png", new Vector2D(1f, 1000f));
-		posComp = new PositionComponent(Vector2D.ZERO);
+		posComp = new PositionComponent(Vector2D.ZERO, 1f);
 		debugAxisY.putComponent(posComp);
 		debugAxisY.putComponent(drawComp);
 		

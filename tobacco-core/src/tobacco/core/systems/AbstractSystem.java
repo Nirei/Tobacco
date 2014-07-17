@@ -94,7 +94,7 @@ public abstract class AbstractSystem implements EngineSystem {
 	 */
 	public boolean qualifies(Entity entity) {
 		for (String type : getRequiredComponents()) {
-			if (!entity.contains(type))
+			if (!entity.has(type))
 				return false;
 		}
 		return true;

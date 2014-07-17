@@ -57,4 +57,8 @@ public class TrajectoryComponent implements Component {
 		return TRAJECTORY_C;
 	}
 
+	@Override
+	public String toString() {
+		return "Trajectory: [loop: " + loop + " step: " + step + "]";
+	};
 }

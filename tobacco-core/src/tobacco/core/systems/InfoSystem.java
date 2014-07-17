@@ -20,6 +20,11 @@
 */
 package tobacco.core.systems;
 
+import java.awt.Dimension;
+
+import javax.swing.JFrame;
+import javax.swing.JTextArea;
+
 import tobacco.core.components.Component;
 import tobacco.core.components.Entity;
 
@@ -27,9 +32,20 @@ public class InfoSystem extends AbstractTreeSystem {
 
 	private static final String[] requiredComponents = { Component.DEBUGGING_C };
 	private int tick = 0;
+	private StringBuilder sb;
+	private JFrame window = new JFrame();
+	private JTextArea ta = new JTextArea();
 
 	public InfoSystem() {
 		super(requiredComponents);
+		
+		window.setSize(new Dimension(800, 400));
+		window.setTitle("Debugging");
+		
+		
+		window.add(ta);
+		
+		window.setVisible(true);
 	}
 
 	@Override
@@ -39,11 +55,11 @@ public class InfoSystem extends AbstractTreeSystem {
 			str = "";
 
 		if (qualifies(entity)) {
-			System.out.println(str + entity + " {");
+			sb.append(str + entity + " {\n");
 			for (Component c : entity)
 				if (c.getComponentType() != Component.DEBUGGING_C)
-					System.out.println(str + "\t" + c);
-			System.out.println(str + "}");
+					sb.append(str + "\t" + c + "\n");
+			sb.append(str + "}\n");
 		}
 
 		return str + "\t";
@@ -51,10 +67,12 @@ public class InfoSystem extends AbstractTreeSystem {
 
 	@Override
 	public void setUp() {
-		System.out.println("Tick: " + tick++ + " ---");
+		sb = new StringBuilder();
+		sb.append("Tick: " + tick++ + " ---\n");
 	}
 
 	@Override
 	public void tearDown() {
+		ta.setText(sb.toString());
 	}
 }

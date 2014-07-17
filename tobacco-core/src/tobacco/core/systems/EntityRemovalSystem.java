@@ -32,17 +32,24 @@ public class EntityRemovalSystem extends AbstractTreeSystem {
 	public EntityRemovalSystem() {
 		super(requiredComponents);
 	}
+	
+	private void removeEntity(Entity entity, Entity parent) {
+		// Remove entity AND its children (if there were any)
+		if(entity.has(Component.CONTAINER_C)) {
+			ContainerComponent children = (ContainerComponent) entity.getComponent(Component.CONTAINER_C);
+			for(Entity e : children) e.putComponent(new RemoveComponent());
+		}
+
+		ContainerComponent siblings = (ContainerComponent) parent.getComponent(Component.CONTAINER_C);
+		siblings.delChildren(entity.getID());
+		entity.delete(); // from entityList in Entity
+	}
 
 	@Override
 	public Object process(Entity entity, Object data) {
 		if (qualifies(entity)) {
 			if (data != null) {
-				Entity parent = (Entity) data;
-				ContainerComponent children = (ContainerComponent) parent.getComponent(Component.CONTAINER_C);
-				// Remove entity AND its children
-				for(Entity e : children) e.putComponent(new RemoveComponent());
-				children.delChildren(entity.getID());
-				entity.delete(); // from entityList in Entity
+				removeEntity(entity, (Entity) data);
 			}
 		}
 		return entity;
