@@ -40,6 +40,8 @@ public interface Component {
 	public static final String ROTATION_C = "ROTATION_C";
 	public static final String SCALE_C = "SCALE_C";
 	public static final String TRAJECTORY_C = "TRAJECTORY_C";
+	public static final String SCREEN_C = "SCREEN_C";
+	public static final String SIZE_C = "SIZE_C";
 	public static final String SOLIDITY_C = "SOLIDITY_C";
 
 	/**

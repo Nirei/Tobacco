@@ -20,19 +20,15 @@
 */
 package tobacco.core.components;
 
-import tobacco.core.util.Vector2D;
-
-public class DrawableComponent implements Component {
+public class TextureComponent implements Component {
 
 	private String imagePath;
-	private Vector2D size;
 
-	public DrawableComponent() {
+	public TextureComponent() {
 	}
 
-	public DrawableComponent(String _imagePath, Vector2D _size) {
-		imagePath = _imagePath;
-		size = _size;
+	public TextureComponent(String imagePath) {
+		this.imagePath = imagePath;
 	}
 
 	@Override
@@ -44,20 +40,12 @@ public class DrawableComponent implements Component {
 		return imagePath;
 	}
 
-	public void setImagePath(String _imagePath) {
-		imagePath = _imagePath;
-	}
-
-	public Vector2D getSize() {
-		return size == null ? null : new Vector2D(size.getX(), size.getY());
-	}
-
-	public void setSize(Vector2D _size) {
-		size = _size;
+	public void setImagePath(String imagePath) {
+		this.imagePath = imagePath;
 	}
 
 	@Override
 	public String toString() {
-		return "Drawable: (ImagePath: " + imagePath + ", Size: " + size + ")";
+		return "ImagePath: " + imagePath;
 	}
 }

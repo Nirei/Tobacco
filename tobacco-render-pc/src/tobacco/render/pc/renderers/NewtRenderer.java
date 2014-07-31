@@ -30,7 +30,10 @@ import javax.media.opengl.GLProfile;
 
 import com.jogamp.opengl.util.Animator;
 
+import tobacco.core.components.Component;
 import tobacco.core.components.Entity;
+import tobacco.core.components.ScreenComponent;
+import tobacco.core.util.Vector2D;
 import tobacco.render.pc.input.CommonListener;
 
 public class NewtRenderer extends AbstractRenderer implements Renderer,
@@ -38,13 +41,14 @@ public class NewtRenderer extends AbstractRenderer implements Renderer,
 
 	private GLWindow gw;
 
-	public NewtRenderer(String title, Entity root) {
+	public NewtRenderer(String title, Entity screen) {
 		glProfile = GLProfile.getDefault();
 		glCaps = new GLCapabilities(glProfile);
 		gw = GLWindow.create(glCaps);
-		rootEntity = root;
 
-		gw.setSize(480, 640);
+		Vector2D scrSize = ((ScreenComponent) screen.get(Component.SIZE_C)).getScreenSize();
+		gw.setSize((int) scrSize.getX(), (int) scrSize.getY());
+
 		gw.requestFocus();
 		gw.addGLEventListener(this);
 		gw.setDefaultCloseOperation(WindowClosingMode.DISPOSE_ON_CLOSE);

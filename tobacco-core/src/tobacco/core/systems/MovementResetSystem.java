@@ -45,7 +45,7 @@ public class MovementResetSystem extends AbstractListSystem {
 	@Override
 	public void process(Entity entity) {
 		if (qualifies(entity)) {
-			MovementComponent movComp = (MovementComponent) entity.getComponent(Component.MOVEMENT_C);
+			MovementComponent movComp = (MovementComponent) entity.get(Component.MOVEMENT_C);
 			movComp.setDirection(Vector2D.ZERO);
 		}
 	}

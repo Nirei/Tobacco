@@ -21,7 +21,7 @@
 package tobacco.game.test.util;
 
 import tobacco.core.util.Vector2D;
-
+// TODO: This can be an entity.
 public class BulletData {
 
 	private String texture = null;

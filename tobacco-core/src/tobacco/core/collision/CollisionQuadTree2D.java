@@ -158,7 +158,7 @@ public class CollisionQuadTree2D {
 	
 	public void insert(List<Entity> entities) {
 		for(Entity e : entities) {
-			Vector2D pos = ((PositionComponent) e.getComponent(Component.POSITION_C)).getPosition();
+			Vector2D pos = ((PositionComponent) e.get(Component.POSITION_C)).getPosition();
 			if(!root.insert(new Element(pos, e))) {
 				// TODO: Throw an exception
 			}

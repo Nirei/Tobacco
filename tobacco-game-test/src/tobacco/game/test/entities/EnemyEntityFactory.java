@@ -24,10 +24,11 @@ import java.util.Arrays;
 import java.util.List;
 
 import tobacco.core.components.DebuggingComponent;
-import tobacco.core.components.DrawableComponent;
+import tobacco.core.components.TextureComponent;
 import tobacco.core.components.Entity;
 import tobacco.core.components.MovementComponent;
 import tobacco.core.components.PositionComponent;
+import tobacco.core.components.SizeComponent;
 import tobacco.core.components.TrajectoryComponent;
 import tobacco.core.movement.Trajectory;
 import tobacco.core.movement.TraverseFunction;
@@ -46,12 +47,13 @@ public class EnemyEntityFactory {
 	public Entity create() {
 		Entity entity = new Entity();
 
-		DrawableComponent drawComp = new DrawableComponent(texture, size);
-		drawComp.setSize(new Vector2D(50f, 50f));
-		entity.putComponent(drawComp);
-		entity.putComponent(new PositionComponent(new Vector2D(20f, 200f)));
-		entity.putComponent(new MovementComponent(100f));
-		entity.putComponent(new DebuggingComponent());
+		TextureComponent textureComp = new TextureComponent(texture);
+		SizeComponent sizeComp = new SizeComponent(size);
+		entity.put(textureComp);
+		entity.put(sizeComp);
+		entity.put(new PositionComponent(new Vector2D(20f, 200f)));
+		entity.put(new MovementComponent(100f));
+		entity.put(new DebuggingComponent());
 		TrajectoryComponent trajComp = new TrajectoryComponent();
 		Trajectory traj = new Trajectory() {
 			
@@ -79,7 +81,7 @@ public class EnemyEntityFactory {
 		};
 		trajComp.setTrajectory(traj);
 		trajComp.setLoop(true);
-		entity.putComponent(trajComp);
+		entity.put(trajComp);
 
 		return entity;
 	}

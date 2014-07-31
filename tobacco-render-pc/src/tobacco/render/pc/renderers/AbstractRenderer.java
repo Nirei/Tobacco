@@ -29,11 +29,12 @@ import javax.media.opengl.GLProfile;
 
 import tobacco.core.components.Component;
 import tobacco.core.components.ContainerComponent;
-import tobacco.core.components.DrawableComponent;
+import tobacco.core.components.TextureComponent;
 import tobacco.core.components.Entity;
 import tobacco.core.components.PositionComponent;
 import tobacco.core.components.RotationComponent;
 import tobacco.core.components.ScaleComponent;
+import tobacco.core.components.SizeComponent;
 import tobacco.core.util.Vector2D;
 import tobacco.render.pc.input.CommonListener;
 import tobacco.render.pc.util.TextureStorage;
@@ -63,35 +64,33 @@ public abstract class AbstractRenderer implements Renderer, GLEventListener {
 		
 		GL2 gl = drawable.getGL().getGL2();
 		
-		if (entity.has(Component.DRAWABLE_C)) {
+		if (entity.has(Component.DRAWABLE_C) && entity.has(Component.SIZE_C)) {
 			gl.glPushMatrix();
-			
-			DrawableComponent drawComp = (DrawableComponent) entity.getComponent(Component.DRAWABLE_C);
 
 			Vector2D pos = Vector2D.ZERO;
+			Vector2D size = new Vector2D(50f, 50f);
 			Vector2D sca = new Vector2D(1f, 1f);
-			float x, y, width = 50f, height = 50f;
+			float x, y, width, height;
 			// float zIndex = 0f;
 			float rot = 0f;
 
 			if (entity.has(Component.POSITION_C)) {
-				PositionComponent posComp = (PositionComponent) entity.getComponent(Component.POSITION_C);
+				PositionComponent posComp = (PositionComponent) entity.get(Component.POSITION_C);
 				pos = posComp.getPosition();
 				// zIndex = posComp.getZIndex();
 			}
 			if (entity.has(Component.ROTATION_C))
-				rot = ((RotationComponent) entity.getComponent(Component.ROTATION_C)).getRotation();
+				rot = ((RotationComponent) entity.get(Component.ROTATION_C)).getRotation();
 			if (entity.has(Component.SCALE_C))
-				sca = ((ScaleComponent) entity.getComponent(Component.SCALE_C)).getScale();
-
-			Vector2D size = drawComp.getSize();
+				sca = ((ScaleComponent) entity.get(Component.SCALE_C)).getScale();
+			if (entity.has(Component.SIZE_C))
+				size = ((SizeComponent) entity.get(Component.SIZE_C)).getSize();
 
 			Texture texture = null;
 			float textureTop = 0f, textureBottom = 0f, textureLeft = 0f, textureRight = 0f;
-			if (size != null) {
-				width = size.getX();
-				height = size.getY();
-			}
+			
+			width = size.getX();
+			height = size.getY();
 
 			x = pos.getX();
 			y = pos.getY();
@@ -104,7 +103,8 @@ public abstract class AbstractRenderer implements Renderer, GLEventListener {
 
 			// TODO: Proper exception handling
 			try {
-				texture = TextureStorage.getTexture(drawComp.getImagePath());
+				TextureComponent textureComp = (TextureComponent) entity.get(Component.DRAWABLE_C);
+				texture = TextureStorage.getTexture(textureComp.getImagePath());
 			} catch (TextureNotFoundException e) {
 				texture = TextureStorage.getErrorTexture();
 				if (e.getTexturePath() != null)
@@ -147,7 +147,7 @@ public abstract class AbstractRenderer implements Renderer, GLEventListener {
 		drawEntity(drawable, entity);
 
 		if (entity.has(Component.CONTAINER_C)) {
-			ContainerComponent children = (ContainerComponent) entity.getComponent(Component.CONTAINER_C);
+			ContainerComponent children = (ContainerComponent) entity.get(Component.CONTAINER_C);
 			for (Entity e : children) {
 				drawEntityTree(drawable, e);
 			}
@@ -171,7 +171,7 @@ public abstract class AbstractRenderer implements Renderer, GLEventListener {
 		// texture
 		gl.glTexParameteri(GL.GL_TEXTURE_2D, GL.GL_TEXTURE_MIN_FILTER, GL.GL_LINEAR);
 		
-		drawEntityTree(drawable, rootEntity);
+		if(rootEntity != null) drawEntityTree(drawable, rootEntity);
 
 	}
 

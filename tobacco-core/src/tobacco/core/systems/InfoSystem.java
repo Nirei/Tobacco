@@ -67,12 +67,18 @@ public class InfoSystem extends AbstractTreeSystem {
 
 	@Override
 	public void setUp() {
-		sb = new StringBuilder();
-		sb.append("Tick: " + tick++ + " ---\n");
+		if(++tick % 100 == 0) {
+			enable(true);
+			sb = new StringBuilder();
+			sb.append("Tick: " + tick + " ---\n");
+		} else {
+			enable(false);
+		}
 	}
 
 	@Override
 	public void tearDown() {
-		ta.setText(sb.toString());
+		if(isEnabled())
+			ta.setText(sb.toString());
 	}
 }

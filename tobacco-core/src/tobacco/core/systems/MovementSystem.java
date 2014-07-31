@@ -43,10 +43,10 @@ public class MovementSystem extends AbstractListSystem {
 		if (qualifies(entity)) {
 			PositionComponent posComp;
 
-			posComp = ((PositionComponent) entity.getComponent(Component.POSITION_C));
+			posComp = ((PositionComponent) entity.get(Component.POSITION_C));
 			Vector2D position = posComp.getPosition();
 
-			MovementComponent movComp = ((MovementComponent) entity.getComponent(Component.MOVEMENT_C));
+			MovementComponent movComp = ((MovementComponent) entity.get(Component.MOVEMENT_C));
 			Vector2D direction = movComp.getDirection();
 
 			// Calculate new position

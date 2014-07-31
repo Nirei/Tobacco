@@ -33,9 +33,9 @@ public class PcRenderSystem implements EngineSystem {
 
 	Renderer renderer;
 
-	public PcRenderSystem(Entity root) {
+	public PcRenderSystem(Entity screen) {
 		GLProfile.initSingleton(); // Recomended before anything else
-		renderer = new NewtRenderer("The Game", root);
+		renderer = new NewtRenderer("The Game", screen);
 	}
 
 	@Override

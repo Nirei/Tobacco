@@ -23,6 +23,8 @@ package tobacco.core.systems;
 import tobacco.core.components.Entity;
 
 public abstract class AbstractSystem implements EngineSystem {
+	
+	private boolean enabled = true;
 
 	public AbstractSystem(String[] _requiredComponents) {
 		requiredComponents = _requiredComponents;
@@ -43,7 +45,7 @@ public abstract class AbstractSystem implements EngineSystem {
 	 */
 	public abstract void setUp();
 
-	// This calls for Strategy desing pattern but it can wait
+	// TODO: This calls for Strategy desing pattern but it can wait
 	// since I don't think we'll need so much extensibility.
 
 	/**
@@ -58,11 +60,12 @@ public abstract class AbstractSystem implements EngineSystem {
 
 	@Override
 	public void work(Entity root) {
+
 		if (getRootEntity() != root) {
 			setRootEntity(root);
 		}
 		setUp();
-		traverse();
+		if(enabled)	traverse();
 		tearDown();
 	}
 
@@ -99,5 +102,25 @@ public abstract class AbstractSystem implements EngineSystem {
 		}
 		return true;
 	}
+	
+	/**
+	 * Enable or disable this system. Disabled systems will still call setUp()
+	 * and tearDown() but won't call their traverse() function.
+	 * 
+	 * @param enabled <br />
+	 * <b>true</b> - to enable this system <br />
+	 * <b>false</b> - to disable this system
+	 */
+	public void enable(boolean enabled) {
+		this.enabled = enabled;
+	}
 
+	/**
+	 * Return this system's status.
+	 * @return <b>true</b> - if the system is enabled <br />
+	 * <b>false</b> - otherwise
+	 */
+	public boolean isEnabled() {
+		return enabled;
+	}
 }

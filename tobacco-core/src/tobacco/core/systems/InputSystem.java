@@ -46,7 +46,7 @@ public class InputSystem extends AbstractListSystem {
 	@Override
 	public void process(Entity entity) {
 		if (qualifies(entity)) {
-			PlayerComponent playerComp = (PlayerComponent) entity.getComponent(Component.PLAYER_C);
+			PlayerComponent playerComp = (PlayerComponent) entity.get(Component.PLAYER_C);
 
 			for (InputEvent event : playerComp) {
 				Command command = playerComp.get(event);
@@ -70,7 +70,7 @@ public class InputSystem extends AbstractListSystem {
 
 	@Override
 	public void setUp() {
-		keyMap = (KeymapComponent) getRootEntity().getComponent(Component.KEYMAP_C);
+		keyMap = (KeymapComponent) getRootEntity().get(Component.KEYMAP_C);
 	}
 
 	@Override

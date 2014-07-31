@@ -36,7 +36,7 @@ public class TimerSystem extends AbstractListSystem {
 	}
 
 	private void checkDuration(Entity entity, long delta) {
-		DurationComponent durComp = (DurationComponent) entity.getComponent(Component.DURATION_C);
+		DurationComponent durComp = (DurationComponent) entity.get(Component.DURATION_C);
 		long left = durComp.getDuration() - delta;
 
 		// Update duration left with delta
@@ -45,7 +45,7 @@ public class TimerSystem extends AbstractListSystem {
 		}
 		// If time has expired, mark Entity for removal :(
 		if (left <= 0)
-			entity.putComponent(new RemoveComponent());
+			entity.put(new RemoveComponent());
 	}
 
 	@Override

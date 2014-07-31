@@ -35,8 +35,8 @@ public class PcInputListener implements CommonListener {
 	private MouseComponent mouseComp = new MouseComponent();
 
 	public PcInputListener(Entity root, AbstractRenderer renderer) {
-		root.putComponent(keyMapComp);
-		root.putComponent(mouseComp);
+		root.put(keyMapComp);
+		root.put(mouseComp);
 		renderer.addListener(this);
 	}
 

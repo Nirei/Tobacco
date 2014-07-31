@@ -20,14 +20,18 @@
 */
 package tobacco.core.systems;
 
+import tobacco.core.collision.CollisionQuadTree2D;
 import tobacco.core.components.Entity;
 
 public class CollisionSystem extends AbstractListSystem {
 
 	private static final String[] requiredComponents = {};
+	private CollisionQuadTree2D cqt;
+
 	
-	public CollisionSystem() {
+	public CollisionSystem(Entity screen) {
 		super(requiredComponents);
+		//cqt = new CollisionQuadTree2D();
 	}
 
 	@Override
@@ -38,8 +42,9 @@ public class CollisionSystem extends AbstractListSystem {
 
 	@Override
 	public void setUp() {
-		// TODO Apéndice de método generado automáticamente
-		
+		for(Entity e : Entity.getEntityList()) {
+			
+		}
 	}
 
 	@Override

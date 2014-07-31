@@ -43,9 +43,9 @@ public class HealthSystem extends AbstractListSystem {
 	@Override
 	public void process(Entity entity) {
 		if (qualifies(entity)) {
-			HealthComponent healthComponent = (HealthComponent) entity.getComponent(GameComponent.HEALTH_C);
+			HealthComponent healthComponent = (HealthComponent) entity.get(GameComponent.HEALTH_C);
 			if (healthComponent.isDead()) {
-				entity.putComponent(new RemoveComponent());
+				entity.put(new RemoveComponent());
 			}
 		}
 	}

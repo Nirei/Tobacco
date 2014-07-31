@@ -46,20 +46,20 @@ public class GunSystem extends AbstractListSystem {
 	@Override
 	public void process(Entity entity) {
 		if (qualifies(entity)) {
-			PositionComponent posComp = (PositionComponent) entity.getComponent(Component.POSITION_C);
-			ContainerComponent children = (ContainerComponent) entity.getComponent(Component.CONTAINER_C);
-			GunComponent gunComp = (GunComponent) entity.getComponent(GameComponent.GUN_C);
+			PositionComponent posComp = (PositionComponent) entity.get(Component.POSITION_C);
+			ContainerComponent children = (ContainerComponent) entity.get(Component.CONTAINER_C);
+			GunComponent gunComp = (GunComponent) entity.get(GameComponent.GUN_C);
 
 			if (gunComp.isShooting()) {
 				for (Entity e : children) {
 					if (e.has(GameComponent.BULLET_C)) {
-						BulletComponent bulletComp = (BulletComponent) e.getComponent(GameComponent.BULLET_C);
+						BulletComponent bulletComp = (BulletComponent) e.get(GameComponent.BULLET_C);
 						long time = System.currentTimeMillis();
 						long delta = time - bulletComp.getLastBullet();
 						if (bulletComp.getBulletPeriod() <= delta) {
 							bulletComp.setLastBullet(time);
 							Entity bullet = bulletEntityFactory.create(posComp.getPosition(), bulletComp);
-							((ContainerComponent) getRootEntity().getComponent(Component.CONTAINER_C)).addChild(bullet);
+							((ContainerComponent) getRootEntity().get(Component.CONTAINER_C)).addChild(bullet);
 						}
 					}
 				}

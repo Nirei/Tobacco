@@ -52,7 +52,7 @@ public final class Entity implements Iterable<Component> {
 	 * 
 	 * @return Map of {@link Component} for this entity.
 	 */
-	public Component getComponent(String type) {
+	public Component get(String type) {
 		synchronized (components) {
 			return components.get(type);
 		}
@@ -64,7 +64,7 @@ public final class Entity implements Iterable<Component> {
 	 * @param _component
 	 *            Component to be added
 	 */
-	public void putComponent(Component _component) {
+	public void put(Component _component) {
 		components.put(_component.getComponentType(), _component);
 	}
 
