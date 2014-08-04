@@ -21,8 +21,14 @@
 package tobacco.core.util;
 
 public class Angle {
-	private float value;
-	private float degrees;
+
+	private final float value;
+	private final float degrees;
+	
+	public Angle(float value) {
+		this.value = value;
+		this.degrees = (180f / (float) Math.PI) * value;
+	}
 
 	public float getValue() {
 		return value;
@@ -32,24 +38,10 @@ public class Angle {
 		return degrees;
 	}
 
-	public Angle(float value) {
-		this.value = value;
-		this.degrees = (180f / (float) Math.PI) * value;
+	public Angle normalize() {
+		float nvalue = (float) (value % (2f * Math.PI));
+		if(nvalue < 0) nvalue += 2f * Math.PI;
+		return new Angle(nvalue);
 	}
-
-	// TODO: Qué es esta puta mierda?
-	// public void normalize ()
-	// {
-	// if(value<-Math.PI)
-	// {
-	// value+=2*(Math.PI);
-	// normalize();
-	// }
-	// else if(value>Math.PI)
-	// {
-	// value-=2*(Math.PI);
-	// normalize();
-	// }
-	// }
 
 }

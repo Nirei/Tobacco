@@ -20,37 +20,65 @@
 */
 package tobacco.core.systems;
 
-import tobacco.core.collision.CollisionQuadTree2D;
-import tobacco.core.components.Entity;
+import java.util.HashSet;
+import java.util.Set;
 
+import tobacco.core.collision.CollisionQuadTree2D;
+import tobacco.core.components.Component;
+import tobacco.core.components.Entity;
+import tobacco.core.components.PositionComponent;
+import tobacco.core.components.ScreenComponent;
+import tobacco.core.util.Vector2D;
+
+// TODO: Dirty as hell
 public class CollisionSystem extends AbstractListSystem {
 
-	private static final String[] requiredComponents = {};
+	private static final String[] requiredComponents = {Component.SOLIDITY_C, Component.POSITION_C};
 	private CollisionQuadTree2D cqt;
+	Set<Entity> checked = new HashSet<Entity>();
 
 	
-	public CollisionSystem(Entity screen) {
+	public CollisionSystem(Entity root) {
 		super(requiredComponents);
-		//cqt = new CollisionQuadTree2D();
+		Vector2D screenSize = ((ScreenComponent) root.get(Component.SCREEN_C)).getScreenSize();
+		cqt = new CollisionQuadTree2D(Vector2D.ZERO, screenSize.scale(0.55f), 4, 6);
+	}
+	
+	private boolean collides(Entity e1, Entity e2) {
+		return false;
+	}
+	
+	private void writeCollision(Entity e1, Entity e2) {
+		System.out.println(e1 + " collides with " + e2);
 	}
 
 	@Override
 	public void process(Entity entity) {
-		// TODO Apéndice de método generado automáticamente
-		
+		if(qualifies(entity)) {
+			Vector2D pos = ((PositionComponent) entity.get(Component.POSITION_C)).getPosition();
+			for(Entity e : cqt.query(pos)) {
+				if(!checked.contains(e) && !e.equals(entity) && collides(e, entity)) {
+					System.out.println(e + " is around " + entity);
+					writeCollision(e, entity);
+				}
+			}
+			checked.add(entity);
+		}
 	}
 
 	@Override
 	public void setUp() {
 		for(Entity e : Entity.getEntityList()) {
-			
+			if(qualifies(e))
+				cqt.insert(e);
 		}
 	}
 
 	@Override
 	public void tearDown() {
-		// TODO Apéndice de método generado automáticamente
-		
+		System.out.println(cqt.toString());
+		cqt.clear();
+		checked.clear();
 	}
 
 }

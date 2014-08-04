@@ -42,7 +42,9 @@ public class PcInputListener implements CommonListener {
 
 	@Override
 	public void keyPressed(KeyEvent e) {
-		// TODO: Diferenciar entre Shift, etc. derecho e izquierdo
+		// TODO: Tell LEFT from RIGHT SHIFT apart.
+		// I asked Xerxes Randby on twitter and he put up this:
+		// https://jogamp.org/bugzilla/show_bug.cgi?id=1026
 		if (!e.isAutoRepeat()) {
 			PcInputCode key = PcInputCode.getKeyByCode(e.getKeyCode());
 			synchronized (keyMapComp) {

@@ -21,6 +21,7 @@
 package tobacco.core.collision;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import tobacco.core.components.Component;
@@ -40,6 +41,7 @@ public class CollisionQuadTree2D {
 			NE = 3; // 	1	1
 	
 	private final int nodeSize, maxDepth;
+	private Vector2D center, halfSides;
 	
 	private class Element {
 		private Vector2D point;
@@ -56,6 +58,11 @@ public class CollisionQuadTree2D {
 		
 		public Entity getEntity() {
 			return entity;
+		}
+		
+		@Override
+		public String toString() {
+			return "(" + point + "," + entity + ")";
 		}
 	}
 	
@@ -80,7 +87,7 @@ public class CollisionQuadTree2D {
 		}
 
 		private boolean isFull() {
-			return !(fill <= nodeSize);
+			return (fill >= nodeSize);
 		}
 		
 		private boolean hasChildren() {
@@ -91,6 +98,10 @@ public class CollisionQuadTree2D {
 			Vector2D hS1 = halfSides.scale(.5f);
 			Vector2D hS2 = new Vector2D(hS1.getX(), -hS1.getY());
 			int childDepth = depth + 1;
+			
+			// Set fill to -1 to indicate non-leaf node
+			fill = -1;
+
 			children[SW] = new Node(Vector2D.minus(center, hS2), hS1, childDepth);
 			children[SE] = new Node(Vector2D.minus(center, hS1), hS1, childDepth);
 			children[NW] = new Node(Vector2D.sum(center, hS2), hS1, childDepth);
@@ -100,26 +111,28 @@ public class CollisionQuadTree2D {
 			for(Element e : elements) {
 				insert(e);
 			}
+
 			// Just in case...
 			elements = null;
-			
-			// Set fill to -1 to indicate non-leaf node
-			fill = -1;
 		}
 
 		public boolean insert(Element element) {
 			if(!element.getPoint().isInsideArea(center, halfSides)) return false;
 
-			if(isFull() && (depth <= maxDepth)) {
-				subdivide();
-				
+			if(hasChildren()) {
 				for(Node n : children)
 					if(n.insert(element)) return true;
+				return false;
+			}
+
+			if(isFull() && (depth <= maxDepth)) {
+				subdivide();
 			} else {
 				elements.add(element);
+				++fill;
 				return true;
 			}
-			
+
 			return false;
 		}
 		
@@ -146,26 +159,38 @@ public class CollisionQuadTree2D {
 			return children[child].query(point);
 		}
 
+		@Override
+		public String toString() {
+			return "Node {center: " + center + ", halfSides: " + halfSides + ", fill: " + fill + ", elements: " + elements + ", children: " + Arrays.toString(children) + "}";
+		}
 	}
-	
+
 	private Node root;
 
 	public CollisionQuadTree2D(Vector2D center, Vector2D halfSides, int nodeSize, int maxDepth) {
 		root = new Node(center, halfSides);
 		this.nodeSize = nodeSize;
 		this.maxDepth = maxDepth;
+		this.center = center;
+		this.halfSides = halfSides;
 	}
 	
-	public void insert(List<Entity> entities) {
-		for(Entity e : entities) {
-			Vector2D pos = ((PositionComponent) e.get(Component.POSITION_C)).getPosition();
-			if(!root.insert(new Element(pos, e))) {
-				// TODO: Throw an exception
-			}
-		}
+	public void insert(Entity entity) {
+		Vector2D pos = ((PositionComponent) entity.get(Component.POSITION_C)).getPosition();
+		// Insert returns false if inserted element is out of tree range.
+		root.insert(new Element(pos, entity));
 	}
-	
+
 	public List<Entity> query(Vector2D point) {
 		return root.query(point);
+	}
+
+	public void clear() {
+		root = new Node(center, halfSides);
+	}
+
+	@Override
+	public String toString() {
+		return root.toString();
 	}
 }

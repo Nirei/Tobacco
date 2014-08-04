@@ -24,6 +24,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import tobacco.core.components.DebuggingComponent;
+import tobacco.core.components.SolidityComponent;
 import tobacco.core.components.TextureComponent;
 import tobacco.core.components.Entity;
 import tobacco.core.components.MovementComponent;
@@ -54,6 +55,7 @@ public class EnemyEntityFactory {
 		entity.put(new PositionComponent(new Vector2D(20f, 200f)));
 		entity.put(new MovementComponent(100f));
 		entity.put(new DebuggingComponent());
+		entity.put(new SolidityComponent(10f));
 		TrajectoryComponent trajComp = new TrajectoryComponent();
 		Trajectory traj = new Trajectory() {
 			

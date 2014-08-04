@@ -21,11 +21,28 @@
 package tobacco.core.components;
 
 public class SolidityComponent implements Component {
+	
+	private float radius;
+	
+	public SolidityComponent(float radius) {
+		this.radius = radius;
+	}
 
 	@Override
 	public String getComponentType() {
 		return SOLIDITY_C;
 	}
 
+	public float getRadius() {
+		return radius;
+	}
 	
+	public void setRadius(float radius) {
+		this.radius = radius;
+	}
+	
+	@Override
+	public String toString() {
+		return "Solid: " + radius + " (Radius)";
+	}
 }

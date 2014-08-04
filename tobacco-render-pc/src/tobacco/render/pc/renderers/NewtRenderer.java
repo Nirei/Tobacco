@@ -41,12 +41,12 @@ public class NewtRenderer extends AbstractRenderer implements Renderer,
 
 	private GLWindow gw;
 
-	public NewtRenderer(String title, Entity screen) {
+	public NewtRenderer(String title, Entity root) {
 		glProfile = GLProfile.getDefault();
 		glCaps = new GLCapabilities(glProfile);
 		gw = GLWindow.create(glCaps);
 
-		Vector2D scrSize = ((ScreenComponent) screen.get(Component.SIZE_C)).getScreenSize();
+		Vector2D scrSize = ((ScreenComponent) root.get(Component.SCREEN_C)).getScreenSize();
 		gw.setSize((int) scrSize.getX(), (int) scrSize.getY());
 
 		gw.requestFocus();

@@ -65,14 +65,7 @@ public final class TextureStorage {
 		return textureMap.get(name);
 	}
 
-	public static Texture getErrorTexture() {
-		// TODO Apéndice de método generado automáticamente
-		try {
-			return getTexture("/tobacco/game/test/textures/error.png");
-		} catch (TextureNotFoundException e) {
-			e.printStackTrace();
-		}
-
-		return null;
+	public static Texture getErrorTexture() throws TextureNotFoundException {
+		return getTexture("/tobacco/game/test/textures/error.png");
 	}
 }

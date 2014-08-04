@@ -26,6 +26,7 @@ import java.util.List;
 import tobacco.core.components.Component;
 import tobacco.core.components.ContainerComponent;
 import tobacco.core.components.DebuggingComponent;
+import tobacco.core.components.SolidityComponent;
 import tobacco.core.components.TextureComponent;
 import tobacco.core.components.Entity;
 import tobacco.core.components.MovementComponent;
@@ -34,6 +35,7 @@ import tobacco.core.components.PositionComponent;
 import tobacco.core.components.ScreenComponent;
 import tobacco.core.components.SizeComponent;
 import tobacco.core.loader.Loader;
+import tobacco.core.systems.CollisionSystem;
 import tobacco.core.systems.EngineSystem;
 import tobacco.core.systems.EntityRemovalSystem;
 import tobacco.core.systems.InfoSystem;
@@ -68,9 +70,10 @@ public class ManualLoader implements Loader {
 		PcRenderSystem prs = new PcRenderSystem(root);
 		// TODO: Listener adds itself but this looks kinda ugly
 		new PcInputListener(root, (AbstractRenderer) prs.getRenderer());
-		systems.add(new InfoSystem());
+		//systems.add(new InfoSystem());
 		systems.add(new MovementSystem());
 		systems.add(new MovementResetSystem());
+		systems.add(new CollisionSystem(root));
 		systems.add(new GunSystem());
 		systems.add(new HealthSystem());
 		systems.add(new TimerSystem());
@@ -181,6 +184,7 @@ public class ManualLoader implements Loader {
 		player.put(containerComponent);
 		player.put(new MovementComponent(500f));
 		player.put(new HealthComponent(100f));
+		player.put(new SolidityComponent(10f));
 
 		rootContainer.addChild(player);
 		EnemyEntityFactory eeFactory = new EnemyEntityFactory("/tobacco/game/test/textures/fairy_blue.png", new Vector2D(26f, 28f));

@@ -101,31 +101,35 @@ public abstract class AbstractRenderer implements Renderer, GLEventListener {
 			gl.glRotatef(rot, 0, 0, 1);
 			gl.glScalef(sca.getX(), sca.getY(), 0);
 
-			// TODO: Proper exception handling
 			try {
 				TextureComponent textureComp = (TextureComponent) entity.get(Component.DRAWABLE_C);
 				texture = TextureStorage.getTexture(textureComp.getImagePath());
-			} catch (TextureNotFoundException e) {
-				texture = TextureStorage.getErrorTexture();
-				if (e.getTexturePath() != null)
-					System.err.println(e.getMessage());
+			} catch (TextureNotFoundException e1) {
+				try {
+					texture = TextureStorage.getErrorTexture();
+				} catch (TextureNotFoundException e2) {
+					System.err.println(e1.getMessage());
+					System.err.println(e2.getMessage());
+				}
 			}
 
-			// Texture image flips vertically. Shall use TextureCoords class
-			// to retrieve
-			// the top, bottom, left and right coordinates, instead of using
-			// 0.0f and 1.0f.
-			TextureCoords textureCoords = texture.getImageTexCoords();
-			textureTop = textureCoords.top();
-			textureBottom = textureCoords.bottom();
-			textureLeft = textureCoords.left();
-			textureRight = textureCoords.right();
-
-			// Enables this texture's target in the current GL context's
-			// state.
-			texture.enable(gl);
-			// Binds this texture to the current GL context.
-			texture.bind(gl);
+			if(texture != null) {
+				// Texture image flips vertically. Shall use TextureCoords class
+				// to retrieve
+				// the top, bottom, left and right coordinates, instead of using
+				// 0.0f and 1.0f.
+				TextureCoords textureCoords = texture.getImageTexCoords();
+				textureTop = textureCoords.top();
+				textureBottom = textureCoords.bottom();
+				textureLeft = textureCoords.left();
+				textureRight = textureCoords.right();
+	
+				// Enables this texture's target in the current GL context's
+				// state.
+				texture.enable(gl);
+				// Binds this texture to the current GL context.
+				texture.bind(gl);
+			}
 
 			gl.glBegin(GL2.GL_QUADS);
 			gl.glTexCoord2f(textureLeft, textureBottom);

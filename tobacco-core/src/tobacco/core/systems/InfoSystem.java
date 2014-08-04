@@ -41,8 +41,7 @@ public class InfoSystem extends AbstractTreeSystem {
 		
 		window.setSize(new Dimension(800, 400));
 		window.setTitle("Debugging");
-		
-		
+
 		window.add(ta);
 		
 		window.setVisible(true);
@@ -71,6 +70,7 @@ public class InfoSystem extends AbstractTreeSystem {
 			enable(true);
 			sb = new StringBuilder();
 			sb.append("Tick: " + tick + " ---\n");
+			sb.append(Entity.getEntityList() + "\n");
 		} else {
 			enable(false);
 		}

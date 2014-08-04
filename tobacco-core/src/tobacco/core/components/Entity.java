@@ -34,16 +34,15 @@ import java.util.Map;
  */
 public final class Entity implements Iterable<Component> {
 
+	// TODO: Object pool for Entities
 	private static List<Entity> entityList = new LinkedList<Entity>();
 	private static long counter = 0;
 
 	private long id = 0;
-	private long index;
 	private Map<String, Component> components = new HashMap<String, Component>();
 
 	public Entity() {
 		id = counter++;
-		index = entityList.size();
 		entityList.add(this);
 	}
 
@@ -81,7 +80,7 @@ public final class Entity implements Iterable<Component> {
 	 * Deletes the Entity from the Entity directory.
 	 */
 	public void delete() {
-		entityList.remove(index);
+		entityList.remove(this);
 	}
 
 	/**

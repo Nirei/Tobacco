@@ -21,6 +21,7 @@
 package tobacco.game.test.entities;
 
 import tobacco.core.components.DebuggingComponent;
+import tobacco.core.components.SolidityComponent;
 import tobacco.core.components.TextureComponent;
 import tobacco.core.components.DurationComponent;
 import tobacco.core.components.Entity;
@@ -45,6 +46,7 @@ public class BulletEntityFactory {
 		entity.put(new RotationComponent(90f + Vector2D.angle(Vector2D.VERTICAL, dir).getDegrees()));
 		entity.put(new DebuggingComponent());
 		entity.put(new DurationComponent(1000));
+		entity.put(new SolidityComponent(10f));
 
 		return entity;
 	}
