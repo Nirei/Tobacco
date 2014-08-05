@@ -22,7 +22,7 @@ package tobacco.game.test.components;
 
 public class HealthComponent implements GameComponent {
 
-	float health = 1f; // Don't auto-kill entities without defined health
+	private float health = 1f; // Don't auto-kill entities without defined health
 
 	public HealthComponent() {
 	}
@@ -46,6 +46,11 @@ public class HealthComponent implements GameComponent {
 
 	public void setHealth(float health) {
 		this.health = health;
+	}
+	
+	@Override
+	public String toString() {
+		return "Health: " + health;
 	}
 
 }

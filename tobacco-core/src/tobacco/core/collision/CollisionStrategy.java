@@ -18,28 +18,23 @@
 *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 *
 */
-package tobacco.render.pc.components;
+package tobacco.core.collision;
 
-import tobacco.core.util.Vector2D;
+import tobacco.core.components.Entity;
 
-public class MouseComponent implements RendererComponent {
+/**
+ * 
+ * @author nirei
+ *
+ */
+public interface CollisionStrategy {
+	
+	/**
+	 * Check if two entities collide.
+	 * @param e1 - First entity
+	 * @param e2 - Second entity
+	 * @return Truth value of a collision happening.
+	 */
+	public boolean collides(Entity e1, Entity e2);
 
-	private Vector2D position = Vector2D.ZERO;
-
-	@Override
-	public String getComponentType() {
-		return MOUSE_C;
-	}
-
-	public void setPosition(Vector2D position) {
-		this.position = position;
-	}
-
-	public Vector2D getPosition() {
-		return position;
-	}
-
-	public String toString() {
-		return "Mouse: " + position;
-	}
 }

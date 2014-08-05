@@ -21,13 +21,15 @@
 package tobacco.core.components;
 
 import java.util.HashSet;
+import java.util.Set;
+
 import tobacco.core.util.InputCode;
 
 public class KeymapComponent implements Component {
 
-	HashSet<InputCode> keyMap = new HashSet<InputCode>();
-	HashSet<InputCode> pressedNowMap = new HashSet<InputCode>();
-	HashSet<InputCode> releasedNowMap = new HashSet<InputCode>();
+	private Set<InputCode> keyMap = new HashSet<InputCode>();
+	private Set<InputCode> pressedNowMap = new HashSet<InputCode>();
+	private Set<InputCode> releasedNowMap = new HashSet<InputCode>();
 
 	@Override
 	public String getComponentType() {

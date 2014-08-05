@@ -21,7 +21,6 @@
 package tobacco.core.collision;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import tobacco.core.components.Component;
@@ -58,11 +57,6 @@ public class CollisionQuadTree2D {
 		
 		public Entity getEntity() {
 			return entity;
-		}
-		
-		@Override
-		public String toString() {
-			return "(" + point + "," + entity + ")";
 		}
 	}
 	
@@ -158,11 +152,6 @@ public class CollisionQuadTree2D {
 			// Tail-recursive call
 			return children[child].query(point);
 		}
-
-		@Override
-		public String toString() {
-			return "Node {center: " + center + ", halfSides: " + halfSides + ", fill: " + fill + ", elements: " + elements + ", children: " + Arrays.toString(children) + "}";
-		}
 	}
 
 	private Node root;
@@ -187,10 +176,5 @@ public class CollisionQuadTree2D {
 
 	public void clear() {
 		root = new Node(center, halfSides);
-	}
-
-	@Override
-	public String toString() {
-		return root.toString();
 	}
 }

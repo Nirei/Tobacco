@@ -25,10 +25,12 @@ import com.jogamp.newt.event.MouseEvent;
 
 import tobacco.core.components.Entity;
 import tobacco.core.components.KeymapComponent;
+import tobacco.core.util.Vector2D;
 import tobacco.render.pc.components.MouseComponent;
 import tobacco.render.pc.renderers.AbstractRenderer;
 
 // TODO: A listener that adds itself? Don't think so...
+// TODO: Mouse coords should be given on ingame position instead absolute screen pos
 public class PcInputListener implements CommonListener {
 
 	private KeymapComponent keyMapComp = new KeymapComponent();
@@ -38,6 +40,10 @@ public class PcInputListener implements CommonListener {
 		root.put(keyMapComp);
 		root.put(mouseComp);
 		renderer.addListener(this);
+	}
+	
+	private Vector2D getMousePosition(MouseEvent e) {
+		return new Vector2D(e.getX(), e.getY());
 	}
 
 	@Override
@@ -69,6 +75,11 @@ public class PcInputListener implements CommonListener {
 		synchronized (keyMapComp) {
 			keyMapComp.press(key);
 		}
+		
+		Vector2D mousePos = getMousePosition(e);
+		synchronized (mouseComp) {
+			mouseComp.setPosition(mousePos);;
+		}
 	}
 
 	@Override
@@ -77,10 +88,19 @@ public class PcInputListener implements CommonListener {
 		synchronized (keyMapComp) {
 			keyMapComp.release(key);
 		}
+		
+		Vector2D mousePos = getMousePosition(e);
+		synchronized (mouseComp) {
+			mouseComp.setPosition(mousePos);;
+		}
 	}
 
 	@Override
 	public void mouseMoved(MouseEvent e) {
+		Vector2D mousePos = getMousePosition(e);
+		synchronized (mouseComp) {
+			mouseComp.setPosition(mousePos);;
+		}
 	}
 
 	@Override

@@ -56,6 +56,7 @@ import tobacco.game.test.entities.EnemyEntityFactory;
 import tobacco.game.test.systems.GunSystem;
 import tobacco.game.test.systems.HealthSystem;
 import tobacco.game.test.util.BulletData;
+import tobacco.game.test.util.HitCircleCollisionStrategy;
 import tobacco.render.pc.input.PcInputListener;
 import tobacco.render.pc.renderers.AbstractRenderer;
 import tobacco.render.pc.systems.PcRenderSystem;
@@ -70,10 +71,10 @@ public class ManualLoader implements Loader {
 		PcRenderSystem prs = new PcRenderSystem(root);
 		// TODO: Listener adds itself but this looks kinda ugly
 		new PcInputListener(root, (AbstractRenderer) prs.getRenderer());
-		//systems.add(new InfoSystem());
+		systems.add(new InfoSystem());
 		systems.add(new MovementSystem());
 		systems.add(new MovementResetSystem());
-		systems.add(new CollisionSystem(root));
+		systems.add(new CollisionSystem(root, HitCircleCollisionStrategy.getSingleton()));
 		systems.add(new GunSystem());
 		systems.add(new HealthSystem());
 		systems.add(new TimerSystem());

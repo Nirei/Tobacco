@@ -18,28 +18,38 @@
 *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 *
 */
-package tobacco.render.pc.components;
+package tobacco.core.components;
 
-import tobacco.core.util.Vector2D;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.Set;
 
-public class MouseComponent implements RendererComponent {
+import tobacco.core.collision.Collision;
 
-	private Vector2D position = Vector2D.ZERO;
+public class CollisionMapComponent implements Component, Iterable<Collision> {
+	
+	private Set<Collision> collisionSet = new HashSet<Collision>();
+
+	public void addCollision(Entity e1, Entity e2) {
+		collisionSet.add(new Collision(e1, e2));
+	}
+	
+	public void clear() {
+		collisionSet.clear();
+	}
 
 	@Override
 	public String getComponentType() {
-		return MOUSE_C;
+		return Component.COLLISIONMAP_C;
 	}
 
-	public void setPosition(Vector2D position) {
-		this.position = position;
+	@Override
+	public Iterator<Collision> iterator() {
+		return collisionSet.iterator();
 	}
-
-	public Vector2D getPosition() {
-		return position;
-	}
-
+	
+	@Override
 	public String toString() {
-		return "Mouse: " + position;
+		return "Collisions: " + collisionSet;
 	}
 }

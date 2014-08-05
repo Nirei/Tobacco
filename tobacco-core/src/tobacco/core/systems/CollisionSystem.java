@@ -24,32 +24,43 @@ import java.util.HashSet;
 import java.util.Set;
 
 import tobacco.core.collision.CollisionQuadTree2D;
+import tobacco.core.collision.CollisionStrategy;
+import tobacco.core.components.CollisionMapComponent;
 import tobacco.core.components.Component;
 import tobacco.core.components.Entity;
 import tobacco.core.components.PositionComponent;
 import tobacco.core.components.ScreenComponent;
 import tobacco.core.util.Vector2D;
 
-// TODO: Dirty as hell
+/* Writes on its own cMapComp, similarly to what the InputListener
+ * does with keyMapComp. In the future it may be positive to respect
+ * data access methods and read cMapComp from the root entity everytime
+ * instead of keeping a reference, which could accidentally become unlinked
+ * from root.
+ */
 public class CollisionSystem extends AbstractListSystem {
 
 	private static final String[] requiredComponents = {Component.SOLIDITY_C, Component.POSITION_C};
-	private CollisionQuadTree2D cqt;
-	Set<Entity> checked = new HashSet<Entity>();
 
-	
-	public CollisionSystem(Entity root) {
+	private final CollisionQuadTree2D cqt;
+	private final CollisionStrategy cStrategy;
+	private final CollisionMapComponent cMapComp = new CollisionMapComponent();
+
+	private Set<Entity> checked = new HashSet<Entity>();
+
+	public CollisionSystem(Entity root, CollisionStrategy cStrategy) {
 		super(requiredComponents);
+
+		this.cStrategy = cStrategy; 
+		
 		Vector2D screenSize = ((ScreenComponent) root.get(Component.SCREEN_C)).getScreenSize();
 		cqt = new CollisionQuadTree2D(Vector2D.ZERO, screenSize.scale(0.55f), 4, 6);
-	}
-	
-	private boolean collides(Entity e1, Entity e2) {
-		return false;
+		
+		root.put(cMapComp);
 	}
 	
 	private void writeCollision(Entity e1, Entity e2) {
-		System.out.println(e1 + " collides with " + e2);
+		cMapComp.addCollision(e1, e2);
 	}
 
 	@Override
@@ -57,8 +68,7 @@ public class CollisionSystem extends AbstractListSystem {
 		if(qualifies(entity)) {
 			Vector2D pos = ((PositionComponent) entity.get(Component.POSITION_C)).getPosition();
 			for(Entity e : cqt.query(pos)) {
-				if(!checked.contains(e) && !e.equals(entity) && collides(e, entity)) {
-					System.out.println(e + " is around " + entity);
+				if(!checked.contains(e) && !e.equals(entity) && cStrategy.collides(e, entity)) {
 					writeCollision(e, entity);
 				}
 			}
@@ -68,6 +78,7 @@ public class CollisionSystem extends AbstractListSystem {
 
 	@Override
 	public void setUp() {
+		cMapComp.clear();
 		for(Entity e : Entity.getEntityList()) {
 			if(qualifies(e))
 				cqt.insert(e);
@@ -76,7 +87,6 @@ public class CollisionSystem extends AbstractListSystem {
 
 	@Override
 	public void tearDown() {
-		System.out.println(cqt.toString());
 		cqt.clear();
 		checked.clear();
 	}

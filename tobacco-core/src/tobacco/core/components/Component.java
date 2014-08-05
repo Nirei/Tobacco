@@ -28,6 +28,7 @@ package tobacco.core.components;
  */
 public interface Component {
 
+	public static final String COLLISIONMAP_C = "COLLISIONMAP_C";
 	public static final String CONTAINER_C = "CONTAINER_C";
 	public static final String DEBUGGING_C = "DEBUGGING_C";
 	public static final String DRAWABLE_C = "DRAWABLE_C";
