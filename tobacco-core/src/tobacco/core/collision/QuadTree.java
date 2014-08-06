@@ -23,14 +23,11 @@ package tobacco.core.collision;
 import java.util.ArrayList;
 import java.util.List;
 
-import tobacco.core.components.Component;
-import tobacco.core.components.Entity;
-import tobacco.core.components.PositionComponent;
 import tobacco.core.util.Vector2D;
 
 // TODO: Implements collection?
 // TODO: Refactor QuadTree abstraction up
-public class CollisionQuadTree2D {
+public class QuadTree<T> {
 	
 	private static final int
 			 		//	S/N W/E
@@ -44,23 +41,23 @@ public class CollisionQuadTree2D {
 	
 	private class Element {
 		private Vector2D point;
-		private Entity entity;
+		private T element;
 		
-		public Element(Vector2D point, Entity entity) {
+		public Element(Vector2D point, T element) {
 			this.point = point;
-			this.entity = entity;
+			this.element = element;
 		}
 		
 		public Vector2D getPoint() {
 			return point; 
 		}
 		
-		public Entity getEntity() {
-			return entity;
+		public T getElement() {
+			return element;
 		}
 	}
 	
-	private class Node {
+	private class Node<K> {
 		// Number of elements, if -1, it has children
 		private int fill = 0;
 		private final int depth;
@@ -68,8 +65,9 @@ public class CollisionQuadTree2D {
 		private Vector2D halfSides;
 
 		private List<Element> elements = new ArrayList<Element>(nodeSize);
-		private Node children[] = new Node[4];
-
+		@SuppressWarnings("unchecked")
+		private Node<K> children[] = new Node[4];
+		
 		private Node(Vector2D center, Vector2D halfSides, int depth) {
 			this.center = center;
 			this.halfSides = halfSides;
@@ -96,10 +94,10 @@ public class CollisionQuadTree2D {
 			// Set fill to -1 to indicate non-leaf node
 			fill = -1;
 
-			children[SW] = new Node(Vector2D.minus(center, hS2), hS1, childDepth);
-			children[SE] = new Node(Vector2D.minus(center, hS1), hS1, childDepth);
-			children[NW] = new Node(Vector2D.sum(center, hS2), hS1, childDepth);
-			children[NE] = new Node(Vector2D.sum(center, hS1), hS1, childDepth);
+			children[SW] = new Node<K>(Vector2D.minus(center, hS2), hS1, childDepth);
+			children[SE] = new Node<K>(Vector2D.minus(center, hS1), hS1, childDepth);
+			children[NW] = new Node<K>(Vector2D.sum(center, hS2), hS1, childDepth);
+			children[NE] = new Node<K>(Vector2D.sum(center, hS1), hS1, childDepth);
 			
 			// Move elements to the newborn children
 			for(Element e : elements) {
@@ -114,7 +112,7 @@ public class CollisionQuadTree2D {
 			if(!element.getPoint().isInsideArea(center, halfSides)) return false;
 
 			if(hasChildren()) {
-				for(Node n : children)
+				for(Node<K> n : children)
 					if(n.insert(element)) return true;
 				return false;
 			}
@@ -130,14 +128,14 @@ public class CollisionQuadTree2D {
 			return false;
 		}
 		
-		public List<Entity> query(Vector2D point) {
+		public List<T> query(Vector2D point) {
 			// Recursion end condition
 			if(!hasChildren()) {
-				List<Entity> entities = new ArrayList<Entity>();
+				List<T> found = new ArrayList<T>();
 				for(Element e : elements) {
-					entities.add(e.getEntity());
+					found.add(e.getElement());
 				}
-				return entities;
+				return found;
 			}
 			
 			float centerX = center.getX();
@@ -154,27 +152,26 @@ public class CollisionQuadTree2D {
 		}
 	}
 
-	private Node root;
+	private Node<T> root;
 
-	public CollisionQuadTree2D(Vector2D center, Vector2D halfSides, int nodeSize, int maxDepth) {
-		root = new Node(center, halfSides);
+	public QuadTree(Vector2D center, Vector2D halfSides, int nodeSize, int maxDepth) {
+		root = new Node<T>(center, halfSides);
 		this.nodeSize = nodeSize;
 		this.maxDepth = maxDepth;
 		this.center = center;
 		this.halfSides = halfSides;
 	}
 	
-	public void insert(Entity entity) {
-		Vector2D pos = ((PositionComponent) entity.get(Component.POSITION_C)).getPosition();
+	public void insert(T elem, Vector2D pos) {
 		// Insert returns false if inserted element is out of tree range.
-		root.insert(new Element(pos, entity));
+		root.insert(new Element(pos, elem));
 	}
 
-	public List<Entity> query(Vector2D point) {
+	public List<T> query(Vector2D point) {
 		return root.query(point);
 	}
 
 	public void clear() {
-		root = new Node(center, halfSides);
+		root = new Node<T>(center, halfSides);
 	}
 }

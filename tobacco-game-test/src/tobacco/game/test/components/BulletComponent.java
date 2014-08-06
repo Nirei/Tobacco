@@ -20,25 +20,15 @@
 */
 package tobacco.game.test.components;
 
-import tobacco.core.util.Vector2D;
-import tobacco.game.test.util.BulletData;
-
 public class BulletComponent implements GameComponent {
 
-	private BulletData bullet;
-	private Vector2D bulletDirection = Vector2D.ZERO;
-	private long bulletPeriod = 200; // Inverse of frequency in ms
-	private float bulletSpeed = 0; // Movement speed
+	private String bulletTexture;
+	private long bulletPeriod; // Inverse of frequency in ms
+	private float bulletSpeed; // Movement speed
 	private long lastBullet = System.currentTimeMillis();
 
-	public BulletComponent(BulletData bullet) {
-		this.bullet = bullet;
-	}
-
-	public BulletComponent(BulletData bullet, Vector2D bulletDirection,
-			long bulletPeriod, float bulletSpeed) {
-		this.bullet = bullet;
-		this.bulletDirection = bulletDirection;
+	public BulletComponent(String bulletTexture, long bulletPeriod, float bulletSpeed) {
+		this.bulletTexture = bulletTexture;
 		this.bulletPeriod = bulletPeriod;
 		this.bulletSpeed = bulletSpeed;
 	}
@@ -46,14 +36,6 @@ public class BulletComponent implements GameComponent {
 	@Override
 	public String getComponentType() {
 		return BULLET_C;
-	}
-
-	public Vector2D getBulletDirection() {
-		return bulletDirection;
-	}
-
-	public void setBulletDirection(Vector2D bulletDirection) {
-		this.bulletDirection = bulletDirection;
 	}
 
 	public long getBulletPeriod() {
@@ -79,19 +61,18 @@ public class BulletComponent implements GameComponent {
 	public void setBulletSpeed(float bulletSpeed) {
 		this.bulletSpeed = bulletSpeed;
 	}
-
-	public void setBulletData(BulletData bullet) {
-		this.bullet = bullet;
+	
+	public String getBulletTexture() {
+		return bulletTexture;
 	}
-
-	public BulletData getBulletData() {
-		return bullet;
+	
+	public void setBulletTexture(String bulletTexture) {
+		this.bulletTexture = bulletTexture;
 	}
 
 	@Override
 	public String toString() {
 		return "Bullet: (Speed: " + bulletSpeed + ", Period: " + bulletPeriod
-				+ ", Last bullet: " + lastBullet + ", Direction: "
-				+ bulletDirection + ")";
+				+ ", Last bullet: " + lastBullet + ")";
 	}
 }

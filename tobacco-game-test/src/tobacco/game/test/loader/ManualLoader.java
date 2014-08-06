@@ -49,13 +49,13 @@ import tobacco.core.util.Command;
 import tobacco.core.util.InputEvent;
 import tobacco.core.util.Vector2D;
 import tobacco.game.test.components.BulletComponent;
+import tobacco.game.test.components.DirectionComponent;
 import tobacco.game.test.components.GameComponent;
 import tobacco.game.test.components.GunComponent;
 import tobacco.game.test.components.HealthComponent;
 import tobacco.game.test.entities.EnemyEntityFactory;
 import tobacco.game.test.systems.GunSystem;
 import tobacco.game.test.systems.HealthSystem;
-import tobacco.game.test.util.BulletData;
 import tobacco.game.test.util.HitCircleCollisionStrategy;
 import tobacco.render.pc.input.PcInputListener;
 import tobacco.render.pc.renderers.AbstractRenderer;
@@ -69,9 +69,9 @@ public class ManualLoader implements Loader {
 	public MainSystem loadMainSystem(Entity root) {
 		List<EngineSystem> systems = new ArrayList<EngineSystem>();
 		PcRenderSystem prs = new PcRenderSystem(root);
-		// TODO: Listener adds itself but this looks kinda ugly
-		new PcInputListener(root, (AbstractRenderer) prs.getRenderer());
-		systems.add(new InfoSystem());
+		// TODO: Add a listener to the renderer... Weird.
+		((AbstractRenderer) prs.getRenderer()).addListener(new PcInputListener(root));
+		//systems.add(new InfoSystem());
 		systems.add(new MovementSystem());
 		systems.add(new MovementResetSystem());
 		systems.add(new CollisionSystem(root, HitCircleCollisionStrategy.getSingleton()));
@@ -158,24 +158,26 @@ public class ManualLoader implements Loader {
 
 		ContainerComponent containerComponent = new ContainerComponent();
 		GunComponent gunComponent = new GunComponent();
-		BulletData bullet = new BulletData("/tobacco/game/test/textures/reimubullet.png", new Vector2D(52f, 12f));
-
-		BulletComponent bulletComp1 = new BulletComponent(bullet);
-		bulletComp1.setBulletDirection(new Vector2D(0f, 1f));
-		bulletComp1.setBulletSpeed(2000f);
-		BulletComponent bulletComp2 = new BulletComponent(bullet);
-		bulletComp2.setBulletDirection(new Vector2D(1f, 5f));
-		bulletComp2.setBulletSpeed(2000f);
-		BulletComponent bulletComp3 = new BulletComponent(bullet);
-		bulletComp3.setBulletDirection(new Vector2D(-1f, 5f));
-		bulletComp3.setBulletSpeed(2000f);
-
+		SizeComponent bSizeComp = new SizeComponent(new Vector2D(52f, 12f));
+		
 		Entity bullet1 = new Entity();
+		BulletComponent bulletComp1 = new BulletComponent("/tobacco/game/test/textures/reimubullet.png", 200, 2000f);
 		bullet1.put(bulletComp1);
+		bullet1.put(new DirectionComponent(new Vector2D(0f, 1f)));
+		bullet1.put(bSizeComp);
+
 		Entity bullet2 = new Entity();
+		BulletComponent bulletComp2 = new BulletComponent("/tobacco/game/test/textures/reimubullet.png", 200, 2000f);
 		bullet2.put(bulletComp2);
+		bullet2.put(new DirectionComponent(new Vector2D(1f, 5f)));
+		bullet2.put(bSizeComp);
+
 		Entity bullet3 = new Entity();
+		BulletComponent bulletComp3 = new BulletComponent("/tobacco/game/test/textures/reimubullet.png", 200, 2000f);
 		bullet3.put(bulletComp3);
+		bullet3.put(new DirectionComponent(new Vector2D(-1f, 5f)));
+		bullet3.put(bSizeComp);
+
 
 		containerComponent.addChild(bullet1);
 		containerComponent.addChild(bullet2);

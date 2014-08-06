@@ -33,7 +33,7 @@ public class TextureComponent implements Component {
 
 	@Override
 	public String getComponentType() {
-		return DRAWABLE_C;
+		return TEXTURE_C;
 	}
 
 	public String getImagePath() {

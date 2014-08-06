@@ -58,7 +58,7 @@ public class GunSystem extends AbstractListSystem {
 						long delta = time - bulletComp.getLastBullet();
 						if (bulletComp.getBulletPeriod() <= delta) {
 							bulletComp.setLastBullet(time);
-							Entity bullet = bulletEntityFactory.create(posComp.getPosition(), bulletComp);
+							Entity bullet = bulletEntityFactory.create(posComp.getPosition(), e);
 							((ContainerComponent) getRootEntity().get(Component.CONTAINER_C)).addChild(bullet);
 						}
 					}

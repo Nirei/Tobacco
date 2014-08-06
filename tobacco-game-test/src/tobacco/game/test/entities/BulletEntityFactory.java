@@ -31,18 +31,24 @@ import tobacco.core.components.RotationComponent;
 import tobacco.core.components.SizeComponent;
 import tobacco.core.util.Vector2D;
 import tobacco.game.test.components.BulletComponent;
+import tobacco.game.test.components.DirectionComponent;
+import tobacco.game.test.components.GameComponent;
 
 public class BulletEntityFactory {
 
-	public Entity create(Vector2D pos, BulletComponent b) {
+	public Entity create(Vector2D pos, Entity bullet) {
+		BulletComponent bComp = (BulletComponent) bullet.get(GameComponent.BULLET_C);
+		String texture = bComp.getBulletTexture();
+		Vector2D size = ((SizeComponent) bullet.get(GameComponent.SIZE_C)).getSize();
+		Vector2D dir = ((DirectionComponent) bullet.get(GameComponent.DIRECTION_C)).getDirection();
+		
 		Entity entity = new Entity();
-		TextureComponent textureComp = new TextureComponent(b.getBulletData().getTexture());
-		SizeComponent sizeComp = new SizeComponent(b.getBulletData().getSize());
+		TextureComponent textureComp = new TextureComponent(texture);
+		SizeComponent sizeComp = new SizeComponent(size);
 		entity.put(textureComp);
 		entity.put(sizeComp);
 		entity.put(new PositionComponent(pos));
-		Vector2D dir = b.getBulletDirection();
-		entity.put(new MovementComponent(dir, b.getBulletSpeed()));
+		entity.put(new MovementComponent(dir, bComp.getBulletSpeed()));
 		entity.put(new RotationComponent(90f + Vector2D.angle(Vector2D.VERTICAL, dir).getDegrees()));
 		entity.put(new DebuggingComponent());
 		entity.put(new DurationComponent(1000));

@@ -27,19 +27,16 @@ import tobacco.core.components.Entity;
 import tobacco.core.components.KeymapComponent;
 import tobacco.core.util.Vector2D;
 import tobacco.render.pc.components.MouseComponent;
-import tobacco.render.pc.renderers.AbstractRenderer;
 
-// TODO: A listener that adds itself? Don't think so...
 // TODO: Mouse coords should be given on ingame position instead absolute screen pos
 public class PcInputListener implements CommonListener {
 
-	private KeymapComponent keyMapComp = new KeymapComponent();
-	private MouseComponent mouseComp = new MouseComponent();
+	private final KeymapComponent keyMapComp = new KeymapComponent();
+	private final MouseComponent mouseComp = new MouseComponent();
 
-	public PcInputListener(Entity root, AbstractRenderer renderer) {
+	public PcInputListener(Entity root) {
 		root.put(keyMapComp);
 		root.put(mouseComp);
-		renderer.addListener(this);
 	}
 	
 	private Vector2D getMousePosition(MouseEvent e) {

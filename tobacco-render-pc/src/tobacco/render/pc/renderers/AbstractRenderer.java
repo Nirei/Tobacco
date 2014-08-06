@@ -64,7 +64,7 @@ public abstract class AbstractRenderer implements Renderer, GLEventListener {
 		
 		GL2 gl = drawable.getGL().getGL2();
 		
-		if (entity.has(Component.DRAWABLE_C) && entity.has(Component.SIZE_C)) {
+		if (entity.has(Component.TEXTURE_C) && entity.has(Component.SIZE_C)) {
 			gl.glPushMatrix();
 
 			Vector2D pos = Vector2D.ZERO;
@@ -102,7 +102,7 @@ public abstract class AbstractRenderer implements Renderer, GLEventListener {
 			gl.glScalef(sca.getX(), sca.getY(), 0);
 
 			try {
-				TextureComponent textureComp = (TextureComponent) entity.get(Component.DRAWABLE_C);
+				TextureComponent textureComp = (TextureComponent) entity.get(Component.TEXTURE_C);
 				texture = TextureStorage.getTexture(textureComp.getImagePath());
 			} catch (TextureNotFoundException e1) {
 				try {

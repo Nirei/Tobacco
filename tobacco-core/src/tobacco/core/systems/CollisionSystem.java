@@ -23,8 +23,8 @@ package tobacco.core.systems;
 import java.util.HashSet;
 import java.util.Set;
 
-import tobacco.core.collision.CollisionQuadTree2D;
 import tobacco.core.collision.CollisionStrategy;
+import tobacco.core.collision.QuadTree;
 import tobacco.core.components.CollisionMapComponent;
 import tobacco.core.components.Component;
 import tobacco.core.components.Entity;
@@ -42,7 +42,7 @@ public class CollisionSystem extends AbstractListSystem {
 
 	private static final String[] requiredComponents = {Component.SOLIDITY_C, Component.POSITION_C};
 
-	private final CollisionQuadTree2D cqt;
+	private final QuadTree<Entity> cqt;
 	private final CollisionStrategy cStrategy;
 	private final CollisionMapComponent cMapComp = new CollisionMapComponent();
 
@@ -54,7 +54,7 @@ public class CollisionSystem extends AbstractListSystem {
 		this.cStrategy = cStrategy; 
 		
 		Vector2D screenSize = ((ScreenComponent) root.get(Component.SCREEN_C)).getScreenSize();
-		cqt = new CollisionQuadTree2D(Vector2D.ZERO, screenSize.scale(0.55f), 4, 6);
+		cqt = new QuadTree<Entity>(Vector2D.ZERO, screenSize.scale(0.55f), 4, 6);
 		
 		root.put(cMapComp);
 	}
@@ -80,8 +80,10 @@ public class CollisionSystem extends AbstractListSystem {
 	public void setUp() {
 		cMapComp.clear();
 		for(Entity e : Entity.getEntityList()) {
-			if(qualifies(e))
-				cqt.insert(e);
+			if(qualifies(e)) {
+				Vector2D pos = ((PositionComponent) e.get(Component.POSITION_C)).getPosition();
+				cqt.insert(e, pos);
+			}
 		}
 	}
 
