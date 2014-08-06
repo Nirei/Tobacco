@@ -31,8 +31,8 @@ import tobacco.core.components.MovementComponent;
 import tobacco.core.components.PositionComponent;
 import tobacco.core.components.SizeComponent;
 import tobacco.core.components.TrajectoryComponent;
+import tobacco.core.movement.RectilinearPath;
 import tobacco.core.movement.Trajectory;
-import tobacco.core.movement.TraverseFunction;
 import tobacco.core.util.Vector2D;
 
 public class EnemyEntityFactory {
@@ -57,7 +57,7 @@ public class EnemyEntityFactory {
 		entity.put(new DebuggingComponent());
 		entity.put(new SolidityComponent(10f));
 		TrajectoryComponent trajComp = new TrajectoryComponent();
-		Trajectory traj = new Trajectory() {
+		Trajectory traj = new Trajectory(RectilinearPath.getInstance()) {
 			
 			@Override
 			public List<Vector2D> getWaypoints() {
@@ -67,18 +67,6 @@ public class EnemyEntityFactory {
 				Vector2D p3 = new Vector2D(20f, 20f);
 				Vector2D[] points = {p0, p1, p2, p3};
 				return Arrays.asList(points);
-			}
-			
-			@Override
-			public TraverseFunction getTraverseFunction() {
-				return new TraverseFunction() {
-					
-					@Override
-					public Vector2D path(List<Vector2D> waypoints, Vector2D position, int next) {
-						Vector2D dest = waypoints.get(next);
-						return Vector2D.minus(dest, position);
-					}
-				};
 			}
 		};
 		trajComp.setTrajectory(traj);

@@ -33,7 +33,7 @@ public class CollisionMapComponent implements Component, Iterable<Collision> {
 	public void addCollision(Entity e1, Entity e2) {
 		collisionSet.add(new Collision(e1, e2));
 	}
-	
+
 	public void clear() {
 		collisionSet.clear();
 	}

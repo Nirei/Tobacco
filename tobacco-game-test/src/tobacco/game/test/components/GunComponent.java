@@ -24,9 +24,6 @@ public class GunComponent implements GameComponent {
 
 	private boolean shooting = false;
 
-	public GunComponent() {
-	}
-
 	@Override
 	public String getComponentType() {
 		return GUN_C;
@@ -42,6 +39,6 @@ public class GunComponent implements GameComponent {
 
 	@Override
 	public String toString() {
-		return "Gun: ";
+		return "Gun: (shooting: " + shooting + ")";
 	}
 }
