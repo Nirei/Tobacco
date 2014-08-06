@@ -25,8 +25,6 @@ import java.util.List;
 
 import tobacco.core.util.Vector2D;
 
-// TODO: Implements collection?
-// TODO: Refactor QuadTree abstraction up
 public class QuadTree<T> {
 	
 	private static final int

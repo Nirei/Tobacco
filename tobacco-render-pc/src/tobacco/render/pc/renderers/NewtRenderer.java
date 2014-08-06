@@ -36,8 +36,7 @@ import tobacco.core.components.ScreenComponent;
 import tobacco.core.util.Vector2D;
 import tobacco.render.pc.input.CommonListener;
 
-public class NewtRenderer extends AbstractRenderer implements Renderer,
-		GLEventListener {
+public class NewtRenderer extends Renderer implements GLEventListener {
 
 	private GLWindow gw;
 

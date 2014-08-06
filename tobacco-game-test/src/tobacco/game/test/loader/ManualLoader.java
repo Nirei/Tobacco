@@ -38,7 +38,6 @@ import tobacco.core.loader.Loader;
 import tobacco.core.systems.CollisionSystem;
 import tobacco.core.systems.EngineSystem;
 import tobacco.core.systems.EntityRemovalSystem;
-import tobacco.core.systems.InfoSystem;
 import tobacco.core.systems.MainSystem;
 import tobacco.core.systems.MovementSystem;
 import tobacco.core.systems.InputSystem;
@@ -58,8 +57,8 @@ import tobacco.game.test.systems.GunSystem;
 import tobacco.game.test.systems.HealthSystem;
 import tobacco.game.test.util.HitCircleCollisionStrategy;
 import tobacco.render.pc.input.PcInputListener;
-import tobacco.render.pc.renderers.AbstractRenderer;
-import tobacco.render.pc.systems.PcRenderSystem;
+import tobacco.render.pc.renderers.NewtRenderer;
+import tobacco.render.pc.renderers.Renderer;
 import static tobacco.render.pc.input.PcInputCode.*;
 import static tobacco.core.util.InputType.*;
 
@@ -68,9 +67,13 @@ public class ManualLoader implements Loader {
 	@Override
 	public MainSystem loadMainSystem(Entity root) {
 		List<EngineSystem> systems = new ArrayList<EngineSystem>();
-		PcRenderSystem prs = new PcRenderSystem(root);
-		// TODO: Add a listener to the renderer... Weird.
-		((AbstractRenderer) prs.getRenderer()).addListener(new PcInputListener(root));
+		
+		// Load rendering
+		Renderer renderer = new NewtRenderer("The Game", root);
+		renderer.addListener(new PcInputListener(root));
+		renderer.setRoot(root);
+		
+		// Load systems
 		//systems.add(new InfoSystem());
 		systems.add(new MovementSystem());
 		systems.add(new MovementResetSystem());
@@ -81,7 +84,6 @@ public class ManualLoader implements Loader {
 		systems.add(new EntityRemovalSystem());
 		systems.add(new TrajectorySystem());
 		systems.add(new InputSystem());
-		systems.add(prs);
 
 		MainSystem main = new MainSystem();
 		for (EngineSystem s : systems)
