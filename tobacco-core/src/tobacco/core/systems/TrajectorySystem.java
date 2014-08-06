@@ -59,7 +59,7 @@ public class TrajectorySystem extends AbstractListSystem {
 
 				Vector2D pos = posComp.getPosition();
 				Vector2D dest = waypoints.get(step);
-				Vector2D mov = trajComp.getTrajectory().getTraverseFunction().path(waypoints, pos, step);
+				Vector2D mov = trajComp.getTrajectory().getPathFunction().path(waypoints, pos, step);
 
 				if(pos.isNear(dest, 1f)) {
 						trajComp.setStep(++step);

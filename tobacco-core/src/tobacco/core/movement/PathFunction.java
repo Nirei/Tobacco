@@ -24,21 +24,8 @@ import java.util.List;
 
 import tobacco.core.util.Vector2D;
 
-public abstract class Trajectory {
-	
-	private PathFunction pathFunc;
-	
-	public Trajectory(PathFunction pathFunc) {
-		this.pathFunc = pathFunc;
-	}
-	
-	public abstract List<Vector2D> getWaypoints();
+public interface PathFunction {
 
-	public final PathFunction getPathFunction() {
-		return pathFunc;
-	}
-	
-	public final void setPathFunction(PathFunction pathFunc) {
-		this.pathFunc = pathFunc;
-	}
+	public Vector2D path(List<Vector2D> waypoints, Vector2D position, int next);
+
 }

@@ -24,21 +24,22 @@ import java.util.List;
 
 import tobacco.core.util.Vector2D;
 
-public abstract class Trajectory {
+public class RectilinearPath implements PathFunction {
 	
-	private PathFunction pathFunc;
+	private static RectilinearPath instance;
 	
-	public Trajectory(PathFunction pathFunc) {
-		this.pathFunc = pathFunc;
+	private RectilinearPath() {}
+		
+	@Override
+	public Vector2D path(List<Vector2D> waypoints, Vector2D position, int next) {
+		Vector2D dest = waypoints.get(next);
+		return Vector2D.minus(dest, position);
 	}
 	
-	public abstract List<Vector2D> getWaypoints();
-
-	public final PathFunction getPathFunction() {
-		return pathFunc;
-	}
-	
-	public final void setPathFunction(PathFunction pathFunc) {
-		this.pathFunc = pathFunc;
+	public static RectilinearPath getInstance() {
+		if(instance == null) {
+			instance = new RectilinearPath();
+		}
+		return instance;
 	}
 }
