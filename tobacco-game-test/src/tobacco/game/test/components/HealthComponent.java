@@ -24,11 +24,8 @@ public class HealthComponent implements GameComponent {
 
 	private float health = 1f; // Don't auto-kill entities without defined health
 
-	public HealthComponent() {
-	}
-
-	public HealthComponent(float _health) {
-		health = _health;
+	public HealthComponent(float health) {
+		this.health = health;
 	}
 
 	@Override
@@ -46,6 +43,10 @@ public class HealthComponent implements GameComponent {
 
 	public void setHealth(float health) {
 		this.health = health;
+	}
+	
+	public void hurt(float damage) {
+		health -= damage;
 	}
 	
 	@Override

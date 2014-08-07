@@ -34,6 +34,7 @@ import tobacco.core.components.TrajectoryComponent;
 import tobacco.core.movement.RectilinearPath;
 import tobacco.core.movement.Trajectory;
 import tobacco.core.util.Vector2D;
+import tobacco.game.test.components.HealthComponent;
 
 public class EnemyEntityFactory {
 
@@ -56,6 +57,7 @@ public class EnemyEntityFactory {
 		entity.put(new MovementComponent(100f));
 		entity.put(new DebuggingComponent());
 		entity.put(new SolidityComponent(10f));
+		entity.put(new HealthComponent(100f));
 		TrajectoryComponent trajComp = new TrajectoryComponent();
 		Trajectory traj = new Trajectory(RectilinearPath.getInstance()) {
 			
@@ -65,7 +67,7 @@ public class EnemyEntityFactory {
 				Vector2D p1 = new Vector2D(200f, 200f);
 				Vector2D p2 = new Vector2D(200f, 20f);
 				Vector2D p3 = new Vector2D(20f, 20f);
-				Vector2D[] points = {p0, p1, p2, p3};
+				Vector2D points[] = {p0, p1, p2, p3};
 				return Arrays.asList(points);
 			}
 		};

@@ -48,11 +48,14 @@ import tobacco.core.util.Command;
 import tobacco.core.util.InputEvent;
 import tobacco.core.util.Vector2D;
 import tobacco.game.test.components.BulletComponent;
+import tobacco.game.test.components.DamageComponent;
 import tobacco.game.test.components.DirectionComponent;
 import tobacco.game.test.components.GameComponent;
 import tobacco.game.test.components.GunComponent;
 import tobacco.game.test.components.HealthComponent;
+import tobacco.game.test.components.TeamComponent;
 import tobacco.game.test.entities.EnemyEntityFactory;
+import tobacco.game.test.systems.DamageSystem;
 import tobacco.game.test.systems.GunSystem;
 import tobacco.game.test.systems.HealthSystem;
 import tobacco.game.test.util.HitCircleCollisionStrategy;
@@ -79,6 +82,7 @@ public class ManualLoader implements Loader {
 		systems.add(new MovementResetSystem());
 		systems.add(new CollisionSystem(root, HitCircleCollisionStrategy.getSingleton()));
 		systems.add(new GunSystem());
+		systems.add(new DamageSystem());
 		systems.add(new HealthSystem());
 		systems.add(new TimerSystem());
 		systems.add(new EntityRemovalSystem());
@@ -163,23 +167,25 @@ public class ManualLoader implements Loader {
 		SizeComponent bSizeComp = new SizeComponent(new Vector2D(52f, 12f));
 		
 		Entity bullet1 = new Entity();
-		BulletComponent bulletComp1 = new BulletComponent("/tobacco/game/test/textures/reimubullet.png", 200, 2000f);
+		BulletComponent bulletComp1 = new BulletComponent("/tobacco/game/test/textures/reimubullet.png", 150, 2000f);
 		bullet1.put(bulletComp1);
 		bullet1.put(new DirectionComponent(new Vector2D(0f, 1f)));
 		bullet1.put(bSizeComp);
+		bullet1.put(new DamageComponent(50f));
 
 		Entity bullet2 = new Entity();
-		BulletComponent bulletComp2 = new BulletComponent("/tobacco/game/test/textures/reimubullet.png", 200, 2000f);
+		BulletComponent bulletComp2 = new BulletComponent("/tobacco/game/test/textures/reimubullet.png", 150, 2000f);
 		bullet2.put(bulletComp2);
 		bullet2.put(new DirectionComponent(new Vector2D(1f, 5f)));
 		bullet2.put(bSizeComp);
+		bullet2.put(new DamageComponent(50f));
 
 		Entity bullet3 = new Entity();
-		BulletComponent bulletComp3 = new BulletComponent("/tobacco/game/test/textures/reimubullet.png", 200, 2000f);
+		BulletComponent bulletComp3 = new BulletComponent("/tobacco/game/test/textures/reimubullet.png", 150, 2000f);
 		bullet3.put(bulletComp3);
 		bullet3.put(new DirectionComponent(new Vector2D(-1f, 5f)));
 		bullet3.put(bSizeComp);
-
+		bullet3.put(new DamageComponent(50f));
 
 		containerComponent.addChild(bullet1);
 		containerComponent.addChild(bullet2);
@@ -190,6 +196,7 @@ public class ManualLoader implements Loader {
 		player.put(new MovementComponent(500f));
 		player.put(new HealthComponent(100f));
 		player.put(new SolidityComponent(10f));
+		player.put(TeamComponent.getTeam("PLAYER"));
 
 		rootContainer.addChild(player);
 		EnemyEntityFactory eeFactory = new EnemyEntityFactory("/tobacco/game/test/textures/fairy_blue.png", new Vector2D(26f, 28f));
