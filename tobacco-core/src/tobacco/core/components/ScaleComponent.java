@@ -24,10 +24,7 @@ import tobacco.core.util.Vector2D;
 
 public class ScaleComponent implements Component {
 
-	private Vector2D scale = Vector2D.ZERO;
-
-	public ScaleComponent() {
-	}
+	private Vector2D scale;
 
 	public ScaleComponent(Vector2D _scale) {
 		scale = _scale;

@@ -22,10 +22,7 @@ package tobacco.core.components;
 
 public class RotationComponent implements Component {
 
-	private float rotation = 0f;
-
-	public RotationComponent() {
-	}
+	private float rotation;
 
 	public RotationComponent(float _rotation) {
 		rotation = _rotation;

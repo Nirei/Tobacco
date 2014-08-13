@@ -22,7 +22,7 @@ package tobacco.game.test.components;
 
 public class GunComponent implements GameComponent {
 
-	private boolean shooting = false;
+	private boolean shooting;
 
 	@Override
 	public String getComponentType() {

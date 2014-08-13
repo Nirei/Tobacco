@@ -24,11 +24,8 @@ import tobacco.core.util.Vector2D;
 
 public class PositionComponent implements Component {
 
-	private Vector2D position = Vector2D.ZERO;
-	private float zIndex = 0f;
-
-	public PositionComponent() {
-	}
+	private Vector2D position;
+	private float zIndex;
 
 	public PositionComponent(Vector2D position) {
 		this(position, 0f);

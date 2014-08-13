@@ -3,7 +3,7 @@ package tobacco.game.test.components;
 // TODO: Clear all default values from Components, they aren't needed and could bring about errors.
 public class DamageComponent implements GameComponent {
 	
-	private float damage = 0f;
+	private float damage;
 
 	public DamageComponent(float damage) {
 		this.damage = damage;

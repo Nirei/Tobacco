@@ -22,10 +22,7 @@ package tobacco.core.components;
 
 public class DurationComponent implements Component {
 
-	private long millis = 0;
-
-	public DurationComponent() {
-	}
+	private long millis;
 
 	public DurationComponent(long _millis) {
 		millis = _millis;

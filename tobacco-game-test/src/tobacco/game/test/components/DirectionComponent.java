@@ -4,9 +4,7 @@ import tobacco.core.util.Vector2D;
 
 public class DirectionComponent implements GameComponent {
 	
-	private Vector2D direction = Vector2D.VERTICAL;
-	
-	public DirectionComponent() {}
+	private Vector2D direction;
 	
 	public DirectionComponent(Vector2D direction) {
 		this.direction = direction;

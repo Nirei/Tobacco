@@ -24,8 +24,7 @@ public class TextureComponent implements Component {
 
 	private String imagePath;
 
-	public TextureComponent() {
-	}
+	public TextureComponent() {}
 
 	public TextureComponent(String imagePath) {
 		this.imagePath = imagePath;
