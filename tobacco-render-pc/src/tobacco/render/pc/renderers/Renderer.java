@@ -46,10 +46,10 @@ import com.jogamp.opengl.util.texture.TextureCoords;
 
 public abstract class Renderer implements GLEventListener {
 
-	protected static GLProfile glProfile;
-	protected static GLCapabilities glCaps;
+	protected GLProfile glProfile;
+	protected GLCapabilities glCaps;
 	protected AnimatorBase animator;
-	protected static Entity rootEntity;
+	protected Entity rootEntity;
 
 	public Renderer() {
 		GLProfile.initSingleton(); // Recomended before anything else
