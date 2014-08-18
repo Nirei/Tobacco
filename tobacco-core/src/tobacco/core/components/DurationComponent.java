@@ -20,10 +20,19 @@
 */
 package tobacco.core.components;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlRootElement;
+
+@XmlRootElement
+@XmlAccessorType(XmlAccessType.NONE)
 public class DurationComponent implements Component {
 
 	private long millis;
 
+	public DurationComponent() {}
+	
 	public DurationComponent(long _millis) {
 		millis = _millis;
 	}
@@ -33,6 +42,7 @@ public class DurationComponent implements Component {
 		return DURATION_C;
 	}
 
+	@XmlAttribute
 	public long getDuration() {
 		return millis;
 	}

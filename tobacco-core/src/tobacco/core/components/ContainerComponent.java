@@ -21,13 +21,19 @@
 package tobacco.core.components;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElementRef;
+import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
 
-@XmlRootElement()
+@XmlRootElement
+@XmlAccessorType(XmlAccessType.NONE)
 public class ContainerComponent implements Component, Iterable<Entity> {
 
 	private Map<Long, Entity> children = new HashMap<Long, Entity>();
@@ -45,6 +51,12 @@ public class ContainerComponent implements Component, Iterable<Entity> {
 		synchronized (children) {
 			children.put(child.getID(), child);
 		}
+	}
+	
+	@XmlElementWrapper
+	@XmlElementRef
+	public Collection<Entity> getChildren() {
+		return children.values();
 	}
 
 	public void delChildren(long id) {

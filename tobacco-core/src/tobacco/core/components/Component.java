@@ -20,12 +20,16 @@
 */
 package tobacco.core.components;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+
 /**
  * Components are storage for all the game data.
  * 
  * @author nirei
  * 
  */
+@XmlAccessorType(XmlAccessType.NONE)
 public interface Component {
 
 	public static final String COLLISIONMAP_C = "COLLISIONMAP_C";
@@ -44,6 +48,8 @@ public interface Component {
 	public static final String SCREEN_C = "SCREEN_C";
 	public static final String SIZE_C = "SIZE_C";
 	public static final String SOLIDITY_C = "SOLIDITY_C";
+	
+//	public static final String COMP_XML_NAME = "component";
 
 	/**
 	 * Returns this component's name.

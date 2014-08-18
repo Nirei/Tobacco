@@ -20,13 +20,22 @@
 */
 package tobacco.core.components;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+
 import tobacco.core.util.Vector2D;
 
+@XmlRootElement
+@XmlAccessorType(XmlAccessType.NONE)
 public class PositionComponent implements Component {
 
 	private Vector2D position;
 	private float zIndex;
 
+	public PositionComponent() {}
+	
 	public PositionComponent(Vector2D position) {
 		this(position, 0f);
 	}
@@ -41,6 +50,7 @@ public class PositionComponent implements Component {
 		return POSITION_C;
 	}
 
+	@XmlElement
 	public Vector2D getPosition() {
 		return new Vector2D(position.getX(), position.getY());
 	}
@@ -49,6 +59,7 @@ public class PositionComponent implements Component {
 		position = _position;
 	}
 	
+	@XmlElement
 	public float getZIndex() {
 		return zIndex;
 	}

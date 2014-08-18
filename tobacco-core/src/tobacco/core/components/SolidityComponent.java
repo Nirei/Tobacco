@@ -20,9 +20,18 @@
 */
 package tobacco.core.components;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlRootElement;
+
+@XmlRootElement
+@XmlAccessorType(XmlAccessType.NONE)
 public class SolidityComponent implements Component {
 	
 	private float radius;
+	
+	public SolidityComponent() {}
 	
 	public SolidityComponent(float radius) {
 		this.radius = radius;
@@ -33,6 +42,7 @@ public class SolidityComponent implements Component {
 		return SOLIDITY_C;
 	}
 
+	@XmlAttribute
 	public float getRadius() {
 		return radius;
 	}

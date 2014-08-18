@@ -20,6 +20,13 @@
 */
 package tobacco.core.components;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlRootElement;
+
+@XmlRootElement
+@XmlAccessorType(XmlAccessType.NONE)
 public class TextureComponent implements Component {
 
 	private String imagePath;
@@ -35,6 +42,7 @@ public class TextureComponent implements Component {
 		return TEXTURE_C;
 	}
 
+	@XmlAttribute
 	public String getImagePath() {
 		return imagePath;
 	}

@@ -20,25 +20,36 @@
 */
 package tobacco.core.components;
 
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlAnyElement;
+import javax.xml.bind.annotation.XmlElementWrapper;
+import javax.xml.bind.annotation.XmlRootElement;
+
 /**
  * Entity for the game engine. Contains components. No logic.
  * 
  * @author nirei
- * 
  */
+@XmlRootElement
+@XmlAccessorType(XmlAccessType.NONE)
 public final class Entity implements Iterable<Component> {
+	
+//	public static final String ENTITY_XML_NAME = "entity";
 
 	// TODO: Object pool for Entities
 	private static List<Entity> entityList = new LinkedList<Entity>();
 	private static long counter = 0;
 
 	private long id = 0;
+
 	private Map<String, Component> components = new HashMap<String, Component>();
 
 	public Entity() {
@@ -63,8 +74,8 @@ public final class Entity implements Iterable<Component> {
 	 * @param _component
 	 *            Component to be added
 	 */
-	public void put(Component _component) {
-		components.put(_component.getComponentType(), _component);
+	public void put(Component component) {
+		components.put(component.getComponentType(), component);
 	}
 
 	/**
@@ -90,6 +101,17 @@ public final class Entity implements Iterable<Component> {
 	 */
 	public final Long getID() {
 		return id;
+	}
+	
+	/**
+	 * This is a marshalling method which returns each
+	 * of this entity's components in a Collection
+	 * @return A collection of this entity's components
+	 */
+	@XmlElementWrapper(name="components")
+	@XmlAnyElement
+	public Collection<Component> getComponentSet() {
+		return components.values();
 	}
 	
 	/**
