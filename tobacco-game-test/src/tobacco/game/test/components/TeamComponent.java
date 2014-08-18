@@ -1,59 +1,30 @@
 package tobacco.game.test.components;
 
-import java.util.HashMap;
-import java.util.Map;
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlRootElement;
 
+@XmlRootElement
 public class TeamComponent implements GameComponent {
 
-	private static final Map<String, TeamComponent> teamNames = new HashMap<String, TeamComponent>();
-	private static int counter = 0;
+	private String team;
+	
+	public TeamComponent() {}
 
-	private final String teamName;
-	private final int teamNumber;
-
-	private TeamComponent(String teamName) {
-		this.teamName = teamName;
-		teamNames.put(teamName, this);
-		teamNumber = counter++;
+	public TeamComponent(String team) {
+		this.team = team;
 	}
 
 	@Override
 	public String getComponentType() {
 		return TEAM_C;
 	}
-
-	public static TeamComponent getTeam(String teamName) {
-		if(teamNames.containsKey(teamName)) {
-			return teamNames.get(teamName);
-		} else {
-			return new TeamComponent(teamName);
-		}
+	
+	@XmlAttribute
+	public String getTeam() {
+		return team;
 	}
 	
-	public String getTeamName() {
-		return teamName;
+	public void setTeam(String team) {
+		this.team = team;
 	}
-
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + teamNumber;
-		return result;
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		TeamComponent other = (TeamComponent) obj;
-		if (teamNumber != other.teamNumber)
-			return false;
-		return true;
-	}
-
 }

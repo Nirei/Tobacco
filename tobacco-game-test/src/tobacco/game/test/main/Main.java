@@ -20,20 +20,55 @@
 */
 package tobacco.game.test.main;
 
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBException;
+
 import tobacco.core.components.Entity;
 import tobacco.core.loader.Loader;
+import tobacco.core.serialization.EntityToXml;
 import tobacco.core.systems.MainSystem;
 import tobacco.game.test.loader.ManualLoader;
 
 public class Main {
+	
+	public static final Class<?>[] MARSHALLIZABLES = new Class[] {
+		tobacco.core.components.Entity.class,
+		tobacco.core.components.CollisionMapComponent.class,
+		tobacco.core.components.ContainerComponent.class,
+		tobacco.core.components.DebuggingComponent.class,
+		tobacco.core.components.DurationComponent.class,
+		tobacco.core.components.KeymapComponent.class,
+		tobacco.core.components.MovementComponent.class,
+		tobacco.core.components.PlayerComponent.class,
+		tobacco.core.components.PositionComponent.class,
+		tobacco.core.components.RemoveComponent.class,
+		tobacco.core.components.RotationComponent.class,
+		tobacco.core.components.ScaleComponent.class,
+		tobacco.core.components.ScreenComponent.class,
+		tobacco.core.components.SizeComponent.class,
+		tobacco.core.components.SolidityComponent.class,
+		tobacco.core.components.TextureComponent.class,
+		tobacco.core.components.TrajectoryComponent.class,
+		tobacco.render.pc.components.MouseComponent.class,
+		tobacco.game.test.components.TeamComponent.class,
+		tobacco.game.test.components.DamageComponent.class,
+		tobacco.game.test.components.HealthComponent.class,
+		tobacco.game.test.components.BulletComponent.class,
+		tobacco.game.test.components.DirectionComponent.class,
+		tobacco.game.test.components.GunComponent.class,
+	};
 
-	public static void main(String[] args) {
+
+	public static void main(String[] args) throws JAXBException {
 		Loader loader = new ManualLoader();
 		Entity root = loader.loadEntityTree();
 		MainSystem mainSystem = loader.loadMainSystem(root);
+				
+		EntityToXml entToXml = new EntityToXml(JAXBContext.newInstance(MARSHALLIZABLES));
 
 		while (true) {
 			mainSystem.work(root);
+			entToXml.printOutXmlTree(root);
 			try {
 				Thread.sleep(5);
 			} catch (InterruptedException e) {

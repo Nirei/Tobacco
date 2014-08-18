@@ -1,9 +1,14 @@
 package tobacco.game.test.components;
 
-// TODO: Clear all default values from Components, they aren't needed and could bring about errors.
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlRootElement;
+
+@XmlRootElement
 public class DamageComponent implements GameComponent {
 	
 	private float damage;
+	
+	public DamageComponent() {}
 
 	public DamageComponent(float damage) {
 		this.damage = damage;
@@ -14,6 +19,7 @@ public class DamageComponent implements GameComponent {
 		return GameComponent.DAMAGE_C;
 	}
 
+	@XmlAttribute
 	public float getDamage() {
 		return damage;
 	}

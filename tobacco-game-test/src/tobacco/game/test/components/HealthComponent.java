@@ -20,9 +20,15 @@
 */
 package tobacco.game.test.components;
 
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlRootElement;
+
+@XmlRootElement
 public class HealthComponent implements GameComponent {
 
 	private float health;
+	
+	public HealthComponent() {}
 
 	public HealthComponent(float health) {
 		this.health = health;
@@ -37,6 +43,7 @@ public class HealthComponent implements GameComponent {
 		return health <= 0f;
 	}
 
+	@XmlAttribute
 	public float getHealth() {
 		return health;
 	}

@@ -20,6 +20,10 @@
 */
 package tobacco.game.test.components;
 
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlRootElement;
+
+@XmlRootElement
 public class GunComponent implements GameComponent {
 
 	private boolean shooting;
@@ -33,6 +37,7 @@ public class GunComponent implements GameComponent {
 		shooting = _shooting;
 	}
 
+	@XmlAttribute
 	public boolean isShooting() {
 		return shooting;
 	}

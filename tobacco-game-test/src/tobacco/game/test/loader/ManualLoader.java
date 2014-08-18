@@ -196,7 +196,7 @@ public class ManualLoader implements Loader {
 		player.put(new MovementComponent(500f));
 		player.put(new HealthComponent(100f));
 		player.put(new SolidityComponent(10f));
-		player.put(TeamComponent.getTeam("PLAYER"));
+		player.put(new TeamComponent("PLAYER"));
 
 		rootContainer.addChild(player);
 		EnemyEntityFactory eeFactory = new EnemyEntityFactory("/tobacco/game/test/textures/fairy_blue.png", new Vector2D(26f, 28f));

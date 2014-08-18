@@ -20,12 +20,18 @@
 */
 package tobacco.game.test.components;
 
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlRootElement;
+
+@XmlRootElement
 public class BulletComponent implements GameComponent {
 
 	private String bulletTexture;
 	private long bulletPeriod; // Inverse of frequency in ms
 	private float bulletSpeed; // Movement speed
 	private long lastBullet = System.currentTimeMillis();
+	
+	public BulletComponent() {}
 
 	public BulletComponent(String bulletTexture, long bulletPeriod, float bulletSpeed) {
 		this.bulletTexture = bulletTexture;
@@ -38,6 +44,7 @@ public class BulletComponent implements GameComponent {
 		return BULLET_C;
 	}
 
+	@XmlAttribute
 	public long getBulletPeriod() {
 		return bulletPeriod;
 	}
@@ -46,6 +53,7 @@ public class BulletComponent implements GameComponent {
 		this.bulletPeriod = bulletPeriod;
 	}
 
+	@XmlAttribute
 	public long getLastBullet() {
 		return lastBullet;
 	}
@@ -54,6 +62,7 @@ public class BulletComponent implements GameComponent {
 		this.lastBullet = lastBullet;
 	}
 
+	@XmlAttribute
 	public float getBulletSpeed() {
 		return bulletSpeed;
 	}
@@ -62,6 +71,7 @@ public class BulletComponent implements GameComponent {
 		this.bulletSpeed = bulletSpeed;
 	}
 	
+	@XmlAttribute
 	public String getBulletTexture() {
 		return bulletTexture;
 	}
