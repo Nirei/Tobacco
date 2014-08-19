@@ -29,7 +29,6 @@ import javax.xml.bind.annotation.XmlAccessorType;
  * @author nirei
  * 
  */
-@XmlAccessorType(XmlAccessType.NONE)
 public interface Component {
 
 	public static final String COLLISIONMAP_C = "COLLISIONMAP_C";

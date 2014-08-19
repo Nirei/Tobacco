@@ -20,7 +20,7 @@
 */
 package tobacco.core.components;
 
-import java.util.Collection;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -110,8 +110,8 @@ public final class Entity implements Iterable<Component> {
 	 */
 	@XmlElementWrapper(name="components")
 	@XmlAnyElement
-	public Collection<Component> getComponentSet() {
-		return components.values();
+	public List<Component> getComponentSet() {
+		return new ArrayList<Component>(components.values());
 	}
 	
 	/**

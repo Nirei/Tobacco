@@ -25,7 +25,7 @@ import javax.xml.bind.JAXBException;
 
 import tobacco.core.components.Entity;
 import tobacco.core.loader.Loader;
-import tobacco.core.serialization.EntityToXml;
+import tobacco.core.serialization.XmlEntityConverter;
 import tobacco.core.systems.MainSystem;
 import tobacco.game.test.loader.ManualLoader;
 
@@ -64,11 +64,11 @@ public class Main {
 		Entity root = loader.loadEntityTree();
 		MainSystem mainSystem = loader.loadMainSystem(root);
 				
-		EntityToXml entToXml = new EntityToXml(JAXBContext.newInstance(MARSHALLIZABLES));
+		XmlEntityConverter entToXml = new XmlEntityConverter(JAXBContext.newInstance(MARSHALLIZABLES));
+		entToXml.toXml(root, System.out);
 
 		while (true) {
 			mainSystem.work(root);
-			entToXml.printOutXmlTree(root);
 			try {
 				Thread.sleep(5);
 			} catch (InterruptedException e) {
