@@ -24,14 +24,8 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
 
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlRootElement;
-
 import tobacco.core.collision.Collision;
 
-@XmlRootElement
-@XmlAccessorType(XmlAccessType.NONE)
 public class CollisionMapComponent implements Component, Iterable<Collision> {
 	
 	private Set<Collision> collisionSet = new HashSet<Collision>();
@@ -45,8 +39,8 @@ public class CollisionMapComponent implements Component, Iterable<Collision> {
 	}
 
 	@Override
-	public String getComponentType() {
-		return Component.COLLISIONMAP_C;
+	public Type getComponentType() {
+		return COLLISIONMAP_C;
 	}
 
 	@Override

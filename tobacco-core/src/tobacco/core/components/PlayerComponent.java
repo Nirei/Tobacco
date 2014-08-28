@@ -24,21 +24,15 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlRootElement;
-
 import tobacco.core.util.Command;
 import tobacco.core.util.InputEvent;
 
-@XmlRootElement
-@XmlAccessorType(XmlAccessType.NONE)
 public class PlayerComponent implements Component, Iterable<InputEvent> {
 
 	private Map<InputEvent, Command> actionMap = new HashMap<InputEvent, Command>();
 
 	@Override
-	public String getComponentType() {
+	public Type getComponentType() {
 		return PLAYER_C;
 	}
 

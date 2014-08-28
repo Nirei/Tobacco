@@ -27,6 +27,7 @@ import tobacco.core.components.Entity;
 import tobacco.core.components.MovementComponent;
 import tobacco.core.components.PositionComponent;
 import tobacco.core.components.TrajectoryComponent;
+import tobacco.core.components.Type;
 import tobacco.core.util.Vector2D;
 
 /**
@@ -37,7 +38,7 @@ import tobacco.core.util.Vector2D;
  */
 public class TrajectorySystem extends AbstractListSystem {
 
-	private static final String[] requiredComponents = {
+	private static final Type[] requiredComponents = {
 		Component.TRAJECTORY_C,
 		Component.MOVEMENT_C,
 		Component.POSITION_C };

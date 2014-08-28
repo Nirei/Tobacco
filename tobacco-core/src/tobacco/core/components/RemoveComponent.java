@@ -20,16 +20,10 @@
 */
 package tobacco.core.components;
 
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlRootElement;
-
-@XmlRootElement
-@XmlAccessorType(XmlAccessType.NONE)
 public class RemoveComponent implements Component {
 
 	@Override
-	public String getComponentType() {
+	public Type getComponentType() {
 		return REMOVE_C;
 	}
 

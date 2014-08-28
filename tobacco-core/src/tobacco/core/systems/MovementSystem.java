@@ -24,11 +24,12 @@ import tobacco.core.components.Component;
 import tobacco.core.components.Entity;
 import tobacco.core.components.MovementComponent;
 import tobacco.core.components.PositionComponent;
+import tobacco.core.components.Type;
 import tobacco.core.util.Vector2D;
 
 public class MovementSystem extends AbstractListSystem {
 
-	private final static String[] requiredComponents = {
+	private final static Type[] requiredComponents = {
 		Component.POSITION_C,
 		Component.MOVEMENT_C };
 	private long lastCall = System.currentTimeMillis();

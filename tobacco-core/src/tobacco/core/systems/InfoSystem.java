@@ -27,10 +27,11 @@ import javax.swing.JTextArea;
 
 import tobacco.core.components.Component;
 import tobacco.core.components.Entity;
+import tobacco.core.components.Type;
 
 public class InfoSystem extends AbstractTreeSystem {
 
-	private static final String[] requiredComponents = { Component.DEBUGGING_C };
+	private static final Type[] requiredComponents = { Component.DEBUGGING_C };
 	private int tick = 0;
 	private StringBuilder sb;
 	private JFrame window = new JFrame();

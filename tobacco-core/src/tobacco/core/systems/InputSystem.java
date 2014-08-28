@@ -24,6 +24,7 @@ import tobacco.core.components.Component;
 import tobacco.core.components.Entity;
 import tobacco.core.components.KeymapComponent;
 import tobacco.core.components.PlayerComponent;
+import tobacco.core.components.Type;
 import tobacco.core.util.Command;
 import tobacco.core.util.InputEvent;
 
@@ -35,7 +36,7 @@ import tobacco.core.util.InputEvent;
  */
 public class InputSystem extends AbstractListSystem {
 
-	private final static String[] requiredComponents = { Component.PLAYER_C };
+	private final static Type[] requiredComponents = { Component.PLAYER_C };
 
 	private KeymapComponent keyMap;
 

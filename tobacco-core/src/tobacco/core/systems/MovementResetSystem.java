@@ -23,6 +23,7 @@ package tobacco.core.systems;
 import tobacco.core.components.Component;
 import tobacco.core.components.Entity;
 import tobacco.core.components.MovementComponent;
+import tobacco.core.components.Type;
 import tobacco.core.util.Vector2D;
 
 /**
@@ -34,7 +35,7 @@ import tobacco.core.util.Vector2D;
 // TODO: Design "AbstractListenerSystem" for Systems that only work with a very specific Entity?
 public class MovementResetSystem extends AbstractListSystem {
 
-	private final static String[] requiredComponents = {
+	private final static Type[] requiredComponents = {
 		Component.PLAYER_C,
 		Component.MOVEMENT_C };
 

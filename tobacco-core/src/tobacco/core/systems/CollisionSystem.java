@@ -30,6 +30,7 @@ import tobacco.core.components.Component;
 import tobacco.core.components.Entity;
 import tobacco.core.components.PositionComponent;
 import tobacco.core.components.ScreenComponent;
+import tobacco.core.components.Type;
 import tobacco.core.util.Vector2D;
 
 /* Writes on its own cMapComp, similarly to what the InputListener
@@ -40,7 +41,7 @@ import tobacco.core.util.Vector2D;
  */
 public class CollisionSystem extends AbstractListSystem {
 
-	private static final String[] requiredComponents = {Component.SOLIDITY_C, Component.POSITION_C};
+	private static final Type[] requiredComponents = {Component.SOLIDITY_C, Component.POSITION_C};
 
 	private final QuadTree<Entity> cqt;
 	private final CollisionStrategy cStrategy;

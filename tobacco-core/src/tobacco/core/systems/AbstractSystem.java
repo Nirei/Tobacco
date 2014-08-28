@@ -21,19 +21,20 @@
 package tobacco.core.systems;
 
 import tobacco.core.components.Entity;
+import tobacco.core.components.Type;
 
 public abstract class AbstractSystem implements EngineSystem {
 	
 	private boolean enabled = true;
 
-	public AbstractSystem(String[] _requiredComponents) {
+	public AbstractSystem(Type[] _requiredComponents) {
 		requiredComponents = _requiredComponents;
 	}
 
 	/**
 	 * Array with the Components that should be present on an Entity for the system to process it
 	 */
-	private String[] requiredComponents;
+	private Type[] requiredComponents;
 
 	/**
 	 * Current root entity
@@ -83,7 +84,7 @@ public abstract class AbstractSystem implements EngineSystem {
 	/**
 	 * @return Returns an array of String with the names of the components this system needs on an entity to be able to process.
 	 */
-	public String[] getRequiredComponents() {
+	public Type[] getRequiredComponents() {
 		return requiredComponents.clone();
 	}
 	
@@ -96,7 +97,7 @@ public abstract class AbstractSystem implements EngineSystem {
 	 *         <b>false</b> - Otherwise
 	 */
 	public boolean qualifies(Entity entity) {
-		for (String type : getRequiredComponents()) {
+		for (Type type : getRequiredComponents()) {
 			if (!entity.has(type))
 				return false;
 		}

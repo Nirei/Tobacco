@@ -23,6 +23,7 @@ package tobacco.core.systems;
 import tobacco.core.components.Component;
 import tobacco.core.components.ContainerComponent;
 import tobacco.core.components.Entity;
+import tobacco.core.components.Type;
 
 /**
  * This kind of system recursively traverses the tree of entities processing each and carrying recursive data if required.
@@ -31,7 +32,7 @@ import tobacco.core.components.Entity;
  */
 public abstract class AbstractTreeSystem extends AbstractSystem {
 
-	public AbstractTreeSystem(String[] _requiredComponents) {
+	public AbstractTreeSystem(Type[] _requiredComponents) {
 		super(_requiredComponents);
 	}
 	

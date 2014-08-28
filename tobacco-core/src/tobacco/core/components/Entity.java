@@ -20,29 +20,18 @@
 */
 package tobacco.core.components;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlAnyElement;
-import javax.xml.bind.annotation.XmlElementWrapper;
-import javax.xml.bind.annotation.XmlRootElement;
-
 /**
  * Entity for the game engine. Contains components. No logic.
  * 
  * @author nirei
  */
-@XmlRootElement
-@XmlAccessorType(XmlAccessType.NONE)
 public final class Entity implements Iterable<Component> {
-	
-//	public static final String ENTITY_XML_NAME = "entity";
 
 	// TODO: Object pool for Entities
 	private static List<Entity> entityList = new LinkedList<Entity>();
@@ -50,7 +39,7 @@ public final class Entity implements Iterable<Component> {
 
 	private long id = 0;
 
-	private Map<String, Component> components = new HashMap<String, Component>();
+	private Map<Type, Component> components = new HashMap<Type, Component>();
 
 	public Entity() {
 		id = counter++;
@@ -58,11 +47,11 @@ public final class Entity implements Iterable<Component> {
 	}
 
 	/**
-	 * Gets the map of components.
-	 * 
-	 * @return Map of {@link Component} for this entity.
+	 * Get a component from this entity.
+	 * @param type The type of the component
+	 * @return {@link Component} of the specified type.
 	 */
-	public Component get(String type) {
+	public Component get(Type type) {
 		synchronized (components) {
 			return components.get(type);
 		}
@@ -83,7 +72,7 @@ public final class Entity implements Iterable<Component> {
 	 * 
 	 * @param _component
 	 */
-	public boolean has(String type) {
+	public boolean has(Type type) {
 		return components.containsKey(type);
 	}
 	
@@ -101,17 +90,6 @@ public final class Entity implements Iterable<Component> {
 	 */
 	public final Long getID() {
 		return id;
-	}
-	
-	/**
-	 * This is a marshalling method which returns each
-	 * of this entity's components in a Collection
-	 * @return A collection of this entity's components
-	 */
-	@XmlElementWrapper(name="components")
-	@XmlAnyElement
-	public List<Component> getComponentSet() {
-		return new ArrayList<Component>(components.values());
 	}
 	
 	/**

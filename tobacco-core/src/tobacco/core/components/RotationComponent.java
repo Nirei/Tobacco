@@ -20,13 +20,6 @@
 */
 package tobacco.core.components;
 
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlAttribute;
-import javax.xml.bind.annotation.XmlRootElement;
-
-@XmlRootElement
-@XmlAccessorType(XmlAccessType.NONE)
 public class RotationComponent implements Component {
 
 	private float rotation;
@@ -38,11 +31,10 @@ public class RotationComponent implements Component {
 	}
 
 	@Override
-	public String getComponentType() {
+	public Type getComponentType() {
 		return ROTATION_C;
 	}
 
-	@XmlAttribute
 	public float getRotation() {
 		return rotation;
 	}

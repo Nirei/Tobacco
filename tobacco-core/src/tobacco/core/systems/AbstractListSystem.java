@@ -21,6 +21,7 @@
 package tobacco.core.systems;
 
 import tobacco.core.components.Entity;
+import tobacco.core.components.Type;
 
 /**
  * This kind of system traverses the whole list of entities without a specific order
@@ -29,7 +30,7 @@ import tobacco.core.components.Entity;
  */
 public abstract class AbstractListSystem extends AbstractSystem {
 
-	public AbstractListSystem(String[] _requiredComponents) {
+	public AbstractListSystem(Type[] _requiredComponents) {
 		super(_requiredComponents);
 	}
 	

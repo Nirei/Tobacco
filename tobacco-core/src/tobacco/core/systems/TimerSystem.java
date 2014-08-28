@@ -24,10 +24,11 @@ import tobacco.core.components.Component;
 import tobacco.core.components.DurationComponent;
 import tobacco.core.components.Entity;
 import tobacco.core.components.RemoveComponent;
+import tobacco.core.components.Type;
 
 public class TimerSystem extends AbstractListSystem {
 
-	private static final String[] requiredComponents = { Component.DURATION_C };
+	private static final Type[] requiredComponents = { Component.DURATION_C };
 	private long lastCall = System.currentTimeMillis();
 	private long delta;
 	

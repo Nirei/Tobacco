@@ -20,9 +20,6 @@
 */
 package tobacco.core.components;
 
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-
 /**
  * Components are storage for all the game data.
  * 
@@ -30,31 +27,28 @@ import javax.xml.bind.annotation.XmlAccessorType;
  * 
  */
 public interface Component {
-
-	public static final String COLLISIONMAP_C = "COLLISIONMAP_C";
-	public static final String CONTAINER_C = "CONTAINER_C";
-	public static final String DEBUGGING_C = "DEBUGGING_C";
-	public static final String DURATION_C = "DURATION_C";
-	public static final String KEYMAP_C = "KEYMAP_C";
-	public static final String MOVEMENT_C = "MOVEMENT_C";
-	public static final String PLAYER_C = "PLAYER_C";
-	public static final String POSITION_C = "POSITION_C";
-	public static final String REMOVE_C = "REMOVE_C";
-	public static final String ROTATION_C = "ROTATION_C";
-	public static final String SCALE_C = "SCALE_C";
-	public static final String TEXTURE_C = "TEXTURE_C";
-	public static final String TRAJECTORY_C = "TRAJECTORY_C";
-	public static final String SCREEN_C = "SCREEN_C";
-	public static final String SIZE_C = "SIZE_C";
-	public static final String SOLIDITY_C = "SOLIDITY_C";
 	
-//	public static final String COMP_XML_NAME = "component";
+	public final static Type COLLISIONMAP_C = new Type("COLLISIONMAP_C", CollisionMapComponent.class);
+	public final static Type CONTAINER_C = new Type("CONTAINER_C", ContainerComponent.class);
+	public final static Type DEBUGGING_C = new Type("DEBUGGING_C", DebuggingComponent.class);
+	public final static Type DURATION_C = new Type("DURATION_C", DurationComponent.class);
+	public final static Type KEYMAP_C = new Type("KEYMAP_C", KeymapComponent.class);
+	public final static Type MOVEMENT_C = new Type("MOVEMENT_C", MovementComponent.class);
+	public final static Type PLAYER_C = new Type("PLAYER_C", PlayerComponent.class);
+	public final static Type POSITION_C = new Type("POSITION_C", PositionComponent.class);
+	public final static Type REMOVE_C = new Type("REMOVE_C", RemoveComponent.class);
+	public final static Type ROTATION_C = new Type("ROTATION_C", RotationComponent.class);
+	public final static Type SCALE_C = new Type("SCALE_C", ScaleComponent.class);
+	public final static Type SCREEN_C = new Type("SCREEN_C", ScreenComponent.class);
+	public final static Type SIZE_C = new Type("SIZE_C", SizeComponent.class);
+	public final static Type SOLIDITY_C = new Type("SOLIDITY_C", SolidityComponent.class);
+	public final static Type TRAJECTORY_C = new Type("TRAJECTORY_C", TrajectoryComponent.class);
 
 	/**
 	 * Returns this component's name.
 	 * 
 	 * @return {@link String} representing the name of the component.
 	 */
-	public abstract String getComponentType();
+	public abstract Type getComponentType();
 
 }

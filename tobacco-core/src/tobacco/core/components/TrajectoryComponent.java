@@ -20,15 +20,8 @@
 */
 package tobacco.core.components;
 
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlAttribute;
-import javax.xml.bind.annotation.XmlRootElement;
-
 import tobacco.core.movement.Trajectory;
 
-@XmlRootElement
-@XmlAccessorType(XmlAccessType.NONE)
 public class TrajectoryComponent implements Component {
 
 	private Trajectory trajectory;
@@ -50,7 +43,6 @@ public class TrajectoryComponent implements Component {
 		this.trajectory = trajectory;
 	}
 
-	@XmlAttribute
 	public int getStep() {
 		return step;
 	}
@@ -59,7 +51,6 @@ public class TrajectoryComponent implements Component {
 		this.step = step;
 	}
 
-	@XmlAttribute
 	public boolean isLoop() {
 		return loop;
 	}
@@ -69,7 +60,7 @@ public class TrajectoryComponent implements Component {
 	}
 
 	@Override
-	public String getComponentType() {
+	public Type getComponentType() {
 		return TRAJECTORY_C;
 	}
 

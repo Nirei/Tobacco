@@ -26,14 +26,6 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlElementRef;
-import javax.xml.bind.annotation.XmlElementWrapper;
-import javax.xml.bind.annotation.XmlRootElement;
-
-@XmlRootElement
-@XmlAccessorType(XmlAccessType.NONE)
 public class ContainerComponent implements Component, Iterable<Entity> {
 
 	private Map<Long, Entity> children = new HashMap<Long, Entity>();
@@ -52,9 +44,7 @@ public class ContainerComponent implements Component, Iterable<Entity> {
 			children.put(child.getID(), child);
 		}
 	}
-	
-	@XmlElementWrapper
-	@XmlElementRef
+
 	public Collection<Entity> getChildren() {
 		return children.values();
 	}
@@ -66,7 +56,7 @@ public class ContainerComponent implements Component, Iterable<Entity> {
 	}
 
 	@Override
-	public String getComponentType() {
+	public Type getComponentType() {
 		return CONTAINER_C;
 	}
 

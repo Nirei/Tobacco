@@ -20,22 +20,15 @@
 */
 package tobacco.core.components;
 
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
-
 import tobacco.core.util.Vector2D;
 
-@XmlRootElement
-@XmlAccessorType(XmlAccessType.NONE)
 public class MovementComponent implements Component {
 
 	private Vector2D direction = Vector2D.ZERO;
 	private float speed;
 
 	@Override
-	public String getComponentType() {
+	public Type getComponentType() {
 		return MOVEMENT_C;
 	}
 
@@ -51,7 +44,6 @@ public class MovementComponent implements Component {
 		speed = _speed;
 	}
 
-	@XmlElement
 	public float getSpeed() {
 		return speed;
 	}
@@ -60,7 +52,6 @@ public class MovementComponent implements Component {
 		speed = _speed;
 	}
 
-	@XmlElement
 	public Vector2D getDirection() {
 		return direction;
 	}

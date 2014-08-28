@@ -24,10 +24,11 @@ import tobacco.core.components.Component;
 import tobacco.core.components.ContainerComponent;
 import tobacco.core.components.Entity;
 import tobacco.core.components.RemoveComponent;
+import tobacco.core.components.Type;
 
 public class EntityRemovalSystem extends AbstractTreeSystem {
 
-	private static final String[] requiredComponents = { Component.REMOVE_C };
+	private static final Type[] requiredComponents = { Component.REMOVE_C };
 
 	public EntityRemovalSystem() {
 		super(requiredComponents);

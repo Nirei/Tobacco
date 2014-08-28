@@ -20,9 +20,6 @@
 */
 package tobacco.core.util;
 
-import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
-
-@XmlJavaTypeAdapter(tobacco.core.serialization.Vector2DAdapter.class)
 public class Vector2D {
 	public static final Vector2D ZERO = new Vector2D(0, 0);
 	public static final Vector2D ONE = new Vector2D(1, 1);

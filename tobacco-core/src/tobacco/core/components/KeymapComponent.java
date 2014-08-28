@@ -23,14 +23,8 @@ package tobacco.core.components;
 import java.util.HashSet;
 import java.util.Set;
 
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlRootElement;
-
 import tobacco.core.util.InputCode;
 
-@XmlRootElement
-@XmlAccessorType(XmlAccessType.NONE)
 public class KeymapComponent implements Component {
 
 	private Set<InputCode> keyMap = new HashSet<InputCode>();
@@ -38,7 +32,7 @@ public class KeymapComponent implements Component {
 	private Set<InputCode> releasedNowMap = new HashSet<InputCode>();
 
 	@Override
-	public String getComponentType() {
+	public Type getComponentType() {
 		return KEYMAP_C;
 	}
 

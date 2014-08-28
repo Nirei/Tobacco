@@ -20,14 +20,8 @@
 */
 package tobacco.core.components;
 
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
 import tobacco.core.util.Vector2D;
 
-@XmlRootElement
-@XmlAccessorType(XmlAccessType.NONE)
 public class ScaleComponent implements Component {
 
 	private Vector2D scale;
@@ -39,11 +33,10 @@ public class ScaleComponent implements Component {
 	}
 
 	@Override
-	public String getComponentType() {
+	public Type getComponentType() {
 		return SCALE_C;
 	}
 
-	@XmlElement
 	public Vector2D getScale() {
 		return scale;
 	}
