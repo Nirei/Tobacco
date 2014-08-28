@@ -25,7 +25,6 @@ import java.util.List;
 
 import tobacco.core.components.DebuggingComponent;
 import tobacco.core.components.SolidityComponent;
-import tobacco.core.components.TextureComponent;
 import tobacco.core.components.Entity;
 import tobacco.core.components.MovementComponent;
 import tobacco.core.components.PositionComponent;
@@ -35,6 +34,7 @@ import tobacco.core.movement.RectilinearPath;
 import tobacco.core.movement.Trajectory;
 import tobacco.core.util.Vector2D;
 import tobacco.game.test.components.HealthComponent;
+import tobacco.render.pc.components.TextureComponent;
 
 public class EnemyEntityFactory {
 
@@ -51,13 +51,13 @@ public class EnemyEntityFactory {
 
 		TextureComponent textureComp = new TextureComponent(texture);
 		SizeComponent sizeComp = new SizeComponent(size);
-		entity.put(textureComp);
-		entity.put(sizeComp);
-		entity.put(new PositionComponent(new Vector2D(20f, 200f)));
-		entity.put(new MovementComponent(100f));
-		entity.put(new DebuggingComponent());
-		entity.put(new SolidityComponent(10f));
-		entity.put(new HealthComponent(100f));
+		entity.add(textureComp);
+		entity.add(sizeComp);
+		entity.add(new PositionComponent(new Vector2D(20f, 200f)));
+		entity.add(new MovementComponent(100f));
+		entity.add(new DebuggingComponent());
+		entity.add(new SolidityComponent(10f));
+		entity.add(new HealthComponent(100f));
 		TrajectoryComponent trajComp = new TrajectoryComponent();
 		Trajectory traj = new Trajectory(RectilinearPath.getInstance()) {
 			
@@ -73,7 +73,7 @@ public class EnemyEntityFactory {
 		};
 		trajComp.setTrajectory(traj);
 		trajComp.setLoop(true);
-		entity.put(trajComp);
+		entity.add(trajComp);
 
 		return entity;
 	}

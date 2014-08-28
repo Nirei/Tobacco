@@ -35,8 +35,8 @@ public class PcInputListener implements CommonListener {
 	private final MouseComponent mouseComp = new MouseComponent();
 
 	public PcInputListener(Entity root) {
-		root.put(keyMapComp);
-		root.put(mouseComp);
+		root.add(keyMapComp);
+		root.add(mouseComp);
 	}
 	
 	private Vector2D getMousePosition(MouseEvent e) {

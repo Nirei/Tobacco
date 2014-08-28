@@ -20,18 +20,15 @@
 */
 package tobacco.render.pc.components;
 
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
-
+import tobacco.core.components.Type;
 import tobacco.core.util.Vector2D;
 
-@XmlRootElement
 public class MouseComponent implements RendererComponent {
 
 	private Vector2D position = Vector2D.ZERO;
 
 	@Override
-	public String getComponentType() {
+	public Type getComponentType() {
 		return MOUSE_C;
 	}
 
@@ -39,7 +36,6 @@ public class MouseComponent implements RendererComponent {
 		this.position = position;
 	}
 
-	@XmlElement
 	public Vector2D getPosition() {
 		return position;
 	}

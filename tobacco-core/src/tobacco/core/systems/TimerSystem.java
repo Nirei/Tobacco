@@ -46,7 +46,7 @@ public class TimerSystem extends AbstractListSystem {
 		}
 		// If time has expired, mark Entity for removal :(
 		if (left <= 0)
-			entity.put(new RemoveComponent());
+			entity.add(new RemoveComponent());
 	}
 
 	@Override

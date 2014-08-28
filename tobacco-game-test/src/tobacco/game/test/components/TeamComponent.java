@@ -1,12 +1,7 @@
 package tobacco.game.test.components;
 
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlAttribute;
-import javax.xml.bind.annotation.XmlRootElement;
+import tobacco.core.components.Type;
 
-@XmlRootElement
-@XmlAccessorType(XmlAccessType.NONE)
 public class TeamComponent implements GameComponent {
 
 	private String team;
@@ -18,11 +13,10 @@ public class TeamComponent implements GameComponent {
 	}
 
 	@Override
-	public String getComponentType() {
+	public Type getComponentType() {
 		return TEAM_C;
 	}
 	
-	@XmlAttribute
 	public String getTeam() {
 		return team;
 	}

@@ -20,13 +20,8 @@
 */
 package tobacco.game.test.components;
 
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlAttribute;
-import javax.xml.bind.annotation.XmlRootElement;
+import tobacco.core.components.Type;
 
-@XmlRootElement
-@XmlAccessorType(XmlAccessType.NONE)
 public class HealthComponent implements GameComponent {
 
 	private float health;
@@ -38,7 +33,7 @@ public class HealthComponent implements GameComponent {
 	}
 
 	@Override
-	public String getComponentType() {
+	public Type getComponentType() {
 		return GameComponent.HEALTH_C;
 	}
 
@@ -46,7 +41,6 @@ public class HealthComponent implements GameComponent {
 		return health <= 0f;
 	}
 
-	@XmlAttribute
 	public float getHealth() {
 		return health;
 	}

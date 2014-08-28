@@ -57,7 +57,7 @@ public class CollisionSystem extends AbstractListSystem {
 		Vector2D screenSize = ((ScreenComponent) root.get(Component.SCREEN_C)).getScreenSize();
 		cqt = new QuadTree<Entity>(Vector2D.ZERO, screenSize.scale(0.55f), 4, 6);
 		
-		root.put(cMapComp);
+		root.add(cMapComp);
 	}
 	
 	private void writeCollision(Entity e1, Entity e2) {

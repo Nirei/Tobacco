@@ -63,7 +63,7 @@ public final class Entity implements Iterable<Component> {
 	 * @param _component
 	 *            Component to be added
 	 */
-	public void put(Component component) {
+	public void add(Component component) {
 		components.put(component.getComponentType(), component);
 	}
 

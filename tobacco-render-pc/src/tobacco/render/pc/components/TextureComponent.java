@@ -18,28 +18,35 @@
 *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 *
 */
-package tobacco.game.test.main;
+package tobacco.render.pc.components;
 
-import tobacco.core.components.Entity;
-import tobacco.core.loader.Loader;
-import tobacco.core.systems.MainSystem;
-import tobacco.game.test.loader.ManualLoader;
+import tobacco.core.components.Type;
 
-public class Main {
+public class TextureComponent implements RendererComponent {
 
-	public static void main(String[] args) {
-		Loader loader = new ManualLoader();
+	private String imagePath;
 
-		Entity root = loader.loadEntityTree();
-		MainSystem mainSystem = loader.loadMainSystem(root);
+	public TextureComponent() {}
 
-		while (true) {
-			mainSystem.work(root);
-			try {
-				Thread.sleep(5);
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
-		}
+	public TextureComponent(String imagePath) {
+		this.imagePath = imagePath;
+	}
+
+	@Override
+	public Type getComponentType() {
+		return TEXTURE_C;
+	}
+
+	public String getImagePath() {
+		return imagePath;
+	}
+
+	public void setImagePath(String imagePath) {
+		this.imagePath = imagePath;
+	}
+
+	@Override
+	public String toString() {
+		return "ImagePath: " + imagePath;
 	}
 }

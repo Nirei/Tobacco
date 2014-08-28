@@ -21,6 +21,7 @@
 package tobacco.render.pc.components;
 
 import tobacco.core.components.Component;
+import tobacco.core.components.Type;
 
 /**
  * Names for all the renderer components
@@ -28,5 +29,6 @@ import tobacco.core.components.Component;
  * @author nirei
  */
 public interface RendererComponent extends Component {
-	public static final String MOUSE_C = "MOUSE_C";
+	public static final Type MOUSE_C = new Type("MOUSE_C", MouseComponent.class);
+	public final static Type TEXTURE_C = new Type("TEXTURE_C", TextureComponent.class);
 }

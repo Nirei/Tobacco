@@ -21,13 +21,14 @@
 package tobacco.game.test.components;
 
 import tobacco.core.components.Component;
+import tobacco.core.components.Type;
 
 public interface GameComponent extends Component {
 
-	public static final String BULLET_C = "BULLET_C";
-	public static final String DAMAGE_C = "DAMAGE_C";
-	public static final String DIRECTION_C = "DIRECTION_C";
-	public static final String GUN_C = "GUN_C";
-	public static final String HEALTH_C = "HEALTH_C";
-	public static final String TEAM_C = "TEAM_C";
+	public static final Type BULLET_C = new Type("BULLET_C", BulletComponent.class);
+	public static final Type DAMAGE_C = new Type("DAMAGE_C", DamageComponent.class);
+	public static final Type DIRECTION_C = new Type("DIRECTION_C", DirectionComponent.class);
+	public static final Type GUN_C = new Type("GUN_C", GunComponent.class);
+	public static final Type HEALTH_C = new Type("HEALTH_C", HealthComponent.class);
+	public static final Type TEAM_C = new Type("TEAM_C", TeamComponent.class);
 }

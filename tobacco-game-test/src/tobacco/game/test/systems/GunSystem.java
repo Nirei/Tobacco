@@ -30,7 +30,7 @@ import tobacco.core.components.PositionComponent;
 import tobacco.core.components.RotationComponent;
 import tobacco.core.components.SizeComponent;
 import tobacco.core.components.SolidityComponent;
-import tobacco.core.components.TextureComponent;
+import tobacco.core.components.Type;
 import tobacco.core.systems.AbstractListSystem;
 import tobacco.core.util.Vector2D;
 import tobacco.game.test.components.BulletComponent;
@@ -39,10 +39,11 @@ import tobacco.game.test.components.DirectionComponent;
 import tobacco.game.test.components.GameComponent;
 import tobacco.game.test.components.GunComponent;
 import tobacco.game.test.components.TeamComponent;
+import tobacco.render.pc.components.TextureComponent;
 
 public class GunSystem extends AbstractListSystem {
 
-	private static final String[] requiredComponents = {
+	private static final Type[] requiredComponents = {
 		GameComponent.GUN_C,
 		GameComponent.TEAM_C,
 		GameComponent.CONTAINER_C,
@@ -63,16 +64,16 @@ public class GunSystem extends AbstractListSystem {
 		Entity entity = new Entity();
 		TextureComponent textureComp = new TextureComponent(texture);
 		SizeComponent sizeComp = new SizeComponent(size);
-		entity.put(team);
-		entity.put(textureComp);
-		entity.put(sizeComp);
-		entity.put(new DamageComponent(damage));
-		entity.put(new PositionComponent(pos));
-		entity.put(new MovementComponent(dir, bComp.getBulletSpeed()));
-		entity.put(new RotationComponent(90f + Vector2D.angle(Vector2D.VERTICAL, dir).getDegrees()));
-		entity.put(new DebuggingComponent());
-		entity.put(new DurationComponent(1000));
-		entity.put(new SolidityComponent(10f));
+		entity.add(team);
+		entity.add(textureComp);
+		entity.add(sizeComp);
+		entity.add(new DamageComponent(damage));
+		entity.add(new PositionComponent(pos));
+		entity.add(new MovementComponent(dir, bComp.getBulletSpeed()));
+		entity.add(new RotationComponent(90f + Vector2D.angle(Vector2D.VERTICAL, dir).getDegrees()));
+		entity.add(new DebuggingComponent());
+		entity.add(new DurationComponent(1000));
+		entity.add(new SolidityComponent(10f));
 
 		return entity;
 	}

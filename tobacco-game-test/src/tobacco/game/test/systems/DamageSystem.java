@@ -31,7 +31,7 @@ public class DamageSystem implements EngineSystem {
 			}
 
 			if(e1.has(GameComponent.BULLET_C)) {
-				e1.put(new RemoveComponent());
+				e1.add(new RemoveComponent());
 			}
 		}
 	}

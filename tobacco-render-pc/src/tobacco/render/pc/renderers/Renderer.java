@@ -29,13 +29,14 @@ import javax.media.opengl.GLProfile;
 
 import tobacco.core.components.Component;
 import tobacco.core.components.ContainerComponent;
-import tobacco.core.components.TextureComponent;
 import tobacco.core.components.Entity;
 import tobacco.core.components.PositionComponent;
 import tobacco.core.components.RotationComponent;
 import tobacco.core.components.ScaleComponent;
 import tobacco.core.components.SizeComponent;
 import tobacco.core.util.Vector2D;
+import tobacco.render.pc.components.RendererComponent;
+import tobacco.render.pc.components.TextureComponent;
 import tobacco.render.pc.input.CommonListener;
 import tobacco.render.pc.util.TextureStorage;
 import tobacco.render.pc.util.exceptions.TextureNotFoundException;
@@ -63,7 +64,7 @@ public abstract class Renderer implements GLEventListener {
 		
 		GL2 gl = drawable.getGL().getGL2();
 		
-		if (entity.has(Component.TEXTURE_C) && entity.has(Component.SIZE_C)) {
+		if (entity.has(RendererComponent.TEXTURE_C) && entity.has(Component.SIZE_C)) {
 			gl.glPushMatrix();
 
 			Vector2D pos = Vector2D.ZERO;
@@ -101,7 +102,7 @@ public abstract class Renderer implements GLEventListener {
 			gl.glScalef(sca.getX(), sca.getY(), 0);
 
 			try {
-				TextureComponent textureComp = (TextureComponent) entity.get(Component.TEXTURE_C);
+				TextureComponent textureComp = (TextureComponent) entity.get(RendererComponent.TEXTURE_C);
 				texture = TextureStorage.getTexture(textureComp.getImagePath());
 			} catch (TextureNotFoundException e1) {
 				try {

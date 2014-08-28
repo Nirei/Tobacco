@@ -27,7 +27,6 @@ import tobacco.core.components.Component;
 import tobacco.core.components.ContainerComponent;
 import tobacco.core.components.DebuggingComponent;
 import tobacco.core.components.SolidityComponent;
-import tobacco.core.components.TextureComponent;
 import tobacco.core.components.Entity;
 import tobacco.core.components.MovementComponent;
 import tobacco.core.components.PlayerComponent;
@@ -59,6 +58,7 @@ import tobacco.game.test.systems.DamageSystem;
 import tobacco.game.test.systems.GunSystem;
 import tobacco.game.test.systems.HealthSystem;
 import tobacco.game.test.util.HitCircleCollisionStrategy;
+import tobacco.render.pc.components.TextureComponent;
 import tobacco.render.pc.input.PcInputListener;
 import tobacco.render.pc.renderers.NewtRenderer;
 import tobacco.render.pc.renderers.Renderer;
@@ -117,16 +117,16 @@ public class ManualLoader implements Loader {
 		/* Root */
 		ContainerComponent rootContainer = new ContainerComponent();
 		root = new Entity();
-		root.put(new DebuggingComponent());
-		root.put(new ScreenComponent(new Vector2D(480,640)));
-		root.put(rootContainer);
+		root.add(new DebuggingComponent());
+		root.add(new ScreenComponent(new Vector2D(480,640)));
+		root.add(rootContainer);
 
 		/* Player */
 		player = new Entity();
-		player.put(new DebuggingComponent());
-		player.put(new TextureComponent("/tobacco/game/test/textures/reimuholder.png"));
-		player.put(new SizeComponent(new Vector2D(32f, 48f)));
-		player.put(new PositionComponent(new Vector2D(0f, -200f)));
+		player.add(new DebuggingComponent());
+		player.add(new TextureComponent("/tobacco/game/test/textures/reimuholder.png"));
+		player.add(new SizeComponent(new Vector2D(32f, 48f)));
+		player.add(new PositionComponent(new Vector2D(0f, -200f)));
 
 		PlayerComponent playerComp = new PlayerComponent();
 		Command up = moveCommand(0, 1);
@@ -160,7 +160,7 @@ public class ManualLoader implements Loader {
 			}
 		});
 
-		player.put(playerComp);
+		player.add(playerComp);
 
 		ContainerComponent containerComponent = new ContainerComponent();
 		GunComponent gunComponent = new GunComponent();
@@ -168,35 +168,35 @@ public class ManualLoader implements Loader {
 		
 		Entity bullet1 = new Entity();
 		BulletComponent bulletComp1 = new BulletComponent("/tobacco/game/test/textures/reimubullet.png", 150, 2000f);
-		bullet1.put(bulletComp1);
-		bullet1.put(new DirectionComponent(new Vector2D(0f, 1f)));
-		bullet1.put(bSizeComp);
-		bullet1.put(new DamageComponent(50f));
+		bullet1.add(bulletComp1);
+		bullet1.add(new DirectionComponent(new Vector2D(0f, 1f)));
+		bullet1.add(bSizeComp);
+		bullet1.add(new DamageComponent(50f));
 
 		Entity bullet2 = new Entity();
 		BulletComponent bulletComp2 = new BulletComponent("/tobacco/game/test/textures/reimubullet.png", 150, 2000f);
-		bullet2.put(bulletComp2);
-		bullet2.put(new DirectionComponent(new Vector2D(1f, 5f)));
-		bullet2.put(bSizeComp);
-		bullet2.put(new DamageComponent(50f));
+		bullet2.add(bulletComp2);
+		bullet2.add(new DirectionComponent(new Vector2D(1f, 5f)));
+		bullet2.add(bSizeComp);
+		bullet2.add(new DamageComponent(50f));
 
 		Entity bullet3 = new Entity();
 		BulletComponent bulletComp3 = new BulletComponent("/tobacco/game/test/textures/reimubullet.png", 150, 2000f);
-		bullet3.put(bulletComp3);
-		bullet3.put(new DirectionComponent(new Vector2D(-1f, 5f)));
-		bullet3.put(bSizeComp);
-		bullet3.put(new DamageComponent(50f));
+		bullet3.add(bulletComp3);
+		bullet3.add(new DirectionComponent(new Vector2D(-1f, 5f)));
+		bullet3.add(bSizeComp);
+		bullet3.add(new DamageComponent(50f));
 
 		containerComponent.addChild(bullet1);
 		containerComponent.addChild(bullet2);
 		containerComponent.addChild(bullet3);
 
-		player.put(gunComponent);
-		player.put(containerComponent);
-		player.put(new MovementComponent(500f));
-		player.put(new HealthComponent(100f));
-		player.put(new SolidityComponent(10f));
-		player.put(new TeamComponent("PLAYER"));
+		player.add(gunComponent);
+		player.add(containerComponent);
+		player.add(new MovementComponent(500f));
+		player.add(new HealthComponent(100f));
+		player.add(new SolidityComponent(10f));
+		player.add(new TeamComponent("PLAYER"));
 
 		rootContainer.addChild(player);
 		EnemyEntityFactory eeFactory = new EnemyEntityFactory("/tobacco/game/test/textures/fairy_blue.png", new Vector2D(26f, 28f));
@@ -208,16 +208,16 @@ public class ManualLoader implements Loader {
 		TextureComponent textureComp = new TextureComponent("/tobacco/game/test/textures/white_pixel.png");
 		SizeComponent sizeComp = new SizeComponent(new Vector2D(500f,1f));
 		PositionComponent posComp = new PositionComponent(Vector2D.ZERO, 1f);
-		debugAxisX.put(posComp);
-		debugAxisX.put(textureComp);
-		debugAxisX.put(sizeComp);
+		debugAxisX.add(posComp);
+		debugAxisX.add(textureComp);
+		debugAxisX.add(sizeComp);
 		
 		textureComp = new TextureComponent("/tobacco/game/test/textures/white_pixel.png");
 		sizeComp = new SizeComponent(new Vector2D(1f, 1000f));
 		posComp = new PositionComponent(Vector2D.ZERO, 1f);
-		debugAxisY.put(posComp);
-		debugAxisY.put(textureComp);
-		debugAxisY.put(sizeComp);
+		debugAxisY.add(posComp);
+		debugAxisY.add(textureComp);
+		debugAxisY.add(sizeComp);
 		
 		rootContainer.addChild(debugAxisX);
 		rootContainer.addChild(debugAxisY);

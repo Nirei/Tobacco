@@ -20,13 +20,8 @@
 */
 package tobacco.game.test.components;
 
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlAttribute;
-import javax.xml.bind.annotation.XmlRootElement;
+import tobacco.core.components.Type;
 
-@XmlRootElement
-@XmlAccessorType(XmlAccessType.NONE)
 public class BulletComponent implements GameComponent {
 
 	private String bulletTexture;
@@ -43,11 +38,10 @@ public class BulletComponent implements GameComponent {
 	}
 
 	@Override
-	public String getComponentType() {
+	public Type getComponentType() {
 		return BULLET_C;
 	}
 
-	@XmlAttribute
 	public long getBulletPeriod() {
 		return bulletPeriod;
 	}
@@ -56,7 +50,6 @@ public class BulletComponent implements GameComponent {
 		this.bulletPeriod = bulletPeriod;
 	}
 
-	@XmlAttribute
 	public long getLastBullet() {
 		return lastBullet;
 	}
@@ -65,7 +58,6 @@ public class BulletComponent implements GameComponent {
 		this.lastBullet = lastBullet;
 	}
 
-	@XmlAttribute
 	public float getBulletSpeed() {
 		return bulletSpeed;
 	}
@@ -74,7 +66,6 @@ public class BulletComponent implements GameComponent {
 		this.bulletSpeed = bulletSpeed;
 	}
 	
-	@XmlAttribute
 	public String getBulletTexture() {
 		return bulletTexture;
 	}

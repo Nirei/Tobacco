@@ -38,7 +38,7 @@ public class EntityRemovalSystem extends AbstractTreeSystem {
 		// Remove entity AND its children (if there were any)
 		if(entity.has(Component.CONTAINER_C)) {
 			ContainerComponent children = (ContainerComponent) entity.get(Component.CONTAINER_C);
-			for(Entity e : children) e.put(new RemoveComponent());
+			for(Entity e : children) e.add(new RemoveComponent());
 		}
 
 		ContainerComponent siblings = (ContainerComponent) parent.get(Component.CONTAINER_C);
