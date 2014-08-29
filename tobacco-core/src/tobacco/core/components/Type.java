@@ -1,6 +1,11 @@
 package tobacco.core.components;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public final class Type {
+
+	private static final Map<String, Type> types = new HashMap<String, Type>();
 
 	private final String name;
 	private final Class<?> implementer;
@@ -8,6 +13,11 @@ public final class Type {
 	public Type(String name, Class<?> implementer) {
 		this.name = name;
 		this.implementer = implementer;
+		types.put(name, this);
+	}
+	
+	public static Type findByName(String name) {
+		return types.get(name);
 	}
 	
 	public String getName() {

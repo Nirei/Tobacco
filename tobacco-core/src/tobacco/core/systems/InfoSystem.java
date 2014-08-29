@@ -20,8 +20,6 @@
 */
 package tobacco.core.systems;
 
-import java.awt.Dimension;
-
 import javax.swing.JFrame;
 import javax.swing.JTextArea;
 
@@ -40,7 +38,7 @@ public class InfoSystem extends AbstractTreeSystem {
 	public InfoSystem() {
 		super(requiredComponents);
 		
-		window.setSize(new Dimension(800, 400));
+		window.setBounds(500, 60, 800, 400);
 		window.setTitle("Debugging");
 
 		window.add(ta);

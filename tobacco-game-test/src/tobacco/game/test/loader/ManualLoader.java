@@ -37,6 +37,7 @@ import tobacco.core.loader.Loader;
 import tobacco.core.systems.CollisionSystem;
 import tobacco.core.systems.EngineSystem;
 import tobacco.core.systems.EntityRemovalSystem;
+import tobacco.core.systems.InfoSystem;
 import tobacco.core.systems.MainSystem;
 import tobacco.core.systems.MovementSystem;
 import tobacco.core.systems.InputSystem;
@@ -77,7 +78,7 @@ public class ManualLoader implements Loader {
 		renderer.setRoot(root);
 		
 		// Load systems
-		//systems.add(new InfoSystem());
+		systems.add(new InfoSystem());
 		systems.add(new MovementSystem());
 		systems.add(new MovementResetSystem());
 		systems.add(new CollisionSystem(root, HitCircleCollisionStrategy.getSingleton()));
@@ -146,14 +147,14 @@ public class ManualLoader implements Loader {
 		playerComp.put(new InputEvent(KEY_RIGHT, TYPE_HOLD), right);
 		playerComp.put(new InputEvent(KEY_ESCAPE, TYPE_RELEASE), suicide);
 
-		playerComp.put(new InputEvent(KEY_SPACE, TYPE_PRESS), new Command() {
+		playerComp.put(new InputEvent(KEY_Z, TYPE_PRESS), new Command() {
 			@Override
 			public void execute(Entity rootEntity, Entity entity) {
 				((GunComponent) entity.get(GameComponent.GUN_C)).setShooting(true);
 			}
 		});
 
-		playerComp.put(new InputEvent(KEY_SPACE, TYPE_RELEASE), new Command() {
+		playerComp.put(new InputEvent(KEY_Z, TYPE_RELEASE), new Command() {
 			@Override
 			public void execute(Entity rootEntity, Entity entity) {
 				((GunComponent) entity.get(GameComponent.GUN_C)).setShooting(false);
