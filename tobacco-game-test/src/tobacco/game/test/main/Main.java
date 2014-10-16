@@ -20,9 +20,9 @@
 */
 package tobacco.game.test.main;
 
-import tobacco.core.components.Entity;
 import tobacco.core.loader.Loader;
-import tobacco.core.systems.MainSystem;
+import tobacco.core.services.Directory;
+import tobacco.core.systems.AbstractMainSystem;
 import tobacco.game.test.loader.ManualLoader;
 
 public class Main {
@@ -30,11 +30,11 @@ public class Main {
 	public static void main(String[] args) {
 		Loader loader = new ManualLoader();
 
-		Entity root = loader.loadEntityTree();
-		MainSystem mainSystem = loader.loadMainSystem(root);
-
+		loader.loadEntityTree();
+		AbstractMainSystem mainSystem = loader.loadMainSystem(Directory.getDataService().getRoot());
+		
 		while (true) {
-			mainSystem.work(root);
+			mainSystem.work(Directory.getDataService().getRoot());
 			try {
 				Thread.sleep(5);
 			} catch (InterruptedException e) {

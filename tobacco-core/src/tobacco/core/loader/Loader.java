@@ -21,10 +21,11 @@
 package tobacco.core.loader;
 
 import tobacco.core.components.Entity;
-import tobacco.core.systems.MainSystem;
+import tobacco.core.systems.AbstractMainSystem;
 
 public interface Loader {
-	public MainSystem loadMainSystem(Entity root);
 
-	public Entity loadEntityTree();
+	public void loadEntityTree();
+	public AbstractMainSystem loadMainSystem(Entity root);
+
 }

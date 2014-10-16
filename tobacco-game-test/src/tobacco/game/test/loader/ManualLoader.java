@@ -34,18 +34,22 @@ import tobacco.core.components.PositionComponent;
 import tobacco.core.components.ScreenComponent;
 import tobacco.core.components.SizeComponent;
 import tobacco.core.loader.Loader;
+import tobacco.core.services.DefaultDataService;
+import tobacco.core.services.Directory;
+import tobacco.core.systems.AbstractMainSystem;
 import tobacco.core.systems.CollisionSystem;
 import tobacco.core.systems.EngineSystem;
 import tobacco.core.systems.EntityRemovalSystem;
 import tobacco.core.systems.InfoSystem;
-import tobacco.core.systems.MainSystem;
 import tobacco.core.systems.MovementSystem;
 import tobacco.core.systems.InputSystem;
 import tobacco.core.systems.MovementResetSystem;
+import tobacco.core.systems.ThreadedMainSystem;
 import tobacco.core.systems.TimerSystem;
 import tobacco.core.systems.TrajectorySystem;
 import tobacco.core.util.Command;
 import tobacco.core.util.InputEvent;
+import tobacco.core.util.Line2D;
 import tobacco.core.util.Vector2D;
 import tobacco.game.test.components.BulletComponent;
 import tobacco.game.test.components.DamageComponent;
@@ -61,21 +65,30 @@ import tobacco.game.test.systems.HealthSystem;
 import tobacco.game.test.util.HitCircleCollisionStrategy;
 import tobacco.render.pc.components.TextureComponent;
 import tobacco.render.pc.input.PcInputListener;
-import tobacco.render.pc.renderers.NewtRenderer;
-import tobacco.render.pc.renderers.Renderer;
+import tobacco.render.pc.renderers.CustomGLEventListener;
+import tobacco.render.pc.renderers.DebuggingRendererDecorator;
+import tobacco.render.pc.renderers.NewtGLEventListener;
+import tobacco.render.pc.renderers.LegacyRenderer;
 import static tobacco.render.pc.input.PcInputCode.*;
 import static tobacco.core.util.InputType.*;
 
 public class ManualLoader implements Loader {
 
 	@Override
-	public MainSystem loadMainSystem(Entity root) {
+	public AbstractMainSystem loadMainSystem(Entity root) {
 		List<EngineSystem> systems = new ArrayList<EngineSystem>();
 		
 		// Load rendering
-		Renderer renderer = new NewtRenderer("The Game", root);
-		renderer.addListener(new PcInputListener(root));
-		renderer.setRoot(root);
+		DebuggingRendererDecorator debugging = new DebuggingRendererDecorator(new LegacyRenderer());
+		CustomGLEventListener customGLEL = new NewtGLEventListener("The Game", debugging);
+		customGLEL.addListener(new PcInputListener(root));
+		Directory.setDebuggingService(debugging);
+
+		// Test debugging
+		Line2D axisX = new Line2D(new Vector2D(-1000f, 0f), new Vector2D(1000f, 0f));
+		Line2D axisY = new Line2D(new Vector2D(0f, -1000f), new Vector2D(0f, 1000f));
+		Directory.getDebuggingService().displayVector("axisX", axisX);
+		Directory.getDebuggingService().displayVector("axisY", axisY);
 		
 		// Load systems
 		systems.add(new InfoSystem());
@@ -90,29 +103,25 @@ public class ManualLoader implements Loader {
 		systems.add(new TrajectorySystem());
 		systems.add(new InputSystem());
 
-		MainSystem main = new MainSystem();
+		AbstractMainSystem main = new ThreadedMainSystem();
 		for (EngineSystem s : systems)
 			main.addSystem(s);
 		return main;
 	}
 
 	private Command moveCommand(final float x, final float y) {
-		return new Command() {
-
-			@Override
-			public void execute(Entity rootEntity, Entity entity) {
+		return (rootEntity, entity) -> {
 				if (entity.has(Component.MOVEMENT_C)) {
 					Vector2D direction;
 					MovementComponent movComp = (MovementComponent) entity.get(Component.MOVEMENT_C);
 					direction = Vector2D.sum(movComp.getDirection(), new Vector2D(x, y));
 					movComp.setDirection(direction);
 				}
-			}
-		};
+			};
 	}
 
 	@Override
-	public Entity loadEntityTree() {
+	public void loadEntityTree() {
 		Entity root, player;
 
 		/* Root */
@@ -124,7 +133,7 @@ public class ManualLoader implements Loader {
 
 		/* Player */
 		player = new Entity();
-		player.add(new DebuggingComponent());
+//		player.add(new DebuggingComponent());
 		player.add(new TextureComponent("/tobacco/game/test/textures/reimuholder.png"));
 		player.add(new SizeComponent(new Vector2D(32f, 48f)));
 		player.add(new PositionComponent(new Vector2D(0f, -200f)));
@@ -134,12 +143,7 @@ public class ManualLoader implements Loader {
 		Command down = moveCommand(0, -1);
 		Command left = moveCommand(-1, 0);
 		Command right = moveCommand(1, 0);
-		Command suicide = new Command() {
-			@Override
-			public void execute(Entity rootEntity, Entity entity) {
-				((HealthComponent) entity.get(GameComponent.HEALTH_C)).setHealth(0f);
-			}
-		};
+		Command suicide = (rootEntity, entity) -> ((HealthComponent) entity.get(GameComponent.HEALTH_C)).setHealth(0f);
 
 		playerComp.put(new InputEvent(KEY_UP, TYPE_HOLD), up);
 		playerComp.put(new InputEvent(KEY_DOWN, TYPE_HOLD), down);
@@ -147,20 +151,12 @@ public class ManualLoader implements Loader {
 		playerComp.put(new InputEvent(KEY_RIGHT, TYPE_HOLD), right);
 		playerComp.put(new InputEvent(KEY_ESCAPE, TYPE_RELEASE), suicide);
 
-		playerComp.put(new InputEvent(KEY_Z, TYPE_PRESS), new Command() {
-			@Override
-			public void execute(Entity rootEntity, Entity entity) {
-				((GunComponent) entity.get(GameComponent.GUN_C)).setShooting(true);
-			}
-		});
+		playerComp.put(new InputEvent(KEY_Z, TYPE_PRESS),
+				(rootEntity, entity) -> ((GunComponent) entity.get(GameComponent.GUN_C)).setShooting(true));
 
-		playerComp.put(new InputEvent(KEY_Z, TYPE_RELEASE), new Command() {
-			@Override
-			public void execute(Entity rootEntity, Entity entity) {
-				((GunComponent) entity.get(GameComponent.GUN_C)).setShooting(false);
-			}
-		});
-
+		playerComp.put(new InputEvent(KEY_Z, TYPE_RELEASE),
+				(rootEntity, entity) -> ((GunComponent) entity.get(GameComponent.GUN_C)).setShooting(false));
+		
 		player.add(playerComp);
 
 		ContainerComponent containerComponent = new ContainerComponent();
@@ -202,27 +198,7 @@ public class ManualLoader implements Loader {
 		rootContainer.addChild(player);
 		EnemyEntityFactory eeFactory = new EnemyEntityFactory("/tobacco/game/test/textures/fairy_blue.png", new Vector2D(26f, 28f));
 		rootContainer.addChild(eeFactory.create());
-		
-		Entity debugAxisX = new Entity();
-		Entity debugAxisY = new Entity();
-		
-		TextureComponent textureComp = new TextureComponent("/tobacco/game/test/textures/white_pixel.png");
-		SizeComponent sizeComp = new SizeComponent(new Vector2D(500f,1f));
-		PositionComponent posComp = new PositionComponent(Vector2D.ZERO, 1f);
-		debugAxisX.add(posComp);
-		debugAxisX.add(textureComp);
-		debugAxisX.add(sizeComp);
-		
-		textureComp = new TextureComponent("/tobacco/game/test/textures/white_pixel.png");
-		sizeComp = new SizeComponent(new Vector2D(1f, 1000f));
-		posComp = new PositionComponent(Vector2D.ZERO, 1f);
-		debugAxisY.add(posComp);
-		debugAxisY.add(textureComp);
-		debugAxisY.add(sizeComp);
-		
-		rootContainer.addChild(debugAxisX);
-		rootContainer.addChild(debugAxisY);
 
-		return root;
+		Directory.setDataService(new DefaultDataService(root));
 	}
 }

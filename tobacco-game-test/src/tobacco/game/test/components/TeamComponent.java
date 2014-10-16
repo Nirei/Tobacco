@@ -49,4 +49,9 @@ public class TeamComponent implements GameComponent {
 			return false;
 		return true;
 	}
+	
+	@Override
+	public String toString() {
+		return "Team: " + team;
+	}
 }

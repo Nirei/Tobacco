@@ -24,7 +24,7 @@ import java.util.List;
 
 import tobacco.core.util.Vector2D;
 
-public class RectilinearPath implements PathFunction {
+public final class RectilinearPath implements PathFunction {
 	
 	private static RectilinearPath instance;
 	

@@ -25,7 +25,6 @@ import com.jogamp.newt.opengl.GLWindow;
 
 import javax.media.nativewindow.WindowClosingProtocol.WindowClosingMode;
 import javax.media.opengl.GLCapabilities;
-import javax.media.opengl.GLEventListener;
 import javax.media.opengl.GLProfile;
 
 import com.jogamp.opengl.util.Animator;
@@ -33,20 +32,27 @@ import com.jogamp.opengl.util.Animator;
 import tobacco.core.components.Component;
 import tobacco.core.components.Entity;
 import tobacco.core.components.ScreenComponent;
+import tobacco.core.services.Directory;
 import tobacco.core.util.Vector2D;
 import tobacco.render.pc.input.CommonListener;
 
-public class NewtRenderer extends Renderer implements GLEventListener {
+public class NewtGLEventListener extends CustomGLEventListener {
 
 	private GLWindow gw;
+	protected GLProfile glProfile;
+	protected GLCapabilities glCaps;
 
-	public NewtRenderer(String title, Entity root) {
+	public NewtGLEventListener(String title, Renderer renderer) {
+		super(renderer);
+
 		glProfile = GLProfile.getDefault();
 		glCaps = new GLCapabilities(glProfile);
 		gw = GLWindow.create(glCaps);
 
+		Entity root = Directory.getDataService().getRoot();
 		Vector2D scrSize = ((ScreenComponent) root.get(Component.SCREEN_C)).getScreenSize();
 		gw.setSize((int) scrSize.getX(), (int) scrSize.getY());
+		gw.setPosition(10, 10);
 
 		gw.requestFocus();
 		gw.addGLEventListener(this);
