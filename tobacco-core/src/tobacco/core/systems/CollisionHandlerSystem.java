@@ -20,35 +20,37 @@
 */
 package tobacco.core.systems;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import tobacco.core.collision.Collision;
+import tobacco.core.collision.CollisionHandler;
+import tobacco.core.components.CollisionMapComponent;
+import tobacco.core.components.Component;
 import tobacco.core.components.Entity;
-import tobacco.core.components.Type;
+import tobacco.core.services.Directory;
 
 /**
- * This kind of system traverses the whole list of entities without a specific order
- * and without carrying data from parent to child
+ * This system handles {@link Collision}s by keeping a list of {@link CollisionHandler}s and calling them over any queued collision
  * @author nirei
+ *
  */
-public abstract class AbstractListSystem extends AbstractEntitySystem {
+public class CollisionHandlerSystem extends AbstractSystem {
 
-	public AbstractListSystem(Type[] _requiredComponents) {
-		super(_requiredComponents);
-	}
+	private List<CollisionHandler> handlers = new ArrayList<CollisionHandler>();
 	
-	/**
-	 * Defines what this system does to Entities
-	 * 
-	 * @param entity
-	 *            - Current Entity being processed
-	 * @param data
-	 *            - Recursive data received when calling it from its parent
-	 * @return Data to pass on to its children
-	 */
-	public abstract void process(Entity entity);
-
 	@Override
-	public void traverse() {
-		for(Entity e : Entity.getEntityList()) {
-			process(e);
+	public void work() {
+		Entity root = Directory.getDataService().getRoot();
+		CollisionMapComponent cols = (CollisionMapComponent) root.get(Component.COLLISIONMAP_C);
+		for(Collision c : cols) {
+			for(CollisionHandler h : handlers) {
+				h.handle(c);
+			}
 		}
+	}
+
+	public void addHandler(CollisionHandler handler) {
+		handlers.add(handler);
 	}
 }

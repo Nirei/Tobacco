@@ -20,9 +20,6 @@
 */
 package tobacco.game.test.loader;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import tobacco.core.components.Component;
 import tobacco.core.components.ContainerComponent;
 import tobacco.core.components.DebuggingComponent;
@@ -34,23 +31,24 @@ import tobacco.core.components.PositionComponent;
 import tobacco.core.components.ScreenComponent;
 import tobacco.core.components.SizeComponent;
 import tobacco.core.loader.Loader;
-import tobacco.core.services.DefaultDataService;
+import tobacco.core.services.DataService;
 import tobacco.core.services.Directory;
-import tobacco.core.systems.AbstractMainSystem;
-import tobacco.core.systems.CollisionSystem;
-import tobacco.core.systems.EngineSystem;
+import tobacco.core.systems.CollisionDetectionSystem;
+import tobacco.core.systems.CollisionHandlerSystem;
 import tobacco.core.systems.EntityRemovalSystem;
-import tobacco.core.systems.InfoSystem;
 import tobacco.core.systems.MovementSystem;
 import tobacco.core.systems.InputSystem;
 import tobacco.core.systems.MovementResetSystem;
-import tobacco.core.systems.ThreadedMainSystem;
 import tobacco.core.systems.TimerSystem;
 import tobacco.core.systems.TrajectorySystem;
+import tobacco.core.systems.debugging.InfoSystem;
+import tobacco.core.systems.main.AbstractMainSystem;
+import tobacco.core.systems.main.ThreadedMainSystem;
 import tobacco.core.util.Command;
 import tobacco.core.util.InputEvent;
 import tobacco.core.util.Line2D;
 import tobacco.core.util.Vector2D;
+import tobacco.game.test.collisions.DamageCollisionHandler;
 import tobacco.game.test.components.BulletComponent;
 import tobacco.game.test.components.DamageComponent;
 import tobacco.game.test.components.DirectionComponent;
@@ -59,7 +57,6 @@ import tobacco.game.test.components.GunComponent;
 import tobacco.game.test.components.HealthComponent;
 import tobacco.game.test.components.TeamComponent;
 import tobacco.game.test.entities.EnemyEntityFactory;
-import tobacco.game.test.systems.DamageSystem;
 import tobacco.game.test.systems.GunSystem;
 import tobacco.game.test.systems.HealthSystem;
 import tobacco.game.test.util.HitCircleCollisionStrategy;
@@ -76,7 +73,7 @@ public class ManualLoader implements Loader {
 
 	@Override
 	public AbstractMainSystem loadMainSystem(Entity root) {
-		List<EngineSystem> systems = new ArrayList<EngineSystem>();
+		AbstractMainSystem main = new ThreadedMainSystem();
 		
 		// Load rendering
 		DebuggingRendererDecorator debugging = new DebuggingRendererDecorator(new LegacyRenderer());
@@ -90,22 +87,26 @@ public class ManualLoader implements Loader {
 		Directory.getDebuggingService().displayVector("axisX", axisX);
 		Directory.getDebuggingService().displayVector("axisY", axisY);
 		
+		// Set up collision handling
+		CollisionHandlerSystem colHandlerSys = new CollisionHandlerSystem();
+		colHandlerSys.addHandler(new DamageCollisionHandler());
+		
 		// Load systems
-		systems.add(new InfoSystem());
-		systems.add(new MovementSystem());
-		systems.add(new MovementResetSystem());
-		systems.add(new CollisionSystem(root, HitCircleCollisionStrategy.getSingleton()));
-		systems.add(new GunSystem());
-		systems.add(new DamageSystem());
-		systems.add(new HealthSystem());
-		systems.add(new TimerSystem());
-		systems.add(new EntityRemovalSystem());
-		systems.add(new TrajectorySystem());
-		systems.add(new InputSystem());
+		main.add(new InfoSystem());
+		main.add(new MovementSystem());
+		main.add(new MovementResetSystem());
+		main.add(new CollisionDetectionSystem(root, HitCircleCollisionStrategy.getSingleton()));
+		main.add(colHandlerSys);
+		main.add(new GunSystem());
+		main.add(new HealthSystem());
+		main.add(new TimerSystem());
+		main.add(new EntityRemovalSystem());
+		main.add(new TrajectorySystem());
+		main.add(new InputSystem());
 
-		AbstractMainSystem main = new ThreadedMainSystem();
-		for (EngineSystem s : systems)
-			main.addSystem(s);
+		DataService dataSrv = Directory.getDataService();
+		dataSrv.setMainSystem(main);
+		
 		return main;
 	}
 
@@ -199,6 +200,7 @@ public class ManualLoader implements Loader {
 		EnemyEntityFactory eeFactory = new EnemyEntityFactory("/tobacco/game/test/textures/fairy_blue.png", new Vector2D(26f, 28f));
 		rootContainer.addChild(eeFactory.create());
 
-		Directory.setDataService(new DefaultDataService(root));
+		DataService dataSrv = Directory.getDataService();
+		dataSrv.setRoot(root);
 	}
 }

@@ -18,7 +18,7 @@
 *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 *
 */
-package tobacco.core.systems;
+package tobacco.core.systems.debugging;
 
 import javax.swing.JFrame;
 import javax.swing.JTextArea;
@@ -26,24 +26,22 @@ import javax.swing.JTextArea;
 import tobacco.core.components.Component;
 import tobacco.core.components.Entity;
 import tobacco.core.components.Type;
+import tobacco.core.systems.AbstractTreeSystem;
 
 public class InfoSystem extends AbstractTreeSystem {
 
 	private static final Type[] requiredComponents = { Component.DEBUGGING_C };
-	private int tick = 0;
 	private StringBuilder sb;
-	private JFrame window = new JFrame();
+	private JFrame entityWindow = new JFrame();
 	private JTextArea ta = new JTextArea();
 
 	public InfoSystem() {
 		super(requiredComponents);
 		
-		window.setBounds(500, 60, 800, 400);
-		window.setTitle("Debugging");
-
-		window.add(ta);
-		
-		window.setVisible(true);
+		entityWindow.setBounds(500, 60, 800, 400);
+		entityWindow.setTitle("Entities");
+		entityWindow.add(ta);
+		entityWindow.setVisible(true);
 	}
 
 	@Override
@@ -65,10 +63,10 @@ public class InfoSystem extends AbstractTreeSystem {
 
 	@Override
 	public void setUp() {
-		if(++tick % 100 == 0) {
+		if(getTicks() % 100 == 0) {
 			enable(true);
 			sb = new StringBuilder();
-			sb.append("Tick: " + tick + " ---\n");
+			sb.append("Tick: " + getTicks() + " ---\n");
 			sb.append(Entity.getEntityList() + "\n");
 		} else {
 			enable(false);

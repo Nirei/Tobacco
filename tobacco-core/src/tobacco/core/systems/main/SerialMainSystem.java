@@ -18,16 +18,16 @@
 *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 *
 */
-package tobacco.core.systems;
+package tobacco.core.systems.main;
 
-import tobacco.core.components.Entity;
+import tobacco.core.systems.EngineSystem;
 
 public class SerialMainSystem extends AbstractMainSystem {
 
 	@Override
-	public void work(Entity entity) {
+	public void work() {
 		for (EngineSystem s : systemList) {
-			s.work(entity);
+			s.work();
 		}
 	}
 }

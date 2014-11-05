@@ -21,7 +21,7 @@
 package tobacco.core.loader;
 
 import tobacco.core.components.Entity;
-import tobacco.core.systems.AbstractMainSystem;
+import tobacco.core.systems.main.AbstractMainSystem;
 
 public interface Loader {
 

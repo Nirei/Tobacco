@@ -31,11 +31,15 @@ public class CollisionMapComponent implements Component, Iterable<Collision> {
 	private Set<Collision> collisionSet = new HashSet<Collision>();
 
 	public void addCollision(Entity e1, Entity e2) {
-		collisionSet.add(new Collision(e1, e2));
+		synchronized(collisionSet) {
+			collisionSet.add(new Collision(e1, e2));			
+		}
 	}
 
 	public void clear() {
-		collisionSet.clear();
+		synchronized(collisionSet) {
+			collisionSet.clear();
+		}
 	}
 
 	@Override
@@ -45,7 +49,9 @@ public class CollisionMapComponent implements Component, Iterable<Collision> {
 
 	@Override
 	public Iterator<Collision> iterator() {
-		return collisionSet.iterator();
+		Set<Collision> copy = null;
+		synchronized(collisionSet) { copy = new HashSet<Collision>(collisionSet); }
+		return copy.iterator();
 	}
 	
 	@Override

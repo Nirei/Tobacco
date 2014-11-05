@@ -22,19 +22,20 @@ package tobacco.game.test.main;
 
 import tobacco.core.loader.Loader;
 import tobacco.core.services.Directory;
-import tobacco.core.systems.AbstractMainSystem;
+import tobacco.core.systems.main.AbstractMainSystem;
 import tobacco.game.test.loader.ManualLoader;
 
 public class Main {
 
 	public static void main(String[] args) {
+		
 		Loader loader = new ManualLoader();
 
 		loader.loadEntityTree();
 		AbstractMainSystem mainSystem = loader.loadMainSystem(Directory.getDataService().getRoot());
 		
 		while (true) {
-			mainSystem.work(Directory.getDataService().getRoot());
+			mainSystem.work();
 			try {
 				Thread.sleep(5);
 			} catch (InterruptedException e) {

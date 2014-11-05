@@ -30,7 +30,7 @@ import tobacco.core.components.Type;
  * 
  * @author nirei
  */
-public abstract class AbstractTreeSystem extends AbstractSystem {
+public abstract class AbstractTreeSystem extends AbstractEntitySystem {
 
 	public AbstractTreeSystem(Type[] _requiredComponents) {
 		super(_requiredComponents);
@@ -60,6 +60,6 @@ public abstract class AbstractTreeSystem extends AbstractSystem {
 
 	@Override
 	public void traverse() {
-		processTree(getRootEntity(), null);
+		processTree(getRoot(), null);
 	}
 }

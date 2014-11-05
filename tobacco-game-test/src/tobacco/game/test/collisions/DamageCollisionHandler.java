@@ -1,10 +1,9 @@
-package tobacco.game.test.systems;
+package tobacco.game.test.collisions;
 
 import tobacco.core.collision.Collision;
-import tobacco.core.components.CollisionMapComponent;
+import tobacco.core.collision.CollisionHandler;
 import tobacco.core.components.Entity;
 import tobacco.core.components.RemoveComponent;
-import tobacco.core.systems.EngineSystem;
 import tobacco.game.test.components.DamageComponent;
 import tobacco.game.test.components.GameComponent;
 import tobacco.game.test.components.HealthComponent;
@@ -16,7 +15,7 @@ import tobacco.game.test.components.TeamComponent;
  * @author nirei
  *
  */
-public class DamageSystem implements EngineSystem {
+public class DamageCollisionHandler implements CollisionHandler {
 
 	private void damage(Entity e1, Entity e2) {
 		if(e1.has(GameComponent.DAMAGE_C) && e2.has(GameComponent.HEALTH_C)) {
@@ -37,15 +36,12 @@ public class DamageSystem implements EngineSystem {
 	}
 
 	@Override
-	public void work(Entity root) {
-		CollisionMapComponent collMapComp = (CollisionMapComponent) root.get(GameComponent.COLLISIONMAP_C);
-		for(Collision c : collMapComp) {
-			Entity e1 = c.getE1();
-			Entity e2 = c.getE2();
-	
-			damage(e1, e2);
-			damage(e2, e1);
-		}
+	public void handle(Collision c) {
+		Entity e1 = c.getE1();
+		Entity e2 = c.getE2();
+
+		damage(e1, e2);
+		damage(e2, e1);
 	}
 
 }

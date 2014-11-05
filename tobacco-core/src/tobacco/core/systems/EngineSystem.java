@@ -20,8 +20,6 @@
 */
 package tobacco.core.systems;
 
-import tobacco.core.components.Entity;
-
 /**
  * This contain the game's logic.
  * 
@@ -31,9 +29,29 @@ public interface EngineSystem {
 
 	/**
 	 * Do this system's work.
-	 * 
-	 * @param entity
-	 *            {@link Entity} to process.
 	 */
-	public void work(Entity root);
+	public void work();
+	
+	/**
+	 * Enable or disable this system. Disabled systems will still call setUp()
+	 * and tearDown() but won't call their traverse() function.
+	 * 
+	 * @param enabled <br />
+	 * <b>true</b> - to enable this system <br />
+	 * <b>false</b> - to disable this system
+	 */
+	public void enable(boolean enabled);
+
+	/**
+	 * Returns this system's status.
+	 * @return <b>true</b> - if the system is enabled <br />
+	 * <b>false</b> - otherwise
+	 */
+	public boolean isEnabled();
+	
+	/**
+	 * Returns the number of times this system has been run
+	 * @return number of times this system has been run
+	 */
+	public long getTicks();
 }

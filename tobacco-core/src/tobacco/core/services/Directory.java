@@ -1,5 +1,9 @@
 package tobacco.core.services;
 
+/**
+ * Service directory
+ * @author nirei
+ */
 public final class Directory {
 
 	private static DebuggingService debugging = new NullDebuggingService();
@@ -15,7 +19,6 @@ public final class Directory {
 		Directory.debugging = debugging;
 	}
 	
-
 	public static DataService getDataService() {
 		return data;
 	}

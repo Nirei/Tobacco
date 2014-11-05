@@ -21,19 +21,13 @@
 package tobacco.core.services;
 
 import tobacco.core.components.Entity;
+import tobacco.core.systems.main.AbstractMainSystem;
 
 public class DefaultDataService implements DataService {
 
-	private Entity root;
+	private Entity root = new Entity();
+	private AbstractMainSystem main = null;
 
-	public DefaultDataService() {
-		this.root = new Entity();
-	}
-	
-	public DefaultDataService(Entity root) {
-		this.root = root;
-	}
-	
 	@Override
 	public Entity getRoot() {
 		return root;
@@ -42,5 +36,15 @@ public class DefaultDataService implements DataService {
 	@Override
 	public void setRoot(Entity root) {
 		this.root = root;
+	}
+
+	@Override
+	public AbstractMainSystem getMainSystem() {
+		return main;
+	}
+
+	@Override
+	public void setMainSystem(AbstractMainSystem main) {
+		this.main = main;
 	}
 }

@@ -54,15 +54,15 @@ public class InputSystem extends AbstractListSystem {
 				switch (event.getInputType()) {
 				case TYPE_HOLD:
 					if (keyMap.isPressed(event.getInputCode()))
-						command.execute(getRootEntity(), entity);
+						command.execute(getRoot(), entity);
 					break;
 				case TYPE_PRESS:
 					if (keyMap.wasPressed(event.getInputCode()))
-						command.execute(getRootEntity(), entity);
+						command.execute(getRoot(), entity);
 					break;
 				case TYPE_RELEASE:
 					if (keyMap.wasReleased(event.getInputCode()))
-						command.execute(getRootEntity(), entity);
+						command.execute(getRoot(), entity);
 					break;
 				}
 			}
@@ -71,7 +71,7 @@ public class InputSystem extends AbstractListSystem {
 
 	@Override
 	public void setUp() {
-		keyMap = (KeymapComponent) getRootEntity().get(Component.KEYMAP_C);
+		keyMap = (KeymapComponent) getRoot().get(Component.KEYMAP_C);
 	}
 
 	@Override

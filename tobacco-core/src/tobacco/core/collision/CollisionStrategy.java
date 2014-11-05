@@ -23,9 +23,8 @@ package tobacco.core.collision;
 import tobacco.core.components.Entity;
 
 /**
- * 
+ * Holds the collision checking code for any two given entities
  * @author nirei
- *
  */
 public interface CollisionStrategy {
 	

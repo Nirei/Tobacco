@@ -39,7 +39,7 @@ import tobacco.core.util.Vector2D;
  * instead of keeping a reference, which could accidentally become unlinked
  * from root.
  */
-public class CollisionSystem extends AbstractListSystem {
+public class CollisionDetectionSystem extends AbstractListSystem {
 
 	private static final Type[] requiredComponents = {Component.SOLIDITY_C, Component.POSITION_C};
 
@@ -49,7 +49,7 @@ public class CollisionSystem extends AbstractListSystem {
 
 	private Set<Entity> checked = new HashSet<Entity>();
 
-	public CollisionSystem(Entity root, CollisionStrategy cStrategy) {
+	public CollisionDetectionSystem(Entity root, CollisionStrategy cStrategy) {
 		super(requiredComponents);
 
 		this.cStrategy = cStrategy; 
@@ -79,7 +79,6 @@ public class CollisionSystem extends AbstractListSystem {
 
 	@Override
 	public void setUp() {
-		cMapComp.clear();
 		for(Entity e : Entity.getEntityList()) {
 			if(qualifies(e)) {
 				Vector2D pos = ((PositionComponent) e.get(Component.POSITION_C)).getPosition();

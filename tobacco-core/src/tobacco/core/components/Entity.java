@@ -43,7 +43,9 @@ public final class Entity implements Iterable<Component> {
 
 	public Entity() {
 		id = counter++;
-		entityList.add(this);
+		synchronized(entityList) {
+			entityList.add(this);
+		}
 	}
 
 	/**
@@ -80,7 +82,9 @@ public final class Entity implements Iterable<Component> {
 	 * Deletes the Entity from the Entity directory.
 	 */
 	public void delete() {
-		entityList.remove(this);
+		synchronized(entityList) {
+			entityList.remove(this);
+		}
 	}
 
 	/**
@@ -96,7 +100,9 @@ public final class Entity implements Iterable<Component> {
 	 * @return The full list of entities
 	 */
 	public static List<Entity> getEntityList() {
-		return new LinkedList<Entity>(entityList);
+		synchronized(entityList) {
+			return new LinkedList<Entity>(entityList);
+		}
 	}
 
 	@Override
