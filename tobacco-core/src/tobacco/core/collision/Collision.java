@@ -20,7 +20,7 @@
 */
 package tobacco.core.collision;
 
-import tobacco.core.components.Entity;
+import tobacco.core.entities.Entity;
 
 public class Collision {
 	Entity e1, e2;

@@ -21,10 +21,10 @@
 package tobacco.core.systems;
 
 import tobacco.core.components.Component;
-import tobacco.core.components.Entity;
 import tobacco.core.components.KeymapComponent;
 import tobacco.core.components.PlayerComponent;
 import tobacco.core.components.Type;
+import tobacco.core.entities.Entity;
 import tobacco.core.util.Command;
 import tobacco.core.util.InputEvent;
 

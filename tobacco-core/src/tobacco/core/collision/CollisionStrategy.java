@@ -20,7 +20,7 @@
 */
 package tobacco.core.collision;
 
-import tobacco.core.components.Entity;
+import tobacco.core.entities.Entity;
 
 /**
  * Holds the collision checking code for any two given entities

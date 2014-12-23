@@ -25,13 +25,15 @@ import java.util.List;
 
 import tobacco.core.components.DebuggingComponent;
 import tobacco.core.components.SolidityComponent;
-import tobacco.core.components.Entity;
 import tobacco.core.components.MovementComponent;
 import tobacco.core.components.PositionComponent;
 import tobacco.core.components.SizeComponent;
 import tobacco.core.components.TrajectoryComponent;
+import tobacco.core.entities.Entity;
 import tobacco.core.movement.RectilinearPath;
+import tobacco.core.movement.SplinePath;
 import tobacco.core.movement.Trajectory;
+import tobacco.core.services.Directory;
 import tobacco.core.util.Vector2D;
 import tobacco.game.test.components.HealthComponent;
 import tobacco.render.pc.components.TextureComponent;
@@ -47,19 +49,19 @@ public class EnemyEntityFactory {
 	}
 
 	public Entity create() {
-		Entity entity = new Entity();
+		Entity entity = Directory.getEntityService().create();
 
 		TextureComponent textureComp = new TextureComponent(texture);
 		SizeComponent sizeComp = new SizeComponent(size);
 		entity.add(textureComp);
 		entity.add(sizeComp);
 		entity.add(new PositionComponent(new Vector2D(20f, 200f)));
-		entity.add(new MovementComponent(100f));
+		entity.add(new MovementComponent(20f));
 		entity.add(new DebuggingComponent());
 		entity.add(new SolidityComponent(10f));
 		entity.add(new HealthComponent(100f));
 		TrajectoryComponent trajComp = new TrajectoryComponent();
-		Trajectory traj = new Trajectory(RectilinearPath.getInstance()) {
+		Trajectory traj = new Trajectory(SplinePath.getInstance()) {
 			
 			@Override
 			public List<Vector2D> getWaypoints() {

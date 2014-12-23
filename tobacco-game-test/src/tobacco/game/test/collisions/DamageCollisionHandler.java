@@ -2,8 +2,8 @@ package tobacco.game.test.collisions;
 
 import tobacco.core.collision.Collision;
 import tobacco.core.collision.CollisionHandler;
-import tobacco.core.components.Entity;
 import tobacco.core.components.RemoveComponent;
+import tobacco.core.entities.Entity;
 import tobacco.game.test.components.DamageComponent;
 import tobacco.game.test.components.GameComponent;
 import tobacco.game.test.components.HealthComponent;

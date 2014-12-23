@@ -20,8 +20,8 @@
 */
 package tobacco.core.systems;
 
-import tobacco.core.components.Entity;
 import tobacco.core.components.Type;
+import tobacco.core.entities.Entity;
 import tobacco.core.services.Directory;
 
 /**
@@ -70,7 +70,7 @@ public abstract class AbstractEntitySystem extends AbstractSystem {
 	 * @return The current root Entity
 	 */
 	public Entity getRoot() {
-		return Directory.getDataService().getRoot();
+		return Directory.getEntityService().getRoot();
 	}
 
 	/**

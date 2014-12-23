@@ -23,8 +23,8 @@ package tobacco.render.pc.input;
 import com.jogamp.newt.event.KeyEvent;
 import com.jogamp.newt.event.MouseEvent;
 
-import tobacco.core.components.Entity;
 import tobacco.core.components.KeymapComponent;
+import tobacco.core.entities.Entity;
 import tobacco.core.util.Vector2D;
 import tobacco.render.pc.components.MouseComponent;
 

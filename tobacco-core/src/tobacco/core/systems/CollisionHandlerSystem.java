@@ -25,9 +25,9 @@ import java.util.List;
 
 import tobacco.core.collision.Collision;
 import tobacco.core.collision.CollisionHandler;
-import tobacco.core.components.CollisionMapComponent;
+import tobacco.core.components.CollisionQueueComponent;
 import tobacco.core.components.Component;
-import tobacco.core.components.Entity;
+import tobacco.core.entities.Entity;
 import tobacco.core.services.Directory;
 
 /**
@@ -41,13 +41,15 @@ public class CollisionHandlerSystem extends AbstractSystem {
 	
 	@Override
 	public void work() {
-		Entity root = Directory.getDataService().getRoot();
-		CollisionMapComponent cols = (CollisionMapComponent) root.get(Component.COLLISIONMAP_C);
-		for(Collision c : cols) {
+		Entity root = Directory.getEntityService().getRoot();
+		CollisionQueueComponent cols = (CollisionQueueComponent) root.get(Component.COLLISIONMAP_C);
+		for(Collision c = cols.poll(); c != null; c = cols.poll()) {
 			for(CollisionHandler h : handlers) {
 				h.handle(c);
 			}
 		}
+		
+		tick();
 	}
 
 	public void addHandler(CollisionHandler handler) {

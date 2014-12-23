@@ -32,7 +32,7 @@ public class Main {
 		Loader loader = new ManualLoader();
 
 		loader.loadEntityTree();
-		AbstractMainSystem mainSystem = loader.loadMainSystem(Directory.getDataService().getRoot());
+		AbstractMainSystem mainSystem = loader.loadMainSystem(Directory.getEntityService().getRoot());
 		
 		while (true) {
 			mainSystem.work();

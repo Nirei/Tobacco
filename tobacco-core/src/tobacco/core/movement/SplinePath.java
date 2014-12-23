@@ -56,23 +56,25 @@ public final class SplinePath implements PathFunction {
 
 	@Override
 	public Vector2D path(List<Vector2D> waypoints, Vector2D position, int next) {
+		DebuggingService debug  = Directory.getDebuggingService();
 		Vector2D p0, p1, m1, p2, m2, p3;
-		int last = waypoints.size()-1;
+		int size = waypoints.size();
 
 		// TODO: This is SO BAD
-		p0 = waypoints.get(next == 0 ? last : next-1);
-		p1 = position;
+		p0 = waypoints.get(((next+size)-2) % size);
+		p1 = waypoints.get(((next+size)-1) % size);
 		p2 = waypoints.get(next);
-		p3 = waypoints.get(next == last ? 0 : next+1);
+		p3 = waypoints.get((next+1) % size);
 
 		m1 = Vector2D.minus(p1, p0);
-		if(next > 1) { m1 = m1.scale(0.5f); }
 		m2 = Vector2D.minus(p3, p2);
-	
-		float amount = Vector2D.dot(Vector2D.minus(position, p0), Vector2D.minus(p2, p0).normalize()) / Vector2D.minus(p2, p0).module();
+		
+		debug.displayPoint("m1", Vector2D.sum(p0, m1));
+		debug.displayPoint("m2", Vector2D.sum(p2, m2));
+
+		float amount = Vector2D.dot(Vector2D.minus(position, p1), Vector2D.minus(p2, p1).normalize()) / Vector2D.minus(p2, p1).module();
 		Vector2D result = hermiteDerivative(p1, p2, m1, m2, amount);
-		System.out.println("Last: " + p0 + " Next: " + p2 + " Pos: " + position + " Amo: " + amount + " Dir: " + result);
-		DebuggingService debug = Directory.getDebuggingService();
+		System.out.println("Last: " + p1 + " Next: " + p2 + " Pos: " + position + " Amo: " + amount + " Dir: " + result);
 		
 		int m = 0;
 		for(float f=0; f<1f; f+=0.01f) {
@@ -82,9 +84,9 @@ public final class SplinePath implements PathFunction {
 		for(int i=0; i<waypoints.size(); i++) {
 			debug.displayPoint("point" + i, waypoints.get(i));
 		}
-		debug.displayVector("path_amo", new Line2D(p0, Vector2D.sum(p0, Vector2D.minus(p2, p0).scale(amount))));
-		debug.displayVector("dir", new Line2D(position, Vector2D.minus(position, result)));
-		
+		debug.displayVector("path_amo", new Line2D(p1, Vector2D.sum(p1, Vector2D.minus(p2, p1).scale(amount))));
+		debug.displayVector("dir", new Line2D(position, Vector2D.sum(result.normalize().scale(30f), position)));
+
 		return result;
 	}
 

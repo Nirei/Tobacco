@@ -30,4 +30,9 @@ public abstract class AbstractSystem implements EngineSystem {
 	public long getTicks() {
 		return ticks;
 	}
+	
+	@Override
+	public String toString() {
+		return this.getClass().getSimpleName();
+	}
 }

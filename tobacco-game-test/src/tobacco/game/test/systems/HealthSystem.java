@@ -20,9 +20,9 @@
 */
 package tobacco.game.test.systems;
 
-import tobacco.core.components.Entity;
 import tobacco.core.components.RemoveComponent;
 import tobacco.core.components.Type;
+import tobacco.core.entities.Entity;
 import tobacco.core.systems.AbstractListSystem;
 import tobacco.game.test.components.GameComponent;
 import tobacco.game.test.components.HealthComponent;

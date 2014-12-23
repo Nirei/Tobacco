@@ -18,13 +18,15 @@
 *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 *
 */
-package tobacco.core.components;
+package tobacco.core.entities;
 
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
-import java.util.List;
 import java.util.Map;
+
+import tobacco.core.components.Component;
+import tobacco.core.components.Type;
 
 /**
  * Entity for the game engine. Contains components. No logic.
@@ -34,18 +36,18 @@ import java.util.Map;
 public final class Entity implements Iterable<Component> {
 
 	// TODO: Object pool for Entities
-	private static List<Entity> entityList = new LinkedList<Entity>();
+//	private static List<Entity> entityList = new LinkedList<Entity>();
 	private static long counter = 0;
 
 	private long id = 0;
 
 	private Map<Type, Component> components = new HashMap<Type, Component>();
 
-	public Entity() {
+	Entity() {
 		id = counter++;
-		synchronized(entityList) {
-			entityList.add(this);
-		}
+//		synchronized(entityList) {
+//			entityList.add(this);
+//		}
 	}
 
 	/**
@@ -78,14 +80,14 @@ public final class Entity implements Iterable<Component> {
 		return components.containsKey(type);
 	}
 	
-	/**
-	 * Deletes the Entity from the Entity directory.
-	 */
-	public void delete() {
-		synchronized(entityList) {
-			entityList.remove(this);
-		}
-	}
+//	/**
+//	 * Deletes the Entity from the Entity directory.
+//	 */
+//	public void delete() {
+//		synchronized(entityList) {
+//			entityList.remove(this);
+//		}
+//	}
 
 	/**
 	 * Gets the ID for this {@link Entity}.
@@ -96,14 +98,14 @@ public final class Entity implements Iterable<Component> {
 		return id;
 	}
 	
-	/**
-	 * @return The full list of entities
-	 */
-	public static List<Entity> getEntityList() {
-		synchronized(entityList) {
-			return new LinkedList<Entity>(entityList);
-		}
-	}
+//	/**
+//	 * @return The full list of entities
+//	 */
+//	public static List<Entity> getEntityList() {
+//		synchronized(entityList) {
+//			return new LinkedList<Entity>(entityList);
+//		}
+//	}
 
 	@Override
 	public Iterator<Component> iterator() {

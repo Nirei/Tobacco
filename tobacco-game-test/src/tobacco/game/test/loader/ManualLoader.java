@@ -24,12 +24,11 @@ import tobacco.core.components.Component;
 import tobacco.core.components.ContainerComponent;
 import tobacco.core.components.DebuggingComponent;
 import tobacco.core.components.SolidityComponent;
-import tobacco.core.components.Entity;
 import tobacco.core.components.MovementComponent;
 import tobacco.core.components.PlayerComponent;
 import tobacco.core.components.PositionComponent;
-import tobacco.core.components.ScreenComponent;
 import tobacco.core.components.SizeComponent;
+import tobacco.core.entities.Entity;
 import tobacco.core.loader.Loader;
 import tobacco.core.services.DataService;
 import tobacco.core.services.Directory;
@@ -123,17 +122,10 @@ public class ManualLoader implements Loader {
 
 	@Override
 	public void loadEntityTree() {
-		Entity root, player;
-
-		/* Root */
-		ContainerComponent rootContainer = new ContainerComponent();
-		root = new Entity();
-		root.add(new DebuggingComponent());
-		root.add(new ScreenComponent(new Vector2D(480,640)));
-		root.add(rootContainer);
+		Entity player;
 
 		/* Player */
-		player = new Entity();
+		player = Directory.getEntityService().create();
 //		player.add(new DebuggingComponent());
 		player.add(new TextureComponent("/tobacco/game/test/textures/reimuholder.png"));
 		player.add(new SizeComponent(new Vector2D(32f, 48f)));
@@ -164,21 +156,21 @@ public class ManualLoader implements Loader {
 		GunComponent gunComponent = new GunComponent();
 		SizeComponent bSizeComp = new SizeComponent(new Vector2D(52f, 12f));
 		
-		Entity bullet1 = new Entity();
+		Entity bullet1 = Directory.getEntityService().create();
 		BulletComponent bulletComp1 = new BulletComponent("/tobacco/game/test/textures/reimubullet.png", 150, 2000f);
 		bullet1.add(bulletComp1);
 		bullet1.add(new DirectionComponent(new Vector2D(0f, 1f)));
 		bullet1.add(bSizeComp);
 		bullet1.add(new DamageComponent(50f));
 
-		Entity bullet2 = new Entity();
+		Entity bullet2 = Directory.getEntityService().create();
 		BulletComponent bulletComp2 = new BulletComponent("/tobacco/game/test/textures/reimubullet.png", 150, 2000f);
 		bullet2.add(bulletComp2);
 		bullet2.add(new DirectionComponent(new Vector2D(1f, 5f)));
 		bullet2.add(bSizeComp);
 		bullet2.add(new DamageComponent(50f));
 
-		Entity bullet3 = new Entity();
+		Entity bullet3 = Directory.getEntityService().create();
 		BulletComponent bulletComp3 = new BulletComponent("/tobacco/game/test/textures/reimubullet.png", 150, 2000f);
 		bullet3.add(bulletComp3);
 		bullet3.add(new DirectionComponent(new Vector2D(-1f, 5f)));
@@ -196,11 +188,10 @@ public class ManualLoader implements Loader {
 		player.add(new SolidityComponent(10f));
 		player.add(new TeamComponent("PLAYER"));
 
+		ContainerComponent rootContainer = ((ContainerComponent) Directory.getEntityService().getRoot().get(GameComponent.CONTAINER_C));
 		rootContainer.addChild(player);
 		EnemyEntityFactory eeFactory = new EnemyEntityFactory("/tobacco/game/test/textures/fairy_blue.png", new Vector2D(26f, 28f));
 		rootContainer.addChild(eeFactory.create());
 
-		DataService dataSrv = Directory.getDataService();
-		dataSrv.setRoot(root);
 	}
 }

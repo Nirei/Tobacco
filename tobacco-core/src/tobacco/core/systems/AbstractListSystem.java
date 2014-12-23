@@ -20,8 +20,9 @@
 */
 package tobacco.core.systems;
 
-import tobacco.core.components.Entity;
 import tobacco.core.components.Type;
+import tobacco.core.entities.Entity;
+import tobacco.core.services.Directory;
 
 /**
  * This kind of system traverses the whole list of entities without a specific order
@@ -47,7 +48,7 @@ public abstract class AbstractListSystem extends AbstractEntitySystem {
 
 	@Override
 	public void traverse() {
-		for(Entity e : Entity.getEntityList()) {
+		for(Entity e : Directory.getEntityService().getEntityList()) {
 			process(e);
 		}
 	}

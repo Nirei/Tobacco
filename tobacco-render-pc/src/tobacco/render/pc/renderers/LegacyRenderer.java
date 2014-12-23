@@ -23,13 +23,14 @@ package tobacco.render.pc.renderers;
 import javax.media.opengl.GL;
 import javax.media.opengl.GL2;
 import javax.media.opengl.GLAutoDrawable;
+
 import tobacco.core.components.Component;
 import tobacco.core.components.ContainerComponent;
-import tobacco.core.components.Entity;
 import tobacco.core.components.PositionComponent;
 import tobacco.core.components.RotationComponent;
 import tobacco.core.components.ScaleComponent;
 import tobacco.core.components.SizeComponent;
+import tobacco.core.entities.Entity;
 import tobacco.core.services.Directory;
 import tobacco.core.util.Vector2D;
 import tobacco.render.pc.components.RendererComponent;
@@ -158,7 +159,7 @@ public class LegacyRenderer implements Renderer {
 		// texture
 		gl.glTexParameteri(GL.GL_TEXTURE_2D, GL.GL_TEXTURE_MIN_FILTER, GL.GL_LINEAR);
 		
-		Entity root = Directory.getDataService().getRoot();
+		Entity root = Directory.getEntityService().getRoot();
 		if(root != null) drawEntityTree(drawable, root);
 
 		gl.glDisable(GL.GL_BLEND);

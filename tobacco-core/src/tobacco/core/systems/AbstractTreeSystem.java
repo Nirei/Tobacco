@@ -22,8 +22,8 @@ package tobacco.core.systems;
 
 import tobacco.core.components.Component;
 import tobacco.core.components.ContainerComponent;
-import tobacco.core.components.Entity;
 import tobacco.core.components.Type;
+import tobacco.core.entities.Entity;
 
 /**
  * This kind of system recursively traverses the tree of entities processing each and carrying recursive data if required.

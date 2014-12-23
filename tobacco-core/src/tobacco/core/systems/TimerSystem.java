@@ -22,9 +22,9 @@ package tobacco.core.systems;
 
 import tobacco.core.components.Component;
 import tobacco.core.components.DurationComponent;
-import tobacco.core.components.Entity;
 import tobacco.core.components.RemoveComponent;
 import tobacco.core.components.Type;
+import tobacco.core.entities.Entity;
 
 public class TimerSystem extends AbstractListSystem {
 

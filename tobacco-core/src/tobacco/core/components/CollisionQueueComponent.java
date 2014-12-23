@@ -20,42 +20,45 @@
 */
 package tobacco.core.components;
 
+import java.util.Collections;
 import java.util.HashSet;
-import java.util.Iterator;
+import java.util.Queue;
 import java.util.Set;
+import java.util.concurrent.ConcurrentLinkedQueue;
 
 import tobacco.core.collision.Collision;
+import tobacco.core.entities.Entity;
 
-public class CollisionMapComponent implements Component, Iterable<Collision> {
+public class CollisionQueueComponent implements Component {
 	
-	private Set<Collision> collisionSet = new HashSet<Collision>();
+	private Set<Collision> collisionSet = Collections.synchronizedSet(new HashSet<Collision>());
+	private Queue<Collision> collisionQueue = new ConcurrentLinkedQueue<Collision>(); 
 
-	public void addCollision(Entity e1, Entity e2) {
-		synchronized(collisionSet) {
-			collisionSet.add(new Collision(e1, e2));			
+	public void add(Entity e1, Entity e2) {
+		Collision c = new Collision(e1, e2);
+		if(collisionSet.add(c)) {
+			collisionQueue.add(c);
 		}
 	}
 
 	public void clear() {
-		synchronized(collisionSet) {
-			collisionSet.clear();
-		}
+		collisionSet.clear();
+		collisionQueue.clear();
 	}
-
-	@Override
-	public Type getComponentType() {
-		return COLLISIONMAP_C;
-	}
-
-	@Override
-	public Iterator<Collision> iterator() {
-		Set<Collision> copy = null;
-		synchronized(collisionSet) { copy = new HashSet<Collision>(collisionSet); }
-		return copy.iterator();
+	
+	public Collision poll() {
+		Collision c = collisionQueue.poll();
+		collisionSet.remove(c);
+		return c;
 	}
 	
 	@Override
 	public String toString() {
 		return "Collisions: " + collisionSet;
+	}
+	
+	@Override
+	public Type getComponentType() {
+		return COLLISIONMAP_C;
 	}
 }

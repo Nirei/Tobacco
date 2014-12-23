@@ -24,13 +24,14 @@ import tobacco.core.components.Component;
 import tobacco.core.components.ContainerComponent;
 import tobacco.core.components.DebuggingComponent;
 import tobacco.core.components.DurationComponent;
-import tobacco.core.components.Entity;
 import tobacco.core.components.MovementComponent;
 import tobacco.core.components.PositionComponent;
 import tobacco.core.components.RotationComponent;
 import tobacco.core.components.SizeComponent;
 import tobacco.core.components.SolidityComponent;
 import tobacco.core.components.Type;
+import tobacco.core.entities.Entity;
+import tobacco.core.services.Directory;
 import tobacco.core.systems.AbstractListSystem;
 import tobacco.core.util.Vector2D;
 import tobacco.game.test.components.BulletComponent;
@@ -61,7 +62,7 @@ public class GunSystem extends AbstractListSystem {
 		Vector2D dir = ((DirectionComponent) bullet.get(GameComponent.DIRECTION_C)).getDirection();
 		float damage = ((DamageComponent) bullet.get(GameComponent.DAMAGE_C)).getDamage();
 		
-		Entity entity = new Entity();
+		Entity entity = Directory.getEntityService().create();
 		TextureComponent textureComp = new TextureComponent(texture);
 		SizeComponent sizeComp = new SizeComponent(size);
 		entity.add(team);

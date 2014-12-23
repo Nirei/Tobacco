@@ -24,8 +24,9 @@ import javax.swing.JFrame;
 import javax.swing.JTextArea;
 
 import tobacco.core.components.Component;
-import tobacco.core.components.Entity;
 import tobacco.core.components.Type;
+import tobacco.core.entities.Entity;
+import tobacco.core.services.Directory;
 import tobacco.core.systems.AbstractTreeSystem;
 
 public class InfoSystem extends AbstractTreeSystem {
@@ -34,6 +35,7 @@ public class InfoSystem extends AbstractTreeSystem {
 	private StringBuilder sb;
 	private JFrame entityWindow = new JFrame();
 	private JTextArea ta = new JTextArea();
+	private SystemWindow sysWindow = new SystemWindow();
 
 	public InfoSystem() {
 		super(requiredComponents);
@@ -42,6 +44,8 @@ public class InfoSystem extends AbstractTreeSystem {
 		entityWindow.setTitle("Entities");
 		entityWindow.add(ta);
 		entityWindow.setVisible(true);
+		
+		sysWindow.setVisible(true);
 	}
 
 	@Override
@@ -67,7 +71,9 @@ public class InfoSystem extends AbstractTreeSystem {
 			enable(true);
 			sb = new StringBuilder();
 			sb.append("Tick: " + getTicks() + " ---\n");
-			sb.append(Entity.getEntityList() + "\n");
+			sb.append(Directory.getEntityService().getEntityList() + "\n");
+			
+			sysWindow.setList(Directory.getDataService().getMainSystem().getSystems());
 		} else {
 			enable(false);
 		}

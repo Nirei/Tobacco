@@ -22,9 +22,9 @@ package tobacco.game.test.util;
 
 import tobacco.core.collision.CollisionStrategy;
 import tobacco.core.components.Component;
-import tobacco.core.components.Entity;
 import tobacco.core.components.PositionComponent;
 import tobacco.core.components.SolidityComponent;
+import tobacco.core.entities.Entity;
 import tobacco.core.util.Vector2D;
 
 /**
