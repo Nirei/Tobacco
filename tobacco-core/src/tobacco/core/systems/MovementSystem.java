@@ -67,8 +67,6 @@ public class MovementSystem extends AbstractListSystem {
 		lastCall = now;
 	}
 
-	@Override
-	public void tearDown() {
-	}
+	@Override public void tearDown() {}
 
 }

@@ -20,9 +20,6 @@
 */
 package tobacco.game.test.entities;
 
-import java.util.Arrays;
-import java.util.List;
-
 import tobacco.core.components.DebuggingComponent;
 import tobacco.core.components.SolidityComponent;
 import tobacco.core.components.MovementComponent;
@@ -30,9 +27,7 @@ import tobacco.core.components.PositionComponent;
 import tobacco.core.components.SizeComponent;
 import tobacco.core.components.TrajectoryComponent;
 import tobacco.core.entities.Entity;
-import tobacco.core.movement.RectilinearPath;
-import tobacco.core.movement.SplinePath;
-import tobacco.core.movement.Trajectory;
+import tobacco.core.movement.SplineTrajectoryFactory;
 import tobacco.core.services.Directory;
 import tobacco.core.util.Vector2D;
 import tobacco.game.test.components.HealthComponent;
@@ -42,13 +37,14 @@ public class EnemyEntityFactory {
 
 	String texture;
 	Vector2D size;
+	Integer created = 0;
 
 	public EnemyEntityFactory(String texture, Vector2D size) {
 		this.texture = texture;
 		this.size = size;
 	}
 
-	public Entity create() {
+	public synchronized Entity create() {
 		Entity entity = Directory.getEntityService().create();
 
 		TextureComponent textureComp = new TextureComponent(texture);
@@ -56,27 +52,21 @@ public class EnemyEntityFactory {
 		entity.add(textureComp);
 		entity.add(sizeComp);
 		entity.add(new PositionComponent(new Vector2D(20f, 200f)));
-		entity.add(new MovementComponent(20f));
+		entity.add(new MovementComponent(200f));
 		entity.add(new DebuggingComponent());
 		entity.add(new SolidityComponent(10f));
 		entity.add(new HealthComponent(100f));
-		TrajectoryComponent trajComp = new TrajectoryComponent();
-		Trajectory traj = new Trajectory(SplinePath.getInstance()) {
-			
-			@Override
-			public List<Vector2D> getWaypoints() {
-				Vector2D p0 = new Vector2D(20f, 200f);
-				Vector2D p1 = new Vector2D(200f, 200f);
-				Vector2D p2 = new Vector2D(200f, 20f);
-				Vector2D p3 = new Vector2D(20f, 20f);
-				Vector2D points[] = {p0, p1, p2, p3};
-				return Arrays.asList(points);
-			}
-		};
-		trajComp.setTrajectory(traj);
+
+		Vector2D p0 = new Vector2D(20f, 200f);
+		Vector2D p1 = new Vector2D(200f, 200f);
+		Vector2D p2 = new Vector2D(200f, 20f);
+		Vector2D p3 = new Vector2D(20f, 20f);
+		Vector2D points[] = {p0, p1, p2, p3};
+		TrajectoryComponent trajComp = SplineTrajectoryFactory.create(points);
 		trajComp.setLoop(true);
 		entity.add(trajComp);
 
+		created++;
 		return entity;
 	}
 }

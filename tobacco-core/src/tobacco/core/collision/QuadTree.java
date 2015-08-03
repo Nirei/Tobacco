@@ -115,12 +115,14 @@ public class QuadTree<T> {
 				return false;
 			}
 
-			if(isFull() && (depth <= maxDepth)) {
-				subdivide();
-			} else {
-				elements.add(element);
-				++fill;
-				return true;
+			synchronized (elements) {
+				if(isFull() && (depth <= maxDepth)) {
+					subdivide();
+				} else {
+					elements.add(element);
+					++fill;
+					return true;
+				}
 			}
 
 			return false;
@@ -130,8 +132,10 @@ public class QuadTree<T> {
 			// Recursion end condition
 			if(!hasChildren()) {
 				List<T> found = new ArrayList<T>();
-				for(Element e : elements) {
-					found.add(e.getElement());
+				synchronized (elements) {
+					for(Element e : elements) {
+						found.add(e.getElement());
+					}
 				}
 				return found;
 			}

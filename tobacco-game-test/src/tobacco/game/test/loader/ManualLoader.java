@@ -22,7 +22,6 @@ package tobacco.game.test.loader;
 
 import tobacco.core.components.Component;
 import tobacco.core.components.ContainerComponent;
-import tobacco.core.components.DebuggingComponent;
 import tobacco.core.components.SolidityComponent;
 import tobacco.core.components.MovementComponent;
 import tobacco.core.components.PlayerComponent;
@@ -42,7 +41,7 @@ import tobacco.core.systems.TimerSystem;
 import tobacco.core.systems.TrajectorySystem;
 import tobacco.core.systems.debugging.InfoSystem;
 import tobacco.core.systems.main.AbstractMainSystem;
-import tobacco.core.systems.main.ThreadedMainSystem;
+import tobacco.core.systems.main.SerialMainSystem;
 import tobacco.core.util.Command;
 import tobacco.core.util.InputEvent;
 import tobacco.core.util.Line2D;
@@ -72,7 +71,7 @@ public class ManualLoader implements Loader {
 
 	@Override
 	public AbstractMainSystem loadMainSystem(Entity root) {
-		AbstractMainSystem main = new ThreadedMainSystem();
+		AbstractMainSystem main = new SerialMainSystem();
 		
 		// Load rendering
 		DebuggingRendererDecorator debugging = new DebuggingRendererDecorator(new LegacyRenderer());
@@ -92,6 +91,7 @@ public class ManualLoader implements Loader {
 		
 		// Load systems
 		main.add(new InfoSystem());
+		main.add(new TrajectorySystem());
 		main.add(new MovementSystem());
 		main.add(new MovementResetSystem());
 		main.add(new CollisionDetectionSystem(root, HitCircleCollisionStrategy.getSingleton()));
@@ -100,7 +100,6 @@ public class ManualLoader implements Loader {
 		main.add(new HealthSystem());
 		main.add(new TimerSystem());
 		main.add(new EntityRemovalSystem());
-		main.add(new TrajectorySystem());
 		main.add(new InputSystem());
 
 		DataService dataSrv = Directory.getDataService();

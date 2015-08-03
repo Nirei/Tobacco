@@ -51,12 +51,7 @@ public class MovementResetSystem extends AbstractListSystem {
 		}
 	}
 
-	@Override
-	public void setUp() {
-	}
-
-	@Override
-	public void tearDown() {
-	}
+	@Override public void setUp() {}
+	@Override public void tearDown() {}
 
 }

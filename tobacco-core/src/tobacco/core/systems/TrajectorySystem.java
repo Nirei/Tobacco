@@ -53,14 +53,14 @@ public class TrajectorySystem extends AbstractListSystem {
 			TrajectoryComponent trajComp = (TrajectoryComponent) entity.get(Component.TRAJECTORY_C);
 
 			int step = trajComp.getStep();
-			List<Vector2D> waypoints = trajComp.getTrajectory().getWaypoints();
+			List<Vector2D> waypoints = trajComp.getWaypoints();
 			if(step < waypoints.size()) {				
 				PositionComponent posComp = (PositionComponent) entity.get(Component.POSITION_C);
 				MovementComponent movComp = (MovementComponent) entity.get(Component.MOVEMENT_C);
 
 				Vector2D pos = posComp.getPosition();
 				Vector2D dest = waypoints.get(step);
-				Vector2D mov = trajComp.getTrajectory().getPathFunction().path(waypoints, pos, step);
+				Vector2D mov = Vector2D.minus(dest, pos);
 
 				if(pos.isNear(dest, 2f)) {
 						trajComp.setStep(++step);
@@ -75,12 +75,7 @@ public class TrajectorySystem extends AbstractListSystem {
 		}
 	}
 
-	@Override
-	public void setUp() {
-	}
-
-	@Override
-	public void tearDown() {
-	}
+	@Override public void setUp() {}
+	@Override public void tearDown() {}
 
 }

@@ -20,27 +20,32 @@
 */
 package tobacco.core.components;
 
-import tobacco.core.movement.Trajectory;
+import java.util.ArrayList;
+import java.util.List;
+
+import tobacco.core.util.Vector2D;
 
 public class TrajectoryComponent implements Component {
 
-	private Trajectory trajectory;
 	private int step = 0;
 	private boolean loop;
+	private List<Vector2D> waypoints;
 	
-	public TrajectoryComponent() {}
+	public TrajectoryComponent(List<Vector2D> waypoints) {
+		setWaypoints(waypoints);
+	}
 	
-	public TrajectoryComponent(Trajectory trajectory, boolean loop) {
-		this.trajectory = trajectory;
+	public TrajectoryComponent(List<Vector2D> waypoints, boolean loop) {
+		this(waypoints);
 		this.loop = loop;
 	}
-
-	public Trajectory getTrajectory() {
-		return trajectory;
+	
+	public List<Vector2D> getWaypoints() {
+		return waypoints;
 	}
-
-	public void setTrajectory(Trajectory trajectory) {
-		this.trajectory = trajectory;
+	
+	public void setWaypoints(List<Vector2D> waypoints) {
+		this.waypoints = new ArrayList<Vector2D>(waypoints);
 	}
 
 	public int getStep() {
@@ -66,6 +71,6 @@ public class TrajectoryComponent implements Component {
 
 	@Override
 	public String toString() {
-		return "Trajectory: [loop: " + loop + " step: " + step + "]";
+		return "Trajectory: [loop: " + loop + " step: " + step + " waypoints:" + waypoints + "]";
 	};
 }
