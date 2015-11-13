@@ -21,6 +21,7 @@
 package tobacco.core.systems.debugging;
 
 import javax.swing.JFrame;
+import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
 import tobacco.core.components.Component;
@@ -35,6 +36,7 @@ public class InfoSystem extends AbstractTreeSystem {
 	private StringBuilder sb;
 	private JFrame entityWindow = new JFrame();
 	private JTextArea ta = new JTextArea();
+	private JScrollPane entityScroll = new JScrollPane(ta);
 	private SystemWindow sysWindow = new SystemWindow();
 
 	public InfoSystem() {
@@ -42,7 +44,7 @@ public class InfoSystem extends AbstractTreeSystem {
 		
 		entityWindow.setBounds(500, 60, 800, 400);
 		entityWindow.setTitle("Entities");
-		entityWindow.add(ta);
+		entityWindow.add(entityScroll);
 		entityWindow.setVisible(true);
 		
 		sysWindow.setVisible(true);

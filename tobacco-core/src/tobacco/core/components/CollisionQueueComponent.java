@@ -51,6 +51,10 @@ public class CollisionQueueComponent implements Component {
 		collisionSet.remove(c);
 		return c;
 	}
+
+	public boolean isEmpty() {
+		return collisionSet.isEmpty();
+	}
 	
 	@Override
 	public String toString() {

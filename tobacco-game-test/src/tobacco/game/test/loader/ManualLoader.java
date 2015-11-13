@@ -22,6 +22,7 @@ package tobacco.game.test.loader;
 
 import tobacco.core.components.Component;
 import tobacco.core.components.ContainerComponent;
+import tobacco.core.components.DebuggingComponent;
 import tobacco.core.components.SolidityComponent;
 import tobacco.core.components.MovementComponent;
 import tobacco.core.components.PlayerComponent;
@@ -46,8 +47,9 @@ import tobacco.core.util.Command;
 import tobacco.core.util.InputEvent;
 import tobacco.core.util.Line2D;
 import tobacco.core.util.Vector2D;
+import tobacco.game.test.collisions.BulletRemovalCollisionHandler;
 import tobacco.game.test.collisions.DamageCollisionHandler;
-import tobacco.game.test.components.BulletComponent;
+import tobacco.game.test.components.BulletDataComponent;
 import tobacco.game.test.components.DamageComponent;
 import tobacco.game.test.components.DirectionComponent;
 import tobacco.game.test.components.GameComponent;
@@ -55,6 +57,7 @@ import tobacco.game.test.components.GunComponent;
 import tobacco.game.test.components.HealthComponent;
 import tobacco.game.test.components.TeamComponent;
 import tobacco.game.test.entities.EnemyEntityFactory;
+import tobacco.game.test.systems.EnemyControlSystem;
 import tobacco.game.test.systems.GunSystem;
 import tobacco.game.test.systems.HealthSystem;
 import tobacco.game.test.util.HitCircleCollisionStrategy;
@@ -88,6 +91,7 @@ public class ManualLoader implements Loader {
 		// Set up collision handling
 		CollisionHandlerSystem colHandlerSys = new CollisionHandlerSystem();
 		colHandlerSys.addHandler(new DamageCollisionHandler());
+		colHandlerSys.addHandler(new BulletRemovalCollisionHandler());
 		
 		// Load systems
 		main.add(new InfoSystem());
@@ -96,6 +100,7 @@ public class ManualLoader implements Loader {
 		main.add(new MovementResetSystem());
 		main.add(new CollisionDetectionSystem(root, HitCircleCollisionStrategy.getSingleton()));
 		main.add(colHandlerSys);
+		main.add(new EnemyControlSystem());
 		main.add(new GunSystem());
 		main.add(new HealthSystem());
 		main.add(new TimerSystem());
@@ -125,7 +130,7 @@ public class ManualLoader implements Loader {
 
 		/* Player */
 		player = Directory.getEntityService().create();
-//		player.add(new DebuggingComponent());
+		player.add(new DebuggingComponent());
 		player.add(new TextureComponent("/tobacco/game/test/textures/reimuholder.png"));
 		player.add(new SizeComponent(new Vector2D(32f, 48f)));
 		player.add(new PositionComponent(new Vector2D(0f, -200f)));
@@ -156,21 +161,21 @@ public class ManualLoader implements Loader {
 		SizeComponent bSizeComp = new SizeComponent(new Vector2D(52f, 12f));
 		
 		Entity bullet1 = Directory.getEntityService().create();
-		BulletComponent bulletComp1 = new BulletComponent("/tobacco/game/test/textures/reimubullet.png", 150, 2000f);
+		BulletDataComponent bulletComp1 = new BulletDataComponent("/tobacco/game/test/textures/reimubullet.png", 150, 2000f);
 		bullet1.add(bulletComp1);
 		bullet1.add(new DirectionComponent(new Vector2D(0f, 1f)));
 		bullet1.add(bSizeComp);
 		bullet1.add(new DamageComponent(50f));
 
 		Entity bullet2 = Directory.getEntityService().create();
-		BulletComponent bulletComp2 = new BulletComponent("/tobacco/game/test/textures/reimubullet.png", 150, 2000f);
+		BulletDataComponent bulletComp2 = new BulletDataComponent("/tobacco/game/test/textures/reimubullet.png", 150, 2000f);
 		bullet2.add(bulletComp2);
 		bullet2.add(new DirectionComponent(new Vector2D(1f, 5f)));
 		bullet2.add(bSizeComp);
 		bullet2.add(new DamageComponent(50f));
 
 		Entity bullet3 = Directory.getEntityService().create();
-		BulletComponent bulletComp3 = new BulletComponent("/tobacco/game/test/textures/reimubullet.png", 150, 2000f);
+		BulletDataComponent bulletComp3 = new BulletDataComponent("/tobacco/game/test/textures/reimubullet.png", 150, 2000f);
 		bullet3.add(bulletComp3);
 		bullet3.add(new DirectionComponent(new Vector2D(-1f, 5f)));
 		bullet3.add(bSizeComp);
@@ -190,6 +195,7 @@ public class ManualLoader implements Loader {
 		ContainerComponent rootContainer = ((ContainerComponent) Directory.getEntityService().getRoot().get(GameComponent.CONTAINER_C));
 		rootContainer.addChild(player);
 		EnemyEntityFactory eeFactory = new EnemyEntityFactory("/tobacco/game/test/textures/fairy_blue.png", new Vector2D(26f, 28f));
+		rootContainer.addChild(eeFactory.create());
 		rootContainer.addChild(eeFactory.create());
 
 	}

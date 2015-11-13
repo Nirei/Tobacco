@@ -25,4 +25,8 @@ public class DamageComponent implements GameComponent {
 		this.damage = damage;
 	}
 
+	@Override
+	public String toString() {
+		return "Damage: " + damage;
+	}
 }

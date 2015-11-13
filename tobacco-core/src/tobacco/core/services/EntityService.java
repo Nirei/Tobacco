@@ -4,6 +4,7 @@ import java.util.Collection;
 import java.util.List;
 
 import tobacco.core.components.Component;
+import tobacco.core.components.Type;
 import tobacco.core.entities.Entity;
 
 public interface EntityService {
@@ -41,5 +42,12 @@ public interface EntityService {
 	 * Clears the entity tree
 	 */
 	public void clear();
+
+	/**
+	 * Finds all entities wich hold a component of the specified Type.
+	 * @param type
+	 * @return a list containing every entity with such component.
+	 */
+	public List<Entity> findAll(Type type);
 	
 }

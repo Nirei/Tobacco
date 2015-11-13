@@ -35,6 +35,7 @@ import tobacco.core.services.Directory;
 import tobacco.core.systems.AbstractListSystem;
 import tobacco.core.util.Vector2D;
 import tobacco.game.test.components.BulletComponent;
+import tobacco.game.test.components.BulletDataComponent;
 import tobacco.game.test.components.DamageComponent;
 import tobacco.game.test.components.DirectionComponent;
 import tobacco.game.test.components.GameComponent;
@@ -56,7 +57,7 @@ public class GunSystem extends AbstractListSystem {
 	
 	private Entity createBullet(Vector2D pos, Entity bullet, TeamComponent team) {
 		// TODO: Exception if bullet is missing necessary components
-		BulletComponent bComp = (BulletComponent) bullet.get(GameComponent.BULLET_C);
+		BulletDataComponent bComp = (BulletDataComponent) bullet.get(GameComponent.BULLET_DATA_C);
 		String texture = bComp.getBulletTexture();
 		Vector2D size = ((SizeComponent) bullet.get(GameComponent.SIZE_C)).getSize();
 		Vector2D dir = ((DirectionComponent) bullet.get(GameComponent.DIRECTION_C)).getDirection();
@@ -73,8 +74,9 @@ public class GunSystem extends AbstractListSystem {
 		entity.add(new MovementComponent(dir, bComp.getBulletSpeed()));
 		entity.add(new RotationComponent(90f + Vector2D.angle(Vector2D.VERTICAL, dir).getDegrees()));
 		entity.add(new DebuggingComponent());
-		entity.add(new DurationComponent(1000));
+		entity.add(new DurationComponent(10000));
 		entity.add(new SolidityComponent(10f));
+		entity.add(new BulletComponent());
 
 		return entity;
 	}
@@ -89,8 +91,8 @@ public class GunSystem extends AbstractListSystem {
 			
 			if (gunComp.isShooting()) {
 				for (Entity e : children) {
-					if (e.has(GameComponent.BULLET_C)) {
-						BulletComponent bulletComp = (BulletComponent) e.get(GameComponent.BULLET_C);
+					if (e.has(GameComponent.BULLET_DATA_C)) {
+						BulletDataComponent bulletComp = (BulletDataComponent) e.get(GameComponent.BULLET_DATA_C);
 						long time = System.currentTimeMillis();
 						long delta = time - bulletComp.getLastBullet();
 						if (bulletComp.getBulletPeriod() <= delta) {

@@ -23,8 +23,8 @@ package tobacco.render.pc.renderers;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.media.opengl.GL2;
-import javax.media.opengl.GLAutoDrawable;
+import com.jogamp.opengl.GL2;
+import com.jogamp.opengl.GLAutoDrawable;
 
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 import tobacco.core.services.DebuggingService;

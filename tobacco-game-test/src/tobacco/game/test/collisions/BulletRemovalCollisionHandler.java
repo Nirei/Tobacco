@@ -18,18 +18,32 @@
 *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 *
 */
-package tobacco.game.test.components;
+package tobacco.game.test.collisions;
 
-import tobacco.core.components.Component;
-import tobacco.core.components.Type;
+import tobacco.core.collision.Collision;
+import tobacco.core.collision.CollisionHandler;
+import tobacco.core.components.RemoveComponent;
+import tobacco.core.entities.Entity;
+import tobacco.game.test.components.GameComponent;
 
-public interface GameComponent extends Component {
+/**
+ * This handler removes bullets after they've hit a player.
+ * @author nirei
+ *
+ */
+public class BulletRemovalCollisionHandler implements CollisionHandler {
 
-	public static final Type BULLET_C = new Type("BULLET_C", BulletComponent.class);
-	public static final Type BULLET_DATA_C = new Type("BULLET_DATA_C", BulletDataComponent.class);
-	public static final Type DAMAGE_C = new Type("DAMAGE_C", DamageComponent.class);
-	public static final Type DIRECTION_C = new Type("DIRECTION_C", DirectionComponent.class);
-	public static final Type GUN_C = new Type("GUN_C", GunComponent.class);
-	public static final Type HEALTH_C = new Type("HEALTH_C", HealthComponent.class);
-	public static final Type TEAM_C = new Type("TEAM_C", TeamComponent.class);
+	@Override
+	public void handle(Collision col) {
+		Entity e1 = col.getE1();
+		Entity e2 = col.getE2();
+
+		if(e1.has(GameComponent.BULLET_C) && e2.has(GameComponent.PLAYER_C)) {
+			e1.add(new RemoveComponent());
+		}
+		if(e1.has(GameComponent.PLAYER_C) && e2.has(GameComponent.BULLET_C)) {
+			e2.add(new RemoveComponent());
+		}
+	}
+
 }

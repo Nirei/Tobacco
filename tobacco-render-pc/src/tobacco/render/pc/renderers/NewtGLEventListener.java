@@ -20,13 +20,11 @@
 */
 package tobacco.render.pc.renderers;
 
+import com.jogamp.nativewindow.WindowClosingProtocol.WindowClosingMode;
 import com.jogamp.newt.event.WindowAdapter;
 import com.jogamp.newt.opengl.GLWindow;
-
-import javax.media.nativewindow.WindowClosingProtocol.WindowClosingMode;
-import javax.media.opengl.GLCapabilities;
-import javax.media.opengl.GLProfile;
-
+import com.jogamp.opengl.GLCapabilities;
+import com.jogamp.opengl.GLProfile;
 import com.jogamp.opengl.util.Animator;
 
 import tobacco.core.components.Component;

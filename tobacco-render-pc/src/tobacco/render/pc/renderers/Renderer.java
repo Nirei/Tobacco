@@ -1,6 +1,6 @@
 package tobacco.render.pc.renderers;
 
-import javax.media.opengl.GLAutoDrawable;
+import com.jogamp.opengl.GLAutoDrawable;
 
 public interface Renderer {
 

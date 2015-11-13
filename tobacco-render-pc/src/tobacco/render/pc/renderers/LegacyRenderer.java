@@ -20,10 +20,6 @@
 */
 package tobacco.render.pc.renderers;
 
-import javax.media.opengl.GL;
-import javax.media.opengl.GL2;
-import javax.media.opengl.GLAutoDrawable;
-
 import tobacco.core.components.Component;
 import tobacco.core.components.ContainerComponent;
 import tobacco.core.components.PositionComponent;
@@ -38,6 +34,9 @@ import tobacco.render.pc.components.TextureComponent;
 import tobacco.render.pc.util.TextureStorage;
 import tobacco.render.pc.util.exceptions.TextureNotFoundException;
 
+import com.jogamp.opengl.GL;
+import com.jogamp.opengl.GL2;
+import com.jogamp.opengl.GLAutoDrawable;
 import com.jogamp.opengl.util.texture.Texture;
 import com.jogamp.opengl.util.texture.TextureCoords;
 

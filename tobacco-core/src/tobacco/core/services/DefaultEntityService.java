@@ -5,6 +5,8 @@ import java.util.Collection;
 import java.util.List;
 
 import tobacco.core.components.Component;
+import tobacco.core.components.DebuggingComponent;
+import tobacco.core.components.Type;
 import tobacco.core.entities.Entity;
 import tobacco.core.entities.EntityFactory;
 import tobacco.core.entities.RootEntityFactory;
@@ -17,7 +19,10 @@ public class DefaultEntityService implements EntityService {
 
 	@Override
 	public synchronized Entity getRoot() {
-		if(root == null) root = RootEntityFactory.create();
+		if(root == null) {
+			root = RootEntityFactory.create();
+			root.add(new DebuggingComponent());
+		}
 		return root;
 	}
 
@@ -48,4 +53,11 @@ public class DefaultEntityService implements EntityService {
 		throw new UnsupportedOperationException();
 	}
 
+	@Override
+	public List<Entity> findAll(Type type) {
+		List<Entity> all = new ArrayList<>();
+		for(Entity e : entList)
+			if(e.has(type)) all.add(e);
+		return all;
+	}
 }

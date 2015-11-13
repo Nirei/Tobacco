@@ -38,12 +38,15 @@ import tobacco.core.services.Directory;
 public class CollisionHandlerSystem extends AbstractSystem {
 
 	private List<CollisionHandler> handlers = new ArrayList<CollisionHandler>();
+	private int tick = 0;
 	
 	@Override
 	public void work() {
 		Entity root = Directory.getEntityService().getRoot();
 		CollisionQueueComponent cols = (CollisionQueueComponent) root.get(Component.COLLISIONMAP_C);
+		if(!cols.isEmpty()) System.out.println("Collision tick: " + tick++);
 		for(Collision c = cols.poll(); c != null; c = cols.poll()) {
+			System.out.println("Collision " + c + " detected");
 			for(CollisionHandler h : handlers) {
 				h.handle(c);
 			}

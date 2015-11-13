@@ -28,7 +28,6 @@ import tobacco.core.entities.Entity;
 import tobacco.core.util.Vector2D;
 import tobacco.render.pc.components.MouseComponent;
 
-// TODO: Mouse coords should be given on ingame position instead absolute screen pos
 public class PcInputListener implements CommonListener {
 
 	private final KeymapComponent keyMapComp = new KeymapComponent();

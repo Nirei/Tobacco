@@ -1,13 +1,12 @@
 package tobacco.render.pc.renderers;
 
-import javax.media.opengl.GL;
-import javax.media.opengl.GL2;
-import javax.media.opengl.GLAutoDrawable;
-import javax.media.opengl.GLEventListener;
-import javax.media.opengl.GLProfile;
-
 import tobacco.render.pc.input.CommonListener;
 
+import com.jogamp.opengl.GL;
+import com.jogamp.opengl.GL2;
+import com.jogamp.opengl.GLAutoDrawable;
+import com.jogamp.opengl.GLEventListener;
+import com.jogamp.opengl.GLProfile;
 import com.jogamp.opengl.util.AnimatorBase;
 
 public abstract class CustomGLEventListener implements GLEventListener {
@@ -16,7 +15,7 @@ public abstract class CustomGLEventListener implements GLEventListener {
 	protected Renderer renderer;
 	
 	public CustomGLEventListener(Renderer renderer) {
-		GLProfile.initSingleton(); // Recomended before anything else
+		GLProfile.initSingleton(); // Recommended before anything else
 		this.renderer = renderer;
 	}
 
