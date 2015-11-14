@@ -2,7 +2,9 @@ package tobacco.core.services;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import tobacco.core.components.Component;
 import tobacco.core.components.DebuggingComponent;
@@ -14,7 +16,7 @@ import tobacco.core.entities.RootEntityFactory;
 public class DefaultEntityService implements EntityService {
 	
 	private Entity root = null;
-	private List<Entity> entList = new ArrayList<Entity>();
+	private Map<Long, Entity> entities = new HashMap<Long, Entity>();
 	private EntityFactory eFactory = new EntityFactory();
 
 	@Override
@@ -28,13 +30,13 @@ public class DefaultEntityService implements EntityService {
 
 	@Override
 	public List<Entity> getEntityList() {
-		return new ArrayList<Entity>(entList);
+		return new ArrayList<Entity>(entities.values());
 	}
 
 	@Override
 	public Entity create() {
 		Entity created = eFactory.create();
-		entList.add(created);
+		entities.put(created.getID(), created);
 		return created;
 	}
 
@@ -45,7 +47,7 @@ public class DefaultEntityService implements EntityService {
 
 	@Override
 	public void remove(Entity entity) {
-		entList.remove(entity);
+		entities.remove(entity.getID());
 	}
 
 	@Override
@@ -56,8 +58,13 @@ public class DefaultEntityService implements EntityService {
 	@Override
 	public List<Entity> findAll(Type type) {
 		List<Entity> all = new ArrayList<>();
-		for(Entity e : entList)
+		for(Entity e : entities.values())
 			if(e.has(type)) all.add(e);
 		return all;
+	}
+
+	@Override
+	public Entity findEntityById(long id) {
+		return entities.get(id);
 	}
 }
