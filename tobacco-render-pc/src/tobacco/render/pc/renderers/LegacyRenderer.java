@@ -26,6 +26,7 @@ import tobacco.core.components.PositionComponent;
 import tobacco.core.components.RotationComponent;
 import tobacco.core.components.ScaleComponent;
 import tobacco.core.components.SizeComponent;
+import tobacco.core.components.TintComponent;
 import tobacco.core.entities.Entity;
 import tobacco.core.services.Directory;
 import tobacco.core.util.Vector2D;
@@ -40,6 +41,10 @@ import com.jogamp.opengl.GLAutoDrawable;
 import com.jogamp.opengl.util.texture.Texture;
 import com.jogamp.opengl.util.texture.TextureCoords;
 
+/**
+ * Legacy OpenGL renderer for Tobacco
+ * @author nirei
+ */
 public class LegacyRenderer implements Renderer {
 
 	private void drawEntity(GLAutoDrawable drawable, Entity entity) {
@@ -55,6 +60,7 @@ public class LegacyRenderer implements Renderer {
 			float x, y, width, height;
 			// float zIndex = 0f;
 			float rot = 0f;
+			float tintR=1f,tintG=1f,tintB=1f;
 
 			if (entity.has(Component.POSITION_C)) {
 				PositionComponent posComp = (PositionComponent) entity.get(Component.POSITION_C);
@@ -67,6 +73,12 @@ public class LegacyRenderer implements Renderer {
 				sca = ((ScaleComponent) entity.get(Component.SCALE_C)).getScale();
 			if (entity.has(Component.SIZE_C))
 				size = ((SizeComponent) entity.get(Component.SIZE_C)).getSize();
+			if (entity.has(Component.TINT_C)) {
+				TintComponent tintComp= (TintComponent) entity.get(Component.TINT_C);
+				tintR = tintComp.getRed();
+				tintG = tintComp.getGreen();
+				tintB = tintComp.getBlue();
+			}
 
 			Texture texture = null;
 			float textureTop = 0f, textureBottom = 0f, textureLeft = 0f, textureRight = 0f;
@@ -113,6 +125,7 @@ public class LegacyRenderer implements Renderer {
 				texture.bind(gl);
 
 				gl.glBegin(GL2.GL_QUADS);
+				gl.glColor4f(tintR, tintG, tintB, 0.5f);
 				gl.glTexCoord2f(textureLeft, textureBottom);
 				gl.glVertex2f(localXInit, localYInit);
 				gl.glTexCoord2f(textureLeft, textureTop);
@@ -142,7 +155,6 @@ public class LegacyRenderer implements Renderer {
 				drawEntityTree(drawable, e);
 			}
 		}
-
 	}
 
 	public void draw(GLAutoDrawable drawable) {

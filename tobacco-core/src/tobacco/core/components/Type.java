@@ -23,6 +23,10 @@ package tobacco.core.components;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Represents the type of a {@link Component}.
+ * @author nirei
+ */
 public final class Type {
 
 	private static final Map<String, Type> types = new HashMap<String, Type>();
