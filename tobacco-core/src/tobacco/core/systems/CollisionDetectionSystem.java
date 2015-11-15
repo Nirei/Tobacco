@@ -31,7 +31,6 @@ import tobacco.core.components.CollisionQueueComponent;
 import tobacco.core.components.Component;
 import tobacco.core.components.PositionComponent;
 import tobacco.core.components.ScreenComponent;
-import tobacco.core.components.TintComponent;
 import tobacco.core.components.Type;
 import tobacco.core.entities.Entity;
 import tobacco.core.services.Directory;
@@ -40,7 +39,7 @@ import tobacco.core.util.Vector2D;
 /**
  * Writes on its own cMapComp, similarly to what the InputListener
  * does with keyMapComp. In the future it may be positive to respect
- * data access methods and read cMapComp from the root entity everytime
+ * data access methods and read cMapComp from the root entity every time
  * instead of keeping a reference, which could accidentally become unlinked
  * from root.
  */
@@ -66,8 +65,6 @@ public class CollisionDetectionSystem extends AbstractListSystem {
 	}
 	
 	private void writeCollision(Entity e1, Entity e2) {
-		e1.add(TintComponent.RED);
-		e2.add(TintComponent.RED);
 		cMapComp.add(e1, e2);
 	}
 
@@ -89,7 +86,6 @@ public class CollisionDetectionSystem extends AbstractListSystem {
 		List<Entity> checked = new ArrayList<Entity>();
 		for(Entity e : Directory.getEntityService().getEntityList()) {
 			if(qualifies(e)) {
-				e.add(TintComponent.LIGHT_BLUE);
 				Vector2D pos = ((PositionComponent) e.get(Component.POSITION_C)).getPosition();
 				cqt.insert(e, pos);
 				checked.add(e);

@@ -30,7 +30,7 @@ public class Main {
 
 	public static void main(String[] args) {
 		
-		Loader loader = new ManualLoader2();
+		Loader loader = new ManualLoader();
 
 		loader.loadEntityTree();
 		AbstractMainSystem mainSystem = loader.loadMainSystem(Directory.getEntityService().getRoot());

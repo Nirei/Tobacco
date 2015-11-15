@@ -25,9 +25,11 @@ import tobacco.core.collision.CollisionHandler;
 import tobacco.core.components.RemoveComponent;
 import tobacco.core.entities.Entity;
 import tobacco.game.test.components.GameComponent;
+import tobacco.game.test.components.TeamComponent;
 
 /**
- * This handler removes bullets after they've hit a player.
+ * This handler removes bullets after they've hit something unless
+ * both entities are on the same team.
  * @author nirei
  *
  */
@@ -37,12 +39,21 @@ public class BulletRemovalCollisionHandler implements CollisionHandler {
 	public void handle(Collision col) {
 		Entity e1 = col.getE1();
 		Entity e2 = col.getE2();
-
-		if(e1.has(GameComponent.BULLET_C) && e2.has(GameComponent.PLAYER_C)) {
-			e1.add(new RemoveComponent());
+		TeamComponent teamE1, teamE2;
+		
+		if(e1.has(GameComponent.TEAM_C) && e2.has(GameComponent.TEAM_C)) {
+			teamE1 = ((TeamComponent) e1.get(GameComponent.TEAM_C));
+			teamE2 = ((TeamComponent) e2.get(GameComponent.TEAM_C));
+			if(teamE1.equals(teamE2)) return;
 		}
-		if(e1.has(GameComponent.PLAYER_C) && e2.has(GameComponent.BULLET_C)) {
-			e2.add(new RemoveComponent());
+		
+		remove(e1, e2);
+		remove(e2, e1);
+	}
+	
+	private void remove(Entity e1, Entity e2) {
+		if(e1.has(GameComponent.BULLET_C) && !e2.has(GameComponent.BULLET_C)) {
+			e1.add(new RemoveComponent());
 		}
 	}
 
