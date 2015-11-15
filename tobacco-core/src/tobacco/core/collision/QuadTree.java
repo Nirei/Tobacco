@@ -21,8 +21,10 @@
 package tobacco.core.collision;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
-
+import tobacco.core.services.Directory;
+import tobacco.core.util.Line2D;
 import tobacco.core.util.Vector2D;
 
 public class QuadTree<T> {
@@ -38,6 +40,7 @@ public class QuadTree<T> {
 	private Vector2D center, halfSides;
 	
 	private class Element {
+
 		private Vector2D point;
 		private T element;
 		
@@ -53,9 +56,15 @@ public class QuadTree<T> {
 		public T getElement() {
 			return element;
 		}
+		
+		@Override
+		public String toString() {
+			return "Element [point=" + point + ", element=" + element + "]";
+		}
 	}
 	
 	private class Node<K> {
+
 		// Number of elements, if -1, it has children
 		private int fill = 0;
 		private final int depth;
@@ -85,17 +94,22 @@ public class QuadTree<T> {
 		}
 
 		private void subdivide() {
-			Vector2D hS1 = halfSides.scale(.5f);
-			Vector2D hS2 = new Vector2D(hS1.getX(), -hS1.getY());
+			Vector2D hS = halfSides.scale(.5f);
+			float hSx = hS.getX(), hSy = hS.getY();
 			int childDepth = depth + 1;
 			
 			// Set fill to -1 to indicate non-leaf node
 			fill = -1;
-
-			children[SW] = new Node<K>(Vector2D.minus(center, hS2), hS1, childDepth);
-			children[SE] = new Node<K>(Vector2D.minus(center, hS1), hS1, childDepth);
-			children[NW] = new Node<K>(Vector2D.sum(center, hS2), hS1, childDepth);
-			children[NE] = new Node<K>(Vector2D.sum(center, hS1), hS1, childDepth);
+			
+			Vector2D centerSW = Vector2D.sum(center, new Vector2D(-hSx, -hSy));
+			Vector2D centerSE = Vector2D.sum(center, new Vector2D(hSx, -hSy));
+			Vector2D centerNW = Vector2D.sum(center, new Vector2D(-hSx, hSy));
+			Vector2D centerNE = Vector2D.sum(center, new Vector2D(hSx, hSy));
+			
+			children[SW] = new Node<K>(centerSW, hS, childDepth);
+			children[SE] = new Node<K>(centerSE, hS, childDepth);
+			children[NW] = new Node<K>(centerNW, hS, childDepth);
+			children[NE] = new Node<K>(centerNE, hS, childDepth);
 			
 			// Move elements to the newborn children
 			for(Element e : elements) {
@@ -104,28 +118,48 @@ public class QuadTree<T> {
 
 			// Just in case...
 			elements = null;
+			
+			// And paint the division for debugging purposes! :D
+			Vector2D top = new Vector2D(center.getX(), center.getY() + halfSides.getY());
+			Vector2D bottom = new Vector2D(center.getX(), center.getY() - halfSides.getY());
+			Vector2D left = new Vector2D(center.getX() - halfSides.getX(), center.getY());
+			Vector2D right = new Vector2D(center.getX() + halfSides.getX(), center.getY());
+			Line2D axisX = new Line2D(top, bottom);
+			Line2D axisY = new Line2D(left, right);
+			Directory.getDebuggingService().displayVector("axisX" + center, axisX);
+			Directory.getDebuggingService().displayVector("axisY" + center, axisY);
+
 		}
-
+		
 		public boolean insert(Element element) {
-			if(!element.getPoint().isInsideArea(center, halfSides)) return false;
+			Vector2D point = element.getPoint();
+			// We check if the point is inside the area, corners inclusive.
+			// This means something might get inserted in more than one leaf.
+			if(!(point.getX() >= center.getX() - halfSides.getX() &&
+					point.getX() <= center.getX() + halfSides.getX() &&
+					point.getY() >= center.getY() - halfSides.getY() &&
+					point.getY() <= center.getY() + halfSides.getY())) {
+				return false;
+			}
 
+			// If the node has children, send them the element.
 			if(hasChildren()) {
 				for(Node<K> n : children)
 					if(n.insert(element)) return true;
 				return false;
 			}
 
+			// Else, insert it.
 			synchronized (elements) {
 				if(isFull() && (depth <= maxDepth)) {
 					subdivide();
+					return insert(element);
 				} else {
 					elements.add(element);
 					++fill;
 					return true;
 				}
 			}
-
-			return false;
 		}
 		
 		public List<T> query(Vector2D point) {
@@ -152,6 +186,12 @@ public class QuadTree<T> {
 			// Tail-recursive call
 			return children[child].query(point);
 		}
+		
+		@Override
+		public String toString() {
+			return "Node [fill=" + fill + ", depth=" + depth + ", center=" + center + ", halfSides=" + halfSides
+					+ ", elements=" + elements + ", children=" + Arrays.toString(children) + "]";
+		}
 	}
 
 	private Node<T> root;
@@ -175,5 +215,11 @@ public class QuadTree<T> {
 
 	public void clear() {
 		root = new Node<T>(center, halfSides);
+	}
+
+	@Override
+	public String toString() {
+		return "QuadTree [nodeSize=" + nodeSize + ", maxDepth=" + maxDepth + ", center=" + center + ", halfSides="
+				+ halfSides + ", root=" + root + "]";
 	}
 }
