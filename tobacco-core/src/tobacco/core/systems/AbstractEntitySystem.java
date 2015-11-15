@@ -30,8 +30,8 @@ import tobacco.core.services.Directory;
  */
 public abstract class AbstractEntitySystem extends AbstractSystem {
 	
-	public AbstractEntitySystem(Type[] _requiredComponents) {
-		requiredComponents = _requiredComponents;
+	public AbstractEntitySystem(Type[] requiredComponents) {
+		this.requiredComponents = requiredComponents;
 	}
 
 	/**
@@ -44,7 +44,7 @@ public abstract class AbstractEntitySystem extends AbstractSystem {
 	 */
 	public abstract void setUp();
 
-	// TODO: This calls for Strategy desing pattern but it can wait
+	// TODO: This calls for Strategy design pattern but it can wait
 	// since I don't think we'll need so much extensibility.
 
 	/**
