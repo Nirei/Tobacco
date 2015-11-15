@@ -20,14 +20,15 @@
 */
 package tobacco.render.pc.renderers;
 
-import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 import com.jogamp.opengl.GL2;
 import com.jogamp.opengl.GLAutoDrawable;
 
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 import tobacco.core.services.DebuggingService;
+import tobacco.core.services.Directory;
 import tobacco.core.util.Line2D;
 import tobacco.core.util.Vector2D;
 
@@ -35,8 +36,8 @@ public class DebuggingRendererDecorator implements Renderer, DebuggingService {
 	
 	private Renderer wrapped;
 	
-	private Map<String, Line2D> vectors = new HashMap<String, Line2D>();
-	private Map<String, Vector2D> points = new HashMap<String, Vector2D>();
+	private Map<String, Line2D> vectors = new ConcurrentHashMap<String, Line2D>();
+	private Map<String, Vector2D> points = new ConcurrentHashMap<String, Vector2D>();
 	
 	public DebuggingRendererDecorator(Renderer wrapped) {
 		this.wrapped = wrapped;
@@ -56,7 +57,6 @@ public class DebuggingRendererDecorator implements Renderer, DebuggingService {
 
 	@Override
 	public void removeText(String tag) {
-		// TODO Apéndice de método generado automáticamente
 		throw new NotImplementedException();
 	}
 	
@@ -115,6 +115,8 @@ public class DebuggingRendererDecorator implements Renderer, DebuggingService {
 		}
 		
 		gl2.glDisable(GL2.GL_LINE_SMOOTH);
+
+		Directory.getDebuggingService().clearVectors();
 	}
 
 }

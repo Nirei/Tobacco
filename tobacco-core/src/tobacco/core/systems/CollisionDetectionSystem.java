@@ -20,7 +20,9 @@
 */
 package tobacco.core.systems;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import tobacco.core.collision.CollisionStrategy;
@@ -29,6 +31,7 @@ import tobacco.core.components.CollisionQueueComponent;
 import tobacco.core.components.Component;
 import tobacco.core.components.PositionComponent;
 import tobacco.core.components.ScreenComponent;
+import tobacco.core.components.TintComponent;
 import tobacco.core.components.Type;
 import tobacco.core.entities.Entity;
 import tobacco.core.services.Directory;
@@ -63,6 +66,8 @@ public class CollisionDetectionSystem extends AbstractListSystem {
 	}
 	
 	private void writeCollision(Entity e1, Entity e2) {
+		e1.add(TintComponent.RED);
+		e2.add(TintComponent.RED);
 		cMapComp.add(e1, e2);
 	}
 
@@ -70,7 +75,7 @@ public class CollisionDetectionSystem extends AbstractListSystem {
 	public void process(Entity entity) {
 		if(qualifies(entity)) {
 			Vector2D pos = ((PositionComponent) entity.get(Component.POSITION_C)).getPosition();
-			for(Entity e : cqt.query(pos)) {
+			for(Entity e : cqt.query(pos)) {				
 				if(!checked.contains(e) && !e.equals(entity) && cStrategy.collides(e, entity)) {
 					writeCollision(e, entity);
 				}
@@ -81,10 +86,13 @@ public class CollisionDetectionSystem extends AbstractListSystem {
 
 	@Override
 	public void setUp() {
+		List<Entity> checked = new ArrayList<Entity>();
 		for(Entity e : Directory.getEntityService().getEntityList()) {
 			if(qualifies(e)) {
+				e.add(TintComponent.LIGHT_BLUE);
 				Vector2D pos = ((PositionComponent) e.get(Component.POSITION_C)).getPosition();
 				cqt.insert(e, pos);
+				checked.add(e);
 			}
 		}
 	}

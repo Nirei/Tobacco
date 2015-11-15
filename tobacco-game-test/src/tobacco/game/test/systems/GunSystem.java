@@ -22,7 +22,6 @@ package tobacco.game.test.systems;
 
 import tobacco.core.components.Component;
 import tobacco.core.components.ContainerComponent;
-import tobacco.core.components.DebuggingComponent;
 import tobacco.core.components.DurationComponent;
 import tobacco.core.components.MovementComponent;
 import tobacco.core.components.PositionComponent;
@@ -73,7 +72,7 @@ public class GunSystem extends AbstractListSystem {
 		entity.add(new PositionComponent(pos));
 		entity.add(new MovementComponent(dir, bComp.getBulletSpeed()));
 		entity.add(new RotationComponent(90f + Vector2D.angle(Vector2D.VERTICAL, dir).getDegrees()));
-		entity.add(new DebuggingComponent());
+//		entity.add(new DebuggingComponent());
 		entity.add(new DurationComponent(10000));
 		entity.add(new SolidityComponent(10f));
 		entity.add(new BulletComponent());

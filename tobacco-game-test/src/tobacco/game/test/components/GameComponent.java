@@ -29,6 +29,7 @@ public interface GameComponent extends Component {
 	public static final Type BULLET_DATA_C = new Type("BULLET_DATA_C", BulletDataComponent.class);
 	public static final Type DAMAGE_C = new Type("DAMAGE_C", DamageComponent.class);
 	public static final Type DIRECTION_C = new Type("DIRECTION_C", DirectionComponent.class);
+	public static final Type ENEMY_C = new Type("ENEMY_C", EnemyComponent.class);
 	public static final Type GUN_C = new Type("GUN_C", GunComponent.class);
 	public static final Type HEALTH_C = new Type("HEALTH_C", HealthComponent.class);
 	public static final Type TEAM_C = new Type("TEAM_C", TeamComponent.class);

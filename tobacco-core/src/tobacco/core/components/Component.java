@@ -42,6 +42,7 @@ public interface Component {
 	public final static Type SCREEN_C = new Type("SCREEN_C", ScreenComponent.class);
 	public final static Type SIZE_C = new Type("SIZE_C", SizeComponent.class);
 	public final static Type SOLIDITY_C = new Type("SOLIDITY_C", SolidityComponent.class);
+	public final static Type TINT_C = new Type("TINT_C", TintComponent.class);
 	public final static Type TRAJECTORY_C = new Type("TRAJECTORY_C", TrajectoryComponent.class);
 
 	/**

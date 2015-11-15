@@ -55,7 +55,6 @@ import tobacco.game.test.components.GameComponent;
 import tobacco.game.test.components.GunComponent;
 import tobacco.game.test.components.HealthComponent;
 import tobacco.game.test.components.TeamComponent;
-import tobacco.game.test.entities.EnemyEntityFactory;
 import tobacco.game.test.systems.EnemyControlSystem;
 import tobacco.game.test.systems.GunSystem;
 import tobacco.game.test.systems.HealthSystem;
@@ -67,9 +66,15 @@ import tobacco.render.pc.renderers.DebuggingRendererDecorator;
 import tobacco.render.pc.renderers.NewtGLEventListener;
 import tobacco.render.pc.renderers.LegacyRenderer;
 import static tobacco.render.pc.input.PcInputCode.*;
+
+import java.util.Queue;
+import java.util.concurrent.ArrayBlockingQueue;
+
 import static tobacco.core.util.InputType.*;
 
-public class ManualLoader implements Loader {
+public class ManualLoader2 implements Loader {
+	
+	private Queue<Entity> playerQueue = new ArrayBlockingQueue<>(10);
 
 	@Override
 	public AbstractMainSystem loadMainSystem(Entity root) {
@@ -116,18 +121,8 @@ public class ManualLoader implements Loader {
 				}
 			};
 	}
-
-	@Override
-	public void loadEntityTree() {
-		Entity player;
-
-		/* Player */
-		player = Directory.getEntityService().create();
-		player.add(new DebuggingComponent());
-		player.add(new TextureComponent("/tobacco/game/test/textures/reimuholder.png"));
-		player.add(new SizeComponent(new Vector2D(32f, 48f)));
-		player.add(new PositionComponent(new Vector2D(0f, -200f)));
-
+	
+	private void giveControl(Entity player) {
 		PlayerComponent playerComp = new PlayerComponent();
 		Command up = moveCommand(0, 1);
 		Command down = moveCommand(0, -1);
@@ -147,7 +142,28 @@ public class ManualLoader implements Loader {
 		playerComp.put(new InputEvent(KEY_Z, TYPE_RELEASE),
 				(rootEntity, entity) -> ((GunComponent) entity.get(GameComponent.GUN_C)).setShooting(false));
 		
+		playerComp.put(new InputEvent(KEY_Q, TYPE_RELEASE), 
+				(rootEntity, entity) -> {
+					System.out.println("Switching players!");
+					player.remove(GameComponent.PLAYER_C);
+					giveControl(playerQueue.poll());
+					playerQueue.offer(entity);
+				}
+		);
+		
 		player.add(playerComp);
+	}
+
+	private Entity createPlayer(float x, float y) {
+		
+		Entity player;
+		
+		/* Player 1 */
+		player = Directory.getEntityService().create();
+		player.add(new DebuggingComponent());
+		player.add(new TextureComponent("/tobacco/game/test/textures/reimuholder.png"));
+		player.add(new SizeComponent(new Vector2D(32f, 48f)));
+		player.add(new PositionComponent(new Vector2D(x, y)));
 
 		ContainerComponent containerComponent = new ContainerComponent();
 		GunComponent gunComponent = new GunComponent();
@@ -160,23 +176,7 @@ public class ManualLoader implements Loader {
 		bullet1.add(bSizeComp);
 		bullet1.add(new DamageComponent(50f));
 
-		Entity bullet2 = Directory.getEntityService().create();
-		BulletDataComponent bulletComp2 = new BulletDataComponent("/tobacco/game/test/textures/reimubullet.png", 150, 2000f);
-		bullet2.add(bulletComp2);
-		bullet2.add(new DirectionComponent(new Vector2D(1f, 5f)));
-		bullet2.add(bSizeComp);
-		bullet2.add(new DamageComponent(50f));
-
-		Entity bullet3 = Directory.getEntityService().create();
-		BulletDataComponent bulletComp3 = new BulletDataComponent("/tobacco/game/test/textures/reimubullet.png", 150, 2000f);
-		bullet3.add(bulletComp3);
-		bullet3.add(new DirectionComponent(new Vector2D(-1f, 5f)));
-		bullet3.add(bSizeComp);
-		bullet3.add(new DamageComponent(50f));
-
 		containerComponent.addChild(bullet1);
-		containerComponent.addChild(bullet2);
-		containerComponent.addChild(bullet3);
 
 		player.add(gunComponent);
 		player.add(containerComponent);
@@ -187,9 +187,20 @@ public class ManualLoader implements Loader {
 
 		ContainerComponent rootContainer = ((ContainerComponent) Directory.getEntityService().getRoot().get(GameComponent.CONTAINER_C));
 		rootContainer.addChild(player);
-		EnemyEntityFactory eeFactory = new EnemyEntityFactory("/tobacco/game/test/textures/fairy_blue.png", new Vector2D(26f, 28f));
-		rootContainer.addChild(eeFactory.create());
-		rootContainer.addChild(eeFactory.create());
+		
+		return player;
+	}
 
+	@Override
+	public void loadEntityTree() {
+		giveControl(createPlayer(0f, -200f));
+		playerQueue.offer(createPlayer(50f, -200f));
+		playerQueue.offer(createPlayer(-50f, -200f));
+		playerQueue.offer(createPlayer(0f, 0f));
+		playerQueue.offer(createPlayer(50f, 0f));
+		playerQueue.offer(createPlayer(-50f, 0f));
+		playerQueue.offer(createPlayer(0f, 200f));
+		playerQueue.offer(createPlayer(50f, 200f));
+		playerQueue.offer(createPlayer(-50f, 200f));
 	}
 }

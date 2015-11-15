@@ -34,6 +34,7 @@ import tobacco.core.util.Vector2D;
 import tobacco.game.test.components.BulletDataComponent;
 import tobacco.game.test.components.DamageComponent;
 import tobacco.game.test.components.DirectionComponent;
+import tobacco.game.test.components.EnemyComponent;
 import tobacco.game.test.components.GunComponent;
 import tobacco.game.test.components.HealthComponent;
 import tobacco.game.test.components.TeamComponent;
@@ -78,9 +79,10 @@ public class EnemyEntityFactory {
 		entity.add(new DamageComponent(100f));
 		entity.add(new PositionComponent(points[created][0]));
 		entity.add(new MovementComponent(200f));
-//		entity.add(new DebuggingComponent());
+		entity.add(new DebuggingComponent());
 		entity.add(new SolidityComponent(10f));
 		entity.add(new HealthComponent(100f));
+		entity.add(new EnemyComponent());
 
 		TrajectoryComponent trajComp = SplineTrajectoryFactory.create(points[created]);
 		trajComp.setLoop(true);

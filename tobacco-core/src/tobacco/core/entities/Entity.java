@@ -30,7 +30,6 @@ import tobacco.core.components.Type;
 
 /**
  * Entity for the game engine. Contains components. No logic.
- * 
  * @author nirei
  */
 public final class Entity implements Iterable<Component> {
@@ -64,17 +63,25 @@ public final class Entity implements Iterable<Component> {
 	/**
 	 * Adds a {@link Component} to the map of components.
 	 * 
-	 * @param _component
+	 * @param component
 	 *            Component to be added
 	 */
 	public void add(Component component) {
 		components.put(component.getComponentType(), component);
 	}
+	
+	/**
+	 * Removes a {@link Component} to the map of components.
+	 * @param type - The {@link Type} of the {@link Component} to be removed from the {@link Entity}
+	 */
+	public void remove(Type type) {
+		components.remove(type);
+	}
 
 	/**
 	 * Check if the entity contains a specific component.
 	 * 
-	 * @param _component
+	 * @param type - {@link Type} of the {@link Component}.
 	 */
 	public boolean has(Type type) {
 		return components.containsKey(type);

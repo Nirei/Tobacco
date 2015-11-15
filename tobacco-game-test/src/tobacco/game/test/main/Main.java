@@ -24,12 +24,13 @@ import tobacco.core.loader.Loader;
 import tobacco.core.services.Directory;
 import tobacco.core.systems.main.AbstractMainSystem;
 import tobacco.game.test.loader.ManualLoader;
+import tobacco.game.test.loader.ManualLoader2;
 
 public class Main {
 
 	public static void main(String[] args) {
 		
-		Loader loader = new ManualLoader();
+		Loader loader = new ManualLoader2();
 
 		loader.loadEntityTree();
 		AbstractMainSystem mainSystem = loader.loadMainSystem(Directory.getEntityService().getRoot());

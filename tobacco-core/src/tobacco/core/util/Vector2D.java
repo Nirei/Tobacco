@@ -92,6 +92,9 @@ public class Vector2D {
 	 * Check if this vector is inside the rectangular area described by two
 	 * given vectors representing the center and half the length of the sides
 	 * of the rectangle. This is useful for bounding boxes.
+	 * <br>
+	 * The check accounts for the starting coordinates of the area but not
+	 * the ending.
 	 * @param center - Vector representing the center of the area
 	 * @param halfSides - Vector that gives half the size of the rect
 	 * @return	<b>true</b> - If the point is inside the described vector<br />

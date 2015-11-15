@@ -23,8 +23,6 @@ package tobacco.core.collision;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import tobacco.core.services.Directory;
-import tobacco.core.util.Line2D;
 import tobacco.core.util.Vector2D;
 
 public class QuadTree<T> {
@@ -118,16 +116,6 @@ public class QuadTree<T> {
 
 			// Just in case...
 			elements = null;
-			
-			// And paint the division for debugging purposes! :D
-			Vector2D top = new Vector2D(center.getX(), center.getY() + halfSides.getY());
-			Vector2D bottom = new Vector2D(center.getX(), center.getY() - halfSides.getY());
-			Vector2D left = new Vector2D(center.getX() - halfSides.getX(), center.getY());
-			Vector2D right = new Vector2D(center.getX() + halfSides.getX(), center.getY());
-			Line2D axisX = new Line2D(top, bottom);
-			Line2D axisY = new Line2D(left, right);
-			Directory.getDebuggingService().displayVector("axisX" + center, axisX);
-			Directory.getDebuggingService().displayVector("axisY" + center, axisY);
 
 		}
 		

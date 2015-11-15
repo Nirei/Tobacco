@@ -16,9 +16,10 @@ import tobacco.game.test.components.GunComponent;
 public class EnemyControlSystem extends AbstractListSystem {
 	
 	private static final Type[] requiredComponents = {
+		GameComponent.ENEMY_C,
 		GameComponent.GUN_C,
 		GameComponent.CONTAINER_C,
-		GameComponent.POSITION_C
+		GameComponent.POSITION_C,
 	};
 	
 	private List<Entity> players;

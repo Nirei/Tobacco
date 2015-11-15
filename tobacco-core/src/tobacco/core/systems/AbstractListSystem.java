@@ -40,9 +40,6 @@ public abstract class AbstractListSystem extends AbstractEntitySystem {
 	 * 
 	 * @param entity
 	 *            - Current Entity being processed
-	 * @param data
-	 *            - Recursive data received when calling it from its parent
-	 * @return Data to pass on to its children
 	 */
 	public abstract void process(Entity entity);
 

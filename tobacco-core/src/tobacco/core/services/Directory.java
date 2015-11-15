@@ -1,7 +1,7 @@
 package tobacco.core.services;
 
 /**
- * Service directory
+ * Directory of services provided by the engine.
  * @author nirei
  */
 public final class Directory {

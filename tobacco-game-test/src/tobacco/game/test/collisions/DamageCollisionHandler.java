@@ -22,7 +22,6 @@ package tobacco.game.test.collisions;
 
 import tobacco.core.collision.Collision;
 import tobacco.core.collision.CollisionHandler;
-import tobacco.core.components.RemoveComponent;
 import tobacco.core.entities.Entity;
 import tobacco.game.test.components.DamageComponent;
 import tobacco.game.test.components.GameComponent;
@@ -44,7 +43,9 @@ public class DamageCollisionHandler implements CollisionHandler {
 			TeamComponent t1 = (TeamComponent) e1.get(GameComponent.TEAM_C);
 			TeamComponent t2 = (TeamComponent) e2.get(GameComponent.TEAM_C);
 
-			System.out.println(e1 + " ==> " + t1 + " / " + e2 + " ==> " + t2);
+			if(e1.getID() == 0 || e2.getID() == 0) {
+				System.out.println(e1 + " ==> " + t1 + " / " + e2 + " ==> " + t2);
+			}
 			// Are entities teamed?
 			if(t1 == null || t2 == null) {
 				// They aren't, do damage anyway

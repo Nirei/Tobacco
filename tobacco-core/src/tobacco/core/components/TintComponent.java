@@ -6,7 +6,9 @@ public class TintComponent implements Component {
 	private float green;
 	private float blue;
 	
-	public static final TintComponent RED = new TintComponent(255f,0f,0f);
+	public static final TintComponent RED = new TintComponent(1f,0f,0f);
+	public static final TintComponent LIGHT_BLUE = new TintComponent(0.5f,0.5f,1f);
+	public static final Component GREEN = new TintComponent(0f, 1f, 0f);
 
 	public TintComponent(float r, float g, float b) {
 		red = r;

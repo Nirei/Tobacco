@@ -29,19 +29,22 @@ import tobacco.core.util.Command;
 import tobacco.core.util.InputEvent;
 
 /**
- * This system checks which events are player entities listening for keystrokes then asks the KeymapComponent if those events have been received and subsequently executes the associated Commands.
+ * This system checks which events are player entities
+ * listening for keystrokes then asks the KeymapComponent
+ * if those events have been received and subsequently executes
+ * the associated Commands.
  * 
  * @author nirei
  * 
  */
-public class InputSystem extends AbstractListSystem {
+public class InputSystem extends AbstractTypedSystem {
 
 	private final static Type[] requiredComponents = { Component.PLAYER_C };
 
 	private KeymapComponent keyMap;
 
 	public InputSystem() {
-		super(requiredComponents);
+		super(requiredComponents,Component.PLAYER_C);
 	}
 
 	@Override
