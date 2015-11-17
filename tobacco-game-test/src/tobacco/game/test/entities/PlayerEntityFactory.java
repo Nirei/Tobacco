@@ -16,9 +16,6 @@ import tobacco.core.services.Directory;
 import tobacco.core.util.Command;
 import tobacco.core.util.InputEvent;
 import tobacco.core.util.Vector2D;
-import tobacco.game.test.components.BulletDataComponent;
-import tobacco.game.test.components.DamageComponent;
-import tobacco.game.test.components.DirectionComponent;
 import tobacco.game.test.components.GameComponent;
 import tobacco.game.test.components.GunComponent;
 import tobacco.game.test.components.HealthComponent;
@@ -28,6 +25,7 @@ import tobacco.render.pc.input.PcInputCode;
 
 public class PlayerEntityFactory implements EntityFactory {
 
+	private String texturePath;
 	private PcInputCode keyUp;
 	private PcInputCode keyDown;
 	private PcInputCode keyLeft;
@@ -54,7 +52,7 @@ public class PlayerEntityFactory implements EntityFactory {
 		
 		player = Directory.getEntityService().create();
 		player.add(new DebuggingComponent());
-		player.add(new TextureComponent(spritePath));
+		player.add(new TextureComponent(texturePath));
 		player.add(new SizeComponent(new Vector2D(32f, 48f)));
 		player.add(new PositionComponent(new Vector2D(0f, -200f)));
 
@@ -81,32 +79,13 @@ public class PlayerEntityFactory implements EntityFactory {
 
 		ContainerComponent containerComponent = new ContainerComponent();
 		GunComponent gunComponent = new GunComponent();
-		SizeComponent bSizeComp = new SizeComponent(new Vector2D(52f, 12f));
 		
-		Entity bullet1 = Directory.getEntityService().create();
-		BulletDataComponent bulletComp1 = new BulletDataComponent("/tobacco/game/test/textures/reimubullet.png", 150, 2000f);
-		bullet1.add(bulletComp1);
-		bullet1.add(new DirectionComponent(new Vector2D(0f, 1f)));
-		bullet1.add(bSizeComp);
-		bullet1.add(new DamageComponent(50f));
-
-		Entity bullet2 = Directory.getEntityService().create();
-		BulletDataComponent bulletComp2 = new BulletDataComponent("/tobacco/game/test/textures/reimubullet.png", 150, 2000f);
-		bullet2.add(bulletComp2);
-		bullet2.add(new DirectionComponent(new Vector2D(1f, 5f)));
-		bullet2.add(bSizeComp);
-		bullet2.add(new DamageComponent(50f));
-
-		Entity bullet3 = Directory.getEntityService().create();
-		BulletDataComponent bulletComp3 = new BulletDataComponent("/tobacco/game/test/textures/reimubullet.png", 150, 2000f);
-		bullet3.add(bulletComp3);
-		bullet3.add(new DirectionComponent(new Vector2D(-1f, 5f)));
-		bullet3.add(bSizeComp);
-		bullet3.add(new DamageComponent(50f));
-
-		containerComponent.addChild(bullet1);
-		containerComponent.addChild(bullet2);
-		containerComponent.addChild(bullet3);
+		BulletEntityFactory bef = new BulletEntityFactory("/tobacco/game/test/textures/reimubullet.png", new Vector2D(52f, 12f), new Vector2D(-1f, 5f), 150, 2000f, 50f);
+		containerComponent.addChild(bef.create());
+		bef.setDirection(new Vector2D(0, 1));
+		containerComponent.addChild(bef.create());
+		bef.setDirection(new Vector2D(1, 5));
+		containerComponent.addChild(bef.create());
 
 		player.add(gunComponent);
 		player.add(containerComponent);
@@ -118,18 +97,16 @@ public class PlayerEntityFactory implements EntityFactory {
 		return player;
 	}
 	
-	
-	private String spritePath;
 	public String getSpritePath() {
-		return spritePath;
+		return texturePath;
 	}
 
 	/**
-	 * Sets the path of the sprite for the created player.
-	 * @param spritePath - path of the sprite.
+	 * Sets the path of the texture for the created player.
+	 * @param texturePath - path of the sprite.
 	 */
-	public void setSpritePath(String spritePath) {
-		this.spritePath = spritePath;
+	public void setTexturePath(String texturePath) {
+		this.texturePath = texturePath;
 	}
 
 	/**

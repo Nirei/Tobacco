@@ -31,16 +31,14 @@ import tobacco.core.entities.Entity;
 import tobacco.core.movement.SplineTrajectoryFactory;
 import tobacco.core.services.Directory;
 import tobacco.core.util.Vector2D;
-import tobacco.game.test.components.BulletDataComponent;
 import tobacco.game.test.components.DamageComponent;
-import tobacco.game.test.components.DirectionComponent;
 import tobacco.game.test.components.EnemyComponent;
 import tobacco.game.test.components.GunComponent;
 import tobacco.game.test.components.HealthComponent;
 import tobacco.game.test.components.TeamComponent;
 import tobacco.render.pc.components.TextureComponent;
 
-public class EnemyEntityFactory implements EntityFactory {
+public class EnemyEntityFactory {
 
 	private String texture;
 	private Vector2D size;
@@ -68,7 +66,6 @@ public class EnemyEntityFactory implements EntityFactory {
 		this.size = size;
 	}
 
-	@Override
 	public synchronized Entity create() {
 		Entity entity = Directory.getEntityService().create();
 
@@ -91,20 +88,12 @@ public class EnemyEntityFactory implements EntityFactory {
 		
 		/* Shooting */
 		ContainerComponent containerComponent = new ContainerComponent();
-		GunComponent gunComponent = new GunComponent();
-		SizeComponent bSizeComp = new SizeComponent(new Vector2D(16f, 8f));
-		
-		Entity bullet = Directory.getEntityService().create();
-		BulletDataComponent bulletComp1 = new BulletDataComponent("/tobacco/game/test/textures/fairy_bullet.png", 1000, 200f);
-		bullet.add(bulletComp1);
-		bullet.add(new DirectionComponent(new Vector2D(0f, -1f)));
-		bullet.add(bSizeComp);
-		bullet.add(new DamageComponent(50f));
-
-		containerComponent.addChild(bullet);
-
+		GunComponent gunComponent = new GunComponent();		
+		BulletEntityFactory bef = new BulletEntityFactory("/tobacco/game/test/textures/fairy_bullet.png", new Vector2D(16f, 8f), new Vector2D(0f, -1f), 1000, 200f, 50f);
+		containerComponent.addChild(bef.create());
 		entity.add(gunComponent);
 		entity.add(containerComponent);
+
 		entity.add(new MovementComponent(200f));
 		entity.add(new HealthComponent(100f));
 		entity.add(new SolidityComponent(10f));
