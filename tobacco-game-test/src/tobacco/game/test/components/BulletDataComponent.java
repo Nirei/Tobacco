@@ -24,15 +24,13 @@ import tobacco.core.components.Type;
 
 public class BulletDataComponent implements GameComponent {
 
-	private String bulletTexture;
 	private long bulletPeriod; // Inverse of frequency in ms
 	private float bulletSpeed; // Movement speed
 	private long lastBullet = System.currentTimeMillis();
 	
 	public BulletDataComponent() {}
 
-	public BulletDataComponent(String bulletTexture, long bulletPeriod, float bulletSpeed) {
-		this.bulletTexture = bulletTexture;
+	public BulletDataComponent(long bulletPeriod, float bulletSpeed) {
 		this.bulletPeriod = bulletPeriod;
 		this.bulletSpeed = bulletSpeed;
 	}
@@ -64,14 +62,6 @@ public class BulletDataComponent implements GameComponent {
 
 	public void setBulletSpeed(float bulletSpeed) {
 		this.bulletSpeed = bulletSpeed;
-	}
-	
-	public String getBulletTexture() {
-		return bulletTexture;
-	}
-	
-	public void setBulletTexture(String bulletTexture) {
-		this.bulletTexture = bulletTexture;
 	}
 
 	@Override

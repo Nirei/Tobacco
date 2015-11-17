@@ -51,7 +51,7 @@ public class LegacyRenderer implements Renderer {
 
 		GL2 gl = drawable.getGL().getGL2();
 
-		if (entity.has(RendererComponent.TEXTURE_C) && entity.has(Component.SIZE_C)) {
+		if (entity.has(RendererComponent.TEXTURE_C) && entity.has(Component.SIZE_C) && entity.has(Component.POSITION_C)) {
 			gl.glPushMatrix();
 
 			Vector2D pos = Vector2D.ZERO;

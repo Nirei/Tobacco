@@ -58,14 +58,16 @@ public class GunSystem extends AbstractListSystem {
 		// TODO: Exception if bullet is missing necessary components
 		// TODO: PLZ FIX BILLTS UESIN SHITTY BulletDataComponents 4 TXTURS INSTED OF TextureComponents
 		BulletDataComponent bComp = (BulletDataComponent) bullet.get(GameComponent.BULLET_DATA_C);
-		String texture = bComp.getBulletTexture();
+		TextureComponent textureComp = (TextureComponent) bullet.get(GameComponent.TEXTURE_C);
 		Vector2D size = ((SizeComponent) bullet.get(GameComponent.SIZE_C)).getSize();
 		Vector2D dir = ((DirectionComponent) bullet.get(GameComponent.DIRECTION_C)).getDirection();
+		float rotation = 0f;
+		if(bullet.has(GameComponent.ROTATION_C))
+			rotation = ((RotationComponent) bullet.get(GameComponent.ROTATION_C)).getRotation();
 		float damage = ((DamageComponent) bullet.get(GameComponent.DAMAGE_C)).getDamage();
 		
 		Entity entity = Directory.getEntityService().create();
 		// TODO: Ugly hack!!
-		TextureComponent textureComp = new TextureComponent(texture, (int) size.getX(), (int) size.getY());
 		SizeComponent sizeComp = new SizeComponent(size);
 		entity.add(team);
 		entity.add(textureComp);
@@ -73,7 +75,7 @@ public class GunSystem extends AbstractListSystem {
 		entity.add(new DamageComponent(damage));
 		entity.add(new PositionComponent(pos));
 		entity.add(new MovementComponent(dir, bComp.getBulletSpeed()));
-		entity.add(new RotationComponent(90f + Vector2D.angle(Vector2D.VERTICAL, dir).getDegrees()));
+		entity.add(new RotationComponent(rotation + Vector2D.angle(Vector2D.VERTICAL, dir).getDegrees()));
 //		entity.add(new DebuggingComponent());
 		entity.add(new DurationComponent(10000));
 		entity.add(new SolidityComponent(10f));

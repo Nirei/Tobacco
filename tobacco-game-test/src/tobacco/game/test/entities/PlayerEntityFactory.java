@@ -88,7 +88,8 @@ public class PlayerEntityFactory implements EntityFactory {
 		ContainerComponent containerComponent = new ContainerComponent();
 		GunComponent gunComponent = new GunComponent();
 		
-		BulletEntityFactory bef = new BulletEntityFactory("/tobacco/game/test/textures/reimubullet.png", new Vector2D(52f, 12f), new Vector2D(-1f, 5f), 150, 2000f, 50f);
+		TextureComponent bulletTexture = new TextureComponent("/tobacco/game/test/textures/reimubullet.png", 52, 12);
+		BulletEntityFactory bef = new BulletEntityFactory(bulletTexture, new Vector2D(52f, 12f), new Vector2D(-1f, 5f), 150, 2000f, 50f, 90f);
 		containerComponent.addChild(bef.create());
 		bef.setDirection(new Vector2D(0, 1));
 		containerComponent.addChild(bef.create());
@@ -98,7 +99,7 @@ public class PlayerEntityFactory implements EntityFactory {
 		player.add(gunComponent);
 		player.add(containerComponent);
 		player.add(new MovementComponent(500f));
-		player.add(new HealthComponent(100f));
+		player.add(new HealthComponent(400f));
 		player.add(new SolidityComponent(10f));
 		player.add(new TeamComponent("PLAYER"));
 		

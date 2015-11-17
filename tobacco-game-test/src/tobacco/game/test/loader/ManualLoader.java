@@ -92,7 +92,7 @@ public class ManualLoader implements Loader {
 	@Override
 	public void loadEntityTree() {
 		
-		PlayerEntityFactory pef = new PlayerEntityFactory("/tobacco/game/test/textures/reimuholder.png", 32, 48);
+		PlayerEntityFactory pef = new PlayerEntityFactory("/tobacco/game/test/textures/reimusprite.png", 32, 48);
 		pef.setMovementKeys(KEY_UP, KEY_DOWN, KEY_LEFT, KEY_RIGHT);
 		pef.setActionKeys(KEY_Z, KEY_X, KEY_SHIFT, KEY_ESCAPE);
 		

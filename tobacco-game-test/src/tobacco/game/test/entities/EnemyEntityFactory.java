@@ -89,8 +89,9 @@ public class EnemyEntityFactory {
 		
 		/* Shooting */
 		ContainerComponent containerComponent = new ContainerComponent();
-		GunComponent gunComponent = new GunComponent();		
-		BulletEntityFactory bef = new BulletEntityFactory("/tobacco/game/test/textures/fairy_bullet.png", new Vector2D(16f, 8f), new Vector2D(0f, -1f), 1000, 200f, 50f);
+		GunComponent gunComponent = new GunComponent();
+		TextureComponent bulletTexture = new TextureComponent("/tobacco/game/test/textures/fairy_bullet.png", 8, 16);
+		BulletEntityFactory bef = new BulletEntityFactory(bulletTexture, new Vector2D(8f, 16f), new Vector2D(0f, 0f), 1000, 200f, 50f);
 		containerComponent.addChild(bef.create());
 		entity.add(gunComponent);
 		entity.add(containerComponent);
