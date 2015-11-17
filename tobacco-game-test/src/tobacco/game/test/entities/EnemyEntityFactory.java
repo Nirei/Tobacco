@@ -40,7 +40,7 @@ import tobacco.game.test.components.HealthComponent;
 import tobacco.game.test.components.TeamComponent;
 import tobacco.render.pc.components.TextureComponent;
 
-public class EnemyEntityFactory {
+public class EnemyEntityFactory implements EntityFactory {
 
 	private String texture;
 	private Vector2D size;
@@ -68,6 +68,7 @@ public class EnemyEntityFactory {
 		this.size = size;
 	}
 
+	@Override
 	public synchronized Entity create() {
 		Entity entity = Directory.getEntityService().create();
 

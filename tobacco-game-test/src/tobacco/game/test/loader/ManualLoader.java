@@ -56,6 +56,7 @@ import tobacco.game.test.components.GunComponent;
 import tobacco.game.test.components.HealthComponent;
 import tobacco.game.test.components.TeamComponent;
 import tobacco.game.test.entities.EnemyEntityFactory;
+import tobacco.game.test.entities.PlayerEntityFactory;
 import tobacco.game.test.systems.EnemyControlSystem;
 import tobacco.game.test.systems.GunSystem;
 import tobacco.game.test.systems.HealthSystem;
@@ -106,87 +107,16 @@ public class ManualLoader implements Loader {
 		return main;
 	}
 
-	private Command moveCommand(final float x, final float y) {
-		return (rootEntity, entity) -> {
-				if (entity.has(Component.MOVEMENT_C)) {
-					Vector2D direction;
-					MovementComponent movComp = (MovementComponent) entity.get(Component.MOVEMENT_C);
-					direction = Vector2D.sum(movComp.getDirection(), new Vector2D(x, y));
-					movComp.setDirection(direction);
-				}
-			};
-	}
-
 	@Override
 	public void loadEntityTree() {
-		Entity player;
-
-		/* Player */
-		player = Directory.getEntityService().create();
-		player.add(new DebuggingComponent());
-		player.add(new TextureComponent("/tobacco/game/test/textures/reimuholder.png"));
-		player.add(new SizeComponent(new Vector2D(32f, 48f)));
-		player.add(new PositionComponent(new Vector2D(0f, -200f)));
-
-		PlayerComponent playerComp = new PlayerComponent();
-		Command up = moveCommand(0, 1);
-		Command down = moveCommand(0, -1);
-		Command left = moveCommand(-1, 0);
-		Command right = moveCommand(1, 0);
-		Command suicide = (rootEntity, entity) -> ((HealthComponent) entity.get(GameComponent.HEALTH_C)).setHealth(0f);
-
-		playerComp.put(new InputEvent(KEY_UP, TYPE_HOLD), up);
-		playerComp.put(new InputEvent(KEY_DOWN, TYPE_HOLD), down);
-		playerComp.put(new InputEvent(KEY_LEFT, TYPE_HOLD), left);
-		playerComp.put(new InputEvent(KEY_RIGHT, TYPE_HOLD), right);
-		playerComp.put(new InputEvent(KEY_ESCAPE, TYPE_RELEASE), suicide);
-
-		playerComp.put(new InputEvent(KEY_Z, TYPE_PRESS),
-				(rootEntity, entity) -> ((GunComponent) entity.get(GameComponent.GUN_C)).setShooting(true));
-
-		playerComp.put(new InputEvent(KEY_Z, TYPE_RELEASE),
-				(rootEntity, entity) -> ((GunComponent) entity.get(GameComponent.GUN_C)).setShooting(false));
 		
-		player.add(playerComp);
-
-		ContainerComponent containerComponent = new ContainerComponent();
-		GunComponent gunComponent = new GunComponent();
-		SizeComponent bSizeComp = new SizeComponent(new Vector2D(52f, 12f));
+		PlayerEntityFactory pef = new PlayerEntityFactory();
+		pef.setMovementKeys(KEY_UP, KEY_DOWN, KEY_LEFT, KEY_RIGHT);
+		pef.setActionKeys(KEY_Z, KEY_X, KEY_SHIFT, KEY_ESCAPE);
+		pef.setSpritePath("/tobacco/game/test/textures/reimuholder.png");
 		
-		Entity bullet1 = Directory.getEntityService().create();
-		BulletDataComponent bulletComp1 = new BulletDataComponent("/tobacco/game/test/textures/reimubullet.png", 150, 2000f);
-		bullet1.add(bulletComp1);
-		bullet1.add(new DirectionComponent(new Vector2D(0f, 1f)));
-		bullet1.add(bSizeComp);
-		bullet1.add(new DamageComponent(50f));
-
-		Entity bullet2 = Directory.getEntityService().create();
-		BulletDataComponent bulletComp2 = new BulletDataComponent("/tobacco/game/test/textures/reimubullet.png", 150, 2000f);
-		bullet2.add(bulletComp2);
-		bullet2.add(new DirectionComponent(new Vector2D(1f, 5f)));
-		bullet2.add(bSizeComp);
-		bullet2.add(new DamageComponent(50f));
-
-		Entity bullet3 = Directory.getEntityService().create();
-		BulletDataComponent bulletComp3 = new BulletDataComponent("/tobacco/game/test/textures/reimubullet.png", 150, 2000f);
-		bullet3.add(bulletComp3);
-		bullet3.add(new DirectionComponent(new Vector2D(-1f, 5f)));
-		bullet3.add(bSizeComp);
-		bullet3.add(new DamageComponent(50f));
-
-		containerComponent.addChild(bullet1);
-		containerComponent.addChild(bullet2);
-		containerComponent.addChild(bullet3);
-
-		player.add(gunComponent);
-		player.add(containerComponent);
-		player.add(new MovementComponent(500f));
-		player.add(new HealthComponent(100f));
-		player.add(new SolidityComponent(10f));
-		player.add(new TeamComponent("PLAYER"));
-
 		ContainerComponent rootContainer = ((ContainerComponent) Directory.getEntityService().getRoot().get(GameComponent.CONTAINER_C));
-		rootContainer.addChild(player);
+		rootContainer.addChild(pef.create());
 		EnemyEntityFactory eeFactory = new EnemyEntityFactory("/tobacco/game/test/textures/fairy_blue.png", new Vector2D(26f, 28f));
 		rootContainer.addChild(eeFactory.create());
 		rootContainer.addChild(eeFactory.create());
