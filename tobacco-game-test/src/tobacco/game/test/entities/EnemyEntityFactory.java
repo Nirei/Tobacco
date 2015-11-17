@@ -23,6 +23,7 @@ package tobacco.game.test.entities;
 import tobacco.core.components.ContainerComponent;
 import tobacco.core.components.DebuggingComponent;
 import tobacco.core.components.SolidityComponent;
+import tobacco.core.components.TextureComponent;
 import tobacco.core.components.MovementComponent;
 import tobacco.core.components.PositionComponent;
 import tobacco.core.components.SizeComponent;
@@ -36,12 +37,11 @@ import tobacco.game.test.components.EnemyComponent;
 import tobacco.game.test.components.GunComponent;
 import tobacco.game.test.components.HealthComponent;
 import tobacco.game.test.components.TeamComponent;
-import tobacco.render.pc.components.TextureComponent;
 
 public class EnemyEntityFactory {
 
 	private String texture;
-	private Vector2D size;
+	private int width, height;
 	private Integer created = 0;
 	private Vector2D points[][] = {
 		// First fairy
@@ -61,16 +61,17 @@ public class EnemyEntityFactory {
 		new Vector2D(-260, -320)}
 	};
 
-	public EnemyEntityFactory(String texture, Vector2D size) {
+	public EnemyEntityFactory(String texture, int width, int height) {
 		this.texture = texture;
-		this.size = size;
+		this.width = width;
+		this.height = height;
 	}
 
 	public synchronized Entity create() {
 		Entity entity = Directory.getEntityService().create();
 
-		TextureComponent textureComp = new TextureComponent(texture);
-		SizeComponent sizeComp = new SizeComponent(size);
+		TextureComponent textureComp = new TextureComponent(texture, width, height);
+		SizeComponent sizeComp = new SizeComponent(new Vector2D(width, height));
 		entity.add(textureComp);
 		entity.add(sizeComp);
 		entity.add(new TeamComponent("ENEMY"));

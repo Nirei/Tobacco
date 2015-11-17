@@ -20,14 +20,7 @@
 */
 package tobacco.game.test.loader;
 
-import tobacco.core.components.Component;
 import tobacco.core.components.ContainerComponent;
-import tobacco.core.components.DebuggingComponent;
-import tobacco.core.components.SolidityComponent;
-import tobacco.core.components.MovementComponent;
-import tobacco.core.components.PlayerComponent;
-import tobacco.core.components.PositionComponent;
-import tobacco.core.components.SizeComponent;
 import tobacco.core.entities.Entity;
 import tobacco.core.loader.Loader;
 import tobacco.core.services.DataService;
@@ -43,32 +36,21 @@ import tobacco.core.systems.TrajectorySystem;
 import tobacco.core.systems.debugging.InfoSystem;
 import tobacco.core.systems.main.AbstractMainSystem;
 import tobacco.core.systems.main.SerialMainSystem;
-import tobacco.core.util.Command;
-import tobacco.core.util.InputEvent;
-import tobacco.core.util.Vector2D;
 import tobacco.game.test.collisions.BulletRemovalCollisionHandler;
 import tobacco.game.test.collisions.DamageCollisionHandler;
-import tobacco.game.test.components.BulletDataComponent;
-import tobacco.game.test.components.DamageComponent;
-import tobacco.game.test.components.DirectionComponent;
 import tobacco.game.test.components.GameComponent;
-import tobacco.game.test.components.GunComponent;
-import tobacco.game.test.components.HealthComponent;
-import tobacco.game.test.components.TeamComponent;
 import tobacco.game.test.entities.EnemyEntityFactory;
 import tobacco.game.test.entities.PlayerEntityFactory;
 import tobacco.game.test.systems.EnemyControlSystem;
 import tobacco.game.test.systems.GunSystem;
 import tobacco.game.test.systems.HealthSystem;
 import tobacco.game.test.util.HitCircleCollisionStrategy;
-import tobacco.render.pc.components.TextureComponent;
 import tobacco.render.pc.input.PcInputListener;
 import tobacco.render.pc.renderers.CustomGLEventListener;
 import tobacco.render.pc.renderers.DebuggingRendererDecorator;
 import tobacco.render.pc.renderers.NewtGLEventListener;
 import tobacco.render.pc.renderers.LegacyRenderer;
 import static tobacco.render.pc.input.PcInputCode.*;
-import static tobacco.core.util.InputType.*;
 
 public class ManualLoader implements Loader {
 
@@ -110,14 +92,13 @@ public class ManualLoader implements Loader {
 	@Override
 	public void loadEntityTree() {
 		
-		PlayerEntityFactory pef = new PlayerEntityFactory();
+		PlayerEntityFactory pef = new PlayerEntityFactory("/tobacco/game/test/textures/reimuholder.png", 32, 48);
 		pef.setMovementKeys(KEY_UP, KEY_DOWN, KEY_LEFT, KEY_RIGHT);
 		pef.setActionKeys(KEY_Z, KEY_X, KEY_SHIFT, KEY_ESCAPE);
-		pef.setSpritePath("/tobacco/game/test/textures/reimuholder.png");
 		
 		ContainerComponent rootContainer = ((ContainerComponent) Directory.getEntityService().getRoot().get(GameComponent.CONTAINER_C));
 		rootContainer.addChild(pef.create());
-		EnemyEntityFactory eeFactory = new EnemyEntityFactory("/tobacco/game/test/textures/fairy_blue.png", new Vector2D(26f, 28f));
+		EnemyEntityFactory eeFactory = new EnemyEntityFactory("/tobacco/game/test/textures/fairy_blue.png", 26, 28);
 		rootContainer.addChild(eeFactory.create());
 		rootContainer.addChild(eeFactory.create());
 

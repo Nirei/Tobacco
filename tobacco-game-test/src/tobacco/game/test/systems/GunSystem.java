@@ -28,6 +28,7 @@ import tobacco.core.components.PositionComponent;
 import tobacco.core.components.RotationComponent;
 import tobacco.core.components.SizeComponent;
 import tobacco.core.components.SolidityComponent;
+import tobacco.core.components.TextureComponent;
 import tobacco.core.components.Type;
 import tobacco.core.entities.Entity;
 import tobacco.core.services.Directory;
@@ -40,7 +41,6 @@ import tobacco.game.test.components.DirectionComponent;
 import tobacco.game.test.components.GameComponent;
 import tobacco.game.test.components.GunComponent;
 import tobacco.game.test.components.TeamComponent;
-import tobacco.render.pc.components.TextureComponent;
 
 public class GunSystem extends AbstractListSystem {
 
@@ -56,6 +56,7 @@ public class GunSystem extends AbstractListSystem {
 	
 	private Entity createBullet(Vector2D pos, Entity bullet, TeamComponent team) {
 		// TODO: Exception if bullet is missing necessary components
+		// TODO: PLZ FIX BILLTS UESIN SHITTY BulletDataComponents 4 TXTURS INSTED OF TextureComponents
 		BulletDataComponent bComp = (BulletDataComponent) bullet.get(GameComponent.BULLET_DATA_C);
 		String texture = bComp.getBulletTexture();
 		Vector2D size = ((SizeComponent) bullet.get(GameComponent.SIZE_C)).getSize();
@@ -63,7 +64,8 @@ public class GunSystem extends AbstractListSystem {
 		float damage = ((DamageComponent) bullet.get(GameComponent.DAMAGE_C)).getDamage();
 		
 		Entity entity = Directory.getEntityService().create();
-		TextureComponent textureComp = new TextureComponent(texture);
+		// TODO: Ugly hack!!
+		TextureComponent textureComp = new TextureComponent(texture, (int) size.getX(), (int) size.getY());
 		SizeComponent sizeComp = new SizeComponent(size);
 		entity.add(team);
 		entity.add(textureComp);

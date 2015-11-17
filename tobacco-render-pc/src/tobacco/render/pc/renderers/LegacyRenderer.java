@@ -26,12 +26,12 @@ import tobacco.core.components.PositionComponent;
 import tobacco.core.components.RotationComponent;
 import tobacco.core.components.ScaleComponent;
 import tobacco.core.components.SizeComponent;
+import tobacco.core.components.TextureComponent;
 import tobacco.core.components.TintComponent;
 import tobacco.core.entities.Entity;
 import tobacco.core.services.Directory;
 import tobacco.core.util.Vector2D;
 import tobacco.render.pc.components.RendererComponent;
-import tobacco.render.pc.components.TextureComponent;
 import tobacco.render.pc.util.TextureStorage;
 import tobacco.render.pc.util.exceptions.TextureNotFoundException;
 
@@ -61,6 +61,7 @@ public class LegacyRenderer implements Renderer {
 			// float zIndex = 0f;
 			float rot = 0f;
 			float tintR=1f,tintG=1f,tintB=1f;
+			Texture texture = null;
 
 			if (entity.has(Component.POSITION_C)) {
 				PositionComponent posComp = (PositionComponent) entity.get(Component.POSITION_C);
@@ -80,9 +81,6 @@ public class LegacyRenderer implements Renderer {
 				tintB = tintComp.getBlue();
 			}
 
-			Texture texture = null;
-			float textureTop = 0f, textureBottom = 0f, textureLeft = 0f, textureRight = 0f;
-
 			width = size.getX();
 			height = size.getY();
 
@@ -95,28 +93,41 @@ public class LegacyRenderer implements Renderer {
 			gl.glRotatef(rot, 0, 0, 1);
 			gl.glScalef(sca.getX(), sca.getY(), 0);
 
+			TextureComponent textureComp = (TextureComponent) entity.get(RendererComponent.TEXTURE_C);
+			
 			try {
-				TextureComponent textureComp = (TextureComponent) entity.get(RendererComponent.TEXTURE_C);
 				texture = TextureStorage.getTexture(textureComp.getImagePath());
 			} catch (TextureNotFoundException e1) {
 				try {
+					System.err.println(e1.getMessage());
 					texture = TextureStorage.getErrorTexture();
 				} catch (TextureNotFoundException e2) {
-					System.err.println(e1.getMessage());
 					System.err.println(e2.getMessage());
 				}
 			}
 
 			if(texture != null) {
+				
+				// Calculate sprite frame pixels
+				int rows = textureComp.getRows();
+				int columns = textureComp.getColumns();
+				int sprHeight = textureComp.getHeight()/rows;
+				int sprWidth = textureComp.getWidth()/columns;
+				int frame = 0;
+				int xStart = sprWidth * (frame % columns);
+				int xEnd = xStart + sprWidth;
+				int yStart = sprHeight * frame / columns;
+				int yEnd = yStart + sprHeight;
+				
 				// Texture image flips vertically. Shall use TextureCoords class
-				// to retrieve
-				// the top, bottom, left and right coordinates, instead of using
-				// 0.0f and 1.0f.
-				TextureCoords textureCoords = texture.getImageTexCoords();
-				textureTop = textureCoords.top();
-				textureBottom = textureCoords.bottom();
-				textureLeft = textureCoords.left();
-				textureRight = textureCoords.right();
+				// to retrieve the top, bottom, left and right coordinates,
+				// instead of using 0.0f and 1.0f.
+				TextureCoords spriteCoords = texture.getSubImageTexCoords(xStart, yStart, xEnd, yEnd);
+				float spriteTop = 0f, spriteBottom = 0f, spriteLeft = 0f, spriteRight = 0f;
+				spriteTop = spriteCoords.top();
+				spriteBottom = spriteCoords.bottom();
+				spriteLeft = spriteCoords.left();
+				spriteRight = spriteCoords.right();
 
 				// Enables this texture's target in the current GL context's
 				// state.
@@ -125,14 +136,14 @@ public class LegacyRenderer implements Renderer {
 				texture.bind(gl);
 
 				gl.glBegin(GL2.GL_QUADS);
-				gl.glColor4f(tintR, tintG, tintB, 0.5f);
-				gl.glTexCoord2f(textureLeft, textureBottom);
+				gl.glColor4f(tintR, tintG, tintB, 1f);
+				gl.glTexCoord2f(spriteLeft, spriteBottom);
 				gl.glVertex2f(localXInit, localYInit);
-				gl.glTexCoord2f(textureLeft, textureTop);
+				gl.glTexCoord2f(spriteLeft, spriteTop);
 				gl.glVertex2f(localXInit, localYEnd);
-				gl.glTexCoord2f(textureRight, textureTop);
+				gl.glTexCoord2f(spriteRight, spriteTop);
 				gl.glVertex2f(localXEnd, localYEnd);
-				gl.glTexCoord2f(textureRight, textureBottom);
+				gl.glTexCoord2f(spriteRight, spriteBottom);
 				gl.glVertex2f(localXEnd, localYInit);
 				gl.glEnd();
 

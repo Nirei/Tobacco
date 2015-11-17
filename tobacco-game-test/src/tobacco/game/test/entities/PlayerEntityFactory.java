@@ -11,6 +11,7 @@ import tobacco.core.components.PlayerComponent;
 import tobacco.core.components.PositionComponent;
 import tobacco.core.components.SizeComponent;
 import tobacco.core.components.SolidityComponent;
+import tobacco.core.components.TextureComponent;
 import tobacco.core.entities.Entity;
 import tobacco.core.services.Directory;
 import tobacco.core.util.Command;
@@ -20,12 +21,12 @@ import tobacco.game.test.components.GameComponent;
 import tobacco.game.test.components.GunComponent;
 import tobacco.game.test.components.HealthComponent;
 import tobacco.game.test.components.TeamComponent;
-import tobacco.render.pc.components.TextureComponent;
 import tobacco.render.pc.input.PcInputCode;
 
 public class PlayerEntityFactory implements EntityFactory {
 
 	private String texturePath;
+	private int textureWidth, textureHeight;
 	private PcInputCode keyUp;
 	private PcInputCode keyDown;
 	private PcInputCode keyLeft;
@@ -34,6 +35,13 @@ public class PlayerEntityFactory implements EntityFactory {
 	private PcInputCode keySpell;
 	private PcInputCode keyFocus;
 	private PcInputCode keyMenu;
+	
+	public PlayerEntityFactory(String texturePath, int textureWidth, int textureHeight) {
+		super();
+		this.texturePath = texturePath;
+		this.textureWidth = textureWidth;
+		this.textureHeight = textureHeight;
+	}
 	
 	private Command moveCommand(final float x, final float y) {
 		return (rootEntity, entity) -> {
@@ -52,8 +60,8 @@ public class PlayerEntityFactory implements EntityFactory {
 		
 		player = Directory.getEntityService().create();
 		player.add(new DebuggingComponent());
-		player.add(new TextureComponent(texturePath));
-		player.add(new SizeComponent(new Vector2D(32f, 48f)));
+		player.add(new TextureComponent(texturePath, textureWidth, textureHeight));
+		player.add(new SizeComponent(new Vector2D(textureWidth, textureHeight)));
 		player.add(new PositionComponent(new Vector2D(0f, -200f)));
 
 		PlayerComponent playerComp = new PlayerComponent();
@@ -135,6 +143,22 @@ public class PlayerEntityFactory implements EntityFactory {
 		this.keySpell = keySpell;
 		this.keyFocus = keyFocus;
 		this.keyMenu = keyMenu;
+	}
+
+	public int getTextureWidth() {
+		return textureWidth;
+	}
+
+	public void setTextureWidth(int textureWidth) {
+		this.textureWidth = textureWidth;
+	}
+
+	public int getTextureHeight() {
+		return textureHeight;
+	}
+
+	public void setTextureHeight(int textureHeight) {
+		this.textureHeight = textureHeight;
 	}
 
 }
