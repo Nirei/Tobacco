@@ -21,10 +21,12 @@
 package tobacco.game.test.loader;
 
 import tobacco.core.components.ContainerComponent;
+import tobacco.core.components.TextureComponent;
 import tobacco.core.entities.Entity;
 import tobacco.core.loader.Loader;
 import tobacco.core.services.DataService;
 import tobacco.core.services.Directory;
+import tobacco.core.systems.AnimationSystem;
 import tobacco.core.systems.CollisionDetectionSystem;
 import tobacco.core.systems.CollisionHandlerSystem;
 import tobacco.core.systems.EntityRemovalSystem;
@@ -82,6 +84,7 @@ public class ManualLoader implements Loader {
 		main.add(new TimerSystem());
 		main.add(new EntityRemovalSystem());
 		main.add(new InputSystem());
+		main.add(new AnimationSystem());
 
 		DataService dataSrv = Directory.getDataService();
 		dataSrv.setMainSystem(main);
@@ -92,13 +95,15 @@ public class ManualLoader implements Loader {
 	@Override
 	public void loadEntityTree() {
 		
-		PlayerEntityFactory pef = new PlayerEntityFactory("/tobacco/game/test/textures/reimusprite.png", 32, 48);
+		TextureComponent playerTexture = new TextureComponent("/tobacco/game/test/textures/reimusprite.png", 128, 48, 4, 1, 4);
+		PlayerEntityFactory pef = new PlayerEntityFactory(playerTexture);
 		pef.setMovementKeys(KEY_UP, KEY_DOWN, KEY_LEFT, KEY_RIGHT);
 		pef.setActionKeys(KEY_Z, KEY_X, KEY_SHIFT, KEY_ESCAPE);
 		
 		ContainerComponent rootContainer = ((ContainerComponent) Directory.getEntityService().getRoot().get(GameComponent.CONTAINER_C));
 		rootContainer.addChild(pef.create());
-		EnemyEntityFactory eeFactory = new EnemyEntityFactory("/tobacco/game/test/textures/fairy_blue.png", 26, 28);
+		TextureComponent enemyTexture = new TextureComponent("/tobacco/game/test/textures/fairy_blue.png", 26, 28);
+		EnemyEntityFactory eeFactory = new EnemyEntityFactory(enemyTexture);
 		rootContainer.addChild(eeFactory.create());
 		rootContainer.addChild(eeFactory.create());
 

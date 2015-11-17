@@ -20,6 +20,7 @@
 */
 package tobacco.render.pc.renderers;
 
+import tobacco.core.components.AnimationComponent;
 import tobacco.core.components.Component;
 import tobacco.core.components.ContainerComponent;
 import tobacco.core.components.PositionComponent;
@@ -62,6 +63,7 @@ public class LegacyRenderer implements Renderer {
 			float rot = 0f;
 			float tintR=1f,tintG=1f,tintB=1f;
 			Texture texture = null;
+			int frame = 0;
 
 			if (entity.has(Component.POSITION_C)) {
 				PositionComponent posComp = (PositionComponent) entity.get(Component.POSITION_C);
@@ -74,6 +76,8 @@ public class LegacyRenderer implements Renderer {
 				sca = ((ScaleComponent) entity.get(Component.SCALE_C)).getScale();
 			if (entity.has(Component.SIZE_C))
 				size = ((SizeComponent) entity.get(Component.SIZE_C)).getSize();
+			if (entity.has(Component.ANIMATION_C))
+				frame = ((AnimationComponent) entity.get(Component.ANIMATION_C)).getFrame();
 			if (entity.has(Component.TINT_C)) {
 				TintComponent tintComp= (TintComponent) entity.get(Component.TINT_C);
 				tintR = tintComp.getRed();
@@ -113,21 +117,19 @@ public class LegacyRenderer implements Renderer {
 				int columns = textureComp.getColumns();
 				int sprHeight = textureComp.getHeight()/rows;
 				int sprWidth = textureComp.getWidth()/columns;
-				int frame = 0;
 				int xStart = sprWidth * (frame % columns);
 				int xEnd = xStart + sprWidth;
-				int yStart = sprHeight * frame / columns;
-				int yEnd = yStart + sprHeight;
+				int yEnd = (sprHeight * (1 + frame / columns)) - 1;
+				int yStart = yEnd - sprHeight;
 				
 				// Texture image flips vertically. Shall use TextureCoords class
 				// to retrieve the top, bottom, left and right coordinates,
 				// instead of using 0.0f and 1.0f.
 				TextureCoords spriteCoords = texture.getSubImageTexCoords(xStart, yStart, xEnd, yEnd);
-				float spriteTop = 0f, spriteBottom = 0f, spriteLeft = 0f, spriteRight = 0f;
-				spriteTop = spriteCoords.top();
-				spriteBottom = spriteCoords.bottom();
-				spriteLeft = spriteCoords.left();
-				spriteRight = spriteCoords.right();
+				float spriteTop = spriteCoords.top();
+				float spriteBottom = spriteCoords.bottom();
+				float spriteLeft = spriteCoords.left();
+				float spriteRight = spriteCoords.right();
 
 				// Enables this texture's target in the current GL context's
 				// state.

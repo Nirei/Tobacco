@@ -28,6 +28,7 @@ package tobacco.core.components;
  */
 public interface Component {
 	
+	public final static Type ANIMATION_C = new Type("ANIMATION_C", AnimationComponent.class);
 	public final static Type COLLISIONMAP_C = new Type("COLLISIONMAP_C", CollisionQueueComponent.class);
 	public final static Type CONTAINER_C = new Type("CONTAINER_C", ContainerComponent.class);
 	public final static Type DEBUGGING_C = new Type("DEBUGGING_C", DebuggingComponent.class);

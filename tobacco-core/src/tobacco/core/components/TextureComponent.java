@@ -20,6 +20,14 @@
 */
 package tobacco.core.components;
 
+/**
+ * Represents a Texture and keeps associated properties
+ * (i.e. sprite columns and cells). This component is
+ * immutable and can be reutilized across various {@link Entity}
+ * instances.
+ * @author nirei
+ *
+ */
 public class TextureComponent implements Component {
 
 	private String imagePath;
@@ -27,6 +35,7 @@ public class TextureComponent implements Component {
 	private int height;
 	private int columns = 1;
 	private int rows = 1;
+	private int frames = 1;
 
 	/** Creates a texture component with one row and column.
 	 * Useful for non-sprite textures.
@@ -49,10 +58,11 @@ public class TextureComponent implements Component {
 	 * @param columns - columns of the sprite.
 	 * @param rows - rows of the sprite.
 	 */
-	public TextureComponent(String imagePath, int width, int height, int columns, int rows) {
+	public TextureComponent(String imagePath, int width, int height, int columns, int rows, int frames) {
 		this(imagePath, width, height);
 		this.columns = columns;
 		this.rows = rows;
+		this.frames = frames;
 	}
 
 	@Override
@@ -83,5 +93,9 @@ public class TextureComponent implements Component {
 	
 	public int getRows() {
 		return rows;
+	}
+
+	public int getFrames() {
+		return frames;
 	}
 }

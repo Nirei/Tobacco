@@ -3,6 +3,8 @@ package tobacco.game.test.entities;
 import static tobacco.core.util.InputType.TYPE_HOLD;
 import static tobacco.core.util.InputType.TYPE_PRESS;
 import static tobacco.core.util.InputType.TYPE_RELEASE;
+
+import tobacco.core.components.AnimationComponent;
 import tobacco.core.components.Component;
 import tobacco.core.components.ContainerComponent;
 import tobacco.core.components.DebuggingComponent;
@@ -25,8 +27,7 @@ import tobacco.render.pc.input.PcInputCode;
 
 public class PlayerEntityFactory implements EntityFactory {
 
-	private String texturePath;
-	private int textureWidth, textureHeight;
+	private TextureComponent texture;
 	private PcInputCode keyUp;
 	private PcInputCode keyDown;
 	private PcInputCode keyLeft;
@@ -36,11 +37,9 @@ public class PlayerEntityFactory implements EntityFactory {
 	private PcInputCode keyFocus;
 	private PcInputCode keyMenu;
 	
-	public PlayerEntityFactory(String texturePath, int textureWidth, int textureHeight) {
+	public PlayerEntityFactory(TextureComponent texture) {
 		super();
-		this.texturePath = texturePath;
-		this.textureWidth = textureWidth;
-		this.textureHeight = textureHeight;
+		this.texture= texture;
 	}
 	
 	private Command moveCommand(final float x, final float y) {
@@ -60,8 +59,11 @@ public class PlayerEntityFactory implements EntityFactory {
 		
 		player = Directory.getEntityService().create();
 		player.add(new DebuggingComponent());
-		player.add(new TextureComponent(texturePath, textureWidth, textureHeight));
-		player.add(new SizeComponent(new Vector2D(textureWidth, textureHeight)));
+		player.add(texture);
+		player.add(new AnimationComponent(125));
+		float width = texture.getWidth() / texture.getColumns();
+		float height = texture.getHeight() / texture.getRows();
+		player.add(new SizeComponent(new Vector2D(width, height)));
 		player.add(new PositionComponent(new Vector2D(0f, -200f)));
 
 		PlayerComponent playerComp = new PlayerComponent();
@@ -106,16 +108,16 @@ public class PlayerEntityFactory implements EntityFactory {
 		return player;
 	}
 	
-	public String getSpritePath() {
-		return texturePath;
+	public TextureComponent getTexture() {
+		return texture;
 	}
 
 	/**
-	 * Sets the path of the texture for the created player.
+	 * Sets the {@link TextureComponent} for the created player.
 	 * @param texturePath - path of the sprite.
 	 */
-	public void setTexturePath(String texturePath) {
-		this.texturePath = texturePath;
+	public void setTexture(TextureComponent texture) {
+		this.texture = texture;
 	}
 
 	/**
@@ -144,22 +146,6 @@ public class PlayerEntityFactory implements EntityFactory {
 		this.keySpell = keySpell;
 		this.keyFocus = keyFocus;
 		this.keyMenu = keyMenu;
-	}
-
-	public int getTextureWidth() {
-		return textureWidth;
-	}
-
-	public void setTextureWidth(int textureWidth) {
-		this.textureWidth = textureWidth;
-	}
-
-	public int getTextureHeight() {
-		return textureHeight;
-	}
-
-	public void setTextureHeight(int textureHeight) {
-		this.textureHeight = textureHeight;
 	}
 
 }
