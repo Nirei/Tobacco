@@ -119,8 +119,8 @@ public class LegacyRenderer implements Renderer {
 				int sprWidth = textureComp.getWidth()/columns;
 				int xStart = sprWidth * (frame % columns);
 				int xEnd = xStart + sprWidth;
-				int yEnd = (sprHeight * (1 + frame / columns)) - 1;
-				int yStart = yEnd - sprHeight;
+				int yStart = sprHeight * (frame / columns);
+				int yEnd = yStart + sprHeight;
 				
 				// Texture image flips vertically. Shall use TextureCoords class
 				// to retrieve the top, bottom, left and right coordinates,
