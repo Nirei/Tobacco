@@ -26,7 +26,6 @@ import tobacco.core.components.ContainerComponent;
 import tobacco.core.components.PositionComponent;
 import tobacco.core.components.RotationComponent;
 import tobacco.core.components.ScaleComponent;
-import tobacco.core.components.SizeComponent;
 import tobacco.core.components.TextureComponent;
 import tobacco.core.components.TintComponent;
 import tobacco.core.entities.Entity;
@@ -52,30 +51,26 @@ public class LegacyRenderer implements Renderer {
 
 		GL2 gl = drawable.getGL().getGL2();
 
-		if (entity.has(RendererComponent.TEXTURE_C) && entity.has(Component.SIZE_C) && entity.has(Component.POSITION_C)) {
+		if (entity.has(RendererComponent.TEXTURE_C) && entity.has(Component.POSITION_C)) {
 			gl.glPushMatrix();
 
 			Vector2D pos = Vector2D.ZERO;
-			Vector2D size = new Vector2D(50f, 50f);
 			Vector2D sca = new Vector2D(1f, 1f);
-			float x, y, width, height;
+			float x, y;
 			// float zIndex = 0f;
 			float rot = 0f;
 			float tintR=1f,tintG=1f,tintB=1f;
 			Texture texture = null;
 			int frame = 0;
 
-			if (entity.has(Component.POSITION_C)) {
-				PositionComponent posComp = (PositionComponent) entity.get(Component.POSITION_C);
-				pos = posComp.getPosition();
-				// zIndex = posComp.getZIndex();
-			}
+			PositionComponent posComp = (PositionComponent) entity.get(Component.POSITION_C);
+			pos = posComp.getPosition();
+			// zIndex = posComp.getZIndex();
+			
 			if (entity.has(Component.ROTATION_C))
 				rot = ((RotationComponent) entity.get(Component.ROTATION_C)).getRotation();
 			if (entity.has(Component.SCALE_C))
 				sca = ((ScaleComponent) entity.get(Component.SCALE_C)).getScale();
-			if (entity.has(Component.SIZE_C))
-				size = ((SizeComponent) entity.get(Component.SIZE_C)).getSize();
 			if (entity.has(Component.ANIMATION_C))
 				frame = ((AnimationComponent) entity.get(Component.ANIMATION_C)).getFrame();
 			if (entity.has(Component.TINT_C)) {
@@ -85,13 +80,10 @@ public class LegacyRenderer implements Renderer {
 				tintB = tintComp.getBlue();
 			}
 
-			width = size.getX();
-			height = size.getY();
-
 			x = pos.getX();
 			y = pos.getY();
 
-			float localXEnd = width / 2f, localXInit = -localXEnd, localYEnd = height / 2f, localYInit = -localYEnd;
+
 			// Apply transformations
 			gl.glTranslatef(x, y, 0);
 			gl.glRotatef(rot, 0, 0, 1);
@@ -115,12 +107,18 @@ public class LegacyRenderer implements Renderer {
 				// Calculate sprite frame pixels
 				int rows = textureComp.getRows();
 				int columns = textureComp.getColumns();
-				int sprHeight = textureComp.getHeight()/rows;
-				int sprWidth = textureComp.getWidth()/columns;
-				int xStart = sprWidth * (frame % columns);
-				int xEnd = xStart + sprWidth;
-				int yStart = sprHeight * (frame / columns);
-				int yEnd = yStart + sprHeight;
+				int height = textureComp.getHeight()/rows;
+				int width = textureComp.getWidth()/columns;
+				int xStart = width * (frame % columns);
+				int xEnd = xStart + width;
+				int yStart = height * (frame / columns);
+				int yEnd = yStart + height;
+				
+				// Calculate quad vertices
+				float localXEnd = width / 2f;
+				float localXInit = -localXEnd;
+				float localYEnd = height / 2f;
+				float localYInit = -localYEnd;
 				
 				// Texture image flips vertically. Shall use TextureCoords class
 				// to retrieve the top, bottom, left and right coordinates,
