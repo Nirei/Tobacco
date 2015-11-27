@@ -38,6 +38,7 @@ import tobacco.core.systems.TrajectorySystem;
 import tobacco.core.systems.debugging.InfoSystem;
 import tobacco.core.systems.main.AbstractMainSystem;
 import tobacco.core.systems.main.SerialMainSystem;
+import tobacco.core.util.Vector2D;
 import tobacco.game.test.collisions.BulletRemovalCollisionHandler;
 import tobacco.game.test.collisions.DamageCollisionHandler;
 import tobacco.game.test.components.GameComponent;
@@ -46,6 +47,7 @@ import tobacco.game.test.entities.PlayerEntityFactory;
 import tobacco.game.test.systems.EnemyControlSystem;
 import tobacco.game.test.systems.GunSystem;
 import tobacco.game.test.systems.HealthSystem;
+import tobacco.game.test.systems.PlayerMovementBindingSystem;
 import tobacco.game.test.util.HitCircleCollisionStrategy;
 import tobacco.render.pc.input.PcInputListener;
 import tobacco.render.pc.renderers.CustomGLEventListener;
@@ -75,6 +77,7 @@ public class ManualLoader implements Loader {
 		main.add(new InfoSystem());
 		main.add(new TrajectorySystem());
 		main.add(new MovementSystem());
+		main.add(new PlayerMovementBindingSystem());
 		main.add(new MovementResetSystem());
 		main.add(new CollisionDetectionSystem(root, HitCircleCollisionStrategy.getSingleton()));
 		main.add(colHandlerSys);
@@ -96,7 +99,7 @@ public class ManualLoader implements Loader {
 	public void loadEntityTree() {
 		
 		TextureComponent playerTexture = new TextureComponent("/tobacco/game/test/textures/reimusprite.png", 128, 48, 4, 1, 4);
-		PlayerEntityFactory pef = new PlayerEntityFactory(playerTexture);
+		PlayerEntityFactory pef = new PlayerEntityFactory(playerTexture, new Vector2D(30, 44));
 		pef.setMovementKeys(KEY_UP, KEY_DOWN, KEY_LEFT, KEY_RIGHT);
 		pef.setActionKeys(KEY_Z, KEY_X, KEY_SHIFT, KEY_ESCAPE);
 		

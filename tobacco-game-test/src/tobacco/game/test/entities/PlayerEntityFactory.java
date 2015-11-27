@@ -28,6 +28,7 @@ import tobacco.render.pc.input.PcInputCode;
 public class PlayerEntityFactory implements EntityFactory {
 
 	private TextureComponent texture;
+	private Vector2D size;
 	private PcInputCode keyUp;
 	private PcInputCode keyDown;
 	private PcInputCode keyLeft;
@@ -37,9 +38,10 @@ public class PlayerEntityFactory implements EntityFactory {
 	private PcInputCode keyFocus;
 	private PcInputCode keyMenu;
 	
-	public PlayerEntityFactory(TextureComponent texture) {
+	public PlayerEntityFactory(TextureComponent texture, Vector2D size) {
 		super();
-		this.texture= texture;
+		this.texture = texture;
+		this.size = size;
 	}
 	
 	private Command moveCommand(final float x, final float y) {
@@ -61,9 +63,7 @@ public class PlayerEntityFactory implements EntityFactory {
 		player.add(new DebuggingComponent());
 		player.add(texture);
 		player.add(new AnimationComponent(125));
-		float width = texture.getWidth() / texture.getColumns();
-		float height = texture.getHeight() / texture.getRows();
-		player.add(new SizeComponent(new Vector2D(width, height)));
+		player.add(new SizeComponent(size));
 		player.add(new PositionComponent(new Vector2D(0f, -200f)));
 
 		PlayerComponent playerComp = new PlayerComponent();
