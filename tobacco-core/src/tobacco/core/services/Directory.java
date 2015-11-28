@@ -1,5 +1,7 @@
 package tobacco.core.services;
 
+import tobacco.core.entities.DefaultEntityService;
+
 /**
  * Directory of services provided by the engine.
  * @author nirei

@@ -15,6 +15,7 @@ import tobacco.core.components.SizeComponent;
 import tobacco.core.components.SolidityComponent;
 import tobacco.core.components.TextureComponent;
 import tobacco.core.entities.Entity;
+import tobacco.core.entities.EntityFactory;
 import tobacco.core.services.Directory;
 import tobacco.core.util.Command;
 import tobacco.core.util.InputEvent;
@@ -25,8 +26,11 @@ import tobacco.game.test.components.HealthComponent;
 import tobacco.game.test.components.TeamComponent;
 import tobacco.render.pc.input.PcInputCode;
 
-public class PlayerEntityFactory implements EntityFactory {
+public class PlayerEntityFactory extends EntityFactory {
 
+	private float normalSpeed = 400f;
+	private float focusSpeed = 160f;
+	
 	private TextureComponent texture;
 	private Vector2D size;
 	private PcInputCode keyUp;
@@ -85,6 +89,12 @@ public class PlayerEntityFactory implements EntityFactory {
 		playerComp.put(new InputEvent(keyShoot, TYPE_RELEASE),
 				(rootEntity, entity) -> ((GunComponent) entity.get(GameComponent.GUN_C)).setShooting(false));
 		
+		playerComp.put(new InputEvent(keyFocus, TYPE_PRESS),
+				(rootEntity, entity) -> ((MovementComponent) entity.get(GameComponent.MOVEMENT_C)).setSpeed(focusSpeed));
+
+		playerComp.put(new InputEvent(keyFocus, TYPE_RELEASE),
+				(rootEntity, entity) -> ((MovementComponent) entity.get(GameComponent.MOVEMENT_C)).setSpeed(normalSpeed));
+
 		player.add(playerComp);
 
 		ContainerComponent containerComponent = new ContainerComponent();
@@ -100,9 +110,9 @@ public class PlayerEntityFactory implements EntityFactory {
 
 		player.add(gunComponent);
 		player.add(containerComponent);
-		player.add(new MovementComponent(500f));
+		player.add(new MovementComponent(normalSpeed));
 		player.add(new HealthComponent(400f));
-		player.add(new SolidityComponent(10f));
+		player.add(new SolidityComponent(2f));
 		player.add(new TeamComponent("PLAYER"));
 		
 		return player;

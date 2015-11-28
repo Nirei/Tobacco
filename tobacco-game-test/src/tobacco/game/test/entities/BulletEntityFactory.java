@@ -1,16 +1,20 @@
 package tobacco.game.test.entities;
 
+import java.util.LinkedList;
+import java.util.List;
+
+import tobacco.core.components.Component;
 import tobacco.core.components.RotationComponent;
 import tobacco.core.components.SizeComponent;
 import tobacco.core.components.TextureComponent;
 import tobacco.core.entities.Entity;
-import tobacco.core.services.Directory;
+import tobacco.core.entities.EntityFactory;
 import tobacco.core.util.Vector2D;
 import tobacco.game.test.components.BulletDataComponent;
 import tobacco.game.test.components.DamageComponent;
 import tobacco.game.test.components.DirectionComponent;
 
-public class BulletEntityFactory implements EntityFactory {
+public class BulletEntityFactory extends EntityFactory {
 
 	private TextureComponent texture;
 	private Vector2D size;
@@ -36,15 +40,14 @@ public class BulletEntityFactory implements EntityFactory {
 	
 	@Override
 	public Entity create() {
-		
-		Entity bullet = Directory.getEntityService().create();
-		bullet.add(new BulletDataComponent(bulletPeriod, bulletSpeed));
-		bullet.add(texture);
-		bullet.add(new SizeComponent(size));
-		bullet.add(new DirectionComponent(direction));
-		bullet.add(new DamageComponent(damage));
-		if(rotation != null) bullet.add(new RotationComponent(rotation)); 
-		return bullet;
+		List<Component> comps = new LinkedList<Component>();
+		comps.add(new BulletDataComponent(bulletPeriod, bulletSpeed));
+		comps.add(texture);
+		comps.add(new SizeComponent(size));
+		comps.add(new DirectionComponent(direction));
+		comps.add(new DamageComponent(damage));
+		if(rotation != null) comps.add(new RotationComponent(rotation)); 
+		return super.create(comps);
 		
 	}
 	

@@ -1,4 +1,4 @@
-package tobacco.core.services;
+package tobacco.core.entities;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -9,20 +9,18 @@ import java.util.Map;
 import tobacco.core.components.Component;
 import tobacco.core.components.DebuggingComponent;
 import tobacco.core.components.Type;
-import tobacco.core.entities.Entity;
-import tobacco.core.entities.EntityFactory;
-import tobacco.core.entities.RootEntityFactory;
+import tobacco.core.services.EntityService;
 
 public class DefaultEntityService implements EntityService {
 	
 	private Entity root = null;
-	private Map<Long, Entity> entities = new HashMap<Long, Entity>();
+	private Map<Long, Entity> entities = new HashMap<Long, Entity>(128);
 	private EntityFactory eFactory = new EntityFactory();
 
 	@Override
 	public synchronized Entity getRoot() {
 		if(root == null) {
-			root = RootEntityFactory.create();
+			root = new RootEntityFactory().create();
 			root.add(new DebuggingComponent());
 		}
 		return root;
@@ -33,9 +31,12 @@ public class DefaultEntityService implements EntityService {
 		return new ArrayList<Entity>(entities.values());
 	}
 
+	/**
+	 * Creates a new Entity and adds it to the storage.
+	 */
 	@Override
 	public Entity create() {
-		Entity created = eFactory.create();
+		Entity created = new Entity();
 		entities.put(created.getID(), created);
 		return created;
 	}
