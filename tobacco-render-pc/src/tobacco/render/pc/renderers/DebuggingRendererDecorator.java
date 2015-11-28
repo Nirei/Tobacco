@@ -26,7 +26,6 @@ import java.util.concurrent.ConcurrentHashMap;
 import com.jogamp.opengl.GL2;
 import com.jogamp.opengl.GLAutoDrawable;
 
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 import tobacco.core.services.DebuggingService;
 import tobacco.core.services.Directory;
 import tobacco.core.util.Line2D;
@@ -46,18 +45,18 @@ public class DebuggingRendererDecorator implements Renderer, DebuggingService {
 	@Override
 	public void displayText(String tag, String text, Vector2D position) {
 		//TODO: Not implemented
-		throw new NotImplementedException();		
+		throw new RuntimeException("Not implemented");		
 	}
 	
 	@Override
 	public void clearText() {
 		//TODO: Not implemented
-		throw new NotImplementedException();
+		throw new RuntimeException("Not implemented");		
 	}
 
 	@Override
 	public void removeText(String tag) {
-		throw new NotImplementedException();
+		throw new RuntimeException("Not implemented");		
 	}
 	
 	@Override

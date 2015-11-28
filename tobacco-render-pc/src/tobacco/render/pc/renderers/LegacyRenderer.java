@@ -22,7 +22,6 @@ package tobacco.render.pc.renderers;
 
 import tobacco.core.components.AnimationComponent;
 import tobacco.core.components.Component;
-import tobacco.core.components.ContainerComponent;
 import tobacco.core.components.PositionComponent;
 import tobacco.core.components.RotationComponent;
 import tobacco.core.components.ScaleComponent;
@@ -32,8 +31,12 @@ import tobacco.core.entities.Entity;
 import tobacco.core.services.Directory;
 import tobacco.core.util.Vector2D;
 import tobacco.render.pc.components.RendererComponent;
+import tobacco.render.pc.components.ZIndexComponent;
 import tobacco.render.pc.util.TextureStorage;
 import tobacco.render.pc.util.exceptions.TextureNotFoundException;
+
+import java.util.List;
+import java.util.Comparator;
 
 import com.jogamp.opengl.GL;
 import com.jogamp.opengl.GL2;
@@ -155,17 +158,29 @@ public class LegacyRenderer implements Renderer {
 			gl.glPopMatrix();
 		}
 	}
+	
+	private boolean isRenderable(Entity e) {
+		return e.has(RendererComponent.POSITION_C)
+		&& e.has(RendererComponent.TEXTURE_C)
+		&& e.has(RendererComponent.ZINDEX_C);
+	}
 
-	private void drawEntityTree(GLAutoDrawable drawable, Entity entity) {
-		
-		drawEntity(drawable, entity);
-
-		if (entity.has(Component.CONTAINER_C)) {
-			ContainerComponent children = (ContainerComponent) entity.get(Component.CONTAINER_C);
-			for (Entity e : children) {
-				drawEntityTree(drawable, e);
+	private void renderWorld(GLAutoDrawable drawable) {
+		// Fetch all entities
+		List<Entity> list = Directory.getEntityService().getEntityList();
+		// Filter unrenderables
+		list.removeIf(e -> !isRenderable(e));
+		// Sort them by ZIndex
+		list.sort(new Comparator<Entity>() {
+			@Override
+			public int compare(Entity o1, Entity o2) {
+				ZIndexComponent z1 = (ZIndexComponent) o1.get(RendererComponent.ZINDEX_C);
+				ZIndexComponent z2 = (ZIndexComponent) o2.get(RendererComponent.ZINDEX_C);
+				return Integer.compare(z1.getZIndex(), z2.getZIndex());
 			}
-		}
+		});
+		// And draw
+		for(Entity e : list) drawEntity(drawable, e);
 	}
 
 	public void draw(GLAutoDrawable drawable) {
@@ -181,8 +196,7 @@ public class LegacyRenderer implements Renderer {
 		// texture
 		gl.glTexParameteri(GL.GL_TEXTURE_2D, GL.GL_TEXTURE_MIN_FILTER, GL.GL_LINEAR);
 		
-		Entity root = Directory.getEntityService().getRoot();
-		if(root != null) drawEntityTree(drawable, root);
+		renderWorld(drawable);
 
 		gl.glDisable(GL.GL_BLEND);
 	}

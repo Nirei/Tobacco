@@ -24,6 +24,7 @@ import tobacco.game.test.components.GameComponent;
 import tobacco.game.test.components.GunComponent;
 import tobacco.game.test.components.HealthComponent;
 import tobacco.game.test.components.TeamComponent;
+import tobacco.render.pc.components.ZIndexComponent;
 import tobacco.render.pc.input.PcInputCode;
 
 public class PlayerEntityFactory extends EntityFactory {
@@ -114,6 +115,7 @@ public class PlayerEntityFactory extends EntityFactory {
 		player.add(new HealthComponent(400f));
 		player.add(new SolidityComponent(2f));
 		player.add(new TeamComponent("PLAYER"));
+		player.add(new ZIndexComponent());
 		
 		return player;
 	}

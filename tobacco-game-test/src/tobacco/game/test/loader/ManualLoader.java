@@ -21,6 +21,7 @@
 package tobacco.game.test.loader;
 
 import tobacco.core.components.ContainerComponent;
+import tobacco.core.components.PositionComponent;
 import tobacco.core.components.TextureComponent;
 import tobacco.core.entities.Entity;
 import tobacco.core.loader.Loader;
@@ -49,6 +50,7 @@ import tobacco.game.test.systems.GunSystem;
 import tobacco.game.test.systems.HealthSystem;
 import tobacco.game.test.systems.PlayerMovementBindingSystem;
 import tobacco.game.test.util.HitCircleCollisionStrategy;
+import tobacco.render.pc.components.ZIndexComponent;
 import tobacco.render.pc.input.PcInputListener;
 import tobacco.render.pc.renderers.CustomGLEventListener;
 import tobacco.render.pc.renderers.DebuggingRendererDecorator;
@@ -102,13 +104,19 @@ public class ManualLoader implements Loader {
 		PlayerEntityFactory pef = new PlayerEntityFactory(playerTexture, new Vector2D(30, 44));
 		pef.setMovementKeys(KEY_UP, KEY_DOWN, KEY_LEFT, KEY_RIGHT);
 		pef.setActionKeys(KEY_Z, KEY_X, KEY_SHIFT, KEY_ESCAPE);
-		
+				
 		ContainerComponent rootContainer = ((ContainerComponent) Directory.getEntityService().getRoot().get(GameComponent.CONTAINER_C));
 		rootContainer.addChild(pef.create());
 		TextureComponent enemyTexture = new TextureComponent("/tobacco/game/test/textures/fairy_blue.png", 26, 28);
 		EnemyEntityFactory eeFactory = new EnemyEntityFactory(enemyTexture);
 		rootContainer.addChild(eeFactory.create());
 		rootContainer.addChild(eeFactory.create());
+		
+		Entity background = Directory.getEntityService().create();
+		background.add(new PositionComponent(Vector2D.ZERO));
+		background.add(new TextureComponent("/tobacco/game/test/textures/bamboo.png", 480, 640));
+		background.add(new ZIndexComponent(-10));
+		rootContainer.addChild(background);
 
 	}
 }

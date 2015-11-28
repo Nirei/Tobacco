@@ -41,6 +41,7 @@ import tobacco.game.test.components.EnemyComponent;
 import tobacco.game.test.components.GunComponent;
 import tobacco.game.test.components.HealthComponent;
 import tobacco.game.test.components.TeamComponent;
+import tobacco.render.pc.components.ZIndexComponent;
 
 public class EnemyEntityFactory extends EntityFactory {
 
@@ -98,7 +99,8 @@ public class EnemyEntityFactory extends EntityFactory {
 		comps.add(gunComponent);
 		comps.add(containerComponent);
 
-		comps.add(new MovementComponent(200f));
+		comps.add(new ZIndexComponent());
+		comps.add(new MovementComponent(120f));
 		comps.add(new HealthComponent(100f));
 		comps.add(new SolidityComponent(10f));
 		comps.add(new TeamComponent("ENEMY"));

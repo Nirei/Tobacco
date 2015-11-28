@@ -30,4 +30,5 @@ import tobacco.core.components.Type;
  */
 public interface RendererComponent extends Component {
 	public static final Type MOUSE_C = new Type("MOUSE_C", MouseComponent.class);
+	public final static Type ZINDEX_C = new Type("ZINDEX_C", ZIndexComponent.class);
 }

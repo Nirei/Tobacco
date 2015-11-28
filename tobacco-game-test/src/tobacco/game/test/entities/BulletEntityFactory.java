@@ -13,6 +13,7 @@ import tobacco.core.util.Vector2D;
 import tobacco.game.test.components.BulletDataComponent;
 import tobacco.game.test.components.DamageComponent;
 import tobacco.game.test.components.DirectionComponent;
+import tobacco.render.pc.components.ZIndexComponent;
 
 public class BulletEntityFactory extends EntityFactory {
 
@@ -46,6 +47,7 @@ public class BulletEntityFactory extends EntityFactory {
 		comps.add(new SizeComponent(size));
 		comps.add(new DirectionComponent(direction));
 		comps.add(new DamageComponent(damage));
+		comps.add(new ZIndexComponent(100));
 		if(rotation != null) comps.add(new RotationComponent(rotation)); 
 		return super.create(comps);
 		
