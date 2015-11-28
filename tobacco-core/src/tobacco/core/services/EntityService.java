@@ -1,9 +1,7 @@
 package tobacco.core.services;
 
-import java.util.Collection;
 import java.util.List;
 
-import tobacco.core.components.Component;
 import tobacco.core.components.Type;
 import tobacco.core.entities.Entity;
 
@@ -33,12 +31,6 @@ public interface EntityService {
 	 * @return created {@link Entity}.
 	 */
 	public Entity create();
-	
-	/**
-	 * Creates a new entity containing the specified components.
-	 * @return created {@link Entity}.
-	 */
-	public Entity create(Collection<Component> components);
 	
 	/**
 	 * Removes this entity from the entity list.

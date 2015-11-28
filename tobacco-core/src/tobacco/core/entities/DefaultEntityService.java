@@ -1,12 +1,10 @@
 package tobacco.core.entities;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import tobacco.core.components.Component;
 import tobacco.core.components.DebuggingComponent;
 import tobacco.core.components.Type;
 import tobacco.core.services.EntityService;
@@ -15,7 +13,6 @@ public class DefaultEntityService implements EntityService {
 	
 	private Entity root = null;
 	private Map<Long, Entity> entities = new HashMap<Long, Entity>(128);
-	private EntityFactory eFactory = new EntityFactory();
 
 	@Override
 	public synchronized Entity getRoot() {
@@ -39,11 +36,6 @@ public class DefaultEntityService implements EntityService {
 		Entity created = new Entity();
 		entities.put(created.getID(), created);
 		return created;
-	}
-
-	@Override
-	public Entity create(Collection<Component> components) {
-		return eFactory.create(components);
 	}
 
 	@Override
