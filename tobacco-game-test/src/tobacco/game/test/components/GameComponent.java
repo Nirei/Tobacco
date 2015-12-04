@@ -20,10 +20,10 @@
 */
 package tobacco.game.test.components;
 
-import tobacco.core.components.Component;
 import tobacco.core.components.Type;
+import tobacco.render.pc.components.RendererComponent;
 
-public interface GameComponent extends Component {
+public interface GameComponent extends RendererComponent {
 
 	public static final Type BULLET_C = new Type("BULLET_C", BulletComponent.class);
 	public static final Type BULLET_DATA_C = new Type("BULLET_DATA_C", BulletDataComponent.class);

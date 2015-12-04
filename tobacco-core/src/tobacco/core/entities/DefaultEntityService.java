@@ -1,26 +1,28 @@
 package tobacco.core.entities;
 
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.stream.Collectors;
 
-import tobacco.core.components.DebuggingComponent;
 import tobacco.core.components.Type;
 import tobacco.core.services.EntityService;
 
 public class DefaultEntityService implements EntityService {
 	
 	private Entity root = null;
-	private Map<Long, Entity> entities = new HashMap<Long, Entity>(128);
+	private Map<Long, Entity> entities = new ConcurrentHashMap<Long, Entity>(128);
 
 	@Override
-	public synchronized Entity getRoot() {
-		if(root == null) {
-			root = new RootEntityFactory().create();
-			root.add(new DebuggingComponent());
-		}
+	public Entity getRoot() {
 		return root;
+	}
+	
+	@Override
+	public void setRoot(Entity root) {
+		this.root = root;
 	}
 
 	@Override
@@ -50,9 +52,9 @@ public class DefaultEntityService implements EntityService {
 
 	@Override
 	public List<Entity> findAll(Type type) {
-		List<Entity> all = new ArrayList<>();
-		for(Entity e : entities.values())
-			if(e.has(type)) all.add(e);
+		List<Entity> all = entities.values().stream()
+			.filter(e -> e.has(type))
+			.collect(Collectors.toCollection(LinkedList::new));
 		return all;
 	}
 

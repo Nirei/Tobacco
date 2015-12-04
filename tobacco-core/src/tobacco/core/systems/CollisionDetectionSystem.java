@@ -53,11 +53,11 @@ public class CollisionDetectionSystem extends AbstractListSystem {
 
 	private Set<Entity> checked = new HashSet<Entity>();
 
-	public CollisionDetectionSystem(Entity root, CollisionStrategy cStrategy) {
+	public CollisionDetectionSystem(CollisionStrategy cStrategy) {
 		super(requiredComponents);
 
 		this.cStrategy = cStrategy; 
-		
+		Entity root = Directory.getEntityService().getRoot();
 		Vector2D screenSize = ((ScreenComponent) root.get(Component.SCREEN_C)).getScreenSize();
 		cqt = new QuadTree<Entity>(Vector2D.ZERO, screenSize.scale(0.55f), 4, 6);
 		

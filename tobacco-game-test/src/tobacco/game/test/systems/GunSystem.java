@@ -41,6 +41,7 @@ import tobacco.game.test.components.DirectionComponent;
 import tobacco.game.test.components.GameComponent;
 import tobacco.game.test.components.GunComponent;
 import tobacco.game.test.components.TeamComponent;
+import tobacco.render.pc.components.ZIndexComponent;
 
 public class GunSystem extends AbstractListSystem {
 
@@ -56,7 +57,6 @@ public class GunSystem extends AbstractListSystem {
 	
 	private Entity createBullet(Vector2D pos, Entity bullet, TeamComponent team) {
 		// TODO: Exception if bullet is missing necessary components
-		// TODO: PLZ FIX BILLTS UESIN SHITTY BulletDataComponents 4 TXTURS INSTED OF TextureComponents
 		BulletDataComponent bComp = (BulletDataComponent) bullet.get(GameComponent.BULLET_DATA_C);
 		TextureComponent textureComp = (TextureComponent) bullet.get(GameComponent.TEXTURE_C);
 		Vector2D size = ((SizeComponent) bullet.get(GameComponent.SIZE_C)).getSize();
@@ -65,13 +65,12 @@ public class GunSystem extends AbstractListSystem {
 		if(bullet.has(GameComponent.ROTATION_C))
 			rotation = ((RotationComponent) bullet.get(GameComponent.ROTATION_C)).getRotation();
 		float damage = ((DamageComponent) bullet.get(GameComponent.DAMAGE_C)).getDamage();
+		int zIndex = ((ZIndexComponent) bullet.get(GameComponent.ZINDEX_C)).getZIndex();
 		
 		Entity entity = Directory.getEntityService().create();
-		// TODO: Ugly hack!!
-		SizeComponent sizeComp = new SizeComponent(size);
 		entity.add(team);
 		entity.add(textureComp);
-		entity.add(sizeComp);
+		entity.add(new SizeComponent(size));
 		entity.add(new DamageComponent(damage));
 		entity.add(new PositionComponent(pos));
 		entity.add(new MovementComponent(dir, bComp.getBulletSpeed()));
@@ -79,6 +78,7 @@ public class GunSystem extends AbstractListSystem {
 //		entity.add(new DebuggingComponent());
 		entity.add(new DurationComponent(10000));
 		entity.add(new SolidityComponent(10f));
+		entity.add(new ZIndexComponent(zIndex));
 		entity.add(new BulletComponent());
 
 		return entity;

@@ -21,11 +21,13 @@
 package tobacco.game.test.loader;
 
 import tobacco.core.components.ContainerComponent;
+import tobacco.core.components.DebuggingComponent;
 import tobacco.core.components.PositionComponent;
+import tobacco.core.components.ScreenComponent;
 import tobacco.core.components.TextureComponent;
 import tobacco.core.entities.Entity;
 import tobacco.core.loader.Loader;
-import tobacco.core.services.DataService;
+import tobacco.core.services.GameService;
 import tobacco.core.services.Directory;
 import tobacco.core.systems.AnimationSystem;
 import tobacco.core.systems.CollisionDetectionSystem;
@@ -42,7 +44,6 @@ import tobacco.core.systems.main.SerialMainSystem;
 import tobacco.core.util.Vector2D;
 import tobacco.game.test.collisions.BulletRemovalCollisionHandler;
 import tobacco.game.test.collisions.DamageCollisionHandler;
-import tobacco.game.test.components.GameComponent;
 import tobacco.game.test.entities.EnemyEntityFactory;
 import tobacco.game.test.entities.PlayerEntityFactory;
 import tobacco.game.test.systems.EnemyControlSystem;
@@ -58,16 +59,16 @@ import tobacco.render.pc.renderers.NewtGLEventListener;
 import tobacco.render.pc.renderers.LegacyRenderer;
 import static tobacco.render.pc.input.PcInputCode.*;
 
-public class ManualLoader implements Loader {
+public class ManualLoader extends Loader {
 
 	@Override
-	public AbstractMainSystem loadMainSystem(Entity root) {
+	public AbstractMainSystem loadMainSystem() {
 		AbstractMainSystem main = new SerialMainSystem();
 		
 		// Load rendering
 		DebuggingRendererDecorator debugging = new DebuggingRendererDecorator(new LegacyRenderer());
 		CustomGLEventListener customGLEL = new NewtGLEventListener("The Game", debugging);
-		customGLEL.addListener(new PcInputListener(root));
+		customGLEL.addListener(new PcInputListener());
 		Directory.setDebuggingService(debugging);
 		
 		// Set up collision handling
@@ -81,7 +82,7 @@ public class ManualLoader implements Loader {
 		main.add(new MovementSystem());
 		main.add(new PlayerMovementBindingSystem());
 		main.add(new MovementResetSystem());
-		main.add(new CollisionDetectionSystem(root, HitCircleCollisionStrategy.getSingleton()));
+		main.add(new CollisionDetectionSystem(HitCircleCollisionStrategy.getSingleton()));
 		main.add(colHandlerSys);
 		main.add(new EnemyControlSystem());
 		main.add(new GunSystem());
@@ -91,21 +92,26 @@ public class ManualLoader implements Loader {
 		main.add(new InputSystem());
 		main.add(new AnimationSystem());
 
-		DataService dataSrv = Directory.getDataService();
+		GameService dataSrv = Directory.getGameService();
 		dataSrv.setMainSystem(main);
 		
 		return main;
 	}
 
 	@Override
-	public void loadEntityTree() {
+	public Entity loadEntityTree() {
+
+		Entity root = Directory.getEntityService().create();
+		ContainerComponent rootContainer = new ContainerComponent();
+		root.add(new DebuggingComponent());
+		root.add(new ScreenComponent(new Vector2D(480,640)));
+		root.add(rootContainer);
 		
 		TextureComponent playerTexture = new TextureComponent("/tobacco/game/test/textures/reimusprite.png", 128, 48, 4, 1, 4);
 		PlayerEntityFactory pef = new PlayerEntityFactory(playerTexture, new Vector2D(30, 44));
 		pef.setMovementKeys(KEY_UP, KEY_DOWN, KEY_LEFT, KEY_RIGHT);
 		pef.setActionKeys(KEY_Z, KEY_X, KEY_SHIFT, KEY_ESCAPE);
 				
-		ContainerComponent rootContainer = ((ContainerComponent) Directory.getEntityService().getRoot().get(GameComponent.CONTAINER_C));
 		rootContainer.addChild(pef.create());
 		TextureComponent enemyTexture = new TextureComponent("/tobacco/game/test/textures/fairy_blue.png", 26, 28);
 		EnemyEntityFactory eeFactory = new EnemyEntityFactory(enemyTexture);
@@ -118,5 +124,6 @@ public class ManualLoader implements Loader {
 		background.add(new ZIndexComponent(-10));
 		rootContainer.addChild(background);
 
+		return root;
 	}
 }

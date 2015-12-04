@@ -24,7 +24,7 @@ import com.jogamp.newt.event.KeyEvent;
 import com.jogamp.newt.event.MouseEvent;
 
 import tobacco.core.components.KeymapComponent;
-import tobacco.core.entities.Entity;
+import tobacco.core.services.Directory;
 import tobacco.core.util.Vector2D;
 import tobacco.render.pc.components.MouseComponent;
 
@@ -33,9 +33,9 @@ public class PcInputListener implements CommonListener {
 	private final KeymapComponent keyMapComp = new KeymapComponent();
 	private final MouseComponent mouseComp = new MouseComponent();
 
-	public PcInputListener(Entity root) {
-		root.add(keyMapComp);
-		root.add(mouseComp);
+	public PcInputListener() {
+		Directory.getEntityService().getRoot().add(keyMapComp);
+		Directory.getEntityService().getRoot().add(mouseComp);
 	}
 	
 	private Vector2D getMousePosition(MouseEvent e) {

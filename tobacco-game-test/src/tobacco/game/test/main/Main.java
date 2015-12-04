@@ -22,7 +22,6 @@ package tobacco.game.test.main;
 
 import tobacco.core.loader.Loader;
 import tobacco.core.services.Directory;
-import tobacco.core.systems.main.AbstractMainSystem;
 import tobacco.game.test.loader.ManualLoader;
 
 public class Main {
@@ -30,17 +29,8 @@ public class Main {
 	public static void main(String[] args) {
 		
 		Loader loader = new ManualLoader();
-
-		loader.loadEntityTree();
-		AbstractMainSystem mainSystem = loader.loadMainSystem(Directory.getEntityService().getRoot());
+		loader.load();
 		
-		while (true) {
-			mainSystem.work();
-			try {
-				Thread.sleep(5);
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
-		}
+		Directory.getGameService().start();
 	}
 }

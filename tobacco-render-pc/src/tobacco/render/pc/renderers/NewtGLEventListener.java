@@ -51,6 +51,7 @@ public class NewtGLEventListener extends CustomGLEventListener {
 		Vector2D scrSize = ((ScreenComponent) root.get(Component.SCREEN_C)).getScreenSize();
 		gw.setSize((int) scrSize.getX(), (int) scrSize.getY());
 		gw.setPosition(10, 10);
+		gw.setResizable(false);
 
 		gw.requestFocus();
 		gw.addGLEventListener(this);

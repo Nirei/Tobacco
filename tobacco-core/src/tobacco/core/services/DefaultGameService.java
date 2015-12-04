@@ -22,9 +22,10 @@ package tobacco.core.services;
 
 import tobacco.core.systems.main.AbstractMainSystem;
 
-public class DefaultDataService implements DataService {
+public class DefaultGameService implements GameService {
 
 	private AbstractMainSystem main = null;
+	private Thread gameThread = null;
 
 	@Override
 	public AbstractMainSystem getMainSystem() {
@@ -34,5 +35,29 @@ public class DefaultDataService implements DataService {
 	@Override
 	public void setMainSystem(AbstractMainSystem main) {
 		this.main = main;
+	}
+
+	@Override
+	public synchronized void start() {
+		gameThread = new Thread(new Runnable() {
+			
+			@Override
+			public void run() {
+				boolean run = true;
+				while (run) {
+					Directory.getGameService().getMainSystem().work();
+					try {
+						Thread.sleep(5);
+					} catch (InterruptedException e) {
+						run = false;
+					}
+				}
+			}
+		});
+	}
+
+	@Override
+	public void stop() {
+		gameThread.interrupt();
 	}
 }

@@ -37,7 +37,6 @@ public class InfoSystem extends AbstractTreeSystem {
 	private JFrame entityWindow = new JFrame();
 	private JTextArea ta = new JTextArea();
 	private JScrollPane entityScroll = new JScrollPane(ta);
-	private SystemWindow sysWindow = new SystemWindow();
 
 	public InfoSystem() {
 		super(requiredComponents);
@@ -47,7 +46,6 @@ public class InfoSystem extends AbstractTreeSystem {
 		entityWindow.add(entityScroll);
 		entityWindow.setVisible(true);
 		
-		sysWindow.setVisible(true);
 	}
 
 	@Override
@@ -74,8 +72,6 @@ public class InfoSystem extends AbstractTreeSystem {
 			sb = new StringBuilder();
 			sb.append("Tick: " + getTicks() + " ---\n");
 			sb.append(Directory.getEntityService().getEntityList() + "\n");
-			
-			sysWindow.setList(Directory.getDataService().getMainSystem().getSystems());
 		} else {
 			enable(false);
 		}

@@ -8,11 +8,17 @@ import tobacco.core.entities.Entity;
 public interface EntityService {
 	
 	/**
-	 * Returns the current root {@link Entity}, creates one if there's none present
+	 * Returns the current root {@link Entity}
 	 * @return the current root {@link Entity} of the {@link Entity} tree.
 	 */
 	public Entity getRoot();
 	
+	/**
+	 * Set the current root {@link Entity} of the entity tree.
+	 * @param root
+	 */
+	public void setRoot(Entity root);
+
 	/**
 	 * Returns a list of all entities.
 	 * @return a list containing all the entities.

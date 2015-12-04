@@ -32,15 +32,14 @@ import tobacco.core.util.Vector2D;
  * @author nirei
  * 
  */
-// TODO: Design "AbstractListenerSystem" for Systems that only work with a very specific Entity?
-public class MovementResetSystem extends AbstractListSystem {
+public class MovementResetSystem extends AbstractTypedSystem {
 
 	private final static Type[] requiredComponents = {
-		Component.PLAYER_C,
-		Component.MOVEMENT_C };
+			Component.MOVEMENT_C
+	};
 
 	public MovementResetSystem() {
-		super(requiredComponents);
+		super(requiredComponents, Component.PLAYER_C);
 	}
 
 	@Override

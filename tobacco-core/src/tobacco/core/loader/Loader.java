@@ -21,11 +21,17 @@
 package tobacco.core.loader;
 
 import tobacco.core.entities.Entity;
+import tobacco.core.services.Directory;
 import tobacco.core.systems.main.AbstractMainSystem;
 
-public interface Loader {
+public abstract class Loader {
 
-	public void loadEntityTree();
-	public AbstractMainSystem loadMainSystem(Entity root);
+	public abstract Entity loadEntityTree();
+	public abstract AbstractMainSystem loadMainSystem();
+	
+	public void load() {
+		Directory.getEntityService().setRoot(loadEntityTree());
+		Directory.getGameService().setMainSystem(loadMainSystem());
+	}
 
 }
