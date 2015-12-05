@@ -56,7 +56,7 @@ public class InfoSystem extends AbstractTreeSystem {
 
 		if (qualifies(entity)) {
 			sb.append(str + entity + " {\n");
-			for (Component c : entity)
+			for (Component c : entity.components())
 				if (c.getComponentType() != Component.DEBUGGING_C)
 					sb.append(str + "\t" + c + "\n");
 			sb.append(str + "}\n");

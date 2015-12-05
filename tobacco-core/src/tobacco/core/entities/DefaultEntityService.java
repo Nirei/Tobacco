@@ -10,6 +10,10 @@ import java.util.stream.Collectors;
 import tobacco.core.components.Type;
 import tobacco.core.services.EntityService;
 
+/**
+ * Default implementation of the {@link EntityService}.
+ * @author nirei
+ */
 public class DefaultEntityService implements EntityService {
 	
 	private Entity root = null;
@@ -31,7 +35,7 @@ public class DefaultEntityService implements EntityService {
 	}
 
 	/**
-	 * Creates a new Entity and adds it to the storage.
+	 * Creates a new Entity.
 	 */
 	@Override
 	public Entity create() {

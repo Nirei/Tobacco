@@ -54,6 +54,8 @@ public class DefaultGameService implements GameService {
 				}
 			}
 		});
+		
+		gameThread.start();
 	}
 
 	@Override

@@ -5,6 +5,12 @@ import java.util.List;
 import tobacco.core.components.Type;
 import tobacco.core.entities.Entity;
 
+/**
+ * Interface for entity service providers. An instance of an
+ * EntityService represents a game world with its own entity tree.
+ * @author nirei
+ *
+ */
 public interface EntityService {
 	
 	/**
