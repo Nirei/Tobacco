@@ -1,0 +1,32 @@
+<world xmlns="tobacco">
+	<component type="SCREEN_C">
+		<value name="screenSize" type="vector">
+			{480,640}
+		</value>
+	</component>
+	<component type="DEBUGGING_C" />
+	<entity>
+		<component type="POSITION_C">
+			<value name="position" type="vector">
+				{0.0,0.0}
+			</value>
+		</component>
+		<component type="TEXTURE_C">
+			<value name="imagePath" type="string">
+				/tobacco/game/test/textures/bamboo.png
+			</value>
+			<value name="width" type="int">
+				480
+			</value>
+			<value name="height" type="int">
+				640
+			</value>
+		</component>
+		<component type="ZINDEX_C">
+			<value name="zIndex" type="int">
+				0
+			</value>
+		</component>
+		<component type="DEBUGGING_C" />
+	</entity>
+</world>

@@ -21,15 +21,32 @@
 package tobacco.game.test.main;
 
 import tobacco.core.loader.Loader;
+import tobacco.core.loader.xml.XmlLoader;
 import tobacco.core.services.Directory;
 import tobacco.game.test.loader.ManualLoader;
 
 public class Main {
+	
+	static {
+		// This block of code initializes components from all
+		// the hierarchy. This is necessary since component
+		// initialization must be done in order for Type to
+		// gather all the available component information.
+		try {
+			Class.forName("tobacco.render.pc.components.RendererComponent",true,ClassLoader.getSystemClassLoader());
+			Class.forName("tobacco.game.test.components.GameComponent",true,ClassLoader.getSystemClassLoader());
+		} catch (ClassNotFoundException e) {
+			System.err.println("Coulnd't load components");
+			System.exit(1);
+		}
+	}
 
 	public static void main(String[] args) {
 		
-		Loader loader = new ManualLoader();
-		loader.load();
+		Loader manLoader = new ManualLoader();
+		Loader xmlLoader = new XmlLoader("","/tobacco/game/test/data/world.xml");
+		Directory.setEntityService(xmlLoader.loadEntityService());
+		Directory.setGameService(manLoader.loadGameService());
 		
 		Directory.getGameService().start();
 	}

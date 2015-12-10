@@ -25,10 +25,13 @@ import tobacco.core.components.DebuggingComponent;
 import tobacco.core.components.PositionComponent;
 import tobacco.core.components.ScreenComponent;
 import tobacco.core.components.TextureComponent;
+import tobacco.core.entities.DefaultEntityService;
 import tobacco.core.entities.Entity;
 import tobacco.core.loader.Loader;
 import tobacco.core.services.GameService;
+import tobacco.core.services.DefaultGameService;
 import tobacco.core.services.Directory;
+import tobacco.core.services.EntityService;
 import tobacco.core.systems.AnimationSystem;
 import tobacco.core.systems.CollisionDetectionSystem;
 import tobacco.core.systems.CollisionHandlerSystem;
@@ -62,7 +65,7 @@ import static tobacco.render.pc.input.PcInputCode.*;
 public class ManualLoader extends Loader {
 
 	@Override
-	public AbstractMainSystem loadMainSystem() {
+	public GameService loadGameService() {
 		AbstractMainSystem main = new SerialMainSystem();
 		
 		// Load rendering
@@ -92,16 +95,17 @@ public class ManualLoader extends Loader {
 		main.add(new InputSystem());
 		main.add(new AnimationSystem());
 
-		GameService dataSrv = Directory.getGameService();
-		dataSrv.setMainSystem(main);
+		GameService gameServ = new DefaultGameService();
+		gameServ.setMainSystem(main);
 		
-		return main;
+		return gameServ;
 	}
 
 	@Override
-	public Entity loadEntityTree() {
+	public EntityService loadEntityService() {
 
-		Entity root = Directory.getEntityService().create();
+		EntityService eServ = new DefaultEntityService();
+		Entity root = eServ.getRoot();
 		ContainerComponent rootContainer = new ContainerComponent();
 		root.add(new DebuggingComponent());
 		root.add(new ScreenComponent(new Vector2D(480,640)));
@@ -124,6 +128,6 @@ public class ManualLoader extends Loader {
 		background.add(new ZIndexComponent(-10));
 		rootContainer.addChild(background);
 
-		return root;
+		return eServ;
 	}
 }

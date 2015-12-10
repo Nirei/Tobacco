@@ -20,7 +20,7 @@ public class ZIndexComponent implements RendererComponent {
 	public int getZIndex() {
 		return zIndex;
 	}
-	public void setZIndex(int zIndex) {
+	public void setZIndex(Integer zIndex) {
 		this.zIndex = zIndex;
 	}
 }

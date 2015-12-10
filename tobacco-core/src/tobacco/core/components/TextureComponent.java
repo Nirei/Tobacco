@@ -36,6 +36,8 @@ public class TextureComponent implements Component {
 	private int columns = 1;
 	private int rows = 1;
 	private int frames = 1;
+	
+	public TextureComponent() {}
 
 	/** Creates a texture component with one row and column.
 	 * Useful for non-sprite textures.
@@ -97,5 +99,29 @@ public class TextureComponent implements Component {
 
 	public int getFrames() {
 		return frames;
+	}
+
+	public void setImagePath(String imagePath) {
+		this.imagePath = imagePath;
+	}
+
+	public void setWidth(Integer width) {
+		this.width = width;
+	}
+
+	public void setHeight(Integer height) {
+		this.height = height;
+	}
+
+	public void setColumns(Integer columns) {
+		this.columns = columns;
+	}
+
+	public void setRows(Integer rows) {
+		this.rows = rows;
+	}
+
+	public void setFrames(Integer frames) {
+		this.frames = frames;
 	}
 }

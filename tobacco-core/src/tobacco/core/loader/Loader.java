@@ -20,18 +20,18 @@
 */
 package tobacco.core.loader;
 
-import tobacco.core.entities.Entity;
 import tobacco.core.services.Directory;
-import tobacco.core.systems.main.AbstractMainSystem;
+import tobacco.core.services.EntityService;
+import tobacco.core.services.GameService;
 
 public abstract class Loader {
 
-	public abstract Entity loadEntityTree();
-	public abstract AbstractMainSystem loadMainSystem();
+	public abstract EntityService loadEntityService();
+	public abstract GameService loadGameService();
 	
 	public void load() {
-		Directory.getEntityService().setRoot(loadEntityTree());
-		Directory.getGameService().setMainSystem(loadMainSystem());
+		Directory.setEntityService(loadEntityService());
+		Directory.setGameService(loadGameService());
 	}
 
 }
