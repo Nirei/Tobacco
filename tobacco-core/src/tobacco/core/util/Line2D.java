@@ -20,26 +20,24 @@
 */
 package tobacco.core.util;
 
-import tobacco.core.datatypes.GVector2D;
-
 public class Line2D {
 
-	private final GVector2D a, b;
+	private final Vector2D a, b;
 	
-	public Line2D(GVector2D a, GVector2D b) {
+	public Line2D(Vector2D a, Vector2D b) {
 		this.a = a;
 		this.b = b;
 	}
 	
-	public GVector2D getA() {
+	public Vector2D getA() {
 		return a;
 	}
 	
-	public GVector2D getB() {
+	public Vector2D getB() {
 		return b;
 	}
 	
 	public float length() {
-		return GVector2D.minus(a, b).module();
+		return Vector2D.minus(a, b).module();
 	}
 }

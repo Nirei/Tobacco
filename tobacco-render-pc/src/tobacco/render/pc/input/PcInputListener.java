@@ -24,7 +24,7 @@ import com.jogamp.newt.event.KeyEvent;
 import com.jogamp.newt.event.MouseEvent;
 
 import tobacco.core.components.KeymapComponent;
-import tobacco.core.datatypes.GVector2D;
+import tobacco.core.util.Vector2D;
 import tobacco.render.pc.components.MouseComponent;
 
 public class PcInputListener implements CommonListener {
@@ -37,8 +37,8 @@ public class PcInputListener implements CommonListener {
 		this.mouseComp = mouseComp;
 	}
 	
-	private GVector2D getMousePosition(MouseEvent e) {
-		return new GVector2D(e.getX(), e.getY());
+	private Vector2D getMousePosition(MouseEvent e) {
+		return new Vector2D(e.getX(), e.getY());
 	}
 
 	@Override
@@ -71,7 +71,7 @@ public class PcInputListener implements CommonListener {
 			keyMapComp.press(key);
 		}
 		
-		GVector2D mousePos = getMousePosition(e);
+		Vector2D mousePos = getMousePosition(e);
 		synchronized (mouseComp) {
 			mouseComp.setPosition(mousePos);;
 		}
@@ -84,7 +84,7 @@ public class PcInputListener implements CommonListener {
 			keyMapComp.release(key);
 		}
 		
-		GVector2D mousePos = getMousePosition(e);
+		Vector2D mousePos = getMousePosition(e);
 		synchronized (mouseComp) {
 			mouseComp.setPosition(mousePos);;
 		}
@@ -92,7 +92,7 @@ public class PcInputListener implements CommonListener {
 
 	@Override
 	public void mouseMoved(MouseEvent e) {
-		GVector2D mousePos = getMousePosition(e);
+		Vector2D mousePos = getMousePosition(e);
 		synchronized (mouseComp) {
 			mouseComp.setPosition(mousePos);;
 		}

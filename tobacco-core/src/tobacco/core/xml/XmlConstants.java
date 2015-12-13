@@ -1,7 +1,7 @@
-package tobacco.core.util.xml;
+package tobacco.core.xml;
 
 public final class XmlConstants {
-	//public static final String XML_NS = "tobacco";
+	public static final String XML_NS = "tobacco";
 	/* Tags */
 	public static final String WORLD_TAG = "world";
 	public static final String ENTITY_TAG = "entity";

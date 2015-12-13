@@ -21,7 +21,9 @@
 package tobacco.game.test.main;
 
 import tobacco.core.serialization.Loader;
+import tobacco.core.serialization.Saver;
 import tobacco.core.services.Directory;
+import tobacco.core.xml.XmlSaver;
 import tobacco.game.test.loader.ManualLoader;
 
 public class Main {
@@ -44,13 +46,13 @@ public class Main {
 		
 		Loader manLoader = new ManualLoader();
 		//Loader xmlLoader = new XmlLoader("","/tobacco/game/test/data/world.xml");
-		//Saver xmlSaver = new XmlSaver("", "/tobacco/game/test/data/world2.xml");
-		//Directory.setEntityService(manLoader.loadEntityService());
+		Saver xmlSaver = new XmlSaver("", "output.xml");
+		Directory.setEntityService(manLoader.loadEntityService());
 		//Directory.setGameService(manLoader.loadGameService());
 		manLoader.load();
-		Directory.getGameService().start();
-		Directory.getRenderingService().start();
-		//xmlSaver.saveEntityService(Directory.getEntityService());
+		//Directory.getGameService().start();
+		//Directory.getRenderingService().start();
+		xmlSaver.saveEntityService(Directory.getEntityService());
 		// Directory.getGameService().start();
 	}
 }

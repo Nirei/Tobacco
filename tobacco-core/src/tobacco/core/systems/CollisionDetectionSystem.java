@@ -32,9 +32,9 @@ import tobacco.core.components.Component;
 import tobacco.core.components.PositionComponent;
 import tobacco.core.components.ScreenComponent;
 import tobacco.core.components.Type;
-import tobacco.core.datatypes.GVector2D;
 import tobacco.core.entities.Entity;
 import tobacco.core.services.Directory;
+import tobacco.core.util.Vector2D;
 
 /**
  * Writes on its own cMapComp, similarly to what the InputListener
@@ -58,8 +58,8 @@ public class CollisionDetectionSystem extends AbstractListSystem {
 
 		this.cStrategy = cStrategy; 
 		Entity root = Directory.getEntityService().getRoot();
-		GVector2D screenSize = ((ScreenComponent) root.get(Component.SCREEN_C)).getScreenSize();
-		cqt = new QuadTree<Entity>(GVector2D.ZERO, screenSize.scale(0.55f), 4, 6);
+		Vector2D screenSize = ((ScreenComponent) root.get(Component.SCREEN_C)).getScreenSize();
+		cqt = new QuadTree<Entity>(Vector2D.ZERO, screenSize.scale(0.55f), 4, 6);
 		
 		root.add(cMapComp);
 	}
@@ -71,7 +71,7 @@ public class CollisionDetectionSystem extends AbstractListSystem {
 	@Override
 	public void process(Entity entity) {
 		if(qualifies(entity)) {
-			GVector2D pos = ((PositionComponent) entity.get(Component.POSITION_C)).getPosition();
+			Vector2D pos = ((PositionComponent) entity.get(Component.POSITION_C)).getPosition();
 			for(Entity e : cqt.query(pos)) {				
 				if(!checked.contains(e) && !e.equals(entity) && cStrategy.collides(e, entity)) {
 					writeCollision(e, entity);
@@ -86,7 +86,7 @@ public class CollisionDetectionSystem extends AbstractListSystem {
 		List<Entity> checked = new ArrayList<Entity>();
 		for(Entity e : Directory.getEntityService().getEntityList()) {
 			if(qualifies(e)) {
-				GVector2D pos = ((PositionComponent) e.get(Component.POSITION_C)).getPosition();
+				Vector2D pos = ((PositionComponent) e.get(Component.POSITION_C)).getPosition();
 				cqt.insert(e, pos);
 				checked.add(e);
 			}

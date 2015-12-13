@@ -24,8 +24,8 @@ import tobacco.core.components.Component;
 import tobacco.core.components.MovementComponent;
 import tobacco.core.components.PositionComponent;
 import tobacco.core.components.Type;
-import tobacco.core.datatypes.GVector2D;
 import tobacco.core.entities.Entity;
+import tobacco.core.util.Vector2D;
 
 public class MovementSystem extends AbstractListSystem {
 
@@ -45,16 +45,16 @@ public class MovementSystem extends AbstractListSystem {
 			PositionComponent posComp;
 
 			posComp = ((PositionComponent) entity.get(Component.POSITION_C));
-			GVector2D position = posComp.getPosition();
+			Vector2D position = posComp.getPosition();
 
 			MovementComponent movComp = ((MovementComponent) entity.get(Component.MOVEMENT_C));
-			GVector2D direction = movComp.getDirection();
+			Vector2D direction = movComp.getDirection();
 
 			// Calculate new position
 			if (!direction.isZero()) {
 				float speed = movComp.getSpeed();
 
-				GVector2D newPos = GVector2D.sum(position, direction.normalize().scale(speed * (delta / 1000f)));
+				Vector2D newPos = Vector2D.sum(position, direction.normalize().scale(speed * (delta / 1000f)));
 				posComp.setPosition(newPos);
 			}
 		}

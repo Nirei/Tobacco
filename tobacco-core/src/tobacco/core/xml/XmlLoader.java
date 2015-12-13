@@ -1,4 +1,4 @@
-package tobacco.core.loader.xml;
+package tobacco.core.xml;
 
 import java.io.IOException;
 import java.net.URL;
@@ -11,9 +11,10 @@ import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 import org.xml.sax.XMLReader;
 
-import tobacco.core.loader.Loader;
+import tobacco.core.serialization.Loader;
 import tobacco.core.services.EntityService;
 import tobacco.core.services.GameService;
+import tobacco.core.services.RenderingService;
 
 public class XmlLoader extends Loader {
 	
@@ -52,6 +53,12 @@ public class XmlLoader extends Loader {
 
 	@Override
 	public GameService loadGameService() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public RenderingService loadRenderingService() {
 		// TODO Auto-generated method stub
 		return null;
 	}

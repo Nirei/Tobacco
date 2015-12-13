@@ -1,7 +1,7 @@
 package tobacco.core.services;
 
-import tobacco.core.datatypes.GVector2D;
 import tobacco.core.util.Line2D;
+import tobacco.core.util.Vector2D;
 
 public final class NullDebuggingService implements DebuggingService {
 	
@@ -25,13 +25,13 @@ public final class NullDebuggingService implements DebuggingService {
 	}
 
 	@Override
-	public void displayText(String tag, String text, GVector2D position) {
+	public void displayText(String tag, String text, Vector2D position) {
 		printWarning("displayText()");
 		
 	}
 
 	@Override
-	public void displayPoint(String tag, GVector2D position) {
+	public void displayPoint(String tag, Vector2D position) {
 		printWarning("displayPoint()");
 		
 	}

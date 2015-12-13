@@ -1,22 +1,22 @@
 package tobacco.core.components;
 
-import tobacco.core.datatypes.GVector2D;
+import tobacco.core.util.Vector2D;
 
 public class SizeComponent implements Component {
 	
-	private GVector2D size;
+	private Vector2D size;
 	
 	public SizeComponent() {}
 	
-	public SizeComponent(GVector2D size) {
+	public SizeComponent(Vector2D size) {
 		this.size = size;
 	}
 	
-	public GVector2D getSize() {
-		return size == null ? null : new GVector2D(size.getX(), size.getY());
+	public Vector2D getSize() {
+		return size == null ? null : new Vector2D(size.getX(), size.getY());
 	}
 
-	public void setSize(GVector2D _size) {
+	public void setSize(Vector2D _size) {
 		size = _size;
 	}
 

@@ -20,32 +20,35 @@
 */
 package tobacco.core.components;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import tobacco.core.datatypes.GVector2D;
+import tobacco.core.util.List;
+import tobacco.core.util.Vector2D;
 
 public class TrajectoryComponent implements Component {
 
 	private int step = 0;
 	private boolean loop;
-	private List<GVector2D> waypoints;
+	private List<Vector2D> waypoints;
 	
-	public TrajectoryComponent(List<GVector2D> waypoints) {
+	public TrajectoryComponent(java.util.List<Vector2D> waypoints) {
 		setWaypoints(waypoints);
 	}
 	
-	public TrajectoryComponent(List<GVector2D> waypoints, boolean loop) {
-		this(waypoints);
+	public TrajectoryComponent(java.util.List<Vector2D> waypoints, boolean loop) {
+		setWaypoints(waypoints);
 		this.loop = loop;
 	}
 	
-	public List<GVector2D> getWaypoints() {
+	public List<Vector2D> getWaypoints() {
 		return waypoints;
 	}
 	
-	public void setWaypoints(List<GVector2D> waypoints) {
-		this.waypoints = new ArrayList<GVector2D>(waypoints);
+	public void setWaypoints(java.util.List<Vector2D> waypoints) {
+		try {
+			this.waypoints = new List<Vector2D>(Vector2D.class, waypoints);
+		} catch (Exception e) {
+			//TODO: Log this
+			e.printStackTrace();
+		}
 	}
 
 	public int getStep() {

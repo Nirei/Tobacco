@@ -14,12 +14,12 @@ import tobacco.core.components.PositionComponent;
 import tobacco.core.components.SizeComponent;
 import tobacco.core.components.SolidityComponent;
 import tobacco.core.components.TextureComponent;
-import tobacco.core.datatypes.GVector2D;
-import tobacco.core.datatypes.GInputEvent;
 import tobacco.core.entities.Entity;
 import tobacco.core.entities.EntityFactory;
 import tobacco.core.services.EntityService;
 import tobacco.core.util.Command;
+import tobacco.core.util.InputEvent;
+import tobacco.core.util.Vector2D;
 import tobacco.game.test.components.GameComponent;
 import tobacco.game.test.components.GunComponent;
 import tobacco.game.test.components.HealthComponent;
@@ -34,7 +34,7 @@ public class PlayerEntityFactory extends EntityFactory {
 	
 	private BulletEntityFactory bef;
 	private TextureComponent texture;
-	private GVector2D size;
+	private Vector2D size;
 	private PcInputCode keyUp;
 	private PcInputCode keyDown;
 	private PcInputCode keyLeft;
@@ -44,22 +44,22 @@ public class PlayerEntityFactory extends EntityFactory {
 	private PcInputCode keyFocus;
 	private PcInputCode keyMenu;
 	
-	public PlayerEntityFactory(EntityService entServ, TextureComponent texture, GVector2D size) {
+	public PlayerEntityFactory(EntityService entServ, TextureComponent texture, Vector2D size) {
 		super(entServ);
 		this.texture = texture;
 		this.size = size;
 		
 		TextureComponent bulletTexture = new TextureComponent("/tobacco/game/test/textures/reimubullet.png", 52, 12);
-		bef = new BulletEntityFactory(entServ, bulletTexture, new GVector2D(52f, 12f), new GVector2D(-1f, 5f), 150, 2000f, 50f, 90f);
+		bef = new BulletEntityFactory(entServ, bulletTexture, new Vector2D(52f, 12f), new Vector2D(-1f, 5f), 150, 2000f, 50f, 90f);
 
 	}
 	
 	private Command moveCommand(final float x, final float y) {
 		return (rootEntity, entity) -> {
 				if (entity.has(Component.MOVEMENT_C)) {
-					GVector2D direction;
+					Vector2D direction;
 					MovementComponent movComp = (MovementComponent) entity.get(Component.MOVEMENT_C);
-					direction = GVector2D.sum(movComp.getDirection(), new GVector2D(x, y));
+					direction = Vector2D.sum(movComp.getDirection(), new Vector2D(x, y));
 					movComp.setDirection(direction);
 				}
 			};
@@ -74,7 +74,7 @@ public class PlayerEntityFactory extends EntityFactory {
 		player.add(texture);
 		player.add(new AnimationComponent(125));
 		player.add(new SizeComponent(size));
-		player.add(new PositionComponent(new GVector2D(0f, -200f)));
+		player.add(new PositionComponent(new Vector2D(0f, -200f)));
 
 		PlayerComponent playerComp = new PlayerComponent();
 		Command up = moveCommand(0, 1);
@@ -83,22 +83,22 @@ public class PlayerEntityFactory extends EntityFactory {
 		Command right = moveCommand(1, 0);
 		Command suicide = (rootEntity, entity) -> ((HealthComponent) entity.get(GameComponent.HEALTH_C)).setHealth(0f);
 
-		playerComp.put(new GInputEvent(keyUp, TYPE_HOLD), up);
-		playerComp.put(new GInputEvent(keyDown, TYPE_HOLD), down);
-		playerComp.put(new GInputEvent(keyLeft, TYPE_HOLD), left);
-		playerComp.put(new GInputEvent(keyRight, TYPE_HOLD), right);
-		playerComp.put(new GInputEvent(keyMenu, TYPE_RELEASE), suicide);
+		playerComp.put(new InputEvent(keyUp, TYPE_HOLD), up);
+		playerComp.put(new InputEvent(keyDown, TYPE_HOLD), down);
+		playerComp.put(new InputEvent(keyLeft, TYPE_HOLD), left);
+		playerComp.put(new InputEvent(keyRight, TYPE_HOLD), right);
+		playerComp.put(new InputEvent(keyMenu, TYPE_RELEASE), suicide);
 
-		playerComp.put(new GInputEvent(keyShoot, TYPE_PRESS),
+		playerComp.put(new InputEvent(keyShoot, TYPE_PRESS),
 				(rootEntity, entity) -> ((GunComponent) entity.get(GameComponent.GUN_C)).setShooting(true));
 
-		playerComp.put(new GInputEvent(keyShoot, TYPE_RELEASE),
+		playerComp.put(new InputEvent(keyShoot, TYPE_RELEASE),
 				(rootEntity, entity) -> ((GunComponent) entity.get(GameComponent.GUN_C)).setShooting(false));
 		
-		playerComp.put(new GInputEvent(keyFocus, TYPE_PRESS),
+		playerComp.put(new InputEvent(keyFocus, TYPE_PRESS),
 				(rootEntity, entity) -> ((MovementComponent) entity.get(GameComponent.MOVEMENT_C)).setSpeed(focusSpeed));
 
-		playerComp.put(new GInputEvent(keyFocus, TYPE_RELEASE),
+		playerComp.put(new InputEvent(keyFocus, TYPE_RELEASE),
 				(rootEntity, entity) -> ((MovementComponent) entity.get(GameComponent.MOVEMENT_C)).setSpeed(normalSpeed));
 
 		player.add(playerComp);
@@ -107,9 +107,9 @@ public class PlayerEntityFactory extends EntityFactory {
 		GunComponent gunComponent = new GunComponent();
 		
 		containerComponent.addChild(bef.create());
-		bef.setDirection(new GVector2D(0, 1));
+		bef.setDirection(new Vector2D(0, 1));
 		containerComponent.addChild(bef.create());
-		bef.setDirection(new GVector2D(1, 5));
+		bef.setDirection(new Vector2D(1, 5));
 		containerComponent.addChild(bef.create());
 
 		player.add(gunComponent);

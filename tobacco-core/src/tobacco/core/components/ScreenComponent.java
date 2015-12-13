@@ -1,6 +1,6 @@
 package tobacco.core.components;
 
-import tobacco.core.datatypes.GVector2D;
+import tobacco.core.util.Vector2D;
 
 /**
  * Marks the entity that holds screen information such as width and height
@@ -8,11 +8,11 @@ import tobacco.core.datatypes.GVector2D;
  */
 public class ScreenComponent implements Component {
 
-	private GVector2D screenSize;
+	private Vector2D screenSize;
 	
 	public ScreenComponent() {}
 	
-	public ScreenComponent(GVector2D screenSize) {
+	public ScreenComponent(Vector2D screenSize) {
 		this.screenSize = screenSize;
 	}
 	
@@ -21,11 +21,11 @@ public class ScreenComponent implements Component {
 		return SCREEN_C;
 	}
 	
-	public GVector2D getScreenSize() {
+	public Vector2D getScreenSize() {
 		return screenSize;
 	}
 	
-	public void setScreenSize(GVector2D screenSize) {
+	public void setScreenSize(Vector2D screenSize) {
 		this.screenSize = screenSize;
 	}
 	

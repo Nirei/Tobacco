@@ -7,10 +7,10 @@ import tobacco.core.components.Component;
 import tobacco.core.components.RotationComponent;
 import tobacco.core.components.SizeComponent;
 import tobacco.core.components.TextureComponent;
-import tobacco.core.datatypes.GVector2D;
 import tobacco.core.entities.Entity;
 import tobacco.core.entities.EntityFactory;
 import tobacco.core.services.EntityService;
+import tobacco.core.util.Vector2D;
 import tobacco.game.test.components.BulletDataComponent;
 import tobacco.game.test.components.DamageComponent;
 import tobacco.game.test.components.DirectionComponent;
@@ -19,14 +19,14 @@ import tobacco.render.pc.components.ZIndexComponent;
 public class BulletEntityFactory extends EntityFactory {
 
 	private TextureComponent texture;
-	private GVector2D size;
-	private GVector2D direction;
+	private Vector2D size;
+	private Vector2D direction;
 	private long bulletPeriod;
 	private float bulletSpeed;
 	private float damage;
 	private Float rotation;
 	
-	public BulletEntityFactory(EntityService entServ, TextureComponent texture, GVector2D size, GVector2D direction, long bulletPeriod, float bulletSpeed, float damage) {
+	public BulletEntityFactory(EntityService entServ, TextureComponent texture, Vector2D size, Vector2D direction, long bulletPeriod, float bulletSpeed, float damage) {
 		super(entServ);
 		this.texture = texture;
 		this.size = size;
@@ -36,7 +36,7 @@ public class BulletEntityFactory extends EntityFactory {
 		this.damage = damage;
 	}
 	
-	public BulletEntityFactory(EntityService entServ, TextureComponent texture, GVector2D size, GVector2D direction, long bulletPeriod, float bulletSpeed, float damage, float rotation) {
+	public BulletEntityFactory(EntityService entServ, TextureComponent texture, Vector2D size, Vector2D direction, long bulletPeriod, float bulletSpeed, float damage, float rotation) {
 		this(entServ, texture, size, direction, bulletPeriod, bulletSpeed, damage);
 		this.rotation = rotation;
 	}
@@ -55,11 +55,11 @@ public class BulletEntityFactory extends EntityFactory {
 		
 	}
 	
-	public GVector2D getDirection() {
+	public Vector2D getDirection() {
 		return direction;
 	}
 
-	public void setDirection(GVector2D direction) {
+	public void setDirection(Vector2D direction) {
 		this.direction = direction;
 	}
 

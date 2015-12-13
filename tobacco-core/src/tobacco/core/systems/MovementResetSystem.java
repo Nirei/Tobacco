@@ -23,8 +23,8 @@ package tobacco.core.systems;
 import tobacco.core.components.Component;
 import tobacco.core.components.MovementComponent;
 import tobacco.core.components.Type;
-import tobacco.core.datatypes.GVector2D;
 import tobacco.core.entities.Entity;
+import tobacco.core.util.Vector2D;
 
 /**
  * This system resets the movement of the player entity each tick after it has been applied.
@@ -46,7 +46,7 @@ public class MovementResetSystem extends AbstractTypedSystem {
 	public void process(Entity entity) {
 		if (qualifies(entity)) {
 			MovementComponent movComp = (MovementComponent) entity.get(Component.MOVEMENT_C);
-			movComp.setDirection(GVector2D.ZERO);
+			movComp.setDirection(Vector2D.ZERO);
 		}
 	}
 

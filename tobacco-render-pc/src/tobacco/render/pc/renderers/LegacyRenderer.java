@@ -27,9 +27,9 @@ import tobacco.core.components.RotationComponent;
 import tobacco.core.components.ScaleComponent;
 import tobacco.core.components.TextureComponent;
 import tobacco.core.components.TintComponent;
-import tobacco.core.datatypes.GVector2D;
 import tobacco.core.entities.Entity;
 import tobacco.core.services.Directory;
+import tobacco.core.util.Vector2D;
 import tobacco.render.pc.components.RendererComponent;
 import tobacco.render.pc.components.ZIndexComponent;
 import tobacco.render.pc.util.TextureStorage;
@@ -57,8 +57,8 @@ public class LegacyRenderer implements Renderer {
 		if (entity.has(RendererComponent.TEXTURE_C) && entity.has(Component.POSITION_C)) {
 			gl.glPushMatrix();
 
-			GVector2D pos = GVector2D.ZERO;
-			GVector2D sca = new GVector2D(1f, 1f);
+			Vector2D pos = Vector2D.ZERO;
+			Vector2D sca = new Vector2D(1f, 1f);
 			float x, y;
 			// float zIndex = 0f;
 			float rot = 0f;

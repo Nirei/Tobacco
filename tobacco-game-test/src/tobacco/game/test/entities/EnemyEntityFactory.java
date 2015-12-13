@@ -32,11 +32,11 @@ import tobacco.core.components.MovementComponent;
 import tobacco.core.components.PositionComponent;
 import tobacco.core.components.SizeComponent;
 import tobacco.core.components.TrajectoryComponent;
-import tobacco.core.datatypes.GVector2D;
 import tobacco.core.entities.Entity;
 import tobacco.core.entities.EntityFactory;
 import tobacco.core.movement.SplineTrajectoryFactory;
 import tobacco.core.services.EntityService;
+import tobacco.core.util.Vector2D;
 import tobacco.game.test.components.DamageComponent;
 import tobacco.game.test.components.EnemyComponent;
 import tobacco.game.test.components.GunComponent;
@@ -49,29 +49,29 @@ public class EnemyEntityFactory extends EntityFactory {
 	private BulletEntityFactory bef;
 	private TextureComponent texture;
 	private Integer created = 0;
-	private GVector2D points[][] = {
+	private Vector2D points[][] = {
 		// First fairy
-		{new GVector2D(20f, 200f),
-		new GVector2D(200f, 200f),
-		new GVector2D(200f, 20f),
-		new GVector2D(20f, 20f)},
+		{new Vector2D(20f, 200f),
+		new Vector2D(200f, 200f),
+		new Vector2D(200f, 20f),
+		new Vector2D(20f, 20f)},
 		// Second fairy
-		{new GVector2D(-260, 320),
-		new GVector2D(260, 240),
-		new GVector2D(-260, 160),
-		new GVector2D(260, 80),
-		new GVector2D(-260, 0),
-		new GVector2D(260, -80),
-		new GVector2D(-260, -160),
-		new GVector2D(260, -240),
-		new GVector2D(-260, -320)}
+		{new Vector2D(-260, 320),
+		new Vector2D(260, 240),
+		new Vector2D(-260, 160),
+		new Vector2D(260, 80),
+		new Vector2D(-260, 0),
+		new Vector2D(260, -80),
+		new Vector2D(-260, -160),
+		new Vector2D(260, -240),
+		new Vector2D(-260, -320)}
 	};
 
 	public EnemyEntityFactory(EntityService entServ, TextureComponent texture) {
 		super(entServ);
 		this.texture = texture;
 		TextureComponent bulletTexture = new TextureComponent("/tobacco/game/test/textures/fairy_bullet.png", 8, 16);
-		bef = new BulletEntityFactory(entServ, bulletTexture, new GVector2D(8f, 16f), new GVector2D(0f, 0f), 1000, 200f, 50f);
+		bef = new BulletEntityFactory(entServ, bulletTexture, new Vector2D(8f, 16f), new Vector2D(0f, 0f), 1000, 200f, 50f);
 	}
 
 	@Override
@@ -81,7 +81,7 @@ public class EnemyEntityFactory extends EntityFactory {
 		float width = texture.getWidth() / texture.getColumns();
 		float height = texture.getHeight() / texture.getRows();
 		comps.add(texture);
-		comps.add(new SizeComponent(new GVector2D(width, height)));
+		comps.add(new SizeComponent(new Vector2D(width, height)));
 		comps.add(new TeamComponent("ENEMY"));
 		comps.add(new DamageComponent(100f));
 		comps.add(new PositionComponent(points[created][0]));

@@ -1,15 +1,15 @@
 package tobacco.game.test.components;
 
 import tobacco.core.components.Type;
-import tobacco.core.datatypes.GVector2D;
+import tobacco.core.util.Vector2D;
 
 public class DirectionComponent implements GameComponent {
 	
-	private GVector2D direction;
+	private Vector2D direction;
 	
 	public DirectionComponent() {}
 	
-	public DirectionComponent(GVector2D direction) {
+	public DirectionComponent(Vector2D direction) {
 		this.direction = direction;
 	}
 
@@ -18,11 +18,11 @@ public class DirectionComponent implements GameComponent {
 		return DIRECTION_C;
 	}
 
-	public GVector2D getDirection() {
+	public Vector2D getDirection() {
 		return direction;
 	}
 	
-	public void setDirection(GVector2D direction) {
+	public void setDirection(Vector2D direction) {
 		this.direction = direction;
 	}
 	

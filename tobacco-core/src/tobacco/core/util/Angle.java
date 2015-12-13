@@ -18,35 +18,30 @@
 *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 *
 */
-package tobacco.core.components;
+package tobacco.core.util;
 
-import tobacco.core.util.Vector2D;
+public class Angle {
 
-public class PositionComponent implements Component {
-
-	private Vector2D position;
-
-	public PositionComponent() {}
+	private final float value;
+	private final float degrees;
 	
-	public PositionComponent(Vector2D position) {
-		this.position = position;
+	public Angle(float radians) {
+		this.value = radians;
+		this.degrees = (180f / (float) Math.PI) * radians;
 	}
 
-	@Override
-	public Type getComponentType() {
-		return POSITION_C;
+	public float getValue() {
+		return value;
 	}
 
-	public Vector2D getPosition() {
-		return new Vector2D(position.getX(), position.getY());
+	public float getDegrees() {
+		return degrees;
 	}
 
-	public void setPosition(Vector2D _position) {
-		position = _position;
+	public Angle normalize() {
+		float nvalue = (float) (value % (2f * Math.PI));
+		if(nvalue < 0) nvalue += 2f * Math.PI;
+		return new Angle(nvalue);
 	}
 
-	@Override
-	public String toString() {
-		return "Position: " + position;
-	}
 }

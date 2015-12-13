@@ -24,9 +24,9 @@ import tobacco.core.components.Component;
 import tobacco.core.components.KeymapComponent;
 import tobacco.core.components.PlayerComponent;
 import tobacco.core.components.Type;
-import tobacco.core.datatypes.GInputEvent;
 import tobacco.core.entities.Entity;
 import tobacco.core.util.Command;
+import tobacco.core.util.InputEvent;
 
 /**
  * This system checks which events are player entities
@@ -52,7 +52,7 @@ public class InputSystem extends AbstractTypedSystem {
 		if (qualifies(entity)) {
 			PlayerComponent playerComp = (PlayerComponent) entity.get(Component.PLAYER_C);
 
-			for (GInputEvent event : playerComp) {
+			for (InputEvent event : playerComp) {
 				Command command = playerComp.get(event);
 				switch (event.getInputType()) {
 				case TYPE_HOLD:

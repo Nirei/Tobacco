@@ -26,23 +26,23 @@ import java.util.concurrent.ConcurrentHashMap;
 import com.jogamp.opengl.GL2;
 import com.jogamp.opengl.GLAutoDrawable;
 
-import tobacco.core.datatypes.GVector2D;
 import tobacco.core.services.DebuggingService;
 import tobacco.core.util.Line2D;
+import tobacco.core.util.Vector2D;
 
 public class DebuggingRendererDecorator implements Renderer, DebuggingService {
 	
 	private Renderer wrapped;
 	
 	private Map<String, Line2D> vectors = new ConcurrentHashMap<String, Line2D>();
-	private Map<String, GVector2D> points = new ConcurrentHashMap<String, GVector2D>();
+	private Map<String, Vector2D> points = new ConcurrentHashMap<String, Vector2D>();
 	
 	public DebuggingRendererDecorator(Renderer wrapped) {
 		this.wrapped = wrapped;
 	}
 
 	@Override
-	public void displayText(String tag, String text, GVector2D position) {
+	public void displayText(String tag, String text, Vector2D position) {
 		//TODO: Not implemented
 		throw new RuntimeException("Not implemented");		
 	}
@@ -59,7 +59,7 @@ public class DebuggingRendererDecorator implements Renderer, DebuggingService {
 	}
 	
 	@Override
-	public void displayPoint(String tag, GVector2D position) {
+	public void displayPoint(String tag, Vector2D position) {
 		points.put(tag, position);
 	}
 	
@@ -102,7 +102,7 @@ public class DebuggingRendererDecorator implements Renderer, DebuggingService {
 			gl2.glEnd();
 		}
 		
-		for(GVector2D point : points.values()) {
+		for(Vector2D point : points.values()) {
 			gl2.glBegin(GL2.GL_QUADS);
 			gl2.glColor3f(255f, 255f, 255f);
 			gl2.glVertex2f(point.getX()+1, point.getY()+1);

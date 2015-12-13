@@ -26,7 +26,6 @@ import tobacco.core.components.KeymapComponent;
 import tobacco.core.components.PositionComponent;
 import tobacco.core.components.ScreenComponent;
 import tobacco.core.components.TextureComponent;
-import tobacco.core.datatypes.GVector2D;
 import tobacco.core.entities.DefaultEntityService;
 import tobacco.core.entities.Entity;
 import tobacco.core.serialization.Loader;
@@ -47,6 +46,7 @@ import tobacco.core.systems.TrajectorySystem;
 import tobacco.core.systems.debugging.InfoSystem;
 import tobacco.core.systems.main.AbstractMainSystem;
 import tobacco.core.systems.main.SerialMainSystem;
+import tobacco.core.util.Vector2D;
 import tobacco.game.test.collisions.BulletRemovalCollisionHandler;
 import tobacco.game.test.collisions.DamageCollisionHandler;
 import tobacco.game.test.components.GameComponent;
@@ -119,13 +119,13 @@ public class ManualLoader extends Loader {
 		eServ.setRoot(root);
 		ContainerComponent rootContainer = new ContainerComponent();
 		root.add(new DebuggingComponent());
-		root.add(new ScreenComponent(new GVector2D(480,640)));
+		root.add(new ScreenComponent(new Vector2D(480,640)));
 		root.add(new KeymapComponent());
 		root.add(new MouseComponent());
 		root.add(rootContainer);
 		
 		TextureComponent playerTexture = new TextureComponent("/tobacco/game/test/textures/reimusprite.png", 128, 48, 4, 1, 4);
-		PlayerEntityFactory pef = new PlayerEntityFactory(eServ, playerTexture, new GVector2D(30, 44));
+		PlayerEntityFactory pef = new PlayerEntityFactory(eServ, playerTexture, new Vector2D(30, 44));
 		pef.setMovementKeys(KEY_UP, KEY_DOWN, KEY_LEFT, KEY_RIGHT);
 		pef.setActionKeys(KEY_Z, KEY_X, KEY_SHIFT, KEY_ESCAPE);
 				
@@ -136,7 +136,7 @@ public class ManualLoader extends Loader {
 		rootContainer.addChild(eeFactory.create());
 		
 		Entity background = eServ.create();
-		background.add(new PositionComponent(GVector2D.ZERO));
+		background.add(new PositionComponent(Vector2D.ZERO));
 		background.add(new DebuggingComponent());
 		background.add(new TextureComponent("/tobacco/game/test/textures/bamboo.png", 480, 640));
 		background.add(new ZIndexComponent(-10));

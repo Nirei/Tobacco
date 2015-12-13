@@ -20,15 +20,15 @@
 */
 package tobacco.core.components;
 
-import tobacco.core.datatypes.GVector2D;
+import tobacco.core.util.Vector2D;
 
 public class ScaleComponent implements Component {
 
-	private GVector2D scale;
+	private Vector2D scale;
 	
 	public ScaleComponent() {}
 
-	public ScaleComponent(GVector2D _scale) {
+	public ScaleComponent(Vector2D _scale) {
 		scale = _scale;
 	}
 
@@ -37,11 +37,11 @@ public class ScaleComponent implements Component {
 		return SCALE_C;
 	}
 
-	public GVector2D getScale() {
+	public Vector2D getScale() {
 		return scale;
 	}
 
-	public void setScale(GVector2D _scale) {
+	public void setScale(Vector2D _scale) {
 		scale = _scale;
 	}
 
