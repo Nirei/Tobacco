@@ -4,10 +4,10 @@ import tobacco.core.components.PositionComponent;
 import tobacco.core.components.ScreenComponent;
 import tobacco.core.components.SizeComponent;
 import tobacco.core.components.Type;
+import tobacco.core.datatypes.GVector2D;
 import tobacco.core.entities.Entity;
 import tobacco.core.services.Directory;
 import tobacco.core.systems.AbstractTypedSystem;
-import tobacco.core.util.Vector2D;
 import tobacco.game.test.components.GameComponent;
 
 /**
@@ -33,8 +33,8 @@ public class PlayerMovementBindingSystem extends AbstractTypedSystem {
 		if(qualifies(entity)) {
 			PositionComponent posComp = (PositionComponent) entity.get(GameComponent.POSITION_C);
 			SizeComponent sizeComp = (SizeComponent) entity.get(GameComponent.SIZE_C);
-			Vector2D pos = posComp.getPosition();
-			Vector2D size = sizeComp.getSize();
+			GVector2D pos = posComp.getPosition();
+			GVector2D size = sizeComp.getSize();
 			float posX = pos.getX();
 			float posY = pos.getY();
 			float halfSizeX = size.getX() / 2f;
@@ -52,7 +52,7 @@ public class PlayerMovementBindingSystem extends AbstractTypedSystem {
 				posY = screenMaxY - halfSizeY;
 			}
 			
-			posComp.setPosition(new Vector2D(posX, posY));
+			posComp.setPosition(new GVector2D(posX, posY));
 		}
 	}
 
@@ -62,7 +62,7 @@ public class PlayerMovementBindingSystem extends AbstractTypedSystem {
 		// centered around (0,0).
 		Entity root = Directory.getEntityService().getRoot();
 		ScreenComponent scrComp = (ScreenComponent) root.get(GameComponent.SCREEN_C);
-		Vector2D scrSize = scrComp.getScreenSize();
+		GVector2D scrSize = scrComp.getScreenSize();
 		float halfX = scrSize.getX()/2;
 		float halfY = scrSize.getY()/2;
 		screenMinX = -halfX;

@@ -20,15 +20,15 @@
 */
 package tobacco.core.components;
 
-import tobacco.core.util.Vector2D;
+import tobacco.core.datatypes.GVector2D;
 
 public class PositionComponent implements Component {
 
-	private Vector2D position;
+	private GVector2D position;
 
 	public PositionComponent() {}
 	
-	public PositionComponent(Vector2D position) {
+	public PositionComponent(GVector2D position) {
 		this.position = position;
 	}
 
@@ -37,11 +37,11 @@ public class PositionComponent implements Component {
 		return POSITION_C;
 	}
 
-	public Vector2D getPosition() {
-		return new Vector2D(position.getX(), position.getY());
+	public GVector2D getPosition() {
+		return new GVector2D(position.getX(), position.getY());
 	}
 
-	public void setPosition(Vector2D _position) {
+	public void setPosition(GVector2D _position) {
 		position = _position;
 	}
 

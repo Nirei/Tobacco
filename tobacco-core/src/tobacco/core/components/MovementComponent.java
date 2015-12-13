@@ -20,11 +20,11 @@
 */
 package tobacco.core.components;
 
-import tobacco.core.util.Vector2D;
+import tobacco.core.datatypes.GVector2D;
 
 public class MovementComponent implements Component {
 
-	private Vector2D direction = Vector2D.ZERO;
+	private GVector2D direction = GVector2D.ZERO;
 	private float speed;
 
 	@Override
@@ -39,7 +39,7 @@ public class MovementComponent implements Component {
 		speed = _speed;
 	}
 
-	public MovementComponent(Vector2D _direction, float _speed) {
+	public MovementComponent(GVector2D _direction, float _speed) {
 		direction = _direction;
 		speed = _speed;
 	}
@@ -52,11 +52,11 @@ public class MovementComponent implements Component {
 		speed = _speed;
 	}
 
-	public Vector2D getDirection() {
+	public GVector2D getDirection() {
 		return direction;
 	}
 
-	public void setDirection(Vector2D _direction) {
+	public void setDirection(GVector2D _direction) {
 		direction = _direction;
 	}
 

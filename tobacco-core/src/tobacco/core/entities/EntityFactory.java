@@ -3,18 +3,22 @@ package tobacco.core.entities;
 import java.util.Collection;
 
 import tobacco.core.components.Component;
-import tobacco.core.services.Directory;
+import tobacco.core.services.EntityService;
 
 /**
  * A generic entity factory.
  * @author nirei
  */
 public class EntityFactory {
+	
+	private EntityService entServ;
 
-	public EntityFactory() {}
+	public EntityFactory(EntityService entServ) {
+		this.entServ = entServ;
+	}
 	
 	private Entity createEntity() {
-		return Directory.getEntityService().create();
+		return entServ.create();
 	}
 	
 	/**

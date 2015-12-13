@@ -20,8 +20,7 @@
 */
 package tobacco.game.test.main;
 
-import tobacco.core.loader.Loader;
-import tobacco.core.loader.xml.XmlLoader;
+import tobacco.core.serialization.Loader;
 import tobacco.core.services.Directory;
 import tobacco.game.test.loader.ManualLoader;
 
@@ -44,10 +43,14 @@ public class Main {
 	public static void main(String[] args) {
 		
 		Loader manLoader = new ManualLoader();
-		Loader xmlLoader = new XmlLoader("","/tobacco/game/test/data/world.xml");
-		Directory.setEntityService(xmlLoader.loadEntityService());
-		Directory.setGameService(manLoader.loadGameService());
-		
+		//Loader xmlLoader = new XmlLoader("","/tobacco/game/test/data/world.xml");
+		//Saver xmlSaver = new XmlSaver("", "/tobacco/game/test/data/world2.xml");
+		//Directory.setEntityService(manLoader.loadEntityService());
+		//Directory.setGameService(manLoader.loadGameService());
+		manLoader.load();
 		Directory.getGameService().start();
+		Directory.getRenderingService().start();
+		//xmlSaver.saveEntityService(Directory.getEntityService());
+		// Directory.getGameService().start();
 	}
 }

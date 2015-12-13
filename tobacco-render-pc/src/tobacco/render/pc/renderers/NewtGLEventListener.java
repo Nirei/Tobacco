@@ -29,9 +29,9 @@ import com.jogamp.opengl.util.Animator;
 
 import tobacco.core.components.Component;
 import tobacco.core.components.ScreenComponent;
+import tobacco.core.datatypes.GVector2D;
 import tobacco.core.entities.Entity;
 import tobacco.core.services.Directory;
-import tobacco.core.util.Vector2D;
 import tobacco.render.pc.input.CommonListener;
 
 public class NewtGLEventListener extends CustomGLEventListener {
@@ -48,7 +48,7 @@ public class NewtGLEventListener extends CustomGLEventListener {
 		gw = GLWindow.create(glCaps);
 
 		Entity root = Directory.getEntityService().getRoot();
-		Vector2D scrSize = ((ScreenComponent) root.get(Component.SCREEN_C)).getScreenSize();
+		GVector2D scrSize = ((ScreenComponent) root.get(Component.SCREEN_C)).getScreenSize();
 		gw.setSize((int) scrSize.getX(), (int) scrSize.getY());
 		gw.setPosition(10, 10);
 		gw.setResizable(false);
@@ -68,18 +68,8 @@ public class NewtGLEventListener extends CustomGLEventListener {
 				System.exit(0);
 			}
 		});
-
+		
 		gw.setVisible(true);
-	}
-
-	@Override
-	public int getWidth() {
-		return gw.getWidth();
-	}
-
-	@Override
-	public int getHeight() {
-		return gw.getHeight();
 	}
 
 	@Override

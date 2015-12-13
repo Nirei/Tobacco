@@ -5,10 +5,10 @@ import java.util.List;
 import tobacco.core.components.ContainerComponent;
 import tobacco.core.components.PositionComponent;
 import tobacco.core.components.Type;
+import tobacco.core.datatypes.GVector2D;
 import tobacco.core.entities.Entity;
 import tobacco.core.services.Directory;
 import tobacco.core.systems.AbstractListSystem;
-import tobacco.core.util.Vector2D;
 import tobacco.game.test.components.DirectionComponent;
 import tobacco.game.test.components.GameComponent;
 import tobacco.game.test.components.GunComponent;
@@ -44,7 +44,7 @@ public class EnemyControlSystem extends AbstractListSystem {
 				
 				if(p.has(GameComponent.POSITION_C)) {
 					playerPos = (PositionComponent) p.get(GameComponent.POSITION_C);
-					float distance = Vector2D.minus(playerPos.getPosition(), enemyPos.getPosition()).module();
+					float distance = GVector2D.minus(playerPos.getPosition(), enemyPos.getPosition()).module();
 					if(distance < closestDist) {
 						closestDist = distance;
 						closestPlayerPos = playerPos;
@@ -57,7 +57,7 @@ public class EnemyControlSystem extends AbstractListSystem {
 				for(Entity b : enemyContainer) {
 					if(b.has(GameComponent.BULLET_DATA_C)) {
 						DirectionComponent dirComp = (DirectionComponent) b.get(GameComponent.DIRECTION_C);
-						dirComp.setDirection(Vector2D.minus(closestPlayerPos.getPosition(), enemyPos.getPosition()));
+						dirComp.setDirection(GVector2D.minus(closestPlayerPos.getPosition(), enemyPos.getPosition()));
 					}
 				}
 				enemyGun.setShooting(true);

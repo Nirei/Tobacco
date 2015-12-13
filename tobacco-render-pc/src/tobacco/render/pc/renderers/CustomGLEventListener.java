@@ -1,5 +1,6 @@
 package tobacco.render.pc.renderers;
 
+import tobacco.core.services.RenderingService;
 import tobacco.render.pc.input.CommonListener;
 
 import com.jogamp.opengl.GL;
@@ -9,7 +10,7 @@ import com.jogamp.opengl.GLEventListener;
 import com.jogamp.opengl.GLProfile;
 import com.jogamp.opengl.util.AnimatorBase;
 
-public abstract class CustomGLEventListener implements GLEventListener {
+public abstract class CustomGLEventListener implements GLEventListener, RenderingService {
 	
 	protected AnimatorBase animator;
 	protected Renderer renderer;
@@ -18,10 +19,17 @@ public abstract class CustomGLEventListener implements GLEventListener {
 		GLProfile.initSingleton(); // Recommended before anything else
 		this.renderer = renderer;
 	}
+	
+	public void start() {
+		animator.start();
+	}
+	
+	public void stop() {
+		animator.stop();
+	}
 
 	@Override
 	public void init(GLAutoDrawable drawable) {
-		animator.start();
 		drawable.getGL().setSwapInterval(1); // V-sync
 	}
 
@@ -45,13 +53,9 @@ public abstract class CustomGLEventListener implements GLEventListener {
 
 		gl.glMatrixMode(GL2.GL_PROJECTION);
 		gl.glLoadIdentity();
-		gl.glOrtho(-getWidth()/2f, getWidth()/2f, -getHeight()/2f, getHeight()/2f, 1f, -1f);
+		gl.glOrtho(-width/2f, width/2f, -height/2f, height/2f, 1f, -1f);
 		gl.glMatrixMode(GL2.GL_MODELVIEW);
 	}
-
-	public abstract int getWidth();
-
-	public abstract int getHeight();
 
 	public abstract void addListener(CommonListener l);
 }

@@ -18,30 +18,23 @@
 *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 *
 */
-package tobacco.core.util;
+package tobacco.core.serialization;
 
-public class Angle {
+import tobacco.core.services.Directory;
+import tobacco.core.services.EntityService;
+import tobacco.core.services.GameService;
+import tobacco.core.services.RenderingService;
 
-	private final float value;
-	private final float degrees;
+public abstract class Loader {
+
+	public abstract EntityService loadEntityService();
+	public abstract GameService loadGameService();
+	public abstract RenderingService loadRenderingService();
 	
-	public Angle(float value) {
-		this.value = value;
-		this.degrees = (180f / (float) Math.PI) * value;
-	}
-
-	public float getValue() {
-		return value;
-	}
-
-	public float getDegrees() {
-		return degrees;
-	}
-
-	public Angle normalize() {
-		float nvalue = (float) (value % (2f * Math.PI));
-		if(nvalue < 0) nvalue += 2f * Math.PI;
-		return new Angle(nvalue);
+	public void load() {
+		Directory.setEntityService(loadEntityService());
+		Directory.setGameService(loadGameService());
+		Directory.setRenderingService(loadRenderingService());
 	}
 
 }

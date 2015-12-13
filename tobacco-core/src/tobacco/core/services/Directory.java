@@ -1,16 +1,15 @@
 package tobacco.core.services;
 
-import tobacco.core.entities.DefaultEntityService;
-
 /**
  * Directory of services provided by the engine.
  * @author nirei
  */
 public final class Directory {
 
-	private static DebuggingService debugging = new NullDebuggingService();
-	private static GameService game = new DefaultGameService();
-	private static EntityService entities = new DefaultEntityService();
+	private static DebuggingService debugging;
+	private static GameService game;
+	private static EntityService entities;
+	private static RenderingService rendering;
 	
 	private Directory() {}
 
@@ -36,5 +35,13 @@ public final class Directory {
 	
 	public static void setEntityService(EntityService entities) {
 		Directory.entities = entities;
+	}
+	
+	public static RenderingService getRenderingService() {
+		return rendering;
+	}
+	
+	public static void setRenderingService(RenderingService rendering) {
+		Directory.rendering = rendering;
 	}
 }

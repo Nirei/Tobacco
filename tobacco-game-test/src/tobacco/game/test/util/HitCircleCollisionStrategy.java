@@ -24,8 +24,8 @@ import tobacco.core.collision.CollisionStrategy;
 import tobacco.core.components.Component;
 import tobacco.core.components.PositionComponent;
 import tobacco.core.components.SolidityComponent;
+import tobacco.core.datatypes.GVector2D;
 import tobacco.core.entities.Entity;
-import tobacco.core.util.Vector2D;
 
 /**
  * Simple collision strategy using hit circles.
@@ -45,11 +45,11 @@ public class HitCircleCollisionStrategy implements CollisionStrategy {
 
 	@Override
 	public boolean collides(Entity e1, Entity e2) {
-		Vector2D pos1 = ((PositionComponent) e1.get(Component.POSITION_C)).getPosition();
-		Vector2D pos2 = ((PositionComponent) e2.get(Component.POSITION_C)).getPosition();
+		GVector2D pos1 = ((PositionComponent) e1.get(Component.POSITION_C)).getPosition();
+		GVector2D pos2 = ((PositionComponent) e2.get(Component.POSITION_C)).getPosition();
 		float rad1 = ((SolidityComponent) e1.get(Component.SOLIDITY_C)).getRadius();
 		float rad2 = ((SolidityComponent) e1.get(Component.SOLIDITY_C)).getRadius();
-		float centerDist = Vector2D.minus(pos1, pos2).module();
+		float centerDist = GVector2D.minus(pos1, pos2).module();
 
 		return centerDist < rad1 + rad2;
 	}

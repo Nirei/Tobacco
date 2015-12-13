@@ -21,22 +21,22 @@
 package tobacco.render.pc.components;
 
 import tobacco.core.components.Type;
-import tobacco.core.util.Vector2D;
+import tobacco.core.datatypes.GVector2D;
 
 public class MouseComponent implements RendererComponent {
 
-	private Vector2D position = Vector2D.ZERO;
+	private GVector2D position = GVector2D.ZERO;
 
 	@Override
 	public Type getComponentType() {
 		return MOUSE_C;
 	}
 
-	public void setPosition(Vector2D position) {
+	public void setPosition(GVector2D position) {
 		this.position = position;
 	}
 
-	public Vector2D getPosition() {
+	public GVector2D getPosition() {
 		return position;
 	}
 

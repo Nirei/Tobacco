@@ -3,10 +3,10 @@ package tobacco.core.components;
 public class AnimationComponent implements Component {
 	
 	private long period;
+	private long startTime = System.currentTimeMillis();
 	private boolean loop = true;
 	private boolean playing = true;
 	private int frame = 0;
-	private long startTime = System.currentTimeMillis();
 	private int startFrame;
 	
 	/**

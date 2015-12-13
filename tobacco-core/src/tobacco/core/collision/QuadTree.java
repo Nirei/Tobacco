@@ -23,7 +23,8 @@ package tobacco.core.collision;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import tobacco.core.util.Vector2D;
+
+import tobacco.core.datatypes.GVector2D;
 
 public class QuadTree<T> {
 	
@@ -35,19 +36,19 @@ public class QuadTree<T> {
 			NE = 3; // 	1	1
 	
 	private final int nodeSize, maxDepth;
-	private Vector2D center, halfSides;
+	private GVector2D center, halfSides;
 	
 	private class Element {
 
-		private Vector2D point;
+		private GVector2D point;
 		private T element;
 		
-		public Element(Vector2D point, T element) {
+		public Element(GVector2D point, T element) {
 			this.point = point;
 			this.element = element;
 		}
 		
-		public Vector2D getPoint() {
+		public GVector2D getPoint() {
 			return point; 
 		}
 		
@@ -66,20 +67,20 @@ public class QuadTree<T> {
 		// Number of elements, if -1, it has children
 		private int fill = 0;
 		private final int depth;
-		private Vector2D center;
-		private Vector2D halfSides;
+		private GVector2D center;
+		private GVector2D halfSides;
 
 		private List<Element> elements = new ArrayList<Element>(nodeSize);
 		@SuppressWarnings("unchecked")
 		private Node<K> children[] = new Node[4];
 		
-		private Node(Vector2D center, Vector2D halfSides, int depth) {
+		private Node(GVector2D center, GVector2D halfSides, int depth) {
 			this.center = center;
 			this.halfSides = halfSides;
 			this.depth = depth;
 		}
 		
-		public Node(Vector2D center, Vector2D halfSides) {
+		public Node(GVector2D center, GVector2D halfSides) {
 			this(center, halfSides, 0);
 		}
 
@@ -92,17 +93,17 @@ public class QuadTree<T> {
 		}
 
 		private void subdivide() {
-			Vector2D hS = halfSides.scale(.5f);
+			GVector2D hS = halfSides.scale(.5f);
 			float hSx = hS.getX(), hSy = hS.getY();
 			int childDepth = depth + 1;
 			
 			// Set fill to -1 to indicate non-leaf node
 			fill = -1;
 			
-			Vector2D centerSW = Vector2D.sum(center, new Vector2D(-hSx, -hSy));
-			Vector2D centerSE = Vector2D.sum(center, new Vector2D(hSx, -hSy));
-			Vector2D centerNW = Vector2D.sum(center, new Vector2D(-hSx, hSy));
-			Vector2D centerNE = Vector2D.sum(center, new Vector2D(hSx, hSy));
+			GVector2D centerSW = GVector2D.sum(center, new GVector2D(-hSx, -hSy));
+			GVector2D centerSE = GVector2D.sum(center, new GVector2D(hSx, -hSy));
+			GVector2D centerNW = GVector2D.sum(center, new GVector2D(-hSx, hSy));
+			GVector2D centerNE = GVector2D.sum(center, new GVector2D(hSx, hSy));
 			
 			children[SW] = new Node<K>(centerSW, hS, childDepth);
 			children[SE] = new Node<K>(centerSE, hS, childDepth);
@@ -120,7 +121,7 @@ public class QuadTree<T> {
 		}
 		
 		public boolean insert(Element element) {
-			Vector2D point = element.getPoint();
+			GVector2D point = element.getPoint();
 			// We check if the point is inside the area, corners inclusive.
 			// This means something might get inserted in more than one leaf.
 			if(!(point.getX() >= center.getX() - halfSides.getX() &&
@@ -150,7 +151,7 @@ public class QuadTree<T> {
 			}
 		}
 		
-		public List<T> query(Vector2D point) {
+		public List<T> query(GVector2D point) {
 			// Recursion end condition
 			if(!hasChildren()) {
 				List<T> found = new ArrayList<T>();
@@ -184,7 +185,7 @@ public class QuadTree<T> {
 
 	private Node<T> root;
 
-	public QuadTree(Vector2D center, Vector2D halfSides, int nodeSize, int maxDepth) {
+	public QuadTree(GVector2D center, GVector2D halfSides, int nodeSize, int maxDepth) {
 		root = new Node<T>(center, halfSides);
 		this.nodeSize = nodeSize;
 		this.maxDepth = maxDepth;
@@ -192,12 +193,12 @@ public class QuadTree<T> {
 		this.halfSides = halfSides;
 	}
 	
-	public void insert(T elem, Vector2D pos) {
+	public void insert(T elem, GVector2D pos) {
 		// Insert returns false if inserted element is out of tree range.
 		root.insert(new Element(pos, elem));
 	}
 
-	public List<T> query(Vector2D point) {
+	public List<T> query(GVector2D point) {
 		return root.query(point);
 	}
 

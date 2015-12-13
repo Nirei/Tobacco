@@ -20,40 +20,31 @@
 */
 package tobacco.core.components;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
 import java.util.Iterator;
-import java.util.Map;
-
+import java.util.LinkedList;
+import java.util.List;
 import tobacco.core.entities.Entity;
 
 public class ContainerComponent implements Component, Iterable<Entity> {
 
-	private Map<Long, Entity> children = new HashMap<Long, Entity>();
+	private List<Entity> children = new LinkedList<Entity>();
 
 	@Override
 	public Iterator<Entity> iterator() {
-		ArrayList<Entity> copy;
 		synchronized (children) {
-			copy = new ArrayList<Entity>(children.values());
+			return new LinkedList<Entity>(children).iterator();
 		}
-		return copy.iterator();
 	}
 
 	public void addChild(Entity child) {
 		synchronized (children) {
-			children.put(child.getID(), child);
+			children.add(child);
 		}
 	}
 
-	public Collection<Entity> getChildren() {
-		return children.values();
-	}
-
-	public void delChildren(long id) {
+	public void delChildren(Entity e) {
 		synchronized (children) {
-			children.remove(id);
+			children.remove(e);
 		}
 	}
 

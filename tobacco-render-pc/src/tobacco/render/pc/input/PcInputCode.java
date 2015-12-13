@@ -20,12 +20,14 @@
 */
 package tobacco.render.pc.input;
 
-import tobacco.core.util.InputCode;
-
 import com.jogamp.newt.event.KeyEvent;
 
+import tobacco.core.util.InputCode;
+
 public enum PcInputCode implements InputCode {
-	MOUSE_LEFT(-1), MOUSE_CENTER(-2), MOUSE_RIGHT(-3),
+	MOUSE_LEFT(-1),
+	MOUSE_CENTER(-2),
+	MOUSE_RIGHT(-3),
 
 	UNKNOWN(0),
 	

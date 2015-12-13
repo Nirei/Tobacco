@@ -43,7 +43,7 @@ public class EntityRemovalSystem extends AbstractTreeSystem {
 		}
 
 		ContainerComponent siblings = (ContainerComponent) parent.get(Component.CONTAINER_C);
-		siblings.delChildren(entity.getID());
+		siblings.delChildren(entity);
 		Directory.getEntityService().remove(entity);
 	}
 

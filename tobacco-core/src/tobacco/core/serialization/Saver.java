@@ -18,28 +18,19 @@
 *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 *
 */
-package tobacco.core.util;
+package tobacco.core.serialization;
 
-import tobacco.core.datatypes.GVector2D;
+import tobacco.core.services.Directory;
+import tobacco.core.services.EntityService;
+import tobacco.core.services.GameService;
 
-public class Line2D {
+public abstract class Saver {
 
-	private final GVector2D a, b;
+	public abstract void saveEntityService(EntityService entServ);
+	public abstract void saveGameService(GameService gameServ);
 	
-	public Line2D(GVector2D a, GVector2D b) {
-		this.a = a;
-		this.b = b;
-	}
-	
-	public GVector2D getA() {
-		return a;
-	}
-	
-	public GVector2D getB() {
-		return b;
-	}
-	
-	public float length() {
-		return GVector2D.minus(a, b).module();
+	public void save() {
+		saveEntityService(Directory.getEntityService());
+		saveGameService(Directory.getGameService());
 	}
 }

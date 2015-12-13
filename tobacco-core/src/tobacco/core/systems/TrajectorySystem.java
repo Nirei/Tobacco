@@ -27,8 +27,8 @@ import tobacco.core.components.MovementComponent;
 import tobacco.core.components.PositionComponent;
 import tobacco.core.components.TrajectoryComponent;
 import tobacco.core.components.Type;
+import tobacco.core.datatypes.GVector2D;
 import tobacco.core.entities.Entity;
-import tobacco.core.util.Vector2D;
 
 /**
  * Handles movement of things with trajectories!
@@ -53,20 +53,20 @@ public class TrajectorySystem extends AbstractListSystem {
 			TrajectoryComponent trajComp = (TrajectoryComponent) entity.get(Component.TRAJECTORY_C);
 
 			int step = trajComp.getStep();
-			List<Vector2D> waypoints = trajComp.getWaypoints();
+			List<GVector2D> waypoints = trajComp.getWaypoints();
 			if(step < waypoints.size()) {				
 				PositionComponent posComp = (PositionComponent) entity.get(Component.POSITION_C);
 				MovementComponent movComp = (MovementComponent) entity.get(Component.MOVEMENT_C);
 
-				Vector2D pos = posComp.getPosition();
-				Vector2D dest = waypoints.get(step);
-				Vector2D mov = Vector2D.minus(dest, pos);
+				GVector2D pos = posComp.getPosition();
+				GVector2D dest = waypoints.get(step);
+				GVector2D mov = GVector2D.minus(dest, pos);
 
 				if(pos.isNear(dest, 2f)) {
 						trajComp.setStep(++step);
 					if(step >= waypoints.size()) {
 						if(trajComp.isLoop()) trajComp.setStep(0);
-						else mov = Vector2D.ZERO;
+						else mov = GVector2D.ZERO;
 					}
 				}
 				

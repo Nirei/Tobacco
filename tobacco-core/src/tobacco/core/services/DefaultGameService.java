@@ -45,7 +45,7 @@ public class DefaultGameService implements GameService {
 			public void run() {
 				boolean run = true;
 				while (run) {
-					Directory.getGameService().getMainSystem().work();
+					getMainSystem().work();
 					try {
 						Thread.sleep(5);
 					} catch (InterruptedException e) {

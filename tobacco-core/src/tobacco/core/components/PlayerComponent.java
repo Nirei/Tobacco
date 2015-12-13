@@ -24,12 +24,12 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
+import tobacco.core.datatypes.GInputEvent;
 import tobacco.core.util.Command;
-import tobacco.core.util.InputEvent;
 
-public class PlayerComponent implements Component, Iterable<InputEvent> {
+public class PlayerComponent implements Component, Iterable<GInputEvent> {
 
-	private Map<InputEvent, Command> actionMap = new HashMap<InputEvent, Command>();
+	private Map<GInputEvent, Command> actionMap = new HashMap<GInputEvent, Command>();
 
 	@Override
 	public Type getComponentType() {
@@ -41,20 +41,20 @@ public class PlayerComponent implements Component, Iterable<InputEvent> {
 		return "Player: " + actionMap.keySet().toString();
 	}
 
-	public void put(InputEvent key, Command value) {
+	public void put(GInputEvent key, Command value) {
 		actionMap.put(key, value);
 	}
 
-	public Command get(InputEvent key) {
+	public Command get(GInputEvent key) {
 		return actionMap.get(key);
 	}
 
-	public boolean contains(InputEvent key) {
+	public boolean contains(GInputEvent key) {
 		return actionMap.containsKey(key);
 	}
 
 	@Override
-	public Iterator<InputEvent> iterator() {
+	public Iterator<GInputEvent> iterator() {
 		return actionMap.keySet().iterator();
 	}
 }

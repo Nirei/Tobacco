@@ -30,10 +30,10 @@ import tobacco.core.components.SizeComponent;
 import tobacco.core.components.SolidityComponent;
 import tobacco.core.components.TextureComponent;
 import tobacco.core.components.Type;
+import tobacco.core.datatypes.GVector2D;
 import tobacco.core.entities.Entity;
 import tobacco.core.services.Directory;
 import tobacco.core.systems.AbstractListSystem;
-import tobacco.core.util.Vector2D;
 import tobacco.game.test.components.BulletComponent;
 import tobacco.game.test.components.BulletDataComponent;
 import tobacco.game.test.components.DamageComponent;
@@ -55,12 +55,12 @@ public class GunSystem extends AbstractListSystem {
 		super(requiredComponents);
 	}
 	
-	private Entity createBullet(Vector2D pos, Entity bullet, TeamComponent team) {
+	private Entity createBullet(GVector2D pos, Entity bullet, TeamComponent team) {
 		// TODO: Exception if bullet is missing necessary components
 		BulletDataComponent bComp = (BulletDataComponent) bullet.get(GameComponent.BULLET_DATA_C);
 		TextureComponent textureComp = (TextureComponent) bullet.get(GameComponent.TEXTURE_C);
-		Vector2D size = ((SizeComponent) bullet.get(GameComponent.SIZE_C)).getSize();
-		Vector2D dir = ((DirectionComponent) bullet.get(GameComponent.DIRECTION_C)).getDirection();
+		GVector2D size = ((SizeComponent) bullet.get(GameComponent.SIZE_C)).getSize();
+		GVector2D dir = ((DirectionComponent) bullet.get(GameComponent.DIRECTION_C)).getDirection();
 		float rotation = 0f;
 		if(bullet.has(GameComponent.ROTATION_C))
 			rotation = ((RotationComponent) bullet.get(GameComponent.ROTATION_C)).getRotation();
@@ -74,7 +74,7 @@ public class GunSystem extends AbstractListSystem {
 		entity.add(new DamageComponent(damage));
 		entity.add(new PositionComponent(pos));
 		entity.add(new MovementComponent(dir, bComp.getBulletSpeed()));
-		entity.add(new RotationComponent(rotation + Vector2D.angle(Vector2D.VERTICAL, dir).getDegrees()));
+		entity.add(new RotationComponent(rotation + GVector2D.angle(GVector2D.VERTICAL, dir).getDegrees()));
 //		entity.add(new DebuggingComponent());
 		entity.add(new DurationComponent(10000));
 		entity.add(new SolidityComponent(10f));
