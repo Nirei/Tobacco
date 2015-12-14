@@ -2,12 +2,17 @@ package tobacco.core.components;
 
 public class AnimationComponent implements Component {
 	
-	private long period;
+	private long period = 0;
 	private long startTime = System.currentTimeMillis();
 	private boolean loop = true;
 	private boolean playing = true;
 	private int frame = 0;
-	private int startFrame;
+	private int startFrame = 0;
+	
+	/**
+	 * Creates an animation component
+	 */
+	public AnimationComponent() {}
 	
 	/**
 	 * Creates an animation component.
@@ -47,7 +52,7 @@ public class AnimationComponent implements Component {
 		return period;
 	}
 	
-	public void setPeriod(long period) {
+	public void setPeriod(Long period) {
 		this.period = period;
 	}
 
@@ -55,7 +60,7 @@ public class AnimationComponent implements Component {
 		return loop;
 	}
 
-	public void setLoop(boolean loop) {
+	public void setLoop(Boolean loop) {
 		this.loop = loop;
 	}
 	
@@ -63,7 +68,7 @@ public class AnimationComponent implements Component {
 		return playing;
 	}
 
-	public void setPlaying(boolean playing) {
+	public void setPlaying(Boolean playing) {
 		this.playing = playing;
 	}
 
@@ -71,7 +76,7 @@ public class AnimationComponent implements Component {
 		return frame;
 	}
 
-	public void setFrame(int frame) {
+	public void setFrame(Integer frame) {
 		this.frame = frame;
 	}
 	
@@ -79,7 +84,7 @@ public class AnimationComponent implements Component {
 		return startTime;
 	}
 	
-	public void setStartTime(long frameDelta) {
+	public void setStartTime(Long frameDelta) {
 		this.startTime = frameDelta;
 	}
 
@@ -87,7 +92,7 @@ public class AnimationComponent implements Component {
 		return this.startFrame;
 	}
 
-	public void setStartFrame(int startFrame) {
+	public void setStartFrame(Integer startFrame) {
 		this.startFrame = startFrame;
 	}
 	
@@ -116,5 +121,11 @@ public class AnimationComponent implements Component {
 	public void stop() {
 		setPlaying(false);
 		setStartFrame(0);
+	}
+
+	@Override
+	public String toString() {
+		return "Animation: [period=" + period + ", startTime=" + startTime + ", loop=" + loop + ", playing="
+				+ playing + ", frame=" + frame + ", startFrame=" + startFrame + "]";
 	}
 }

@@ -23,4 +23,9 @@ public class ZIndexComponent implements RendererComponent {
 	public void setZIndex(Integer zIndex) {
 		this.zIndex = zIndex;
 	}
+
+	@Override
+	public String toString() {
+		return "ZIndex: " + zIndex;
+	}
 }

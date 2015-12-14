@@ -33,15 +33,15 @@ public class TintComponent implements Component {
 		return blue;
 	}
 
-	public void setRed(float red) {
+	public void setRed(Float red) {
 		this.red = red;
 	}
 
-	public void setGreen(float green) {
+	public void setGreen(Float green) {
 		this.green = green;
 	}
 
-	public void setBlue(float blue) {
+	public void setBlue(Float blue) {
 		this.blue = blue;
 	}
 	

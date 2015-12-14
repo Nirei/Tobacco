@@ -39,7 +39,7 @@ public class SolidityComponent implements Component {
 		return radius;
 	}
 	
-	public void setRadius(float radius) {
+	public void setRadius(Float radius) {
 		this.radius = radius;
 	}
 	

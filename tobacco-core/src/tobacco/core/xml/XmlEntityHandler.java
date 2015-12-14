@@ -24,6 +24,8 @@ import static tobacco.core.xml.XmlConstants.*;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Stack;
@@ -56,10 +58,10 @@ public class XmlEntityHandler extends DefaultHandler2 {
 	private Class<?> currValueClass;
 	private String currKey;
 	private String currKeyType;
-	private EntityService world = new DefaultEntityService();
+	private EntityService world;
 	private Entity root;
 	
-	private static final Pattern pattern = Pattern.compile("\\{([+-]?[0-9]*\\.[0-9]*|[0-9]*),([+-]?[0-9]*\\.[0-9]*|[0-9]*)\\}");
+	private static final Pattern pattern = Pattern.compile("\\{([+-]?[0-9]*\\.[0-9]*|[0-9]*),\\ ?([+-]?[0-9]*\\.[0-9]*|[0-9]*)\\}");
 	
 	@Override
 	public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {
@@ -67,7 +69,14 @@ public class XmlEntityHandler extends DefaultHandler2 {
 		switch (localName) {
 		case ENTITY_TAG:
 			Entity e = world.create();
-			((ContainerComponent) entStack.peek().get(Component.CONTAINER_C)).addChild(e);;
+			if(root == null) {
+				world.setRoot(e);
+				root = e;
+			} else {
+				Entity parent = entStack.peek();
+				if(!parent.has(Component.CONTAINER_C)) parent.add(new ContainerComponent());
+				((ContainerComponent) parent.get(Component.CONTAINER_C)).addChild(e);;
+			}
 			entStack.push(e);
 			break;
 		case COMPONENT_TAG:
@@ -88,6 +97,7 @@ public class XmlEntityHandler extends DefaultHandler2 {
 			currValueType = attributes.getValue(TYPE_ATTR);
 			currValueClass = classFromType(currValueType);
 			currValueName = attributes.getValue(NAME_ATTR);
+			currList = new LinkedList<Object>();
 			break;
 		case MAP_TAG:
 			currValueType = attributes.getValue(TYPE_ATTR);
@@ -104,10 +114,7 @@ public class XmlEntityHandler extends DefaultHandler2 {
 		case ITEM_TAG:
 			break;
 		case WORLD_TAG:
-			root = world.create();
-			root.add(new ContainerComponent());
-			world.setRoot(root);
-			entStack.push(root);
+			world = new DefaultEntityService();
 			break;
 		default:
 			throw new SAXException("Unrecognized tag: " + localName);
@@ -130,7 +137,9 @@ public class XmlEntityHandler extends DefaultHandler2 {
 			try {
 				String setterName = "set" + Character.toUpperCase(currValueName.charAt(0)) + currValueName.substring(1);
 				Method setter = currCompClass.getMethod(setterName, List.class);
-				setter.invoke(currComp, currList);
+				List<Object> defList = new ArrayList<Object>(currList.size());
+				defList.addAll(currList);
+				setter.invoke(currComp, defList);
 			} catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
 				throw new SAXException(e);
 			} catch (NoSuchMethodException | SecurityException e) {
@@ -171,7 +180,6 @@ public class XmlEntityHandler extends DefaultHandler2 {
 			currList.add(parse(currValueType, content));
 			break;
 		case WORLD_TAG:
-			entStack.pop();
 			break;
 		default:
 			throw new SAXException("Unrecognized tag: " + localName);

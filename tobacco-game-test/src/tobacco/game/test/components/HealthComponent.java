@@ -37,19 +37,15 @@ public class HealthComponent implements GameComponent {
 		return GameComponent.HEALTH_C;
 	}
 
-	public boolean isDead() {
-		return health <= 0f;
-	}
-
 	public float getHealth() {
 		return health;
 	}
 
-	public void setHealth(float health) {
+	public void setHealth(Float health) {
 		this.health = health;
 	}
 	
-	public void hurt(float damage) {
+	public void hurt(Float damage) {
 		health -= damage;
 	}
 	

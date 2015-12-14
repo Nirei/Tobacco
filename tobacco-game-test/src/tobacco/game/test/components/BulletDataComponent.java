@@ -44,7 +44,7 @@ public class BulletDataComponent implements GameComponent {
 		return bulletPeriod;
 	}
 
-	public void setBulletPeriod(long bulletPeriod) {
+	public void setBulletPeriod(Long bulletPeriod) {
 		this.bulletPeriod = bulletPeriod;
 	}
 
@@ -52,7 +52,7 @@ public class BulletDataComponent implements GameComponent {
 		return lastBullet;
 	}
 
-	public void setLastBullet(long lastBullet) {
+	public void setLastBullet(Long lastBullet) {
 		this.lastBullet = lastBullet;
 	}
 
@@ -60,7 +60,7 @@ public class BulletDataComponent implements GameComponent {
 		return bulletSpeed;
 	}
 
-	public void setBulletSpeed(float bulletSpeed) {
+	public void setBulletSpeed(Float bulletSpeed) {
 		this.bulletSpeed = bulletSpeed;
 	}
 

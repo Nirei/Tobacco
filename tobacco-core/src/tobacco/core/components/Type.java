@@ -76,4 +76,9 @@ public final class Type {
 			return false;
 		return true;
 	}
+
+	@Override
+	public String toString() {
+		return "Type [name=" + name + ", implementer=" + implementer + "]";
+	}
 }

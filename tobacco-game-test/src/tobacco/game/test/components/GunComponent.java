@@ -24,15 +24,15 @@ import tobacco.core.components.Type;
 
 public class GunComponent implements GameComponent {
 
-	private boolean shooting;
+	private boolean shooting = false;
 
 	@Override
 	public Type getComponentType() {
 		return GUN_C;
 	}
 
-	public void setShooting(boolean _shooting) {
-		shooting = _shooting;
+	public void setShooting(Boolean shooting) {
+		this.shooting = shooting;
 	}
 
 	public boolean isShooting() {

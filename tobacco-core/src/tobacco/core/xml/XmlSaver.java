@@ -42,7 +42,7 @@ public class XmlSaver extends Saver {
 			Document document = docBuilder.newDocument();
 
 			Element rootElement = document.createElementNS(XML_NS, WORLD_TAG);
-			rootElement.appendChild(XmlAdaptor.entityToElement(document, entServ.getRoot()));
+			rootElement.appendChild(XmlAdaptor.entityToXml(document, entServ.getRoot()));
 			document.appendChild(rootElement);
 			document.normalizeDocument();
 			

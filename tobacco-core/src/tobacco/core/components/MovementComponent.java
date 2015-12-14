@@ -32,32 +32,31 @@ public class MovementComponent implements Component {
 		return MOVEMENT_C;
 	}
 
-	public MovementComponent() {
+	public MovementComponent() {}
+
+	public MovementComponent(Float speed) {
+		this.speed = speed;
 	}
 
-	public MovementComponent(float _speed) {
-		speed = _speed;
-	}
-
-	public MovementComponent(Vector2D _direction, float _speed) {
-		direction = _direction;
-		speed = _speed;
+	public MovementComponent(Vector2D direction, float speed) {
+		this.direction = direction;
+		this.speed = speed;
 	}
 
 	public float getSpeed() {
 		return speed;
 	}
 
-	public void setSpeed(float _speed) {
-		speed = _speed;
+	public void setSpeed(Float speed) {
+		this.speed = speed;
 	}
 
 	public Vector2D getDirection() {
 		return direction;
 	}
 
-	public void setDirection(Vector2D _direction) {
-		direction = _direction;
+	public void setDirection(Vector2D direction) {
+		this.direction = direction;
 	}
 
 	public String toString() {

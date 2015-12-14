@@ -9,4 +9,9 @@ public class EnemyComponent implements GameComponent {
 		return GameComponent.ENEMY_C;
 	}
 
+	@Override
+	public String toString() {
+		return "Enemy";
+	}
+
 }

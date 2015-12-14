@@ -20,42 +20,42 @@
 */
 package tobacco.core.components;
 
-import tobacco.core.util.List;
+import java.util.List;
+
+import tobacco.core.util.ContentClass;
 import tobacco.core.util.Vector2D;
 
 public class TrajectoryComponent implements Component {
 
 	private int step = 0;
-	private boolean loop;
+	private boolean loop = false;
 	private List<Vector2D> waypoints;
 	
-	public TrajectoryComponent(java.util.List<Vector2D> waypoints) {
+	public TrajectoryComponent() {}
+	
+	public TrajectoryComponent(List<Vector2D> waypoints) {
 		setWaypoints(waypoints);
 	}
 	
-	public TrajectoryComponent(java.util.List<Vector2D> waypoints, boolean loop) {
+	public TrajectoryComponent(List<Vector2D> waypoints, boolean loop) {
 		setWaypoints(waypoints);
 		this.loop = loop;
 	}
 	
+	@ContentClass(Vector2D.class)
 	public List<Vector2D> getWaypoints() {
 		return waypoints;
 	}
 	
-	public void setWaypoints(java.util.List<Vector2D> waypoints) {
-		try {
-			this.waypoints = new List<Vector2D>(Vector2D.class, waypoints);
-		} catch (Exception e) {
-			//TODO: Log this
-			e.printStackTrace();
-		}
+	public void setWaypoints(List<Vector2D> waypoints) {
+		this.waypoints = waypoints;
 	}
 
 	public int getStep() {
 		return step;
 	}
 
-	public void setStep(int step) {
+	public void setStep(Integer step) {
 		this.step = step;
 	}
 
@@ -63,7 +63,7 @@ public class TrajectoryComponent implements Component {
 		return loop;
 	}
 
-	public void setLoop(boolean loop) {
+	public void setLoop(Boolean loop) {
 		this.loop = loop;
 	}
 

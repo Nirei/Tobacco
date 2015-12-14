@@ -1,8 +1,6 @@
 package tobacco.core.xml;
 
 import java.io.IOException;
-import java.net.URL;
-
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
@@ -18,12 +16,12 @@ import tobacco.core.services.RenderingService;
 
 public class XmlLoader extends Loader {
 	
-	private URL systems;
-	private URL entities;
+	private String systems;
+	private String entities;
 	
 	public XmlLoader(String systems, String entities) {
-		this.systems = XmlLoader.class.getResource(systems);
-		this.entities = XmlLoader.class.getResource(entities);
+		this.systems = systems;
+		this.entities = entities;
 	}
 
 	@Override
@@ -37,7 +35,7 @@ public class XmlLoader extends Loader {
 			saxParser = spf.newSAXParser();			
 			XMLReader xmlReader = saxParser.getXMLReader();
 			xmlReader.setContentHandler(entityHandler);
-			xmlReader.parse(new InputSource(entities.openStream()));
+			xmlReader.parse(new InputSource(entities));
 		} catch (ParserConfigurationException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

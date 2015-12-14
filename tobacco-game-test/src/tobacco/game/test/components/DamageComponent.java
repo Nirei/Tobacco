@@ -21,7 +21,7 @@ public class DamageComponent implements GameComponent {
 		return damage;
 	}
 
-	public void setDamage(float damage) {
+	public void setDamage(Float damage) {
 		this.damage = damage;
 	}
 

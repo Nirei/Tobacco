@@ -21,9 +21,8 @@
 package tobacco.game.test.main;
 
 import tobacco.core.serialization.Loader;
-import tobacco.core.serialization.Saver;
 import tobacco.core.services.Directory;
-import tobacco.core.xml.XmlSaver;
+import tobacco.core.xml.XmlLoader;
 import tobacco.game.test.loader.ManualLoader;
 
 public class Main {
@@ -34,8 +33,10 @@ public class Main {
 		// initialization must be done in order for Type to
 		// gather all the available component information.
 		try {
-			Class.forName("tobacco.render.pc.components.RendererComponent",true,ClassLoader.getSystemClassLoader());
-			Class.forName("tobacco.game.test.components.GameComponent",true,ClassLoader.getSystemClassLoader());
+			ClassLoader systemCL = ClassLoader.getSystemClassLoader();
+			Class.forName("tobacco.core.components.Component",true,systemCL);
+			Class.forName("tobacco.render.pc.components.RendererComponent",true,systemCL);
+			Class.forName("tobacco.game.test.components.GameComponent",true,systemCL);
 		} catch (ClassNotFoundException e) {
 			System.err.println("Coulnd't load components");
 			System.exit(1);
@@ -43,16 +44,17 @@ public class Main {
 	}
 
 	public static void main(String[] args) {
-		
+		// TODO: Substitute all unnecessary lists for arrays.
+
 		Loader manLoader = new ManualLoader();
-		//Loader xmlLoader = new XmlLoader("","/tobacco/game/test/data/world.xml");
-		Saver xmlSaver = new XmlSaver("", "output.xml");
-		Directory.setEntityService(manLoader.loadEntityService());
-		//Directory.setGameService(manLoader.loadGameService());
-		manLoader.load();
-		//Directory.getGameService().start();
-		//Directory.getRenderingService().start();
-		xmlSaver.saveEntityService(Directory.getEntityService());
-		// Directory.getGameService().start();
+		Loader xmlLoader = new XmlLoader("","output.xml");
+		//Saver xmlSaver = new XmlSaver("", "output.xml");
+		Directory.setEntityService(xmlLoader.loadEntityService());
+		Directory.setGameService(manLoader.loadGameService());
+		Directory.setRenderingService(manLoader.loadRenderingService());
+		//manLoader.load();
+		Directory.getGameService().start();
+		Directory.getRenderingService().start();
+		//xmlSaver.saveEntityService(Directory.getEntityService());
 	}
 }

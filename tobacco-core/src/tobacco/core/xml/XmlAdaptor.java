@@ -1,23 +1,10 @@
 package tobacco.core.xml;
 
-import static tobacco.core.xml.XmlConstants.XML_NS;
+import static tobacco.core.xml.XmlConstants.*;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-
-import static tobacco.core.xml.XmlConstants.BOOL_TYPE;
-import static tobacco.core.xml.XmlConstants.COMPONENT_TAG;
-import static tobacco.core.xml.XmlConstants.ENTITY_TAG;
-import static tobacco.core.xml.XmlConstants.FLOAT_TYPE;
-import static tobacco.core.xml.XmlConstants.INT_TYPE;
-import static tobacco.core.xml.XmlConstants.ITEM_TAG;
-import static tobacco.core.xml.XmlConstants.LIST_TAG;
-import static tobacco.core.xml.XmlConstants.LONG_TYPE;
-import static tobacco.core.xml.XmlConstants.NAME_ATTR;
-import static tobacco.core.xml.XmlConstants.STRING_TYPE;
-import static tobacco.core.xml.XmlConstants.TYPE_ATTR;
-import static tobacco.core.xml.XmlConstants.VALUE_TAG;
-import static tobacco.core.xml.XmlConstants.VECTOR_TYPE;
+import java.util.List;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -26,66 +13,71 @@ import tobacco.core.components.Component;
 import tobacco.core.components.ContainerComponent;
 import tobacco.core.components.Type;
 import tobacco.core.entities.Entity;
-import tobacco.core.util.List;
+import tobacco.core.util.ContentClass;
 
 public final class XmlAdaptor {
 
-	private XmlAdaptor() {}
-	
-	public static Element entityToElement(Document d, Entity e) throws XmlSerializationException {
+	private XmlAdaptor() {
+	}
+
+	public static Element entityToXml(Document d, Entity e) throws XmlSerializationException {
 		Element elem = d.createElementNS(XML_NS, ENTITY_TAG);
-		for(Component c : e.components())
-			if(c.getComponentType().equals(Component.CONTAINER_C)) {
-				for(Entity child : (ContainerComponent) c)
-					elem.appendChild(entityToElement(d, child));
+		for (Component c : e.components())
+			if (c.getComponentType().equals(Component.CONTAINER_C)) {
+				for (Entity child : (ContainerComponent) c)
+					elem.appendChild(entityToXml(d, child));
 			} else
 				elem.appendChild(componentToXml(d, c));
-		return elem;	
+		return elem;
 	}
-	
-	@SuppressWarnings("unchecked")
+
 	public static Element componentToXml(Document d, Component c) throws XmlSerializationException {
-		Element elem = d.createElementNS(XML_NS,COMPONENT_TAG);
+		Element elem = d.createElementNS(XML_NS, COMPONENT_TAG);
+		
 		Type cType = c.getComponentType();
 		elem.setAttribute(TYPE_ATTR, cType.getName());
-		Class <?> impl = (Class<?>) cType.getImplementer();
+		Class<?> impl = (Class<?>) cType.getImplementer();
 		Method[] methods = impl.getDeclaredMethods();
-		for(int i=0; i<methods.length; i++) {
-			if(isDataGetter(methods[i])) {
-				String name = methods[i].getName().substring(3).toLowerCase();
+		
+		for (int i = 0; i < methods.length; i++) {
+			if (isDataGetter(methods[i])) {
+				String mName = methods[i].getName();
+				// Strip of get/is part of name
+				String attrName = mName.startsWith("get") ? mName.substring(3) : mName.substring(2);
+				String name = Character.toLowerCase(attrName.charAt(0)) + attrName.substring(1);
 				Object val;
 				try {
 					val = methods[i].invoke(c);
-				} catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
-					throw new XmlSerializationException(e,c);
-				}
-				Class<?> retClass = methods[i].getReturnType();
-				if(retClass.getSimpleName().equals("List")) {
-					elem.appendChild(listToXml(d, name, (tobacco.core.util.List<Object>) val));
-//				} else if (retClass.getSimpleName().equals("Map")) {
-//					//elem.appendChild(mapToElement(d,val,retClass));
-				} else
-					try {
+					Class<?> retClass = methods[i].getReturnType();
+					if (retClass.getSimpleName().equals("List")) {
+						Class<?> contentClass = methods[i].getAnnotation(ContentClass.class).value();
+						elem.appendChild(listToXml(d, name, (List<?>) val, contentClass));
+						// } else if (retClass.getSimpleName().equals("Map")) {
+						// elem.appendChild(mapToElement(d,val,retClass));
+					} else
 						elem.appendChild(valueToXml(d, name, val, retClass));
-					} catch (XmlSerializationException e) {
-						throw new XmlSerializationException(e, c);
-					}
+				} catch (XmlSerializationException e) {
+					throw new XmlSerializationException(e, c);
+				} catch (NullPointerException | IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
+					throw new XmlSerializationException(e, c);
+				}
 			}
 		}
 		return elem;
 	}
-	
-	public static Element listToXml(Document d, String name, List<Object> l) throws XmlSerializationException {
+
+	public static Element listToXml(Document d, String name, List<?> list, Class<?> contentClass)
+			throws XmlSerializationException {
 		Element elem = d.createElementNS(XML_NS, LIST_TAG);
-		elem.setAttribute(TYPE_ATTR, classToValueType(l.getContentClass()));
+		elem.setAttribute(TYPE_ATTR, classToValueType(contentClass));
 		elem.setAttribute(NAME_ATTR, name);
-		for(Object o : l) {
+		for (Object o : list) {
 			elem.appendChild(itemToXml(d, o));
 		}
-		
+
 		return elem;
 	}
-	
+
 	public static Element valueToXml(Document d, String name, Object v, Class<?> c) throws XmlSerializationException {
 		Element elem = d.createElementNS(XML_NS, VALUE_TAG);
 		elem.setAttribute(TYPE_ATTR, classToValueType(c));
@@ -93,7 +85,7 @@ public final class XmlAdaptor {
 		elem.setTextContent(v.toString());
 		return elem;
 	}
-	
+
 	public static Element itemToXml(Document d, Object v) throws XmlSerializationException {
 		Element elem = d.createElementNS(XML_NS, ITEM_TAG);
 		elem.setTextContent(v.toString());
@@ -102,17 +94,17 @@ public final class XmlAdaptor {
 
 	private static String classToValueType(Class<?> c) throws XmlSerializationException {
 		switch (c.getSimpleName()) {
-		case "bool":
+		case "boolean":
 		case "Boolean":
 			return BOOL_TYPE;
 		case "float":
 		case "Float":
 			return FLOAT_TYPE;
-		case "Integer":
 		case "int":
+		case "Integer":
 			return INT_TYPE;
-		case "Long":
 		case "long":
+		case "Long":
 			return LONG_TYPE;
 		case "String":
 			return STRING_TYPE;
@@ -123,11 +115,15 @@ public final class XmlAdaptor {
 		}
 	}
 
-	private static boolean isDataGetter(Method method){
-		if(method.getName().equals("getComponentType")) return false;
-		if(!method.getName().startsWith("get")) return false;
-		if(method.getParameterTypes().length != 0) return false;  
-		if(void.class.equals(method.getReturnType())) return false;
+	private static boolean isDataGetter(Method method) {
+		if (method.getName().equals("getComponentType"))
+			return false;
+		if (!(method.getName().startsWith("get") || method.getName().startsWith("is")))
+			return false;
+		if (method.getParameterTypes().length != 0)
+			return false;
+		if (void.class.equals(method.getReturnType()))
+			return false;
 		return true;
 	}
 }

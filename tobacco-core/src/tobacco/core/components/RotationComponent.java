@@ -26,8 +26,8 @@ public class RotationComponent implements Component {
 
 	public RotationComponent() {}
 	
-	public RotationComponent(float _rotation) {
-		rotation = _rotation;
+	public RotationComponent(float rotation) {
+		this.rotation = rotation;
 	}
 
 	@Override
@@ -39,8 +39,8 @@ public class RotationComponent implements Component {
 		return rotation;
 	}
 
-	public void setRotation(float _rotation) {
-		rotation = _rotation;
+	public void setRotation(Float rotation) {
+		this.rotation = rotation;
 	}
 
 	@Override
