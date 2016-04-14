@@ -31,7 +31,13 @@ public class ContainerComponent implements Component, Iterable<Entity> {
 	@Override
 	public Iterator<Entity> iterator() {
 		synchronized (children) {
-			return new LinkedList<Entity>(children).iterator();
+			return children().iterator();
+		}
+	}
+	
+	public List<Entity> children() {
+		synchronized (children) {
+			return new LinkedList<Entity>(children);
 		}
 	}
 

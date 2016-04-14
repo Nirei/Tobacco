@@ -48,7 +48,7 @@ public class PlayerMovementBindingSystem extends AbstractTypedSystem {
 	}
 
 	@Override
-	public void process(Entity entity) {
+	public void process(Entity entity, long delta) {
 		if(qualifies(entity)) {
 			PositionComponent posComp = (PositionComponent) entity.get(GameComponent.POSITION_C);
 			SizeComponent sizeComp = (SizeComponent) entity.get(GameComponent.SIZE_C);
@@ -77,7 +77,7 @@ public class PlayerMovementBindingSystem extends AbstractTypedSystem {
 
 	@Override
 	public void setUp() {
-		// Big warning: We're assuming the screen is always
+		// FIXME Big warning: We're assuming the screen is always
 		// centered around (0,0).
 		Entity root = Directory.getEntityService().getRoot();
 		ScreenComponent scrComp = (ScreenComponent) root.get(GameComponent.SCREEN_C);

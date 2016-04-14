@@ -28,8 +28,6 @@ import tobacco.core.entities.Entity;
 public class TimerSystem extends AbstractListSystem {
 
 	private static final Type[] requiredComponents = { Component.DURATION_C };
-	private long lastCall = System.currentTimeMillis();
-	private long delta;
 	
 	public TimerSystem() {
 		super(requiredComponents);
@@ -49,14 +47,10 @@ public class TimerSystem extends AbstractListSystem {
 	}
 
 	@Override
-	public void setUp() {
-		long now = System.currentTimeMillis();
-		delta = now - lastCall;
-		lastCall = now;
-	}
+	public void setUp() {}
 
 	@Override
-	public void process(Entity entity) {
+	public void process(Entity entity, long delta) {
 		if(qualifies(entity)) {
 			checkDuration(entity, delta);
 		}

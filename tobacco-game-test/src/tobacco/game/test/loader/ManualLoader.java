@@ -30,12 +30,14 @@ import tobacco.core.entities.Entity;
 import tobacco.core.serialization.Loader;
 import tobacco.core.services.GameService;
 import tobacco.core.services.RenderingService;
+import tobacco.core.services.ConfigurationService;
 import tobacco.core.services.DefaultGameService;
 import tobacco.core.services.Directory;
 import tobacco.core.services.EntityService;
 import tobacco.core.systems.AnimationSystem;
 import tobacco.core.systems.CollisionDetectionSystem;
 import tobacco.core.systems.CollisionHandlerSystem;
+import tobacco.core.systems.EngineSystem;
 import tobacco.core.systems.EntityRemovalSystem;
 import tobacco.core.systems.MovementSystem;
 import tobacco.core.systems.InputSystem;
@@ -43,8 +45,6 @@ import tobacco.core.systems.MovementResetSystem;
 import tobacco.core.systems.TimerSystem;
 import tobacco.core.systems.TrajectorySystem;
 import tobacco.core.systems.debugging.InfoSystem;
-import tobacco.core.systems.main.AbstractMainSystem;
-import tobacco.core.systems.main.SerialMainSystem;
 import tobacco.core.util.Vector2D;
 import tobacco.game.test.collisions.BulletRemovalCollisionHandler;
 import tobacco.game.test.collisions.DamageCollisionHandler;
@@ -66,6 +66,9 @@ import tobacco.render.pc.renderers.NewtGLEventListener;
 
 import static tobacco.render.pc.input.PcInputCode.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class ManualLoader extends Loader {
 	
 	@Override
@@ -81,7 +84,7 @@ public class ManualLoader extends Loader {
 
 	@Override
 	public GameService loadGameService() {
-		AbstractMainSystem main = new SerialMainSystem();
+		List<EngineSystem> systems = new ArrayList<>();
 		
 		// Set up collision handling
 		CollisionHandlerSystem colHandlerSys = new CollisionHandlerSystem();
@@ -89,23 +92,23 @@ public class ManualLoader extends Loader {
 		colHandlerSys.addHandler(new BulletRemovalCollisionHandler());
 		
 		// Load systems
-		main.add(new InfoSystem());
-		main.add(new TrajectorySystem());
-		main.add(new MovementSystem());
-		main.add(new PlayerMovementBindingSystem());
-		main.add(new MovementResetSystem());
-		main.add(new CollisionDetectionSystem(HitCircleCollisionStrategy.getSingleton()));
-		main.add(colHandlerSys);
-		main.add(new EnemyControlSystem());
-		main.add(new GunSystem());
-		main.add(new HealthSystem());
-		main.add(new TimerSystem());
-		main.add(new EntityRemovalSystem());
-		main.add(new InputSystem());
-		main.add(new AnimationSystem());
+		systems.add(new InfoSystem());
+		systems.add(new TrajectorySystem());
+		systems.add(new MovementSystem());
+		systems.add(new PlayerMovementBindingSystem());
+		systems.add(new MovementResetSystem());
+		systems.add(new CollisionDetectionSystem(HitCircleCollisionStrategy.getSingleton()));
+		systems.add(colHandlerSys);
+		systems.add(new EnemyControlSystem());
+		systems.add(new GunSystem());
+		systems.add(new HealthSystem());
+		systems.add(new TimerSystem());
+		systems.add(new EntityRemovalSystem());
+		systems.add(new InputSystem());
+		systems.add(new AnimationSystem());
 
 		GameService gameServ = new DefaultGameService();
-		gameServ.setMainSystem(main);
+		gameServ.setSystems(systems);
 		
 		return gameServ;
 	}
@@ -142,5 +145,11 @@ public class ManualLoader extends Loader {
 		rootContainer.addChild(background);
 
 		return eServ;
+	}
+
+	@Override
+	public ConfigurationService loadConfigurationService() {
+		// TODO Apéndice de método generado automáticamente
+		return null;
 	}
 }

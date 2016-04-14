@@ -34,7 +34,7 @@ public class AnimationSystem extends AbstractListSystem {
 	}
 
 	@Override
-	public void process(Entity entity) {
+	public void process(Entity entity, long delta) {
 		if(qualifies(entity)) {
 			AnimationComponent animationComp = (AnimationComponent) entity.get(Component.ANIMATION_C);
 			TextureComponent textureComp = (TextureComponent) entity.get(Component.TEXTURE_C);

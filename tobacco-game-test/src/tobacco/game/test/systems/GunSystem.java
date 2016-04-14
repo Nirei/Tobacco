@@ -79,12 +79,15 @@ public class GunSystem extends AbstractListSystem {
 		entity.add(new SolidityComponent(10f));
 		entity.add(new ZIndexComponent(zIndex));
 		entity.add(new BulletComponent());
-
+		
+		// add it to root
+		Entity root = Directory.getEntityService().getRoot();
+		((ContainerComponent) root.get(GameComponent.CONTAINER_C)).addChild(entity);
 		return entity;
 	}
 
 	@Override
-	public void process(Entity entity) {
+	public void process(Entity entity, long milliseconds) {
 		if (qualifies(entity)) {
 			PositionComponent posComp = (PositionComponent) entity.get(Component.POSITION_C);
 			ContainerComponent children = (ContainerComponent) entity.get(Component.CONTAINER_C);

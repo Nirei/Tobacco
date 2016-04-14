@@ -42,7 +42,7 @@ public class MovementResetSystem extends AbstractTypedSystem {
 	}
 
 	@Override
-	public void process(Entity entity) {
+	public void process(Entity entity, long delta) {
 		if (qualifies(entity)) {
 			MovementComponent movComp = (MovementComponent) entity.get(Component.MOVEMENT_C);
 			movComp.setDirection(Vector2D.ZERO);

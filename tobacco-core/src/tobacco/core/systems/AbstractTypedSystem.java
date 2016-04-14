@@ -47,18 +47,12 @@ public abstract class AbstractTypedSystem extends AbstractEntitySystem {
 		this.type = type;
 	}
 	
-	/**
-	 * Defines what this system does to Entities
-	 * 
-	 * @param entity
-	 *            - Current Entity being processed
-	 */
-	public abstract void process(Entity entity);
+	public abstract void process(Entity e, long delta);
 
 	@Override
-	public void traverse() {
+	public void traverse(long milliseconds) {
 		for(Entity e : Directory.getEntityService().findAll(type)) {
-			process(e);
+			process(e, milliseconds);
 		}
 	}
 

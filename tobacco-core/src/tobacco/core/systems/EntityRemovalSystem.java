@@ -47,7 +47,7 @@ public class EntityRemovalSystem extends AbstractTreeSystem {
 	}
 
 	@Override
-	public Object process(Entity entity, Object data) {
+	public Object process(Entity entity, Object data, long delta) {
 		if (qualifies(entity)) {
 			if (data != null) {
 				removeEntity(entity, (Entity) data);

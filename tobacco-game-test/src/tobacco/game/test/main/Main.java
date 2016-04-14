@@ -19,9 +19,23 @@
  *******************************************************************************/
 package tobacco.game.test.main;
 
+import static tobacco.render.pc.input.PcInputCode.KEY_DOWN;
+import static tobacco.render.pc.input.PcInputCode.KEY_ESCAPE;
+import static tobacco.render.pc.input.PcInputCode.KEY_LEFT;
+import static tobacco.render.pc.input.PcInputCode.KEY_RIGHT;
+import static tobacco.render.pc.input.PcInputCode.KEY_SHIFT;
+import static tobacco.render.pc.input.PcInputCode.KEY_UP;
+import static tobacco.render.pc.input.PcInputCode.KEY_X;
+import static tobacco.render.pc.input.PcInputCode.KEY_Z;
+
+import tobacco.core.components.ContainerComponent;
+import tobacco.core.components.TextureComponent;
 import tobacco.core.serialization.Loader;
 import tobacco.core.services.Directory;
+import tobacco.core.util.Vector2D;
 import tobacco.core.xml.XmlLoader;
+import tobacco.game.test.components.GameComponent;
+import tobacco.game.test.entities.PlayerEntityFactory;
 import tobacco.game.test.loader.ManualLoader;
 
 public class Main {
@@ -46,12 +60,19 @@ public class Main {
 		// TODO: Substitute all unnecessary lists for arrays.
 
 		Loader manLoader = new ManualLoader();
-		Loader xmlLoader = new XmlLoader("","output.xml");
-		//Saver xmlSaver = new XmlSaver("", "output.xml");
+		Loader xmlLoader = new XmlLoader("","levels/testing.xml", "config/game.properties");
+		//Saver xmlSaver = new XmlSaver("", FIXME"levels/output.xml");
 		Directory.setEntityService(xmlLoader.loadEntityService());
 		Directory.setGameService(manLoader.loadGameService());
 		Directory.setRenderingService(manLoader.loadRenderingService());
-		//manLoader.load();
+		
+		// Create the player
+		TextureComponent playerTexture = new TextureComponent("textures/reimusprite.png", 128, 48, 4, 1, 4);
+		PlayerEntityFactory pef = new PlayerEntityFactory(Directory.getEntityService(), playerTexture, new Vector2D(30, 44));
+		pef.setMovementKeys(KEY_UP, KEY_DOWN, KEY_LEFT, KEY_RIGHT);
+		pef.setActionKeys(KEY_Z, KEY_X, KEY_SHIFT, KEY_ESCAPE);
+		((ContainerComponent) Directory.getEntityService().getRoot().get(GameComponent.CONTAINER_C)).addChild(pef.create());
+		
 		Directory.getGameService().start();
 		Directory.getRenderingService().start();
 		//xmlSaver.saveEntityService(Directory.getEntityService());

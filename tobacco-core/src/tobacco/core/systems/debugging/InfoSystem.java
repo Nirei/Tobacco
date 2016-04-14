@@ -19,66 +19,32 @@
  *******************************************************************************/
 package tobacco.core.systems.debugging;
 
-import javax.swing.JFrame;
-import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
-
 import tobacco.core.components.Component;
 import tobacco.core.components.Type;
 import tobacco.core.entities.Entity;
-import tobacco.core.services.Directory;
 import tobacco.core.systems.AbstractTreeSystem;
 
 public class InfoSystem extends AbstractTreeSystem {
 
 	private static final Type[] requiredComponents = { Component.DEBUGGING_C };
-	private StringBuilder sb;
-	private JFrame entityWindow = new JFrame();
-	private JTextArea ta = new JTextArea();
-	private JScrollPane entityScroll = new JScrollPane(ta);
+	private EntityWindow entWin = new EntityWindow("Entities");
 
 	public InfoSystem() {
 		super(requiredComponents);
 		
-		entityWindow.setBounds(500, 60, 800, 400);
-		entityWindow.setTitle("Entities");
-		entityWindow.add(entityScroll);
-		entityWindow.setVisible(true);
-		
+		entWin.setVisible(true);
 	}
 
 	@Override
-	public Object process(Entity entity, Object data) {
-		String str = (String) data;
-		if (str == null)
-			str = "";
-
-		if (qualifies(entity)) {
-			sb.append(str + entity + " {\n");
-			for (Component c : entity.components())
-				if (c.getComponentType() != Component.DEBUGGING_C)
-					sb.append(str + "\t" + c + "\n");
-			sb.append(str + "}\n");
-		}
-
-		return str + "\t";
+	public Object process(Entity entity, Object data, long delta) {
+		return null;
 	}
 
 	@Override
 	public void setUp() {
-		if(getTicks() % 100 == 0) {
-			enable(true);
-			sb = new StringBuilder();
-			sb.append("Tick: " + getTicks() + " ---\n");
-			sb.append(Directory.getEntityService().getEntityList() + "\n");
-		} else {
-			enable(false);
-		}
 	}
 
 	@Override
 	public void tearDown() {
-		if(isEnabled())
-			ta.setText(sb.toString());
 	}
 }

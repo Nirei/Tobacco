@@ -68,7 +68,7 @@ public class CollisionDetectionSystem extends AbstractListSystem {
 	}
 
 	@Override
-	public void process(Entity entity) {
+	public void process(Entity entity, long delta) {
 		if(qualifies(entity)) {
 			Vector2D pos = ((PositionComponent) entity.get(Component.POSITION_C)).getPosition();
 			for(Entity e : cqt.query(pos)) {				

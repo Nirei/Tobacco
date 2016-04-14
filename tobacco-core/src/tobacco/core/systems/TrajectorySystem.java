@@ -47,7 +47,7 @@ public class TrajectorySystem extends AbstractListSystem {
 	}
 
 	@Override
-	public void process(Entity entity) {
+	public void process(Entity entity, long delta) {
 		if (qualifies(entity)) {
 			TrajectoryComponent trajComp = (TrajectoryComponent) entity.get(Component.TRAJECTORY_C);
 

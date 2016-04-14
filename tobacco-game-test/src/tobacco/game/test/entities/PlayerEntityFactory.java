@@ -28,6 +28,7 @@ import tobacco.core.components.Component;
 import tobacco.core.components.ContainerComponent;
 import tobacco.core.components.DebuggingComponent;
 import tobacco.core.components.MovementComponent;
+import tobacco.core.components.NameComponent;
 import tobacco.core.components.PlayerComponent;
 import tobacco.core.components.PositionComponent;
 import tobacco.core.components.SizeComponent;
@@ -35,6 +36,7 @@ import tobacco.core.components.SolidityComponent;
 import tobacco.core.components.TextureComponent;
 import tobacco.core.entities.Entity;
 import tobacco.core.entities.EntityFactory;
+import tobacco.core.services.Directory;
 import tobacco.core.services.EntityService;
 import tobacco.core.util.Command;
 import tobacco.core.util.InputEvent;
@@ -68,7 +70,7 @@ public class PlayerEntityFactory extends EntityFactory {
 		this.texture = texture;
 		this.size = size;
 		
-		TextureComponent bulletTexture = new TextureComponent("/tobacco/game/test/textures/reimubullet.png", 52, 12);
+		TextureComponent bulletTexture = new TextureComponent("textures/reimubullet.png", 52, 12);
 		bef = new BulletEntityFactory(entServ, bulletTexture, new Vector2D(52f, 12f), new Vector2D(-1f, 5f), 150, 2000f, 50f, 90f);
 
 	}
@@ -94,19 +96,22 @@ public class PlayerEntityFactory extends EntityFactory {
 		player.add(new AnimationComponent(125));
 		player.add(new SizeComponent(size));
 		player.add(new PositionComponent(new Vector2D(0f, -200f)));
+		player.add(new NameComponent("player"));
 
 		PlayerComponent playerComp = new PlayerComponent();
 		Command up = moveCommand(0, 1);
 		Command down = moveCommand(0, -1);
 		Command left = moveCommand(-1, 0);
 		Command right = moveCommand(1, 0);
-		Command suicide = (rootEntity, entity) -> ((HealthComponent) entity.get(GameComponent.HEALTH_C)).setHealth(0f);
+		Command pause = (rootEntity, entity) -> {
+			((HealthComponent) entity.get(GameComponent.HEALTH_C)).setHealth(0f);
+		};
 
 		playerComp.put(new InputEvent(keyUp, TYPE_HOLD), up);
 		playerComp.put(new InputEvent(keyDown, TYPE_HOLD), down);
 		playerComp.put(new InputEvent(keyLeft, TYPE_HOLD), left);
 		playerComp.put(new InputEvent(keyRight, TYPE_HOLD), right);
-		playerComp.put(new InputEvent(keyMenu, TYPE_RELEASE), suicide);
+		playerComp.put(new InputEvent(keyMenu, TYPE_RELEASE), pause);
 
 		playerComp.put(new InputEvent(keyShoot, TYPE_PRESS),
 				(rootEntity, entity) -> ((GunComponent) entity.get(GameComponent.GUN_C)).setShooting(true));

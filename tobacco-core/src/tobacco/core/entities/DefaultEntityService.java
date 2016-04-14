@@ -26,6 +26,8 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Collectors;
 
+import tobacco.core.components.Component;
+import tobacco.core.components.ContainerComponent;
 import tobacco.core.components.Type;
 import tobacco.core.services.EntityService;
 
@@ -53,13 +55,18 @@ public class DefaultEntityService implements EntityService {
 		return new ArrayList<Entity>(entities.values());
 	}
 
-	/**
-	 * Creates a new Entity.
-	 */
 	@Override
 	public Entity create() {
 		Entity created = new Entity();
 		entities.put(created.getID(), created);
+		return created;
+	}
+	
+	@Override
+	public Entity createInRoot() {
+		Entity created = new Entity();
+		entities.put(created.getID(), created);
+		((ContainerComponent) root.get(Component.CONTAINER_C)).addChild(created);
 		return created;
 	}
 

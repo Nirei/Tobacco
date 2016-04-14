@@ -19,36 +19,37 @@
  *******************************************************************************/
 package tobacco.core.services;
 
-import tobacco.core.systems.main.AbstractMainSystem;
+import java.util.ArrayList;
+import java.util.List;
+
+import tobacco.core.systems.EngineSystem;
 
 public class DefaultGameService implements GameService {
 
-	private AbstractMainSystem main = null;
 	private Thread gameThread = null;
-
-	@Override
-	public AbstractMainSystem getMainSystem() {
-		return main;
-	}
-
-	@Override
-	public void setMainSystem(AbstractMainSystem main) {
-		this.main = main;
-	}
+	private List<EngineSystem> systems;
 
 	@Override
 	public synchronized void start() {
 		gameThread = new Thread(new Runnable() {
 			
+			long lastCall = System.currentTimeMillis();
+
 			@Override
 			public void run() {
-				boolean run = true;
-				while (run) {
-					getMainSystem().work();
+				while (true) {
+					
+					long now = System.currentTimeMillis();
+					long delta = now - lastCall;
+					lastCall = now;
+					
+					for(EngineSystem s : systems) {
+						s.work(delta);
+					}
 					try {
 						Thread.sleep(5);
 					} catch (InterruptedException e) {
-						run = false;
+						// TODO SO WHAT
 					}
 				}
 			}
@@ -58,7 +59,24 @@ public class DefaultGameService implements GameService {
 	}
 
 	@Override
-	public void stop() {
-		gameThread.interrupt();
+	public List<EngineSystem> getSystems() {
+		return new ArrayList<EngineSystem>(systems);
+	}
+
+	@Override
+	public void setSystems(List<EngineSystem> systems) {
+		this.systems = systems;
+	}
+
+	@Override
+	public void pause() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void resume() {
+		// TODO Auto-generated method stub
+		
 	}
 }

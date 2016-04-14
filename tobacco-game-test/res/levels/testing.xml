@@ -1,0 +1,454 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<world xmlns="tobacco">
+  <entity>
+    <component type="KEYMAP_C"/>
+    <component type="SCREEN_C">
+      <value name="screenSize" type="vector">{480.0, 640.0}</value>
+    </component>
+    <component type="NAME_C">
+    	<value name="name" type="string">root</value>
+    </component>
+    <entity>
+      <component type="NAME_C">
+        <value name="name" type="string">fairy-1</value>
+      </component>
+      <component type="TEAM_C">
+        <value name="team" type="string">ENEMY</value>
+      </component>
+      <component type="SOLIDITY_C">
+        <value name="radius" type="float">10.0</value>
+      </component>
+      <component type="TRAJECTORY_C">
+        <value name="loop" type="bool">true</value>
+        <list name="waypoints" type="vector">
+          <item>{20.0, 200.0}</item>
+          <item>{29.0, 208.55}</item>
+          <item>{38.0, 216.2}</item>
+          <item>{47.000004, 222.95001}</item>
+          <item>{56.0, 228.8}</item>
+          <item>{65.0, 233.75}</item>
+          <item>{74.0, 237.80002}</item>
+          <item>{82.99999, 240.95001}</item>
+          <item>{92.0, 243.20001}</item>
+          <item>{101.0, 244.54999}</item>
+          <item>{110.0, 245.0}</item>
+          <item>{119.0, 244.54999}</item>
+          <item>{128.00002, 243.20001}</item>
+          <item>{137.0, 240.95}</item>
+          <item>{146.0, 237.8}</item>
+          <item>{155.0, 233.75}</item>
+          <item>{164.0, 228.8}</item>
+          <item>{173.0, 222.95001}</item>
+          <item>{182.0, 216.2}</item>
+          <item>{191.0, 208.54999}</item>
+          <item>{200.0, 200.0}</item>
+          <item>{208.55, 191.0}</item>
+          <item>{216.2, 181.99998}</item>
+          <item>{222.95001, 173.0}</item>
+          <item>{228.8, 164.00002}</item>
+          <item>{233.75, 155.0}</item>
+          <item>{237.80002, 146.0}</item>
+          <item>{240.95001, 137.0}</item>
+          <item>{243.20001, 128.0}</item>
+          <item>{244.54999, 119.0}</item>
+          <item>{245.0, 110.0}</item>
+          <item>{244.54999, 101.0}</item>
+          <item>{243.20001, 92.0}</item>
+          <item>{240.95, 83.0}</item>
+          <item>{237.8, 74.00001}</item>
+          <item>{233.75, 65.0}</item>
+          <item>{228.8, 56.00001}</item>
+          <item>{222.95001, 47.000008}</item>
+          <item>{216.2, 38.000004}</item>
+          <item>{208.54999, 28.999992}</item>
+          <item>{200.0, 20.0}</item>
+          <item>{191.0, 11.449999}</item>
+          <item>{181.99998, 3.8000004}</item>
+          <item>{173.0, -2.9500017}</item>
+          <item>{164.00002, -8.799999}</item>
+          <item>{155.0, -13.75}</item>
+          <item>{146.0, -17.800003}</item>
+          <item>{137.0, -20.95}</item>
+          <item>{128.0, -23.199999}</item>
+          <item>{119.0, -24.55}</item>
+          <item>{110.0, -25.0}</item>
+          <item>{101.0, -24.550001}</item>
+          <item>{92.0, -23.2}</item>
+          <item>{83.0, -20.949999}</item>
+          <item>{74.00001, -17.800001}</item>
+          <item>{65.0, -13.75}</item>
+          <item>{56.00001, -8.799995}</item>
+          <item>{47.000008, -2.9499989}</item>
+          <item>{38.000004, 3.7999942}</item>
+          <item>{28.999992, 11.449998}</item>
+          <item>{20.0, 20.0}</item>
+          <item>{11.449999, 29.0}</item>
+          <item>{3.8000004, 38.0}</item>
+          <item>{-2.9500017, 47.000004}</item>
+          <item>{-8.799999, 56.0}</item>
+          <item>{-13.75, 65.0}</item>
+          <item>{-17.800003, 74.0}</item>
+          <item>{-20.95, 82.99999}</item>
+          <item>{-23.199999, 92.0}</item>
+          <item>{-24.55, 101.0}</item>
+          <item>{-25.0, 110.0}</item>
+          <item>{-24.550001, 119.0}</item>
+          <item>{-23.2, 128.00002}</item>
+          <item>{-20.949999, 137.0}</item>
+          <item>{-17.800001, 146.0}</item>
+          <item>{-13.75, 155.0}</item>
+          <item>{-8.799995, 164.0}</item>
+          <item>{-2.9499989, 173.0}</item>
+          <item>{3.7999942, 182.0}</item>
+          <item>{11.449998, 191.0}</item>
+        </list>
+        <value name="step" type="int">0</value>
+      </component>
+      <component type="TEXTURE_C">
+        <value name="imagePath" type="string">textures/fairy_blue.png</value>
+        <value name="width" type="int">26</value>
+        <value name="height" type="int">28</value>
+        <value name="columns" type="int">1</value>
+        <value name="rows" type="int">1</value>
+        <value name="frames" type="int">1</value>
+      </component>
+      <component type="MOVEMENT_C">
+        <value name="speed" type="float">120.0</value>
+        <value name="direction" type="vector">{0.0, 0.0}</value>
+      </component>
+      <component type="DAMAGE_C">
+        <value name="damage" type="float">100.0</value>
+      </component>
+      <component type="DEBUGGING_C"/>
+      <component type="ZINDEX_C">
+        <value name="zIndex" type="int">0</value>
+      </component>
+      <component type="ENEMY_C"/>
+      <component type="GUN_C">
+        <value name="shooting" type="bool">false</value>
+      </component>
+      <component type="SIZE_C">
+        <value name="size" type="vector">{26.0, 28.0}</value>
+      </component>
+      <component type="POSITION_C">
+        <value name="position" type="vector">{20.0, 200.0}</value>
+      </component>
+      <entity>
+        <component type="NAME_C">
+          <value name="name" type="string">fairy-1-bullet</value>
+        </component>
+        <component type="ZINDEX_C">
+          <value name="zIndex" type="int">100</value>
+        </component>
+        <component type="SIZE_C">
+          <value name="size" type="vector">{8.0, 16.0}</value>
+        </component>
+        <component type="BULLET_DATA_C">
+          <value name="lastBullet" type="long">1450059499712</value>
+          <value name="bulletSpeed" type="float">200.0</value>
+          <value name="bulletPeriod" type="long">1000</value>
+        </component>
+        <component type="TEXTURE_C">
+          <value name="imagePath" type="string">textures/fairy_bullet.png</value>
+          <value name="width" type="int">8</value>
+          <value name="height" type="int">16</value>
+          <value name="columns" type="int">1</value>
+          <value name="rows" type="int">1</value>
+          <value name="frames" type="int">1</value>
+        </component>
+        <component type="DIRECTION_C">
+          <value name="direction" type="vector">{0.0, 0.0}</value>
+        </component>
+        <component type="DAMAGE_C">
+          <value name="damage" type="float">50.0</value>
+        </component>
+      </entity>
+      <component type="HEALTH_C">
+        <value name="health" type="float">100.0</value>
+      </component>
+    </entity>
+    <entity>
+      <component type="NAME_C">
+        <value name="name" type="string">fairy-2</value>
+      </component>
+      <component type="TEAM_C">
+        <value name="team" type="string">ENEMY</value>
+      </component>
+      <component type="SOLIDITY_C">
+        <value name="radius" type="float">10.0</value>
+      </component>
+      <component type="TRAJECTORY_C">
+        <value name="loop" type="bool">true</value>
+        <list name="waypoints" type="vector">
+          <item>{-260.0, 320.0}</item>
+          <item>{-232.765, 345.06998}</item>
+          <item>{-203.32, 364.56003}</item>
+          <item>{-172.05501, 378.89}</item>
+          <item>{-139.36002, 388.47998}</item>
+          <item>{-105.625, 393.75}</item>
+          <item>{-71.23999, 395.12}</item>
+          <item>{-36.595016, 393.01}</item>
+          <item>{-2.0800018, 387.84}</item>
+          <item>{31.914993, 380.03}</item>
+          <item>{65.0, 370.0}</item>
+          <item>{96.785, 358.17}</item>
+          <item>{126.880005, 344.96002}</item>
+          <item>{154.89499, 330.78998}</item>
+          <item>{180.43997, 316.08002}</item>
+          <item>{203.125, 301.25}</item>
+          <item>{222.55998, 286.71997}</item>
+          <item>{238.355, 272.90997}</item>
+          <item>{250.12001, 260.24002}</item>
+          <item>{257.46503, 249.13}</item>
+          <item>{260.0, 240.0}</item>
+          <item>{256.22998, 232.57999}</item>
+          <item>{245.44, 226.23999}</item>
+          <item>{228.41, 220.86}</item>
+          <item>{205.92001, 216.32}</item>
+          <item>{178.75, 212.5}</item>
+          <item>{147.68, 209.27998}</item>
+          <item>{113.49002, 206.54}</item>
+          <item>{76.96, 204.16}</item>
+          <item>{38.870003, 202.02}</item>
+          <item>{0.0, 200.0}</item>
+          <item>{-38.870003, 197.98}</item>
+          <item>{-76.96, 195.84}</item>
+          <item>{-113.48999, 193.45999}</item>
+          <item>{-147.67996, 190.72}</item>
+          <item>{-178.75, 187.5}</item>
+          <item>{-205.92001, 183.68}</item>
+          <item>{-228.41, 179.14}</item>
+          <item>{-245.44, 173.76001}</item>
+          <item>{-256.23004, 167.42}</item>
+          <item>{-260.0, 160.0}</item>
+          <item>{-256.22998, 152.58}</item>
+          <item>{-245.44, 146.23999}</item>
+          <item>{-228.41, 140.86}</item>
+          <item>{-205.92001, 136.32}</item>
+          <item>{-178.75, 132.5}</item>
+          <item>{-147.68, 129.28}</item>
+          <item>{-113.49002, 126.54}</item>
+          <item>{-76.96, 124.16}</item>
+          <item>{-38.870003, 122.020004}</item>
+          <item>{0.0, 120.0}</item>
+          <item>{38.870003, 117.979996}</item>
+          <item>{76.96, 115.84}</item>
+          <item>{113.48999, 113.45999}</item>
+          <item>{147.67996, 110.72}</item>
+          <item>{178.75, 107.5}</item>
+          <item>{205.92001, 103.68001}</item>
+          <item>{228.41, 99.14001}</item>
+          <item>{245.44, 93.76001}</item>
+          <item>{256.23004, 87.42}</item>
+          <item>{260.0, 80.0}</item>
+          <item>{256.22998, 72.579994}</item>
+          <item>{245.44, 66.240005}</item>
+          <item>{228.41, 60.86}</item>
+          <item>{205.92001, 56.32}</item>
+          <item>{178.75, 52.5}</item>
+          <item>{147.68, 49.28}</item>
+          <item>{113.49002, 46.54}</item>
+          <item>{76.96, 44.160004}</item>
+          <item>{38.870003, 42.02}</item>
+          <item>{0.0, 40.0}</item>
+          <item>{-38.870003, 37.98}</item>
+          <item>{-76.96, 35.839996}</item>
+          <item>{-113.48999, 33.459995}</item>
+          <item>{-147.67996, 30.72}</item>
+          <item>{-178.75, 27.5}</item>
+          <item>{-205.92001, 23.68001}</item>
+          <item>{-228.41, 19.140005}</item>
+          <item>{-245.44, 13.760004}</item>
+          <item>{-256.23004, 7.4199963}</item>
+          <item>{-260.0, 0.0}</item>
+          <item>{-256.22998, -7.42}</item>
+          <item>{-245.44, -13.76}</item>
+          <item>{-228.41, -19.14}</item>
+          <item>{-205.92001, -23.679998}</item>
+          <item>{-178.75, -27.5}</item>
+          <item>{-147.68, -30.720003}</item>
+          <item>{-113.49002, -33.46}</item>
+          <item>{-76.96, -35.839996}</item>
+          <item>{-38.870003, -37.98}</item>
+          <item>{0.0, -40.0}</item>
+          <item>{38.870003, -42.02}</item>
+          <item>{76.96, -44.160004}</item>
+          <item>{113.48999, -46.540005}</item>
+          <item>{147.67996, -49.28}</item>
+          <item>{178.75, -52.5}</item>
+          <item>{205.92001, -56.31999}</item>
+          <item>{228.41, -60.859993}</item>
+          <item>{245.44, -66.24}</item>
+          <item>{256.23004, -72.58}</item>
+          <item>{260.0, -80.0}</item>
+          <item>{256.22998, -87.42}</item>
+          <item>{245.44, -93.76}</item>
+          <item>{228.41, -99.14}</item>
+          <item>{205.92001, -103.68}</item>
+          <item>{178.75, -107.5}</item>
+          <item>{147.68, -110.72}</item>
+          <item>{113.49002, -113.46}</item>
+          <item>{76.96, -115.84}</item>
+          <item>{38.870003, -117.979996}</item>
+          <item>{0.0, -120.0}</item>
+          <item>{-38.870003, -122.020004}</item>
+          <item>{-76.96, -124.16}</item>
+          <item>{-113.48999, -126.54001}</item>
+          <item>{-147.67996, -129.28}</item>
+          <item>{-178.75, -132.5}</item>
+          <item>{-205.92001, -136.31999}</item>
+          <item>{-228.41, -140.86}</item>
+          <item>{-245.44, -146.23999}</item>
+          <item>{-256.23004, -152.58}</item>
+          <item>{-260.0, -160.0}</item>
+          <item>{-256.22998, -167.42}</item>
+          <item>{-245.44, -173.76001}</item>
+          <item>{-228.41, -179.14}</item>
+          <item>{-205.92001, -183.68}</item>
+          <item>{-178.75, -187.5}</item>
+          <item>{-147.68, -190.72}</item>
+          <item>{-113.49002, -193.45999}</item>
+          <item>{-76.96, -195.84}</item>
+          <item>{-38.870003, -197.98}</item>
+          <item>{0.0, -200.0}</item>
+          <item>{38.870003, -202.02}</item>
+          <item>{76.96, -204.16}</item>
+          <item>{113.48999, -206.54001}</item>
+          <item>{147.67996, -209.28}</item>
+          <item>{178.75, -212.5}</item>
+          <item>{205.92001, -216.31998}</item>
+          <item>{228.41, -220.86}</item>
+          <item>{245.44, -226.23999}</item>
+          <item>{256.23004, -232.58}</item>
+          <item>{260.0, -240.0}</item>
+          <item>{257.465, -249.12999}</item>
+          <item>{250.12, -260.24}</item>
+          <item>{238.355, -272.91}</item>
+          <item>{222.56001, -286.72}</item>
+          <item>{203.125, -301.25}</item>
+          <item>{180.44, -316.08}</item>
+          <item>{154.89502, -330.78998}</item>
+          <item>{126.880005, -344.96002}</item>
+          <item>{96.785, -358.16998}</item>
+          <item>{65.0, -370.0}</item>
+          <item>{31.914993, -380.03}</item>
+          <item>{-2.0800018, -387.84}</item>
+          <item>{-36.595, -393.01}</item>
+          <item>{-71.23997, -395.11996}</item>
+          <item>{-105.625, -393.75}</item>
+          <item>{-139.36, -388.48}</item>
+          <item>{-172.055, -378.89}</item>
+          <item>{-203.31999, -364.56003}</item>
+          <item>{-232.76503, -345.07}</item>
+          <item>{-260.0, -320.0}</item>
+          <item>{-284.69998, -291.42}</item>
+          <item>{-306.8, -261.75998}</item>
+          <item>{-326.3, -231.14}</item>
+          <item>{-343.2, -199.68001}</item>
+          <item>{-357.5, -167.5}</item>
+          <item>{-369.2, -134.71997}</item>
+          <item>{-378.3, -101.46001}</item>
+          <item>{-384.8, -67.84001}</item>
+          <item>{-388.7, -33.979996}</item>
+          <item>{-390.0, 0.0}</item>
+          <item>{-388.7, 33.980003}</item>
+          <item>{-384.8, 67.84001}</item>
+          <item>{-378.3, 101.46}</item>
+          <item>{-369.2, 134.71997}</item>
+          <item>{-357.5, 167.5}</item>
+          <item>{-343.19998, 199.67998}</item>
+          <item>{-326.3, 231.13998}</item>
+          <item>{-306.80002, 261.76}</item>
+          <item>{-284.7, 291.42004}</item>
+        </list>
+        <value name="step" type="int">0</value>
+      </component>
+      <component type="TEXTURE_C">
+        <value name="imagePath" type="string">textures/fairy_blue.png</value>
+        <value name="width" type="int">26</value>
+        <value name="height" type="int">28</value>
+        <value name="columns" type="int">1</value>
+        <value name="rows" type="int">1</value>
+        <value name="frames" type="int">1</value>
+      </component>
+      <component type="MOVEMENT_C">
+        <value name="speed" type="float">120.0</value>
+        <value name="direction" type="vector">{0.0, 0.0}</value>
+      </component>
+      <component type="DAMAGE_C">
+        <value name="damage" type="float">100.0</value>
+      </component>
+      <component type="DEBUGGING_C"/>
+      <component type="ZINDEX_C">
+        <value name="zIndex" type="int">0</value>
+      </component>
+      <component type="ENEMY_C"/>
+      <component type="GUN_C">
+        <value name="shooting" type="bool">false</value>
+      </component>
+      <component type="SIZE_C">
+        <value name="size" type="vector">{26.0, 28.0}</value>
+      </component>
+      <component type="POSITION_C">
+        <value name="position" type="vector">{-260.0, 320.0}</value>
+      </component>
+      <entity>
+        <component type="NAME_C">
+          <value name="name" type="string">fairy-2-bullet</value>
+        </component>
+        <component type="ZINDEX_C">
+          <value name="zIndex" type="int">100</value>
+        </component>
+        <component type="SIZE_C">
+          <value name="size" type="vector">{8.0, 16.0}</value>
+        </component>
+        <component type="BULLET_DATA_C">
+          <value name="lastBullet" type="long">1450059499713</value>
+          <value name="bulletSpeed" type="float">200.0</value>
+          <value name="bulletPeriod" type="long">1000</value>
+        </component>
+        <component type="TEXTURE_C">
+          <value name="imagePath" type="string">textures/fairy_bullet.png</value>
+          <value name="width" type="int">8</value>
+          <value name="height" type="int">16</value>
+          <value name="columns" type="int">1</value>
+          <value name="rows" type="int">1</value>
+          <value name="frames" type="int">1</value>
+        </component>
+        <component type="DIRECTION_C">
+          <value name="direction" type="vector">{0.0, 0.0}</value>
+        </component>
+        <component type="DAMAGE_C">
+          <value name="damage" type="float">50.0</value>
+        </component>
+      </entity>
+      <component type="HEALTH_C">
+        <value name="health" type="float">100.0</value>
+      </component>
+    </entity>
+    <entity>
+      <component type="NAME_C">
+        <value name="name" type="string">background</value>
+      </component>
+      <component type="ZINDEX_C">
+        <value name="zIndex" type="int">-10</value>
+      </component>
+      <component type="POSITION_C">
+        <value name="position" type="vector">{0.0, 0.0}</value>
+      </component>
+      <component type="TEXTURE_C">
+        <value name="imagePath" type="string">textures/bamboo.png</value>
+        <value name="width" type="int">480</value>
+        <value name="height" type="int">640</value>
+        <value name="columns" type="int">1</value>
+        <value name="rows" type="int">1</value>
+        <value name="frames" type="int">1</value>
+      </component>
+      <component type="DEBUGGING_C"/>
+    </entity>
+    <component type="MOUSE_C">
+      <value name="position" type="vector">{0.0, 0.0}</value>
+    </component>
+    <component type="DEBUGGING_C"/>
+  </entity>
+</world>

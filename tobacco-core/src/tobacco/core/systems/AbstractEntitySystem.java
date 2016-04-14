@@ -27,7 +27,7 @@ import tobacco.core.services.Directory;
  * A partial EngineSystem implementation for systems which do stuff with entities
  * @author nirei
  */
-public abstract class AbstractEntitySystem extends AbstractSystem {
+public abstract class AbstractEntitySystem implements EngineSystem {
 	
 	public AbstractEntitySystem(Type[] requiredComponents) {
 		this.requiredComponents = requiredComponents;
@@ -43,26 +43,21 @@ public abstract class AbstractEntitySystem extends AbstractSystem {
 	 */
 	public abstract void setUp();
 
-	// TODO: This calls for Strategy design pattern but it can wait
-	// since I don't think we'll need so much extensibility.
-
 	/**
 	 * Calls process on every entity that requires it.
 	 */
-	public abstract void traverse();
-
+	public abstract void traverse(long milliseconds);
+	
 	/**
 	 * Finalize this system's work.
 	 */
 	public abstract void tearDown();
 
 	@Override
-	public void work() {
+	public void work(long milliseconds) {
 		setUp();
-		if(isEnabled())	traverse();
+		traverse(milliseconds);
 		tearDown();
-		
-		tick();
 	}
 
 	/**

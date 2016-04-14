@@ -29,28 +29,6 @@ public interface EngineSystem {
 	/**
 	 * Do this system's work.
 	 */
-	public void work();
-	
-	/**
-	 * Enable or disable this system. Disabled systems will still call setUp()
-	 * and tearDown() but won't call their traverse() function.
-	 * 
-	 * @param enabled <br />
-	 * <b>true</b> - to enable this system <br />
-	 * <b>false</b> - to disable this system
-	 */
-	public void enable(boolean enabled);
+	public void work(long milliseconds);
 
-	/**
-	 * Returns this system's status.
-	 * @return <b>true</b> - if the system is enabled <br />
-	 * <b>false</b> - otherwise
-	 */
-	public boolean isEnabled();
-	
-	/**
-	 * Returns the number of times this system has been run
-	 * @return number of times this system has been run
-	 */
-	public long getTicks();
 }

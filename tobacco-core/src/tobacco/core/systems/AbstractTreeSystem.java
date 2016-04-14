@@ -44,21 +44,21 @@ public abstract class AbstractTreeSystem extends AbstractEntitySystem {
 	 *            - Recursive data received when calling it from its parent
 	 * @return Data to pass on to its children
 	 */
-	public abstract Object process(Entity entity, Object data);
+	public abstract Object process(Entity entity, Object data, long milliseconds);
 
-	private void processTree(Entity entity, Object data) {
-		data = process(entity, data);
+	private void processTree(Entity entity, Object data, long milliseconds) {
+		data = process(entity, data, milliseconds);
 
 		if (entity.has(Component.CONTAINER_C)) {
 			ContainerComponent ccomp = (ContainerComponent) entity.get(Component.CONTAINER_C);
 			for (Entity e : ccomp) {
-				processTree(e, data);
+				processTree(e, data, milliseconds);
 			}
 		}
 	}
 
 	@Override
-	public void traverse() {
-		processTree(getRoot(), null);
+	public void traverse(long milliseconds) {
+		processTree(getRoot(), null, milliseconds);
 	}
 }

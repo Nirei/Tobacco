@@ -71,7 +71,6 @@ public class BulletEntityFactory extends EntityFactory {
 		comps.add(new ZIndexComponent(100));
 		if(rotation != null) comps.add(new RotationComponent(rotation)); 
 		return super.create(comps);
-		
 	}
 	
 	public Vector2D getDirection() {

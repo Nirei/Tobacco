@@ -34,12 +34,12 @@ import tobacco.core.services.Directory;
  * @author nirei
  *
  */
-public class CollisionHandlerSystem extends AbstractSystem {
+public class CollisionHandlerSystem implements EngineSystem {
 
 	private List<CollisionHandler> handlers = new ArrayList<CollisionHandler>();
 	
 	@Override
-	public void work() {
+	public void work(long milliseconds) {
 		Entity root = Directory.getEntityService().getRoot();
 		CollisionQueueComponent cols = (CollisionQueueComponent) root.get(Component.COLLISIONMAP_C);
 		for(Collision c = cols.poll(); c != null; c = cols.poll()) {
@@ -48,8 +48,6 @@ public class CollisionHandlerSystem extends AbstractSystem {
 				h.handle(c);
 			}
 		}
-		
-		tick();
 	}
 
 	public void addHandler(CollisionHandler handler) {

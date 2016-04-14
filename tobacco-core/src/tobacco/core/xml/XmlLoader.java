@@ -20,6 +20,8 @@
 package tobacco.core.xml;
 
 import java.io.IOException;
+import java.net.URL;
+
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
@@ -29,18 +31,23 @@ import org.xml.sax.SAXException;
 import org.xml.sax.XMLReader;
 
 import tobacco.core.serialization.Loader;
+import tobacco.core.services.ConfigurationService;
+import tobacco.core.services.DefaultConfigurationService;
 import tobacco.core.services.EntityService;
 import tobacco.core.services.GameService;
 import tobacco.core.services.RenderingService;
 
 public class XmlLoader extends Loader {
 	
-	private String systems;
-	private String entities;
+	private URL systems;
+	private URL entities;
+	private URL configuration;
 	
-	public XmlLoader(String systems, String entities) {
-		this.systems = systems;
-		this.entities = entities;
+	public XmlLoader(String systems, String entities, String configuration) {
+		ClassLoader cl = this.getClass().getClassLoader();
+		this.systems = cl.getResource(systems);
+		this.entities = cl.getResource(entities);
+		this.configuration = cl.getResource(configuration);
 	}
 
 	@Override
@@ -54,16 +61,21 @@ public class XmlLoader extends Loader {
 			saxParser = spf.newSAXParser();			
 			XMLReader xmlReader = saxParser.getXMLReader();
 			xmlReader.setContentHandler(entityHandler);
-			xmlReader.parse(new InputSource(entities));
+			xmlReader.parse(new InputSource(this.getClass().getClassLoader().getResourceAsStream("levels/testing.xml")));
+			System.out.println("PARSED: EntityService is " + entityHandler.getWorld());
 		} catch (ParserConfigurationException e) {
 			// TODO Auto-generated catch block
+			System.err.println("THERE WAS AN ERROR LOADING XML FILE");
 			e.printStackTrace();
 		} catch (SAXException e) {
 			// TODO Auto-generated catch block
+			System.err.println("THERE WAS AN ERROR LOADING XML FILE");
 			e.printStackTrace();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
+			System.err.println("THERE WAS AN ERROR LOADING XML FILE");
 			e.printStackTrace();
+		} finally {
 		}
 		return entityHandler.getWorld();
 	}
@@ -77,6 +89,17 @@ public class XmlLoader extends Loader {
 	@Override
 	public RenderingService loadRenderingService() {
 		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public ConfigurationService loadConfigurationService() {
+		try {
+			return new DefaultConfigurationService(configuration);
+		} catch (IOException e) {
+			System.err.println("Unable to load configuration service");
+			e.printStackTrace();
+		}
 		return null;
 	}
 

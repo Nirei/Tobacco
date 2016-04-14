@@ -64,6 +64,12 @@ public interface EntityService {
 	public Entity create();
 	
 	/**
+	 * Creates a new Entity as a children of root.
+	 * @return created {@link Entity}.
+	 */
+	public Entity createInRoot();
+	
+	/**
 	 * Removes this entity from the entity list.
 	 * @param entity - {@link Entity} to remove
 	 */

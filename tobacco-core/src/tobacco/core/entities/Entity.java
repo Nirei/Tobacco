@@ -91,6 +91,10 @@ public final class Entity {
 		return id;
 	}
 
+	/**
+	 * Fetches all components contained in this {@link Entity}.
+	 * @return a {@link List} containing this entity's components.
+	 */
 	public List<Component> components() {
 		return new LinkedList<Component>(components.values());
 	}

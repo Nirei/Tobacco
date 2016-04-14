@@ -31,15 +31,13 @@ public class MovementSystem extends AbstractListSystem {
 	private final static Type[] requiredComponents = {
 		Component.POSITION_C,
 		Component.MOVEMENT_C };
-	private long lastCall = System.currentTimeMillis();
-	private long delta = 0;
 
 	public MovementSystem() {
 		super(requiredComponents);
 	}
 
 	@Override
-	public void process(Entity entity) {
+	public void process(Entity entity, long delta) {
 		if (qualifies(entity)) {
 			PositionComponent posComp;
 
@@ -60,11 +58,7 @@ public class MovementSystem extends AbstractListSystem {
 	}
 
 	@Override
-	public void setUp() {
-		long now = System.currentTimeMillis();
-		delta = now - lastCall;
-		lastCall = now;
-	}
+	public void setUp() {}
 
 	@Override public void tearDown() {}
 

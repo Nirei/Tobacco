@@ -29,6 +29,7 @@ public final class Directory {
 	private static GameService game;
 	private static EntityService entities;
 	private static RenderingService rendering;
+	private static ConfigurationService configuration;
 	
 	private Directory() {}
 
@@ -62,5 +63,13 @@ public final class Directory {
 	
 	public static void setRenderingService(RenderingService rendering) {
 		Directory.rendering = rendering;
+	}
+	
+	public static ConfigurationService getConfigurationService() {
+		return configuration;
+	}
+	
+	public static void setConfigurationService(ConfigurationService configuration) {
+		Directory.configuration = configuration;
 	}
 }

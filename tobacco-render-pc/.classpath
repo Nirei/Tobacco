@@ -1,8 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
 	<classpathentry kind="src" path="src"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/jogamp"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/tobacco-core"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8"/>
+	<classpathentry kind="lib" path="/jogamp/jar/jogl-all.jar" sourcepath="/jogamp/jogl-java-src.zip">
+		<attributes>
+			<attribute name="javadoc_location" value="https://jogamp.org/deployment/jogamp-next/javadoc/jogl/javadoc/"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="/jogamp/jar/gluegen-rt.jar" sourcepath="/jogamp/gluegen-java-src.zip">
+		<attributes>
+			<attribute name="javadoc_location" value="https://jogamp.org/deployment/jogamp-next/javadoc/gluegen/javadoc/"/>
+		</attributes>
+	</classpathentry>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

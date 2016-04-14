@@ -47,7 +47,7 @@ public class InputSystem extends AbstractTypedSystem {
 	}
 
 	@Override
-	public void process(Entity entity) {
+	public void process(Entity entity, long delta) {
 		if (qualifies(entity)) {
 			PlayerComponent playerComp = (PlayerComponent) entity.get(Component.PLAYER_C);
 

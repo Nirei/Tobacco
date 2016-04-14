@@ -19,7 +19,9 @@
  *******************************************************************************/
 package tobacco.core.services;
 
-import tobacco.core.systems.main.AbstractMainSystem;
+import java.util.List;
+
+import tobacco.core.systems.EngineSystem;
 
 /**
  * Provides access to entities and main system
@@ -27,8 +29,9 @@ import tobacco.core.systems.main.AbstractMainSystem;
  */
 public interface GameService {
 
-	public AbstractMainSystem getMainSystem();
-	public void setMainSystem(AbstractMainSystem main);
+	public List<EngineSystem> getSystems();
+	public void setSystems(List<EngineSystem> systems);
 	public void start();
-	public void stop();
+	public void pause();
+	public void resume();
 }

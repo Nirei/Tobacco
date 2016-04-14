@@ -19,6 +19,7 @@
  *******************************************************************************/
 package tobacco.core.serialization;
 
+import tobacco.core.services.ConfigurationService;
 import tobacco.core.services.Directory;
 import tobacco.core.services.EntityService;
 import tobacco.core.services.GameService;
@@ -29,11 +30,13 @@ public abstract class Loader {
 	public abstract EntityService loadEntityService();
 	public abstract GameService loadGameService();
 	public abstract RenderingService loadRenderingService();
+	public abstract ConfigurationService loadConfigurationService();
 	
 	public void load() {
 		Directory.setEntityService(loadEntityService());
 		Directory.setGameService(loadGameService());
 		Directory.setRenderingService(loadRenderingService());
+		Directory.setConfigurationService(loadConfigurationService());
 	}
 
 }

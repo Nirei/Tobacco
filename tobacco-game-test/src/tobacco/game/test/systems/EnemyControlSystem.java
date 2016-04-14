@@ -48,7 +48,7 @@ public class EnemyControlSystem extends AbstractListSystem {
 	}
 
 	@Override
-	public void process(Entity entity) {
+	public void process(Entity entity, long delta) {
 		if(qualifies(entity) && !entity.has(GameComponent.PLAYER_C)) {
 			PositionComponent closestPlayerPos = null;
 			float closestDist = Float.MAX_VALUE;

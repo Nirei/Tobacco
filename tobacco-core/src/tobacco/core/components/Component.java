@@ -34,6 +34,7 @@ public interface Component {
 	public final static Type DURATION_C = new Type("DURATION_C", DurationComponent.class);
 	public final static Type KEYMAP_C = new Type("KEYMAP_C", KeymapComponent.class);
 	public final static Type MOVEMENT_C = new Type("MOVEMENT_C", MovementComponent.class);
+	public final static Type NAME_C = new Type("NAME_C", NameComponent.class);
 	public final static Type PLAYER_C = new Type("PLAYER_C", PlayerComponent.class);
 	public final static Type POSITION_C = new Type("POSITION_C", PositionComponent.class);
 	public final static Type REMOVE_C = new Type("REMOVE_C", RemoveComponent.class);
@@ -45,7 +46,6 @@ public interface Component {
 	public final static Type TEXTURE_C = new Type("TEXTURE_C", TextureComponent.class);
 	public final static Type TINT_C = new Type("TINT_C", TintComponent.class);
 	public final static Type TRAJECTORY_C = new Type("TRAJECTORY_C", TrajectoryComponent.class);
-
 	/**
 	 * Returns this component's name.
 	 * 
