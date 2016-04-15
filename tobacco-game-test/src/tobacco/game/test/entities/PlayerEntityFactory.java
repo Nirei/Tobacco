@@ -26,7 +26,6 @@ import static tobacco.core.util.InputType.TYPE_RELEASE;
 import tobacco.core.components.AnimationComponent;
 import tobacco.core.components.Component;
 import tobacco.core.components.ContainerComponent;
-import tobacco.core.components.DebuggingComponent;
 import tobacco.core.components.MovementComponent;
 import tobacco.core.components.NameComponent;
 import tobacco.core.components.PlayerComponent;
@@ -36,7 +35,6 @@ import tobacco.core.components.SolidityComponent;
 import tobacco.core.components.TextureComponent;
 import tobacco.core.entities.Entity;
 import tobacco.core.entities.EntityFactory;
-import tobacco.core.services.Directory;
 import tobacco.core.services.EntityService;
 import tobacco.core.util.Command;
 import tobacco.core.util.InputEvent;
@@ -91,7 +89,6 @@ public class PlayerEntityFactory extends EntityFactory {
 		Entity player;
 		
 		player = super.create();
-		player.add(new DebuggingComponent());
 		player.add(texture);
 		player.add(new AnimationComponent(125));
 		player.add(new SizeComponent(size));

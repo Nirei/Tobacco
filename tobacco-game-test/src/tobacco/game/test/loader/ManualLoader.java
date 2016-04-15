@@ -20,7 +20,6 @@
 package tobacco.game.test.loader;
 
 import tobacco.core.components.ContainerComponent;
-import tobacco.core.components.DebuggingComponent;
 import tobacco.core.components.KeymapComponent;
 import tobacco.core.components.PositionComponent;
 import tobacco.core.components.ScreenComponent;
@@ -44,7 +43,6 @@ import tobacco.core.systems.InputSystem;
 import tobacco.core.systems.MovementResetSystem;
 import tobacco.core.systems.TimerSystem;
 import tobacco.core.systems.TrajectorySystem;
-import tobacco.core.systems.debugging.InfoSystem;
 import tobacco.core.util.Vector2D;
 import tobacco.game.test.collisions.BulletRemovalCollisionHandler;
 import tobacco.game.test.collisions.DamageCollisionHandler;
@@ -92,7 +90,6 @@ public class ManualLoader extends Loader {
 		colHandlerSys.addHandler(new BulletRemovalCollisionHandler());
 		
 		// Load systems
-		systems.add(new InfoSystem());
 		systems.add(new TrajectorySystem());
 		systems.add(new MovementSystem());
 		systems.add(new PlayerMovementBindingSystem());
@@ -120,7 +117,6 @@ public class ManualLoader extends Loader {
 		Entity root = eServ.create();
 		eServ.setRoot(root);
 		ContainerComponent rootContainer = new ContainerComponent();
-		root.add(new DebuggingComponent());
 		root.add(new ScreenComponent(new Vector2D(480,640)));
 		root.add(new KeymapComponent());
 		root.add(new MouseComponent());
@@ -139,7 +135,6 @@ public class ManualLoader extends Loader {
 		
 		Entity background = eServ.create();
 		background.add(new PositionComponent(Vector2D.ZERO));
-		background.add(new DebuggingComponent());
 		background.add(new TextureComponent("/tobacco/game/test/textures/bamboo.png", 480, 640));
 		background.add(new ZIndexComponent(-10));
 		rootContainer.addChild(background);

@@ -24,7 +24,6 @@ import java.util.List;
 
 import tobacco.core.components.Component;
 import tobacco.core.components.ContainerComponent;
-import tobacco.core.components.DebuggingComponent;
 import tobacco.core.components.SolidityComponent;
 import tobacco.core.components.TextureComponent;
 import tobacco.core.components.MovementComponent;
@@ -85,7 +84,6 @@ public class EnemyEntityFactory extends EntityFactory {
 		comps.add(new DamageComponent(100f));
 		comps.add(new PositionComponent(points[created][0]));
 		comps.add(new MovementComponent(50f));
-		comps.add(new DebuggingComponent());
 		comps.add(new SolidityComponent(10f));
 		comps.add(new HealthComponent(100f));
 		comps.add(new EnemyComponent());

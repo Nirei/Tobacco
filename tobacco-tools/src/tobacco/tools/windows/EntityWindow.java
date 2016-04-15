@@ -1,4 +1,4 @@
-package tobacco.core.systems.debugging;
+package tobacco.tools.windows;
 
 import java.awt.GraphicsConfiguration;
 import java.awt.HeadlessException;
