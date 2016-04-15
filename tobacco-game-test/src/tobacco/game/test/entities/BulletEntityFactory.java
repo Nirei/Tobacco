@@ -28,7 +28,7 @@ import tobacco.core.components.SizeComponent;
 import tobacco.core.components.TextureComponent;
 import tobacco.core.entities.Entity;
 import tobacco.core.entities.EntityFactory;
-import tobacco.core.services.EntityService;
+import tobacco.core.entities.EntityService;
 import tobacco.core.util.Vector2D;
 import tobacco.game.test.components.BulletDataComponent;
 import tobacco.game.test.components.DamageComponent;

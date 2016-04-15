@@ -2,13 +2,18 @@ package tobacco.tools.windows;
 
 import java.awt.GraphicsConfiguration;
 import java.awt.HeadlessException;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.Collections;
 import java.util.Enumeration;
 import java.util.LinkedList;
 import java.util.List;
 
 import javax.swing.JFrame;
+import javax.swing.JScrollPane;
 import javax.swing.JTree;
+import javax.swing.Timer;
+import javax.swing.event.TreeModelEvent;
 import javax.swing.event.TreeModelListener;
 import javax.swing.tree.TreeModel;
 import javax.swing.tree.TreeNode;
@@ -112,11 +117,13 @@ public class EntityWindow extends JFrame {
 		
 	}
 
-	private class EntityTreeModel implements TreeModel {
+	private class EntityTreeModel implements TreeModel, ActionListener {
+		
+		List<TreeModelListener> listeners = new LinkedList<TreeModelListener>();
 		
 		@Override
 		public void addTreeModelListener(TreeModelListener l) {
-			// TODO Auto-generated method stub
+			listeners.add(l);
 		}
 
 		@Override
@@ -146,18 +153,32 @@ public class EntityWindow extends JFrame {
 
 		@Override
 		public void removeTreeModelListener(TreeModelListener l) {
-			// TODO Auto-generated method stub
+			listeners.remove(l);
 		}
 
 		@Override
 		public void valueForPathChanged(TreePath path, Object newValue) {}
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			final Object PATH[] = {getRoot()};
+			for(TreeModelListener l : listeners) {
+				l.treeStructureChanged(new TreeModelEvent(this, PATH));
+			}
+		}
 	}
 	
 	private EntityTreeModel model = new EntityTreeModel();
 	private JTree tree = new JTree(model);
+	private JScrollPane scrollPane;
 	
 	private void setUp() {
-		this.add(tree);
-		this.setBounds(500, 60, 800, 400);
+		scrollPane = new JScrollPane(tree);
+		this.add(scrollPane);
+		//this.add(tree);
+		this.setBounds(500, 60, 800, 600);
+		
+		Timer timer = new Timer(500, model);
+		timer.start();
 	}
 }

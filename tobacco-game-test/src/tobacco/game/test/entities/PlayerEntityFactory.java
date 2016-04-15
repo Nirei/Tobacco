@@ -35,7 +35,10 @@ import tobacco.core.components.SolidityComponent;
 import tobacco.core.components.TextureComponent;
 import tobacco.core.entities.Entity;
 import tobacco.core.entities.EntityFactory;
-import tobacco.core.services.EntityService;
+import tobacco.core.entities.EntityService;
+import tobacco.core.game.GameService;
+import tobacco.core.game.GameState;
+import tobacco.core.services.Directory;
 import tobacco.core.util.Command;
 import tobacco.core.util.InputEvent;
 import tobacco.core.util.Vector2D;
@@ -101,7 +104,11 @@ public class PlayerEntityFactory extends EntityFactory {
 		Command left = moveCommand(-1, 0);
 		Command right = moveCommand(1, 0);
 		Command pause = (rootEntity, entity) -> {
-			((HealthComponent) entity.get(GameComponent.HEALTH_C)).setHealth(0f);
+			GameService gs = Directory.getGameService();
+			if(gs.getState() == GameState.PAUSED)
+				gs.setState(GameState.NORMAL);
+			else if(gs.getState() == GameState.NORMAL)
+				gs.setState(GameState.PAUSED);
 		};
 
 		playerComp.put(new InputEvent(keyUp, TYPE_HOLD), up);

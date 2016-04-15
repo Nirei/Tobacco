@@ -19,9 +19,9 @@
  *******************************************************************************/
 package tobacco.core.serialization;
 
+import tobacco.core.entities.EntityService;
+import tobacco.core.game.GameService;
 import tobacco.core.services.Directory;
-import tobacco.core.services.EntityService;
-import tobacco.core.services.GameService;
 
 public abstract class Saver {
 

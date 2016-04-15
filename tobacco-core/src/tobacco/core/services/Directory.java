@@ -19,6 +19,9 @@
  *******************************************************************************/
 package tobacco.core.services;
 
+import tobacco.core.entities.EntityService;
+import tobacco.core.game.GameService;
+
 /**
  * Directory of services provided by the engine.
  * @author nirei

@@ -19,10 +19,10 @@
  *******************************************************************************/
 package tobacco.core.serialization;
 
+import tobacco.core.entities.EntityService;
+import tobacco.core.game.GameService;
 import tobacco.core.services.ConfigurationService;
 import tobacco.core.services.Directory;
-import tobacco.core.services.EntityService;
-import tobacco.core.services.GameService;
 import tobacco.core.services.RenderingService;
 
 public abstract class Loader {

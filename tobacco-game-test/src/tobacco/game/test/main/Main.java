@@ -28,6 +28,9 @@ import static tobacco.render.pc.input.PcInputCode.KEY_UP;
 import static tobacco.render.pc.input.PcInputCode.KEY_X;
 import static tobacco.render.pc.input.PcInputCode.KEY_Z;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import tobacco.core.components.ContainerComponent;
 import tobacco.core.components.TextureComponent;
 import tobacco.core.serialization.Loader;
@@ -52,7 +55,7 @@ public class Main {
 			Class.forName("tobacco.render.pc.components.RendererComponent",true,systemCL);
 			Class.forName("tobacco.game.test.components.GameComponent",true,systemCL);
 		} catch (ClassNotFoundException e) {
-			System.err.println("Coulnd't load components");
+			Logger.getGlobal().log(Level.SEVERE, "Coulnd't load components");
 			System.exit(1);
 		}
 	}

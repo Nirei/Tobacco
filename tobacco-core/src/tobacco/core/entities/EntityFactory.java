@@ -22,7 +22,6 @@ package tobacco.core.entities;
 import java.util.Collection;
 
 import tobacco.core.components.Component;
-import tobacco.core.services.EntityService;
 
 /**
  * A generic entity factory.

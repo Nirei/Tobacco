@@ -37,9 +37,9 @@ import javax.xml.transform.stream.StreamResult;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
+import tobacco.core.entities.EntityService;
+import tobacco.core.game.GameService;
 import tobacco.core.serialization.Saver;
-import tobacco.core.services.EntityService;
-import tobacco.core.services.GameService;
 
 public class XmlSaver extends Saver {
 

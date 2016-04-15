@@ -17,7 +17,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *******************************************************************************/
-package tobacco.core.services;
+package tobacco.core.game;
 
 import java.util.List;
 
@@ -29,9 +29,8 @@ import tobacco.core.systems.EngineSystem;
  */
 public interface GameService {
 
-	public List<EngineSystem> getSystems();
-	public void setSystems(List<EngineSystem> systems);
 	public void start();
-	public void pause();
-	public void resume();
+	public GameState getState();
+	public void setState(GameState state);
+	void setSystems(GameState state, List<EngineSystem> systems);
 }

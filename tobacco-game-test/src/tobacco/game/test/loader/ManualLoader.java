@@ -26,13 +26,14 @@ import tobacco.core.components.ScreenComponent;
 import tobacco.core.components.TextureComponent;
 import tobacco.core.entities.DefaultEntityService;
 import tobacco.core.entities.Entity;
+import tobacco.core.entities.EntityService;
+import tobacco.core.game.DefaultGameService;
+import tobacco.core.game.GameService;
+import tobacco.core.game.GameState;
 import tobacco.core.serialization.Loader;
-import tobacco.core.services.GameService;
 import tobacco.core.services.RenderingService;
 import tobacco.core.services.ConfigurationService;
-import tobacco.core.services.DefaultGameService;
 import tobacco.core.services.Directory;
-import tobacco.core.services.EntityService;
 import tobacco.core.systems.AnimationSystem;
 import tobacco.core.systems.CollisionDetectionSystem;
 import tobacco.core.systems.CollisionHandlerSystem;
@@ -81,32 +82,50 @@ public class ManualLoader extends Loader {
 	}
 
 	@Override
-	public GameService loadGameService() {
-		List<EngineSystem> systems = new ArrayList<>();
+	public GameService loadGameService() {		
+		GameService gameServ = new DefaultGameService();
 		
 		// Set up collision handling
 		CollisionHandlerSystem colHandlerSys = new CollisionHandlerSystem();
 		colHandlerSys.addHandler(new DamageCollisionHandler());
 		colHandlerSys.addHandler(new BulletRemovalCollisionHandler());
 		
-		// Load systems
-		systems.add(new TrajectorySystem());
-		systems.add(new MovementSystem());
-		systems.add(new PlayerMovementBindingSystem());
-		systems.add(new MovementResetSystem());
-		systems.add(new CollisionDetectionSystem(HitCircleCollisionStrategy.getSingleton()));
-		systems.add(colHandlerSys);
-		systems.add(new EnemyControlSystem());
-		systems.add(new GunSystem());
-		systems.add(new HealthSystem());
-		systems.add(new TimerSystem());
-		systems.add(new EntityRemovalSystem());
-		systems.add(new InputSystem());
-		systems.add(new AnimationSystem());
-
-		GameService gameServ = new DefaultGameService();
-		gameServ.setSystems(systems);
+		// Systems necessary in more than one state
+		InputSystem inputSystem = new InputSystem();
 		
+		// Load NORMAL state systems
+		List<EngineSystem> normalSystems = new ArrayList<>();
+		normalSystems.add(new TrajectorySystem());
+		normalSystems.add(new MovementSystem());
+		normalSystems.add(new PlayerMovementBindingSystem());
+		normalSystems.add(new MovementResetSystem());
+		normalSystems.add(new CollisionDetectionSystem(HitCircleCollisionStrategy.getSingleton()));
+		normalSystems.add(colHandlerSys);
+		normalSystems.add(new EnemyControlSystem());
+		normalSystems.add(new GunSystem());
+		normalSystems.add(new HealthSystem());
+		normalSystems.add(new TimerSystem());
+		normalSystems.add(new EntityRemovalSystem());
+		normalSystems.add(inputSystem);
+		normalSystems.add(new AnimationSystem());
+		
+		gameServ.setSystems(GameState.NORMAL, normalSystems);
+
+		// Load PAUSED state systems
+		List<EngineSystem> pausedSystems = new ArrayList<>();
+		
+		pausedSystems.add(inputSystem);
+		
+		gameServ.setSystems(GameState.PAUSED, pausedSystems);
+		
+		// Load MENU state systems
+		List<EngineSystem> menuSystems = new ArrayList<>();
+
+		menuSystems.add(inputSystem);
+		
+		gameServ.setSystems(GameState.MENU, menuSystems);
+
+		gameServ.setState(GameState.NORMAL);
 		return gameServ;
 	}
 

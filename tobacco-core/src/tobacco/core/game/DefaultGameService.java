@@ -17,9 +17,10 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *******************************************************************************/
-package tobacco.core.services;
+package tobacco.core.game;
 
 import java.util.ArrayList;
+import java.util.EnumMap;
 import java.util.List;
 
 import tobacco.core.systems.EngineSystem;
@@ -27,8 +28,15 @@ import tobacco.core.systems.EngineSystem;
 public class DefaultGameService implements GameService {
 
 	private Thread gameThread = null;
-	private List<EngineSystem> systems;
+	private GameState state = GameState.LOAD;
+	private EnumMap<GameState, List<EngineSystem>> stateSystems = new EnumMap<GameState, List<EngineSystem>>(GameState.class);
 
+	public DefaultGameService() {
+		List<EngineSystem> empty = new ArrayList<EngineSystem>(0);
+		for(GameState gs : GameState.values())
+			stateSystems.put(gs, empty);
+	}
+	
 	@Override
 	public synchronized void start() {
 		gameThread = new Thread(new Runnable() {
@@ -42,8 +50,13 @@ public class DefaultGameService implements GameService {
 					long now = System.currentTimeMillis();
 					long delta = now - lastCall;
 					lastCall = now;
+					GameState currentState;
 					
-					for(EngineSystem s : systems) {
+					synchronized (state) {
+						currentState = state;
+					}
+					
+					for(EngineSystem s : stateSystems.get(currentState)) {
 						s.work(delta);
 					}
 					try {
@@ -59,24 +72,23 @@ public class DefaultGameService implements GameService {
 	}
 
 	@Override
-	public List<EngineSystem> getSystems() {
-		return new ArrayList<EngineSystem>(systems);
+	public void setSystems(GameState state, List<EngineSystem> systems) {
+		if(systems == null) throw new NullPointerException("Systems list cannot be null");
+		this.stateSystems.put(state, systems);
 	}
 
 	@Override
-	public void setSystems(List<EngineSystem> systems) {
-		this.systems = systems;
+	public GameState getState() {
+		synchronized (state) {
+			return state;
+		}
 	}
 
 	@Override
-	public void pause() {
-		// TODO Auto-generated method stub
-		
+	public void setState(GameState state) {
+		synchronized (state) {
+			this.state = state;
+		}	
 	}
 
-	@Override
-	public void resume() {
-		// TODO Auto-generated method stub
-		
-	}
 }

@@ -17,12 +17,11 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *******************************************************************************/
-package tobacco.core.services;
+package tobacco.core.entities;
 
 import java.util.List;
 
 import tobacco.core.components.Type;
-import tobacco.core.entities.Entity;
 
 /**
  * Interface for entity service providers. An instance of an

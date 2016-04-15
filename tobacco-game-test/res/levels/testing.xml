@@ -119,7 +119,6 @@
       <component type="DAMAGE_C">
         <value name="damage" type="float">100.0</value>
       </component>
-      <component type="DEBUGGING_C"/>
       <component type="ZINDEX_C">
         <value name="zIndex" type="int">0</value>
       </component>
@@ -378,7 +377,6 @@
       <component type="DAMAGE_C">
         <value name="damage" type="float">100.0</value>
       </component>
-      <component type="DEBUGGING_C"/>
       <component type="ZINDEX_C">
         <value name="zIndex" type="int">0</value>
       </component>
@@ -444,11 +442,9 @@
         <value name="rows" type="int">1</value>
         <value name="frames" type="int">1</value>
       </component>
-      <component type="DEBUGGING_C"/>
     </entity>
     <component type="MOUSE_C">
       <value name="position" type="vector">{0.0, 0.0}</value>
     </component>
-    <component type="DEBUGGING_C"/>
   </entity>
 </world>

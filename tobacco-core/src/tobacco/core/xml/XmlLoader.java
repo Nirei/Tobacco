@@ -30,11 +30,11 @@ import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 import org.xml.sax.XMLReader;
 
+import tobacco.core.entities.EntityService;
+import tobacco.core.game.GameService;
 import tobacco.core.serialization.Loader;
 import tobacco.core.services.ConfigurationService;
 import tobacco.core.services.DefaultConfigurationService;
-import tobacco.core.services.EntityService;
-import tobacco.core.services.GameService;
 import tobacco.core.services.RenderingService;
 
 public class XmlLoader extends Loader {
@@ -62,7 +62,6 @@ public class XmlLoader extends Loader {
 			XMLReader xmlReader = saxParser.getXMLReader();
 			xmlReader.setContentHandler(entityHandler);
 			xmlReader.parse(new InputSource(this.getClass().getClassLoader().getResourceAsStream("levels/testing.xml")));
-			System.out.println("PARSED: EntityService is " + entityHandler.getWorld());
 		} catch (ParserConfigurationException e) {
 			// TODO Auto-generated catch block
 			System.err.println("THERE WAS AN ERROR LOADING XML FILE");

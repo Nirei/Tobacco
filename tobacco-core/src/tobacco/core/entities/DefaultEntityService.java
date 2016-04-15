@@ -29,7 +29,6 @@ import java.util.stream.Collectors;
 import tobacco.core.components.Component;
 import tobacco.core.components.ContainerComponent;
 import tobacco.core.components.Type;
-import tobacco.core.services.EntityService;
 
 /**
  * Default implementation of the {@link EntityService}.

@@ -41,7 +41,7 @@ import tobacco.core.components.ContainerComponent;
 import tobacco.core.components.Type;
 import tobacco.core.entities.DefaultEntityService;
 import tobacco.core.entities.Entity;
-import tobacco.core.services.EntityService;
+import tobacco.core.entities.EntityService;
 import tobacco.core.util.Vector2D;
 
 public class XmlEntityHandler extends DefaultHandler2 {
