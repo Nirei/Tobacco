@@ -37,6 +37,7 @@ import tobacco.core.xml.XmlLoader;
 import tobacco.game.test.components.GameComponent;
 import tobacco.game.test.entities.PlayerEntityFactory;
 import tobacco.game.test.loader.ManualLoader;
+import tobacco.tools.windows.EntityWindow;
 
 public class Main {
 	
@@ -57,8 +58,6 @@ public class Main {
 	}
 
 	public static void main(String[] args) {
-		// TODO: Substitute all unnecessary lists for arrays.
-
 		Loader manLoader = new ManualLoader();
 		Loader xmlLoader = new XmlLoader("","levels/testing.xml", "config/game.properties");
 		//Saver xmlSaver = new XmlSaver("", FIXME"levels/output.xml");
@@ -76,5 +75,8 @@ public class Main {
 		Directory.getGameService().start();
 		Directory.getRenderingService().start();
 		//xmlSaver.saveEntityService(Directory.getEntityService());
+		
+		EntityWindow entWin = new EntityWindow("Entities");
+		entWin.setVisible(true);
 	}
 }

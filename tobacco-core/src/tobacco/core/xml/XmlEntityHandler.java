@@ -28,13 +28,14 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Stack;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.ext.DefaultHandler2;
-
 import tobacco.core.components.Component;
 import tobacco.core.components.ContainerComponent;
 import tobacco.core.components.Type;
@@ -79,18 +80,24 @@ public class XmlEntityHandler extends DefaultHandler2 {
 			entStack.push(e);
 			break;
 		case COMPONENT_TAG:
-			String ctype = attributes.getValue(TYPE_ATTR);
-			System.out.println(ctype);
-			System.out.println(Type.findByName(ctype));
-			currCompClass = Type.findByName(ctype).getImplementer();
-			try {
-				currComp = (Component) currCompClass.newInstance();
-			} catch (InstantiationException e1) {
-				throw new SAXException(e1);
-			} catch (IllegalAccessException e1) {
-				throw new SAXException(e1);
+			String cTypeName = attributes.getValue(TYPE_ATTR);
+			Type cType = Type.findByName(cTypeName);
+			
+			// If cType is null, the type name declared in XML
+			// doesn't match any known component types
+			if(cType == null) {
+				Logger.getGlobal().log(Level.WARNING, "Parser mismatch: {0} is not a known component type", cTypeName);
+			} else {
+				currCompClass = Type.findByName(cTypeName).getImplementer();
+				try {
+					currComp = (Component) currCompClass.newInstance();
+				} catch (InstantiationException e1) {
+					throw new SAXException(e1);
+				} catch (IllegalAccessException e1) {
+					throw new SAXException(e1);
+				}
+				entStack.peek().add(currComp);
 			}
-			entStack.peek().add(currComp);
 			break;
 		case LIST_TAG:
 			currValueType = attributes.getValue(TYPE_ATTR);
