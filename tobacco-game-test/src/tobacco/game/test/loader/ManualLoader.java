@@ -1,6 +1,6 @@
 /*******************************************************************************
  * Tobacco - A portable and reusable game engine written in Java.
- * Copyright © 2015 Nirei
+ * Copyright © 2016 Nirei
  *
  * This file is part of Tobacco
  *
@@ -50,6 +50,7 @@ import tobacco.game.test.collisions.DamageCollisionHandler;
 import tobacco.game.test.components.GameComponent;
 import tobacco.game.test.entities.EnemyEntityFactory;
 import tobacco.game.test.entities.PlayerEntityFactory;
+import tobacco.game.test.systems.BulletRemovalSystem;
 import tobacco.game.test.systems.EnemyControlSystem;
 import tobacco.game.test.systems.GunSystem;
 import tobacco.game.test.systems.HealthSystem;
@@ -105,6 +106,7 @@ public class ManualLoader extends Loader {
 		normalSystems.add(new GunSystem());
 		normalSystems.add(new HealthSystem());
 		normalSystems.add(new TimerSystem());
+		normalSystems.add(new BulletRemovalSystem(Vector2D.ZERO, new Vector2D(250,350)));
 		normalSystems.add(new EntityRemovalSystem());
 		normalSystems.add(inputSystem);
 		normalSystems.add(new AnimationSystem());

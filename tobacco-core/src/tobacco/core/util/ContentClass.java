@@ -1,6 +1,6 @@
 /*******************************************************************************
  * Tobacco - A portable and reusable game engine written in Java.
- * Copyright © 2015 Nirei
+ * Copyright © 2016 Nirei
  *
  * This file is part of Tobacco
  *
@@ -19,6 +19,10 @@
  *******************************************************************************/
 package tobacco.core.util;
 
+/**
+ * This is an annotation interface for declaring the inner type of
+ * complex data types for the XML entity parser
+ */
 import java.lang.annotation.Target;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

@@ -1,6 +1,6 @@
 /*******************************************************************************
  * Tobacco - A portable and reusable game engine written in Java.
- * Copyright © 2015 Nirei
+ * Copyright © 2016 Nirei
  *
  * This file is part of Tobacco
  *
@@ -40,7 +40,7 @@ import tobacco.core.xml.XmlLoader;
 import tobacco.game.test.components.GameComponent;
 import tobacco.game.test.entities.PlayerEntityFactory;
 import tobacco.game.test.loader.ManualLoader;
-import tobacco.tools.windows.EntityWindow;
+import tobacco.tools.ui.EntityWindow;
 
 public class Main {
 	

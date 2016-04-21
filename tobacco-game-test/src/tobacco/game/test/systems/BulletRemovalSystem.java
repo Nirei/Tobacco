@@ -17,39 +17,46 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *******************************************************************************/
-package tobacco.core.systems;
+package tobacco.game.test.systems;
 
-import tobacco.core.components.Component;
-import tobacco.core.components.MovementComponent;
+import tobacco.core.components.PositionComponent;
+import tobacco.core.components.RemoveComponent;
 import tobacco.core.components.Type;
 import tobacco.core.entities.Entity;
+import tobacco.core.systems.AbstractTypedSystem;
 import tobacco.core.util.Vector2D;
+import tobacco.game.test.components.GameComponent;
 
 /**
- * This system resets the movement of the player entity each tick after it has been applied.
- * 
+ * This system removes off-screen bullets
  * @author nirei
- * 
  */
-public class MovementResetSystem extends AbstractTypedSystem {
+public class BulletRemovalSystem extends AbstractTypedSystem {
+	
+	private static final Type requiredComps[] = {GameComponent.POSITION_C};
+	private Vector2D halfSides;
+	private Vector2D center;
 
-	private final static Type[] requiredComponents = {
-			Component.MOVEMENT_C
-	};
-
-	public MovementResetSystem() {
-		super(requiredComponents, Component.PLAYER_C);
+	public BulletRemovalSystem(Vector2D center, Vector2D halfSides) {
+		super(requiredComps,GameComponent.BULLET_C);
+		this.center = center;
+		this.halfSides = halfSides;
 	}
 
 	@Override
-	public void process(Entity entity, long delta) {
-		if (qualifies(entity)) {
-			MovementComponent movComp = (MovementComponent) entity.get(Component.MOVEMENT_C);
-			movComp.setDirection(Vector2D.ZERO);
+	public void process(Entity e, long delta) {
+		if(qualifies(e)) {
+			PositionComponent posComp = (PositionComponent) e.get(GameComponent.POSITION_C);
+			if(!posComp.getPosition().isInsideArea(center, halfSides)) {
+				e.add(new RemoveComponent());
+			}
 		}
 	}
 
-	@Override public void setUp() {}
-	@Override public void tearDown() {}
+	@Override
+	public void setUp() {}
+
+	@Override
+	public void tearDown() {}
 
 }

@@ -1,6 +1,6 @@
 /*******************************************************************************
  * Tobacco - A portable and reusable game engine written in Java.
- * Copyright © 2015 Nirei
+ * Copyright © 2016 Nirei
  *
  * This file is part of Tobacco
  *
@@ -74,15 +74,10 @@ public class GunSystem extends AbstractListSystem {
 		entity.add(new PositionComponent(pos));
 		entity.add(new MovementComponent(dir, bComp.getBulletSpeed()));
 		entity.add(new RotationComponent(rotation + Vector2D.angle(Vector2D.VERTICAL, dir).getDegrees()));
-//		entity.add(new DebuggingComponent());
 		entity.add(new DurationComponent(10000));
 		entity.add(new SolidityComponent(10f));
 		entity.add(new ZIndexComponent(zIndex));
 		entity.add(new BulletComponent());
-		
-		// add it to root
-		Entity root = Directory.getEntityService().getRoot();
-		((ContainerComponent) root.get(GameComponent.CONTAINER_C)).addChild(entity);
 		return entity;
 	}
 

@@ -1,6 +1,6 @@
 /*******************************************************************************
  * Tobacco - A portable and reusable game engine written in Java.
- * Copyright © 2015 Nirei
+ * Copyright © 2016 Nirei
  *
  * This file is part of Tobacco
  *
@@ -110,6 +110,9 @@ public class PlayerEntityFactory extends EntityFactory {
 			else if(gs.getState() == GameState.NORMAL)
 				gs.setState(GameState.PAUSED);
 		};
+		Command spell = (rootEntity, entity) -> {
+			System.out.println(Directory.getEntityService().getEntityList());
+		};
 
 		playerComp.put(new InputEvent(keyUp, TYPE_HOLD), up);
 		playerComp.put(new InputEvent(keyDown, TYPE_HOLD), down);
@@ -128,7 +131,7 @@ public class PlayerEntityFactory extends EntityFactory {
 
 		playerComp.put(new InputEvent(keyFocus, TYPE_RELEASE),
 				(rootEntity, entity) -> ((MovementComponent) entity.get(GameComponent.MOVEMENT_C)).setSpeed(normalSpeed));
-
+		playerComp.put(new InputEvent(keySpell, TYPE_RELEASE), spell);
 		player.add(playerComp);
 
 		ContainerComponent containerComponent = new ContainerComponent();
