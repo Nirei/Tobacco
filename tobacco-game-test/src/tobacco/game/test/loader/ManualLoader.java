@@ -127,7 +127,7 @@ public class ManualLoader extends Loader {
 		
 		gameServ.setSystems(GameState.MENU, menuSystems);
 
-		gameServ.setState(GameState.NORMAL);
+		gameServ.setState(GameState.MENU);
 		return gameServ;
 	}
 

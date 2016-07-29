@@ -64,7 +64,7 @@ public class EntityWindow extends JFrame {
 		
 		Timer treeTimer = new Timer(500, treeModel);
 		treeTimer.start();
-		Timer tableTimer = new Timer(250, tableModel);
+		Timer tableTimer = new Timer(200, tableModel);
 		tableTimer.start();
 	}
 }

@@ -21,6 +21,7 @@ package tobacco.core.game;
 
 import java.util.List;
 
+import tobacco.core.entities.EntityService;
 import tobacco.core.systems.EngineSystem;
 
 /**
@@ -33,4 +34,5 @@ public interface GameService {
 	public GameState getState();
 	public void setState(GameState state);
 	void setSystems(GameState state, List<EngineSystem> systems);
+	void setWorld(GameState state, EntityService world);
 }

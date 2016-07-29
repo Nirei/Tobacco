@@ -23,14 +23,17 @@ import java.util.ArrayList;
 import java.util.EnumMap;
 import java.util.List;
 
+import tobacco.core.entities.EntityService;
+import tobacco.core.services.Directory;
 import tobacco.core.systems.EngineSystem;
 
 public class DefaultGameService implements GameService {
 
 	private Thread gameThread = null;
 	private GameState state = GameState.LOAD;
-	private EnumMap<GameState, List<EngineSystem>> stateSystems = new EnumMap<GameState, List<EngineSystem>>(GameState.class);
-
+	private EnumMap<GameState, List<EngineSystem>> stateSystems = new EnumMap<>(GameState.class);
+	private EnumMap<GameState, EntityService> stateWorlds = new EnumMap<>(GameState.class);
+	
 	public DefaultGameService() {
 		List<EngineSystem> empty = new ArrayList<EngineSystem>(0);
 		for(GameState gs : GameState.values())
@@ -88,7 +91,13 @@ public class DefaultGameService implements GameService {
 	public void setState(GameState state) {
 		synchronized (state) {
 			this.state = state;
-		}	
+		}
+		Directory.setEntityService(stateWorlds.get(state));
+	}
+
+	@Override
+	public void setWorld(GameState state, EntityService world) {
+		this.stateWorlds.put(state, world);
 	}
 
 }
